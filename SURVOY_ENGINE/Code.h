@@ -1,0 +1,14 @@
+#pragma once
+
+namespace ENGINE {
+	enum Code {
+		CORE_SUCCESS = 1,
+		CORE_SDL = 100,
+		CORE_CONTEXT = 101,
+		CORE_WINDOW = 102,
+		CORE_GLEW = 103,
+		CORE_WINDOW_NOT_FOUND = 104,
+		FONT_NOT_INITIALIZED = 200,
+		FONT_NOT_LOADED = 201,
+	};
+}

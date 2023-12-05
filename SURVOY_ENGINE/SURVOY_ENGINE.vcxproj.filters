@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ENGINE">
+      <UniqueIdentifier>{9eeee750-df74-4b2a-8ec2-51ddc017489b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GAME">
+      <UniqueIdentifier>{ee423c33-5469-4a24-a060-b06e7dac9a82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ENGINE\programs">
+      <UniqueIdentifier>{7378ff2a-b63a-4bf7-8829-2a876c49b893}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Event.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderQuad.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Event.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Code.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="stbi_image.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderQuad.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="base_vertex.glsl">
+      <Filter>ENGINE\programs</Filter>
+    </None>
+    <None Include="base_fragment.glsl">
+      <Filter>ENGINE\programs</Filter>
+    </None>
+  </ItemGroup>
+</Project>
