@@ -47,7 +47,16 @@ void ENGINE::Scene::Draw()
 
         // Check if the resource is not null before calling Draw
         if (pair.second) {
-            pair.second->Draw();
+            ENGINE::RenderQuad::Render(
+                pair.second->GetShaderID(),
+                pair.second->GetTextureID(),
+                pair.second->GetPosition().x,
+                pair.second->GetPosition().y,
+                pair.second->GetWidth(),
+                pair.second->GetHeight(),
+                glm::vec3(1, 1, 1),
+                pair.second->GetScale()
+            );
         }
     }
 }

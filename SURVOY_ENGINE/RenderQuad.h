@@ -8,17 +8,13 @@ namespace ENGINE {
 	class RenderQuad
 	{
 	public:
-		RenderQuad();
-		void Render(
+		static void Render(
 			GLuint shaderProgram,
 			GLuint textureID,
 			GLfloat x, GLfloat y, GLfloat width, GLfloat height,
-			glm::vec3 color
+			glm::vec3 color,
+			float scale
 		);
-	private:
-		GLuint _VAO, _VBO;
-
-		void _initBuffers();
 	};
 }
 

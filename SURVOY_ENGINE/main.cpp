@@ -14,11 +14,12 @@ int main(int argc, char* args[]) {
 	}
     core->StartDevice();
 
-    core->Scene->AddResource("image1", "assets/testbackground.bmp");
-    core->Scene->AddResource("image2", "assets/testbackground2.bmp");
+    core->Scene->AddResource("image1", "assets/font.png");
+    //core->Scene->AddResource("image2", "assets/testbackground2.bmp");
 
     core->Scene->GetResource("image1")->SetPosition(glm::vec2(100, 100));
-    core->Scene->GetResource("image2")->SetPosition(glm::vec2(356, 100));
+    core->Scene->GetResource("image1")->SetScale(2);
+    //core->Scene->GetResource("image2")->SetPosition(glm::vec2(356, 100));
 
 	// loop
     bool quit = false;

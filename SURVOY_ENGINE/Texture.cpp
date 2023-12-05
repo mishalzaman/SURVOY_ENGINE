@@ -3,7 +3,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stbi_image.h"
 
-bool ENGINE::Texture::Load(GLuint& fontTexture, const std::string& bitmapFont)
+bool ENGINE::Texture::Load(GLuint& fontTexture, const std::string& bitmapFont, int& width, int& height, int& channels)
 {
     stbi_set_flip_vertically_on_load(true);
 
@@ -15,8 +15,7 @@ bool ENGINE::Texture::Load(GLuint& fontTexture, const std::string& bitmapFont)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     // load and generate the texture
-    int width, height, nrChannels;
-    unsigned char* data = stbi_load(bitmapFont.c_str(), &width, &height, &nrChannels, 0);
+    unsigned char* data = stbi_load(bitmapFont.c_str(), &width, &height, &channels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
