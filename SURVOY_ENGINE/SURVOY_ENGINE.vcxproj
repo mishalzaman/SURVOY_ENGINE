@@ -137,6 +137,7 @@
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RenderQuad.cpp" />
+    <ClCompile Include="RenderText.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="RenderQuad.h" />
+    <ClInclude Include="RenderText.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Scene.h" />

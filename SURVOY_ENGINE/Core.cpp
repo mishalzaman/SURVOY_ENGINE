@@ -34,44 +34,15 @@ bool ENGINE::Core::CreateDevice(
 {
     _screenW = width;
     _screenH = height;
+    _title = title;
 
-   // Initialize SDL
-    std::cout << "initialize SDL" << std::endl;
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        _error = Code::CORE_SDL;
-        return false;
-    }
-
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-
-    // Create window
-    std::cout << "initialize _window" << std::endl;
-    _window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
-    if (!_window) {
-        SDL_Quit();
-        _error = Code::CORE_WINDOW;
-        return false;
-    }
-
-    // Create _context
-    std::cout << "initialize _context" << std::endl;
-    _context = SDL_GL_CreateContext(_window);
-    if (!_context) {
-        SDL_DestroyWindow(_window);
-        SDL_Quit();
-        _error = Code::CORE_CONTEXT;
-        return false;
-    }
-
-    // Initialize Glew
-    std::cout << "initialize _glew" << std::endl;
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK) {
-        SDL_DestroyWindow(_window);
-        SDL_Quit();
-        _error = Code::CORE_GLEW;
+    if (
+        !_initSDL() ||
+        !_initOpengGL() ||
+        !_createWindow() ||
+        !_createContext() ||
+        !_initGlew()
+        ) {
         return false;
     }
 
@@ -107,6 +78,71 @@ void ENGINE::Core::EndScene()
     }
 
     throw std::runtime_error("Window was not found during game loop");
+}
+
+/*==============================================
+INITIALIZATIONS
+==============================================*/
+
+bool ENGINE::Core::_initSDL()
+{
+    std::cout << "initialize SDL" << std::endl;
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        _error = Code::CORE_SDL;
+        return false;
+    }
+
+    return true;
+}
+
+bool ENGINE::Core::_initOpengGL()
+{
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+
+    return true;
+}
+
+bool ENGINE::Core::_createWindow()
+{
+    std::cout << "initialize _window" << std::endl;
+    _window = SDL_CreateWindow(_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenW, _screenH, SDL_WINDOW_OPENGL);
+    if (!_window) {
+        SDL_Quit();
+        _error = Code::CORE_WINDOW;
+        return false;
+    }
+
+    return true;
+}
+
+bool ENGINE::Core::_createContext()
+{
+    std::cout << "initialize _context" << std::endl;
+    _context = SDL_GL_CreateContext(_window);
+    if (!_context) {
+        SDL_DestroyWindow(_window);
+        SDL_Quit();
+        _error = Code::CORE_CONTEXT;
+        return false;
+    }
+
+    return true;
+}
+
+bool ENGINE::Core::_initGlew()
+{
+    std::cout << "initialize _glew" << std::endl;
+    glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK) {
+        SDL_DestroyWindow(_window);
+        SDL_Quit();
+        _error = Code::CORE_GLEW;
+        return false;
+    }
+
+    return true;
 }
 
 /*==============================================

@@ -32,11 +32,22 @@ namespace ENGINE {
 	private:
 		float _screenW;
 		float _screenH;
+		const char* _title;
 
 		SDL_Window* _window;
 		SDL_GLContext _context;
 
 		int _error;
+
+	/*==============================================
+	INITIALIZATIONS
+	==============================================*/
+	private:
+		bool _initSDL();
+		bool _initOpengGL();
+		bool _createWindow();
+		bool _createContext();
+		bool _initGlew();
 
 	/*==============================================
 	FONT

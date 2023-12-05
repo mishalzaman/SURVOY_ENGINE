@@ -51,6 +51,9 @@
     <ClCompile Include="Resource.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
+    <ClCompile Include="RenderText.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -81,6 +84,9 @@
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderText.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
   </ItemGroup>

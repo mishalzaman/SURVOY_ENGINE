@@ -28,7 +28,6 @@ void ENGINE::RenderQuad::Render(
     // Bind the texture
     glActiveTexture(GL_TEXTURE0); // Activate the texture unit first
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glUniform1i(glGetUniformLocation(shaderProgram, "textureSampler"), 0); // Set the sampler to use Texture Unit 0
 
     glBindVertexArray(_VAO);
 
