@@ -8,6 +8,14 @@
 #include "Code.h"
 #include "Scene.h"
 
+/*
+ShaderList
+TextureList
+Material: Shader, Texture
+ObjectQuad: position, scale, Material, rotation, animation
+ObjectText: position, scale, Material, text, rotation
+*/
+
 namespace ENGINE {
 	class Core
 	{

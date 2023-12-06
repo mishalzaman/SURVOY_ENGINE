@@ -67,7 +67,7 @@ int main(int argc, char* args[]) {
             core->BeginScene();
 
             //core->Scene->Draw();
-            ENGINE::RenderText::Render(shader->ID, fTexture, "123456ABCDEFG!@#$%", 0, 0, width, height, glm::vec3(1, 1, 1), 2);
+            ENGINE::RenderText::Render(shader->ID, fTexture, "123456ABCDEFG!@#$%", 0, 0, width, height, glm::vec3(1, 1, 1), 1);
             //ENGINE::RenderQuad::Render(shader->ID, fTexture, 0, 0, width, height, glm::vec3(1, 1, 1), 1);
 
             core->EndScene();

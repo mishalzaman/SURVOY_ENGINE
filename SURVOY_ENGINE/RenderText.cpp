@@ -67,11 +67,6 @@ void ENGINE::RenderText::Render(
 		GLfloat u2 = uvX + 1.0f / columns;
 		GLfloat v2 = uvY + 1.0f / rows;
 
-		std::cout << " xpos " << xpos << " ypos " << ypos  << std::endl;
-		std::cout << " u1 " << u1 << " v1 " << v1 << " u2 " << u2 << " v2 " << v2 << std::endl;
-
-		//std::cout << u1 << " - " << v1 << " - " << u2 << " - " << v2 << std::endl;
-
 		GLfloat vertices[6][4] = {
 			{ xpos,     ypos + h,   u1, v1 },
 			{ xpos,     ypos,       u1, v2 },
