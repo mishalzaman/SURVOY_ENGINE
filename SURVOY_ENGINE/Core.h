@@ -7,6 +7,7 @@
 #include <map>
 #include "Code.h"
 #include "Scene.h"
+#include "ShaderLibrary.h"
 
 /*
 ShaderList
@@ -56,13 +57,15 @@ namespace ENGINE {
 		bool _createWindow();
 		bool _createContext();
 		bool _initGlew();
+		void _createDefaultShader();
 
 	/*==============================================
-	FONT
+	SHADER
 	==============================================*/
-
+	public:
+		std::unique_ptr<ShaderLibrary> ShaderLibrary;
 	/*==============================================
-	RENDERER
+	TEXTURE
 	==============================================*/
 
 	/*==============================================

@@ -9,12 +9,10 @@ ENGINE::Resource::Resource():
 	_scale(1),
 	_channels(1)
 {
-	_renderQuad = new RenderQuad;
 }
 
 ENGINE::Resource::~Resource()
 {
-	delete _renderQuad;
 }
 
 void ENGINE::Resource::Create(const std::string& path)
