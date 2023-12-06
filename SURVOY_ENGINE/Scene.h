@@ -36,3 +36,16 @@ namespace ENGINE {
 		void _setDefaultShader();
 	};
 }
+
+/*
+- List of shaders
+- List of textures
+- Material
+
+Image
+CreateObject("name", Material)
+GetObject("name")->SetPosition()
+				 ->SetScale()
+
+CreateObject("text", Material, "hello")
+*/

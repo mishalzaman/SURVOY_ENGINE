@@ -139,6 +139,7 @@
     <ClCompile Include="RenderQuad.cpp" />
     <ClCompile Include="RenderText.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="ShaderLibrary.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="RenderQuad.h" />
     <ClInclude Include="RenderText.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ShaderLibrary.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />

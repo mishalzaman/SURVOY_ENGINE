@@ -24,15 +24,6 @@ int main(int argc, char* args[]) {
     //core->Scene->GetResource("image1")->SetScale(2);
 
     // TESTING FONTS
-    ENGINE::Shader* shader = new ENGINE::Shader("base_vertex.glsl", "base_fragment.glsl");
-    shader->use();
-    // Set shader uniforms as needed, e.g., projection matrix, textColor
-
-    // Create an orthographic projection matrix
-    glm::mat4 projectionMatrix = glm::ortho(0.0f, 1024.f, 768.f, 0.0f, -1.0f, 1.0f);
-
-    shader->setMat4("projection", projectionMatrix);
-    shader->setVec3("textColor", glm::vec3(1.0f, 1.0f, 1.0f)); // White color
 
 
     GLuint fTexture;
@@ -67,7 +58,7 @@ int main(int argc, char* args[]) {
             core->BeginScene();
 
             //core->Scene->Draw();
-            ENGINE::RenderText::Render(shader->ID, fTexture, "123456ABCDEFG!@#$%", 0, 0, width, height, glm::vec3(1, 1, 1), 1);
+            ENGINE::RenderText::Render(core->ShaderLibrary->GetDefault()->ID, fTexture, "123456ABCDEFG!@#$%", 0, 0, width, height, glm::vec3(1, 1, 1), 1);
             //ENGINE::RenderQuad::Render(shader->ID, fTexture, 0, 0, width, height, glm::vec3(1, 1, 1), 1);
 
             core->EndScene();
