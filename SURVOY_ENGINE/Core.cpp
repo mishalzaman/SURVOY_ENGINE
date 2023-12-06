@@ -61,6 +61,8 @@ void ENGINE::Core::StartDevice()
     ShaderLibrary = std::make_unique<ENGINE::ShaderLibrary>();
     std::cout << "create default shader: base" << std::endl;
     _createDefaultShader();
+
+    TextureLibrary = std::make_unique<ENGINE::TextureLibrary>();
 }
 
 void ENGINE::Core::DestroyDevice()

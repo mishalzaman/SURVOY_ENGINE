@@ -8,6 +8,7 @@
 #include "Texture.h"
 #include "RenderQuad.h"
 #include "RenderText.h"
+#include "TextureLibrary.h"
 
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<ENGINE::Core>();
@@ -24,7 +25,7 @@ int main(int argc, char* args[]) {
     //core->Scene->GetResource("image1")->SetScale(2);
 
     // TESTING FONTS
-
+    core->TextureLibrary->Add("font", "assets/ExportedFont.bmp");
 
     GLuint fTexture;
     int width;
@@ -58,7 +59,7 @@ int main(int argc, char* args[]) {
             core->BeginScene();
 
             //core->Scene->Draw();
-            ENGINE::RenderText::Render(core->ShaderLibrary->GetDefault()->ID, fTexture, "123456ABCDEFG!@#$%", 0, 0, width, height, glm::vec3(1, 1, 1), 1);
+            ENGINE::RenderText::Render(core->ShaderLibrary->GetDefault()->ID, core->TextureLibrary->GetID("font"), "123456ABCDEFG!@#$%", 0, 0, width, height, glm::vec3(1, 1, 1), 1);
             //ENGINE::RenderQuad::Render(shader->ID, fTexture, 0, 0, width, height, glm::vec3(1, 1, 1), 1);
 
             core->EndScene();

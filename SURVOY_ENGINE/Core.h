@@ -8,6 +8,7 @@
 #include "Code.h"
 #include "Scene.h"
 #include "ShaderLibrary.h"
+#include "TextureLibrary.h"
 
 /*
 ShaderList
@@ -67,7 +68,8 @@ namespace ENGINE {
 	/*==============================================
 	TEXTURE
 	==============================================*/
-
+	public:
+		std::unique_ptr<TextureLibrary> TextureLibrary;
 	/*==============================================
 	EVENT
 	==============================================*/
