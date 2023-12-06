@@ -38,44 +38,42 @@ int main(int argc, char* args[]) {
                 quit = true;
                 break;
             }
-
-            core->BeginScene();
-
-            std::cout << core->TextureLibrary->Get("image_1")->GetWidth() << std::endl;
-
-            core->Scene->Draw();
-            ENGINE::RenderText::Render(
-                core->ShaderLibrary->GetID("base"),
-                core->TextureLibrary->GetID("font"),
-                "123456ABCDEFG!@#$%",
-                256,
-                0,
-                glm::vec3(1, 1, 1),
-                1
-            );
-            ENGINE::RenderQuad::Render(
-                core->ShaderLibrary->GetID("base"),
-                core->TextureLibrary->GetID("image_1"),
-                0,
-                0,
-                core->TextureLibrary->Get("image_1")->GetWidth() / 4,
-                core->TextureLibrary->Get("image_1")->GetHeight() / 4,
-                glm::vec3(1, 1, 1),
-                1
-            );
-            ENGINE::RenderQuad::Render(
-                core->ShaderLibrary->GetID("base"),
-                core->TextureLibrary->GetID("image_2"),
-                0,
-                256,
-                core->TextureLibrary->Get("image_2")->GetWidth()/4,
-                core->TextureLibrary->Get("image_2")->GetHeight()/4,
-                glm::vec3(1, 1, 1),
-                1
-            );
-
-            core->EndScene();
         }
+
+        core->BeginScene();
+
+        core->Scene->Draw();
+        ENGINE::RenderText::Render(
+            core->ShaderLibrary->GetID("base"),
+            core->TextureLibrary->GetID("font"),
+            "123456ABCDEFG!@#$%",
+            256,
+            0,
+            glm::vec3(1, 1, 1),
+            1
+        );
+        ENGINE::RenderQuad::Render(
+            core->ShaderLibrary->GetID("base"),
+            core->TextureLibrary->GetID("image_1"),
+            0,
+            0,
+            core->TextureLibrary->Get("image_1")->GetWidth() / 4,
+            core->TextureLibrary->Get("image_1")->GetHeight() / 4,
+            glm::vec3(1, 1, 1),
+            1
+        );
+        ENGINE::RenderQuad::Render(
+            core->ShaderLibrary->GetID("base"),
+            core->TextureLibrary->GetID("image_2"),
+            0,
+            256,
+            core->TextureLibrary->Get("image_2")->GetWidth() / 4,
+            core->TextureLibrary->Get("image_2")->GetHeight() / 4,
+            glm::vec3(1, 1, 1),
+            1
+        );
+
+        core->EndScene();
     }
 
     GLenum err;
