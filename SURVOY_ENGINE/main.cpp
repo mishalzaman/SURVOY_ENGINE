@@ -21,6 +21,8 @@ int main(int argc, char* args[]) {
     core->StartDevice();
 
     core->TextureLibrary->Add("font", "assets/ExportedFont.bmp");
+    core->TextureLibrary->Add("image_1", "assets/testbackground.bmp");
+    core->TextureLibrary->Add("image_2", "assets/testbackground2.bmp");
 
 	// loop
     bool quit = false;
@@ -39,23 +41,35 @@ int main(int argc, char* args[]) {
 
             core->BeginScene();
 
-            //core->Scene->Draw();
+            std::cout << core->TextureLibrary->Get("image_1")->GetWidth() << std::endl;
+
+            core->Scene->Draw();
             ENGINE::RenderText::Render(
                 core->ShaderLibrary->GetID("base"),
                 core->TextureLibrary->GetID("font"),
                 "123456ABCDEFG!@#$%",
-                0,
+                256,
                 0,
                 glm::vec3(1, 1, 1),
                 1
             );
             ENGINE::RenderQuad::Render(
                 core->ShaderLibrary->GetID("base"),
-                core->TextureLibrary->GetID("font"),
+                core->TextureLibrary->GetID("image_1"),
                 0,
-                100,
-                core->TextureLibrary->Get("font")->GetWidth(),
-                core->TextureLibrary->Get("font")->GetHeight(),
+                0,
+                core->TextureLibrary->Get("image_1")->GetWidth() / 4,
+                core->TextureLibrary->Get("image_1")->GetHeight() / 4,
+                glm::vec3(1, 1, 1),
+                1
+            );
+            ENGINE::RenderQuad::Render(
+                core->ShaderLibrary->GetID("base"),
+                core->TextureLibrary->GetID("image_2"),
+                0,
+                256,
+                core->TextureLibrary->Get("image_2")->GetWidth()/4,
+                core->TextureLibrary->Get("image_2")->GetHeight()/4,
                 glm::vec3(1, 1, 1),
                 1
             );
