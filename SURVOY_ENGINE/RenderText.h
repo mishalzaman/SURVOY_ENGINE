@@ -13,7 +13,7 @@ namespace ENGINE {
 			GLuint shaderProgram,
 			GLuint textureID,
 			const std::string& text, 
-			GLfloat x, GLfloat y, GLfloat width, GLfloat height,
+			GLfloat x, GLfloat y,
 			glm::vec3 color,
 			float scale
 		);

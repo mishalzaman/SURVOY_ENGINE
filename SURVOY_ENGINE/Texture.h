@@ -13,6 +13,8 @@ namespace ENGINE {
 		static bool Load(GLuint& fontTexture, const std::string& bitmapFont, int& width, int& height, int& channels);
 
 		GLuint GetID() { return _textureId; }
+		int GetWidth() { return _width; }
+		int GetHeight() { return _height; }
 
 	private:
 		GLuint _textureId;
