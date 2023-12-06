@@ -134,29 +134,27 @@
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
-    <ClCompile Include="Font.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RenderQuad.cpp" />
     <ClCompile Include="RenderText.cpp" />
-    <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ShaderLibrary.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="TextureLibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event.h" />
-    <ClInclude Include="Font.h" />
     <ClInclude Include="RenderQuad.h" />
     <ClInclude Include="RenderText.h" />
-    <ClInclude Include="Resource.h" />
     <ClInclude Include="ShaderLibrary.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stbi_image.h" />
+    <ClInclude Include="TextureLibrary.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="base_fragment.glsl" />

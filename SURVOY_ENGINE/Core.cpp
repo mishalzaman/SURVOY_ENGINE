@@ -51,15 +51,14 @@ bool ENGINE::Core::CreateDevice(
 
 void ENGINE::Core::StartDevice()
 {
+    std::cout << "Start Device" << std::endl;
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    std::cout << "initialize Scene" << std::endl;
     Scene = std::make_unique<ENGINE::Scene>(_screenW, _screenH);
-
-    std::cout << "initialize ShaderLibrary" << std::endl;
     ShaderLibrary = std::make_unique<ENGINE::ShaderLibrary>();
-    std::cout << "create default shader: base" << std::endl;
+    TextureLibrary = std::make_unique<ENGINE::TextureLibrary>();
+
     _createDefaultShader();
 }
 
@@ -152,11 +151,13 @@ bool ENGINE::Core::_initGlew()
 
 void ENGINE::Core::_createDefaultShader()
 {
-    ShaderLibrary->Add("base", "base_vertex.glsl", "base_fragment.glsl");
-    ShaderLibrary->Get("base")->use();
-    glm::mat4 projectionMatrix = glm::ortho(0.0f, 1024.f, 768.f, 0.0f, -1.0f, 1.0f);
-    ShaderLibrary->Get("base")->setMat4("projection", projectionMatrix);
-    ShaderLibrary->Get("base")->setVec3("textColor", glm::vec3(1.0f, 1.0f, 1.0f)); // White color
+    if (ShaderLibrary) {
+        ShaderLibrary->Add("base", "base_vertex.glsl", "base_fragment.glsl");
+        ShaderLibrary->Get("base")->use();
+        glm::mat4 projectionMatrix = glm::ortho(0.0f, 1024.f, 768.f, 0.0f, -1.0f, 1.0f);
+        ShaderLibrary->Get("base")->setMat4("projection", projectionMatrix);
+        ShaderLibrary->Get("base")->setVec3("textColor", glm::vec3(1.0f, 1.0f, 1.0f)); // White color
+    }
 }
 
 /*==============================================

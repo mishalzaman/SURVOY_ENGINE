@@ -6,8 +6,6 @@ void ENGINE::RenderText::Render(
 	const std::string& text,
 	GLfloat x,
 	GLfloat y,
-	GLfloat width,
-	GLfloat height,
 	glm::vec3 color,
 	float scale
 )

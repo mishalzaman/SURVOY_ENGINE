@@ -15,50 +15,27 @@ ENGINE::Scene::~Scene()
     delete _defaultShader;
 }
 
-void ENGINE::Scene::AddResource(const std::string& key, const std::string& path)
-{
-	auto resource = std::make_unique<Resource>();
-	resource->Create(path);
-    resource->SetShader(_defaultShader->ID);
-
-	_resources[key] = std::move(resource);
-}
-
-void ENGINE::Scene::DestroyResource(const std::string& key)
-{
-    _resources.erase(key);
-}
-
-Resource* ENGINE::Scene::GetResource(const std::string& key)
-{
-    auto it = _resources.find(key);
-    if (it != _resources.end()) {
-        return it->second.get();
-    }
-    return nullptr; // or throw an exception
-}
-
 void ENGINE::Scene::Draw()
 {
-    for (auto& pair : _resources) {
-        // The 'pair' is a std::pair<const std::string, std::unique_ptr<Resource>>
-        // pair.first is the key (string)
-        // pair.second is the value (unique_ptr to Resource)
+    //for (auto& pair : _resources) {
+    //    // The 'pair' is a std::pair<const std::string, std::unique_ptr<Resource>>
+    //    // pair.first is the key (string)
+    //    // pair.second is the value (unique_ptr to Resource)
 
-        // Check if the resource is not null before calling Draw
-        if (pair.second) {
-            ENGINE::RenderQuad::Render(
-                pair.second->GetShaderID(),
-                pair.second->GetTextureID(),
-                pair.second->GetPosition().x,
-                pair.second->GetPosition().y,
-                pair.second->GetWidth(),
-                pair.second->GetHeight(),
-                glm::vec3(1, 1, 1),
-                pair.second->GetScale()
-            );
-        }
-    }
+    //    // Check if the resource is not null before calling Draw
+    //    if (pair.second) {
+    //        ENGINE::RenderQuad::Render(
+    //            pair.second->GetShaderID(),
+    //            pair.second->GetTextureID(),
+    //            pair.second->GetPosition().x,
+    //            pair.second->GetPosition().y,
+    //            pair.second->GetWidth(),
+    //            pair.second->GetHeight(),
+    //            glm::vec3(1, 1, 1),
+    //            pair.second->GetScale()
+    //        );
+    //    }
+    //}
 }
 
 void ENGINE::Scene::_setDefaultShader()

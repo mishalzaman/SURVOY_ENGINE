@@ -8,6 +8,7 @@
 #include "Texture.h"
 #include "RenderQuad.h"
 #include "RenderText.h"
+#include "TextureLibrary.h"
 
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<ENGINE::Core>();
@@ -19,26 +20,7 @@ int main(int argc, char* args[]) {
 	}
     core->StartDevice();
 
-    //core->Scene->AddResource("image1", "assets/font.png");
-    //core->Scene->GetResource("image1")->SetPosition(glm::vec2(100, 100));
-    //core->Scene->GetResource("image1")->SetScale(2);
-
-    // TESTING FONTS
-
-
-    GLuint fTexture;
-    int width;
-    int height;
-    int channel;
-    ENGINE::Texture::Load(fTexture, "assets/ExportedFont.bmp", width, height, channel);
-
-    // END TESTING FONTS
-
-    GLenum err;
-    while ((err = glGetError()) != GL_NO_ERROR) {
-        std::cerr << "OpenGL error: " << err << std::endl;
-        // Optionally, you can convert 'err' to a string for more descriptive output
-    }
+    core->TextureLibrary->Add("font", "assets/ExportedFont.bmp");
 
 	// loop
     bool quit = false;
@@ -58,11 +40,33 @@ int main(int argc, char* args[]) {
             core->BeginScene();
 
             //core->Scene->Draw();
-            ENGINE::RenderText::Render(core->ShaderLibrary->GetDefault()->ID, fTexture, "123456ABCDEFG!@#$%", 0, 0, width, height, glm::vec3(1, 1, 1), 1);
-            //ENGINE::RenderQuad::Render(shader->ID, fTexture, 0, 0, width, height, glm::vec3(1, 1, 1), 1);
+            ENGINE::RenderText::Render(
+                core->ShaderLibrary->GetID("base"),
+                core->TextureLibrary->GetID("font"),
+                "123456ABCDEFG!@#$%",
+                0,
+                0,
+                glm::vec3(1, 1, 1),
+                1
+            );
+            ENGINE::RenderQuad::Render(
+                core->ShaderLibrary->GetID("base"),
+                core->TextureLibrary->GetID("font"),
+                0,
+                100,
+                core->TextureLibrary->Get("font")->GetWidth(),
+                core->TextureLibrary->Get("font")->GetHeight(),
+                glm::vec3(1, 1, 1),
+                1
+            );
 
             core->EndScene();
         }
+    }
+
+    GLenum err;
+    while ((err = glGetError()) != GL_NO_ERROR) {
+        std::cerr << "OpenGL error: " << err << std::endl;
     }
 
 	core->DestroyDevice();
