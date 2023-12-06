@@ -3,19 +3,19 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <string>
+#include <iostream>
 
 namespace ENGINE {
-	class RenderQuad
+	class RenderText
 	{
 	public:
 		static void Render(
 			GLuint shaderProgram,
 			GLuint textureID,
+			const std::string& text, 
 			GLfloat x, GLfloat y, GLfloat width, GLfloat height,
 			glm::vec3 color,
 			float scale
 		);
 	};
 }
-
-

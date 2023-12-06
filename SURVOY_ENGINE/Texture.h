@@ -8,7 +8,7 @@ namespace ENGINE {
 	class Texture
 	{
 	public:
-		static bool Load(GLuint& fontTexture, const std::string& bitmapFont);
+		static bool Load(GLuint& fontTexture, const std::string& bitmapFont, int& width, int& height, int& channels);
 	};
 }
 
