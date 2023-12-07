@@ -27,9 +27,6 @@
     <ClCompile Include="Event.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="Font.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>GAME</Filter>
     </ClCompile>
@@ -48,18 +45,21 @@
     <ClCompile Include="Scene.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="Resource.cpp">
+    <ClCompile Include="RenderText.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="RenderText.cpp">
+    <ClCompile Include="ShaderLibrary.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLibrary.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Core.h">
@@ -83,10 +83,16 @@
     <ClInclude Include="Scene.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
+    <ClInclude Include="RenderText.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="RenderText.h">
+    <ClInclude Include="ShaderLibrary.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLibrary.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
   </ItemGroup>
