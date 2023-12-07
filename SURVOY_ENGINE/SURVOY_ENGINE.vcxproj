@@ -135,6 +135,7 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="RenderQuad.cpp" />
     <ClCompile Include="RenderText.cpp" />
     <ClCompile Include="ShaderLibrary.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Code.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="RenderQuad.h" />
     <ClInclude Include="RenderText.h" />
     <ClInclude Include="ShaderLibrary.h" />
