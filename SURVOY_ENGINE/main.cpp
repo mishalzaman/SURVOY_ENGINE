@@ -30,6 +30,8 @@ int main(int argc, char* args[]) {
 
     while (!quit)
     {
+        core->Timer->BeginFrame();
+
         while (SDL_PollEvent(&event))
         {
             switch (event.type)
@@ -40,7 +42,13 @@ int main(int argc, char* args[]) {
             }
         }
 
-        core->BeginScene();
+        while (core->Timer->ShouldUpdate()) {
+            // update processes with delta time
+        }
+
+        std::cout << core->Timer->DeltaTime() << std::endl;
+
+        core->BeginRender();
 
         core->Scene->Draw();
         BAE::RenderText::Render(
@@ -73,7 +81,7 @@ int main(int argc, char* args[]) {
             1
         );
 
-        core->EndScene();
+        core->EndRender();
     }
 
     GLenum err;

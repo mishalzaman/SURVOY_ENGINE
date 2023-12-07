@@ -58,6 +58,7 @@ void BAE::Core::StartDevice()
     Scene = std::make_unique<BAE::Scene>(_screenW, _screenH);
     ShaderLibrary = std::make_unique<BAE::ShaderLibrary>();
     TextureLibrary = std::make_unique<BAE::TextureLibrary>();
+    Timer = std::make_unique<BAE::Timer>(16.6667);
 
     _createDefaultShader();
 }
@@ -66,14 +67,14 @@ void BAE::Core::DestroyDevice()
 {
 }
 
-void BAE::Core::BeginScene()
+void BAE::Core::BeginRender()
 {
     // Clear the screen
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void BAE::Core::EndScene()
+void BAE::Core::EndRender()
 {
     // Swap buffers
     if (_window) {

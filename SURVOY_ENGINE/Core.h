@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "ShaderLibrary.h"
 #include "TextureLibrary.h"
+#include "Timer.h"
 
 /*
 ShaderList
@@ -33,8 +34,8 @@ namespace BAE {
 			const char* title);
 		void StartDevice();
 		void DestroyDevice();
-		void BeginScene();
-		void EndScene();
+		void BeginRender();
+		void EndRender();
 
 		// Getters
 		int GetError() { return _error; };
@@ -71,9 +72,10 @@ namespace BAE {
 	public:
 		std::unique_ptr<TextureLibrary> TextureLibrary;
 	/*==============================================
-	EVENT
+	TIMER
 	==============================================*/
-
+	public:
+		std::unique_ptr<Timer> Timer;
 	/*==============================================
 	SCENE
 	==============================================*/
