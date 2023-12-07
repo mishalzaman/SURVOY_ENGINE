@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-namespace ENGINE {
+namespace BAE {
 	class Texture
 	{
 	public:

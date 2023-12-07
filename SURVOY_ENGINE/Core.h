@@ -18,7 +18,7 @@ ObjectQuad: position, scale, Material, rotation, animation
 ObjectText: position, scale, Material, text, rotation
 */
 
-namespace ENGINE {
+namespace BAE {
 	class Core
 	{
 	/*==============================================

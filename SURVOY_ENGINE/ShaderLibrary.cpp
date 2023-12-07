@@ -1,11 +1,11 @@
 #include "ShaderLibrary.h"
 
-void ENGINE::ShaderLibrary::Add(const std::string& key, const char* vertexPath, const char* fragmentPath)
+void BAE::ShaderLibrary::Add(const std::string& key, const char* vertexPath, const char* fragmentPath)
 {
 	_shaders[key] = std::make_unique<Shader>(vertexPath, fragmentPath);
 }
 
-ENGINE::Shader * ENGINE::ShaderLibrary::GetDefault()
+BAE::Shader * BAE::ShaderLibrary::GetDefault()
 {
     auto it = _shaders.find("base");
     if (it != _shaders.end()) {
@@ -14,7 +14,7 @@ ENGINE::Shader * ENGINE::ShaderLibrary::GetDefault()
     return nullptr;
 }
 
-ENGINE::Shader* ENGINE::ShaderLibrary::Get(const std::string& key)
+BAE::Shader* BAE::ShaderLibrary::Get(const std::string& key)
 {
     auto it = _shaders.find(key);
     if (it != _shaders.end()) {
@@ -23,7 +23,7 @@ ENGINE::Shader* ENGINE::ShaderLibrary::Get(const std::string& key)
     return nullptr;
 }
 
-GLuint ENGINE::ShaderLibrary::GetID(const std::string& key)
+GLuint BAE::ShaderLibrary::GetID(const std::string& key)
 {
     auto it = _shaders.find(key);
     if (it != _shaders.end()) {
@@ -32,7 +32,7 @@ GLuint ENGINE::ShaderLibrary::GetID(const std::string& key)
     return 0;
 }
 
-void ENGINE::ShaderLibrary::Remove(const std::string& key)
+void BAE::ShaderLibrary::Remove(const std::string& key)
 {
 	_shaders.erase(key);
 }

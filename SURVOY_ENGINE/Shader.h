@@ -16,7 +16,7 @@
 #include <iostream>
 #include <glm/glm.hpp>
 
-namespace ENGINE {
+namespace BAE {
 	class Shader
 	{
 	public:

@@ -5,7 +5,7 @@
 #include <memory>
 #include "Shader.h"
 
-namespace ENGINE {
+namespace BAE {
 	class ShaderLibrary
 	{
 	public:

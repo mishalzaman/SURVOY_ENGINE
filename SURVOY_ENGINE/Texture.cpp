@@ -3,7 +3,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stbi_image.h"
 
-ENGINE::Texture::Texture(const std::string& bitmapFont):
+BAE::Texture::Texture(const std::string& bitmapFont):
     _textureId(0),
     _width(0),
     _height(0),
@@ -12,11 +12,11 @@ ENGINE::Texture::Texture(const std::string& bitmapFont):
     _import(_textureId, bitmapFont, _width, _height, _channels);
 }
 
-ENGINE::Texture::~Texture()
+BAE::Texture::~Texture()
 {
 }
 
-bool ENGINE::Texture::Load(GLuint& fontTexture, const std::string& bitmapFont, int& width, int& height, int& channels)
+bool BAE::Texture::Load(GLuint& fontTexture, const std::string& bitmapFont, int& width, int& height, int& channels)
 {
     stbi_set_flip_vertically_on_load(true);
 
@@ -55,7 +55,7 @@ bool ENGINE::Texture::Load(GLuint& fontTexture, const std::string& bitmapFont, i
     return true;
 }
 
-void ENGINE::Texture::_import(GLuint& fontTexture, const std::string& bitmapFont, int& width, int& height, int& channels)
+void BAE::Texture::_import(GLuint& fontTexture, const std::string& bitmapFont, int& width, int& height, int& channels)
 {
     stbi_set_flip_vertically_on_load(true);
 

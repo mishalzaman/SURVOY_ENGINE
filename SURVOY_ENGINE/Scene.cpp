@@ -1,8 +1,8 @@
 #include "Scene.h"
 
-using namespace ENGINE;
+using namespace BAE;
 
-ENGINE::Scene::Scene(int screenW, int screenH):
+BAE::Scene::Scene(int screenW, int screenH):
     _defaultShader(nullptr)
 {
     _screenW = screenW;
@@ -10,12 +10,12 @@ ENGINE::Scene::Scene(int screenW, int screenH):
     _setDefaultShader();
 }
 
-ENGINE::Scene::~Scene()
+BAE::Scene::~Scene()
 {
     delete _defaultShader;
 }
 
-void ENGINE::Scene::Draw()
+void BAE::Scene::Draw()
 {
     //for (auto& pair : _resources) {
     //    // The 'pair' is a std::pair<const std::string, std::unique_ptr<Resource>>
@@ -24,7 +24,7 @@ void ENGINE::Scene::Draw()
 
     //    // Check if the resource is not null before calling Draw
     //    if (pair.second) {
-    //        ENGINE::RenderQuad::Render(
+    //        BAE::RenderQuad::Render(
     //            pair.second->GetShaderID(),
     //            pair.second->GetTextureID(),
     //            pair.second->GetPosition().x,
@@ -38,9 +38,9 @@ void ENGINE::Scene::Draw()
     //}
 }
 
-void ENGINE::Scene::_setDefaultShader()
+void BAE::Scene::_setDefaultShader()
 {
-    _defaultShader = new ENGINE::Shader("base_vertex.glsl", "base_fragment.glsl");
+    _defaultShader = new BAE::Shader("base_vertex.glsl", "base_fragment.glsl");
     _defaultShader->use();
     // Set shader uniforms as needed, e.g., projection matrix, textColor
 

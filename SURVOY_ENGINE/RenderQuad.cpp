@@ -1,6 +1,6 @@
 #include "RenderQuad.h"
 
-void ENGINE::RenderQuad::Render(
+void BAE::RenderQuad::Render(
     GLuint shaderProgram,
     GLuint textureID,
     GLfloat x, GLfloat y, GLfloat width, GLfloat height,

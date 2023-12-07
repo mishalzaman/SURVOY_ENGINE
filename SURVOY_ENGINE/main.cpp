@@ -11,7 +11,7 @@
 #include "TextureLibrary.h"
 
 int main(int argc, char* args[]) {
-	auto core = std::make_unique<ENGINE::Core>();
+	auto core = std::make_unique<BAE::Core>();
 
 	if (
 		!core->CreateDevice(1024, 768, "test")
@@ -43,7 +43,7 @@ int main(int argc, char* args[]) {
         core->BeginScene();
 
         core->Scene->Draw();
-        ENGINE::RenderText::Render(
+        BAE::RenderText::Render(
             core->ShaderLibrary->GetID("base"),
             core->TextureLibrary->GetID("font"),
             "123456ABCDEFG!@#$%",
@@ -52,7 +52,7 @@ int main(int argc, char* args[]) {
             glm::vec3(1, 1, 1),
             1
         );
-        ENGINE::RenderQuad::Render(
+        BAE::RenderQuad::Render(
             core->ShaderLibrary->GetID("base"),
             core->TextureLibrary->GetID("image_1"),
             0,
@@ -62,7 +62,7 @@ int main(int argc, char* args[]) {
             glm::vec3(1, 1, 1),
             1
         );
-        ENGINE::RenderQuad::Render(
+        BAE::RenderQuad::Render(
             core->ShaderLibrary->GetID("base"),
             core->TextureLibrary->GetID("image_2"),
             0,
@@ -83,5 +83,5 @@ int main(int argc, char* args[]) {
 
 	core->DestroyDevice();
 
-	return ENGINE::Code::CORE_SUCCESS;
+	return BAE::Code::CORE_SUCCESS;
 }

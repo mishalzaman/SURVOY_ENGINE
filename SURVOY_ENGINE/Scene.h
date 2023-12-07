@@ -6,7 +6,7 @@
 #include "Shader.h"
 #include "RenderQuad.h"
 
-namespace ENGINE {
+namespace BAE {
 	class Scene
 	{
 	public:

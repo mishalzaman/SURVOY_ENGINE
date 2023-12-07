@@ -1,11 +1,11 @@
 #include "TextureLibrary.h"
 
-void ENGINE::TextureLibrary::Add(const std::string& key, const std::string& bitmapFont)
+void BAE::TextureLibrary::Add(const std::string& key, const std::string& bitmapFont)
 {
 	_textures[key] = std::make_unique<Texture>(bitmapFont);
 }
 
-ENGINE::Texture* ENGINE::TextureLibrary::Get(const std::string& key)
+BAE::Texture* BAE::TextureLibrary::Get(const std::string& key)
 {
     auto it = _textures.find(key);
     if (it != _textures.end()) {
@@ -14,7 +14,7 @@ ENGINE::Texture* ENGINE::TextureLibrary::Get(const std::string& key)
     return nullptr;
 }
 
-GLuint ENGINE::TextureLibrary::GetID(const std::string& key)
+GLuint BAE::TextureLibrary::GetID(const std::string& key)
 {
     auto it = _textures.find(key);
     if (it != _textures.end()) {
@@ -23,7 +23,7 @@ GLuint ENGINE::TextureLibrary::GetID(const std::string& key)
     return 0;
 }
 
-void ENGINE::TextureLibrary::Remove(const std::string& key)
+void BAE::TextureLibrary::Remove(const std::string& key)
 {
     _textures.erase(key);
 }

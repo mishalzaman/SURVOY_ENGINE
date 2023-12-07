@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <string>
 
-namespace ENGINE {
+namespace BAE {
 	class RenderQuad
 	{
 	public:

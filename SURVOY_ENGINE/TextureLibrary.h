@@ -5,7 +5,7 @@
 #include <memory>
 #include "Texture.h"
 
-namespace ENGINE {
+namespace BAE {
 	class TextureLibrary
 	{
 	public:
