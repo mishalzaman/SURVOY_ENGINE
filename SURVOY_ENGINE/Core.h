@@ -51,7 +51,7 @@ namespace BAE {
 		bool _createWindow();
 		bool _createContext();
 		bool _initGlew();
-		void _openglOptions();
+		void _openGLSettings();
 		void _initializeSubSystems();
 
 	/*==============================================

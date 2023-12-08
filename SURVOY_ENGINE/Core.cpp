@@ -46,7 +46,7 @@ bool BAE::Core::CreateDevice(
         return false;
     }
 
-    _openglOptions();
+    _openGLSettings();
     _initializeSubSystems();
 
     return true;
@@ -139,7 +139,7 @@ bool BAE::Core::_initGlew()
     return true;
 }
 
-void BAE::Core::_openglOptions()
+void BAE::Core::_openGLSettings()
 {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
