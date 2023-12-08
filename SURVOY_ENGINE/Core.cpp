@@ -46,21 +46,10 @@ bool BAE::Core::CreateDevice(
         return false;
     }
 
+    _openglOptions();
+    _initializeSubSystems();
+
     return true;
-}
-
-void BAE::Core::StartDevice()
-{
-    std::cout << "Start Device" << std::endl;
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    Scene = std::make_unique<BAE::Scene>(_screenW, _screenH);
-    ShaderLibrary = std::make_unique<BAE::ShaderLibrary>();
-    TextureLibrary = std::make_unique<BAE::TextureLibrary>();
-    Timer = std::make_unique<BAE::Timer>(16.6667);
-
-    _createDefaultShader();
 }
 
 void BAE::Core::DestroyDevice()
@@ -150,16 +139,21 @@ bool BAE::Core::_initGlew()
     return true;
 }
 
-void BAE::Core::_createDefaultShader()
+void BAE::Core::_openglOptions()
 {
-    if (ShaderLibrary) {
-        ShaderLibrary->Add("base", "base_vertex.glsl", "base_fragment.glsl");
-        ShaderLibrary->Get("base")->use();
-        glm::mat4 projectionMatrix = glm::ortho(0.0f, 1024.f, 768.f, 0.0f, -1.0f, 1.0f);
-        ShaderLibrary->Get("base")->setMat4("projection", projectionMatrix);
-        ShaderLibrary->Get("base")->setVec3("textColor", glm::vec3(1.0f, 1.0f, 1.0f)); // White color
-    }
+    std::cout << "Start Device" << std::endl;
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
+
+void BAE::Core::_initializeSubSystems()
+{
+    Scene = std::make_unique<BAE::Scene>(_screenW, _screenH);
+    ShaderLibrary = std::make_unique<BAE::ShaderLibrary>(_screenW, _screenH);
+    TextureLibrary = std::make_unique<BAE::TextureLibrary>();
+    Timer = std::make_unique<BAE::Timer>(16.6667);
+}
+
 
 /*==============================================
 FONT

@@ -11,14 +11,6 @@
 #include "TextureLibrary.h"
 #include "Timer.h"
 
-/*
-ShaderList
-TextureList
-Material: Shader, Texture
-ObjectQuad: position, scale, Material, rotation, animation
-ObjectText: position, scale, Material, text, rotation
-*/
-
 namespace BAE {
 	class Core
 	{
@@ -32,7 +24,7 @@ namespace BAE {
 			int width,
 			int height,
 			const char* title);
-		void StartDevice();
+
 		void DestroyDevice();
 		void BeginRender();
 		void EndRender();
@@ -59,7 +51,8 @@ namespace BAE {
 		bool _createWindow();
 		bool _createContext();
 		bool _initGlew();
-		void _createDefaultShader();
+		void _openglOptions();
+		void _initializeSubSystems();
 
 	/*==============================================
 	SHADER

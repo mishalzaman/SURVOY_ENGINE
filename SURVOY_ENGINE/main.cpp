@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
+#include <random>
 #include "Core.h"
 #include "Shader.h"
 #include "Texture.h"
@@ -14,13 +15,11 @@ int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
 
 	if (
-		!core->CreateDevice(1024, 768, "test")
+		!core->CreateDevice(1024, 768, "BAE 0.1.0")
 		) {
 		return core->GetError();
 	}
-    core->StartDevice();
 
-    core->TextureLibrary->Add("font", "assets/ExportedFont.bmp");
     core->TextureLibrary->Add("image_1", "assets/testbackground.bmp");
     core->TextureLibrary->Add("image_2", "assets/testbackground2.bmp");
 
@@ -46,37 +45,14 @@ int main(int argc, char* args[]) {
             // update processes with delta time
         }
 
-        std::cout << core->Timer->DeltaTime() << std::endl;
-
         core->BeginRender();
 
-        core->Scene->Draw();
         BAE::RenderText::Render(
-            core->ShaderLibrary->GetID("base"),
-            core->TextureLibrary->GetID("font"),
-            "123456ABCDEFG!@#$%",
-            256,
-            0,
-            glm::vec3(1, 1, 1),
-            1
-        );
-        BAE::RenderQuad::Render(
-            core->ShaderLibrary->GetID("base"),
-            core->TextureLibrary->GetID("image_1"),
+            core->ShaderLibrary->GetID("base_shader"),
+            core->TextureLibrary->GetID("base_font"),
+            std::to_string(core->Timer->DeltaTime()),
             0,
             0,
-            core->TextureLibrary->Get("image_1")->GetWidth() / 4,
-            core->TextureLibrary->Get("image_1")->GetHeight() / 4,
-            glm::vec3(1, 1, 1),
-            1
-        );
-        BAE::RenderQuad::Render(
-            core->ShaderLibrary->GetID("base"),
-            core->TextureLibrary->GetID("image_2"),
-            0,
-            256,
-            core->TextureLibrary->Get("image_2")->GetWidth() / 4,
-            core->TextureLibrary->Get("image_2")->GetHeight() / 4,
             glm::vec3(1, 1, 1),
             1
         );

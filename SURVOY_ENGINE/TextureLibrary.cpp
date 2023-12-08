@@ -1,5 +1,10 @@
 #include "TextureLibrary.h"
 
+BAE::TextureLibrary::TextureLibrary()
+{
+    _setDefaulFont();
+}
+
 void BAE::TextureLibrary::Add(const std::string& key, const std::string& bitmapFont)
 {
 	_textures[key] = std::make_unique<Texture>(bitmapFont);
@@ -26,4 +31,9 @@ GLuint BAE::TextureLibrary::GetID(const std::string& key)
 void BAE::TextureLibrary::Remove(const std::string& key)
 {
     _textures.erase(key);
+}
+
+void BAE::TextureLibrary::_setDefaulFont()
+{
+    Add("base_font", "assets/ExportedFont.bmp");
 }
