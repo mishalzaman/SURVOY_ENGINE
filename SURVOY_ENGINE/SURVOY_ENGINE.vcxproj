@@ -164,6 +164,9 @@
     <None Include="base_fragment.glsl" />
     <None Include="base_vertex.glsl" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Design.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

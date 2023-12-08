@@ -141,9 +141,10 @@ bool BAE::Core::_initGlew()
 
 void BAE::Core::_openglOptions()
 {
-    std::cout << "Start Device" << std::endl;
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glViewport(0, 0, _screenW, _screenH);
 }
 
 void BAE::Core::_initializeSubSystems()

@@ -4,11 +4,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include "Core.h"
-#include "Shader.h"
-#include "Texture.h"
 #include "RenderQuad.h"
 #include "RenderText.h"
-#include "TextureLibrary.h"
 
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();

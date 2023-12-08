@@ -19,7 +19,10 @@
     <Filter Include="GAME">
       <UniqueIdentifier>{ee423c33-5469-4a24-a060-b06e7dac9a82}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ENGINE\programs">
+    <Filter Include="ENGINE\Vendor">
+      <UniqueIdentifier>{6ebbd90f-4cd3-492f-a4a0-6a1f2cd3cf63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ENGINE\Programs">
       <UniqueIdentifier>{7378ff2a-b63a-4bf7-8829-2a876c49b893}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -71,9 +74,6 @@
     <ClInclude Include="Code.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="stbi_image.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
@@ -101,13 +101,21 @@
     <ClInclude Include="Timer.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
+    <ClInclude Include="stbi_image.h">
+      <Filter>ENGINE\Vendor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="base_vertex.glsl">
-      <Filter>ENGINE\programs</Filter>
+      <Filter>ENGINE\Programs</Filter>
     </None>
     <None Include="base_fragment.glsl">
-      <Filter>ENGINE\programs</Filter>
+      <Filter>ENGINE\Programs</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Design.txt">
+      <Filter>GAME</Filter>
+    </Text>
   </ItemGroup>
 </Project>
