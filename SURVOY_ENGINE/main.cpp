@@ -3,13 +3,14 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
-#include <random>
 #include "Core.h"
 #include "Shader.h"
 #include "Texture.h"
 #include "RenderQuad.h"
 #include "RenderText.h"
 #include "TextureLibrary.h"
+#include <cstdlib> // Required for rand() and srand()
+#include <ctime>   // Required for time()
 
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();

@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <string>
 #include <iostream>
+#include <vector>
 
 namespace BAE {
 	class RenderText
