@@ -13,29 +13,8 @@ namespace BAE {
 		Scene(int screenW, int screenH);
 		~Scene();
 
-		/*==============================================
-		RENDER
-		==============================================*/
-		void Draw();
-
 	private:
 		float _screenW;
 		float _screenH;
-
-		Shader* _defaultShader;
-		void _setDefaultShader();
 	};
 }
-
-/*
-- List of shaders
-- List of textures
-- Material
-
-Image
-CreateObject("name", Material)
-GetObject("name")->SetPosition()
-				 ->SetScale()
-
-CreateObject("text", Material, "hello")
-*/
