@@ -10,6 +10,7 @@
 #include "ShaderLibrary.h"
 #include "TextureLibrary.h"
 #include "Timer.h"
+#include "Event.h"
 
 namespace BAE {
 	class Core
@@ -28,6 +29,8 @@ namespace BAE {
 		void DestroyDevice();
 		void BeginRender();
 		void EndRender();
+		bool Quit() { return _quit; }
+		void PerformShutdown() { _quit = true; }
 
 		// Getters
 		int GetError() { return _error; };
@@ -41,6 +44,7 @@ namespace BAE {
 		SDL_GLContext _context;
 
 		int _error;
+		bool _quit;
 
 	/*==============================================
 	INITIALIZATIONS
@@ -76,10 +80,10 @@ namespace BAE {
 		std::unique_ptr<Scene> Scene;
 
 	/*==============================================
-	Logger
+	EVENT
 	==============================================*/
-	//public:
-	//	std::unique_ptr<Logger> Logger;
+	public:
+		std::unique_ptr<Event> Event;
 	};
 
 }

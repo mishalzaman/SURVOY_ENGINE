@@ -21,18 +21,28 @@ int main(int argc, char* args[]) {
 
 	// loop
     bool quit = false;
-    SDL_Event event;
 
-    while (!quit)
+    std::string uInput;
+
+    while (!core->Quit())
     {
         core->Timer->BeginFrame();
 
-        while (SDL_PollEvent(&event))
-        {
-            switch (event.type)
+        while (core->Event->Poll()) {
+            switch (core->Event->Type())
             {
             case SDL_QUIT:
-                quit = true;
+                core->PerformShutdown();
+                break;
+            case SDL_KEYDOWN:
+                if (core->Event->isBackSpace()) {
+                    if (!uInput.empty()) {
+                        uInput.pop_back();
+                    }
+                }
+                break;
+            case SDL_TEXTINPUT:
+                uInput += core->Event->Text();
                 break;
             }
         }
@@ -49,6 +59,16 @@ int main(int argc, char* args[]) {
             std::to_string(core->Timer->DeltaTime()),
             0,
             0,
+            glm::vec3(1, 1, 1),
+            1
+        );
+
+        BAE::RenderText::Render(
+            core->ShaderLibrary->GetID("base_shader"),
+            core->TextureLibrary->GetID("base_font"),
+            uInput,
+            16,
+            738,
             glm::vec3(1, 1, 1),
             1
         );

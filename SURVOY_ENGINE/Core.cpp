@@ -12,7 +12,8 @@ BAE::Core::Core() :
     _error(1),
     _screenW(0),
     _screenH(0),
-    _title("")
+    _title(""),
+    _quit(false)
 {
 
 }
@@ -167,4 +168,5 @@ void BAE::Core::_initializeSubSystems()
     ShaderLibrary = std::make_unique<BAE::ShaderLibrary>(_screenW, _screenH);
     TextureLibrary = std::make_unique<BAE::TextureLibrary>();
     Timer = std::make_unique<BAE::Timer>(16.6667);
+    Event = std::make_unique<BAE::Event>();
 }
