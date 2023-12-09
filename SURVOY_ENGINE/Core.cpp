@@ -1,4 +1,6 @@
 #include "Core.h"
+#include "Logger.h"
+
 
 /*==============================================
 CORE
@@ -7,21 +9,27 @@ CORE
 BAE::Core::Core() :
     _window(nullptr),
     _context(NULL),
-    _error(1)
+    _error(1),
+    _screenW(0),
+    _screenH(0),
+    _title("")
 {
 
 }
 
 BAE::Core::~Core() {
     if (_window != nullptr) {
-        std::cout << "destroy _window" << std::endl;
+        LOG_INFO("Destroy _window");
         SDL_DestroyWindow(_window);
     }
 
-    std::cout << "destroy _context" << std::endl;
-    SDL_GL_DeleteContext(_context);
+    if (_context) {
+        LOG_INFO("Destroy _context");
+        SDL_GL_DeleteContext(_context);
+    }
 
-    std::cout << "BAE quit!" << std::endl;
+    LOG_INFO("Shutting down BAE");
+    LOG_INFO("------END--------");
     SDL_Quit();
 }
 
@@ -36,6 +44,8 @@ bool BAE::Core::CreateDevice(
     _screenH = height;
     _title = title;
 
+    LOG_INFO("------BEGIN-------");
+    LOG_INFO("Initializing Core");
     if (
         !_initSDL() ||
         !_initOpengGL() ||
@@ -71,6 +81,7 @@ void BAE::Core::EndRender()
         return;
     }
 
+    LOG_ERROR("EndRender: Could not find _window");
     throw std::runtime_error("Window was not found during game loop");
 }
 
@@ -80,7 +91,7 @@ INITIALIZATIONS
 
 bool BAE::Core::_initSDL()
 {
-    std::cout << "initialize SDL" << std::endl;
+    LOG_INFO("Initializing SDL2");
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         _error = Code::CORE_SDL;
         return false;
@@ -91,6 +102,7 @@ bool BAE::Core::_initSDL()
 
 bool BAE::Core::_initOpengGL()
 {
+    LOG_INFO("Initializing OpenGL context");
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
@@ -100,7 +112,7 @@ bool BAE::Core::_initOpengGL()
 
 bool BAE::Core::_createWindow()
 {
-    std::cout << "initialize _window" << std::endl;
+    LOG_INFO("Initializing _window");
     _window = SDL_CreateWindow(_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenW, _screenH, SDL_WINDOW_OPENGL);
     if (!_window) {
         SDL_Quit();
@@ -113,7 +125,7 @@ bool BAE::Core::_createWindow()
 
 bool BAE::Core::_createContext()
 {
-    std::cout << "initialize _context" << std::endl;
+    LOG_INFO("Initializing SDL context");
     _context = SDL_GL_CreateContext(_window);
     if (!_context) {
         SDL_DestroyWindow(_window);
@@ -127,7 +139,7 @@ bool BAE::Core::_createContext()
 
 bool BAE::Core::_initGlew()
 {
-    std::cout << "initialize _glew" << std::endl;
+    LOG_INFO("Initializing GLEW");
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK) {
         SDL_DestroyWindow(_window);
@@ -141,6 +153,7 @@ bool BAE::Core::_initGlew()
 
 void BAE::Core::_openGLSettings()
 {
+    LOG_INFO("Initializing OpenGL settings");
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -149,14 +162,9 @@ void BAE::Core::_openGLSettings()
 
 void BAE::Core::_initializeSubSystems()
 {
+    LOG_INFO("Initializing Sub-systems");
     Scene = std::make_unique<BAE::Scene>(_screenW, _screenH);
     ShaderLibrary = std::make_unique<BAE::ShaderLibrary>(_screenW, _screenH);
     TextureLibrary = std::make_unique<BAE::TextureLibrary>();
     Timer = std::make_unique<BAE::Timer>(16.6667);
 }
-
-
-/*==============================================
-FONT
-==============================================*/
-

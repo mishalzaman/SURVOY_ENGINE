@@ -76,8 +76,10 @@ namespace BAE {
 		std::unique_ptr<Scene> Scene;
 
 	/*==============================================
-	RESOURCE_MANAGER
+	Logger
 	==============================================*/
+	//public:
+	//	std::unique_ptr<Logger> Logger;
 	};
 
 }
