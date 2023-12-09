@@ -6,6 +6,7 @@
 #include "Core.h"
 #include "RenderQuad.h"
 #include "RenderText.h"
+#include "Event.h"
 
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
