@@ -49,7 +49,7 @@ void BAE::RenderText::Render(
 		if (*c == '\n') {
 			// Reset x to initial value and move y down by one character height (plus optional additional spacing)
 			x = initialX; // initialX should be stored before the loop starts
-			y -= charH * scale; // lineSpacing can be 0 or some positive value for extra spacing
+			y += charH * scale; // lineSpacing can be 0 or some positive value for extra spacing
 			continue;
 		}
 
@@ -82,7 +82,7 @@ void BAE::RenderText::Render(
 		vertices.insert(vertices.end(), &quadVertices[0][0], &quadVertices[0][0] + 24);
 
 		// Advance cursors for next glyph
-		x += w; // Adjust spacing as needed
+		x += w * scale; // Adjust spacing as needed
 	}
 
 	// Update VBO with all vertices
