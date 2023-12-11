@@ -27,3 +27,16 @@ For y:
 
 
 
+Scene
+-> Object
+	-> position
+	-> scale
+	-> Material
+	-> INHERITED CLASSES
+		-> ObjectText
+			-> text
+			-> SetPosition()
+		-> ObjectStatic
+			-> SetPosition()
+		-> ObjectDynamic
+			-> SetPosition(float deltaTime)
