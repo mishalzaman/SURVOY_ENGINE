@@ -54,33 +54,12 @@ int main(int argc, char* args[]) {
 
         core->BeginRender();
 
-        std::string dungeon = std::string("################################\n") +
-            "################################\n" +
-            "################################\n" +
-            "################################\n" +
-            "################################\n" +
-            "################################\n" +
-            "################################\n" +
-            "################################\n" +
-            "################################\n" +
-            "################################\n";
-
         BAE::RenderText::Render(
             core->ShaderLibrary->GetID("base_shader"),
             core->TextureLibrary->GetID("base_font"),
             std::to_string(core->Timer->DeltaTime()),
             0,
             0,
-            glm::vec3(1, 1, 1),
-            1
-        );
-
-        BAE::RenderText::Render(
-            core->ShaderLibrary->GetID("base_shader"),
-            core->TextureLibrary->GetID("base_font"),
-            dungeon,
-            0,
-            16,
             glm::vec3(1, 1, 1),
             1
         );
