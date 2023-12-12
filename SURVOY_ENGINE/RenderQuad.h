@@ -12,7 +12,6 @@ namespace BAE {
 			GLuint shaderProgram,
 			GLuint textureID,
 			GLfloat x, GLfloat y, GLfloat width, GLfloat height,
-			glm::vec3 color,
 			float scale
 		);
 	};

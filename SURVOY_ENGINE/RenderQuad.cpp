@@ -1,12 +1,7 @@
 #include "RenderQuad.h"
 
-void BAE::RenderQuad::Render(
-    GLuint shaderProgram,
-    GLuint textureID,
-    GLfloat x, GLfloat y, GLfloat width, GLfloat height,
-    glm::vec3 color,
-    float scale
-) {
+void BAE::RenderQuad::Render(GLuint shaderProgram, GLuint textureID, GLfloat x, GLfloat y, GLfloat width, GLfloat height, float scale)
+{
     // Initialize buffers
     GLuint _VAO, _VBO;
     glGenVertexArrays(1, &_VAO);

@@ -19,6 +19,7 @@ int main(int argc, char* args[]) {
 
     core->TextureLibrary->Add("image_1", "assets/testbackground.bmp");
     core->TextureLibrary->Add("image_2", "assets/testbackground2.bmp");
+    core->TextureLibrary->Add("test_template", "assets/test_1024_768.bmp");
 
 	// loop
     bool quit = false;
@@ -54,22 +55,22 @@ int main(int argc, char* args[]) {
 
         core->BeginRender();
 
-        BAE::RenderText::Render(
+        BAE::RenderQuad::Render(
             core->ShaderLibrary->GetID("base_shader"),
-            core->TextureLibrary->GetID("base_font"),
-            std::to_string(core->Timer->DeltaTime()),
+            core->TextureLibrary->GetID("test_template"),
             0,
             0,
-            glm::vec3(1, 1, 1),
+            1024,
+            768,
             1
         );
 
         BAE::RenderText::Render(
             core->ShaderLibrary->GetID("base_shader"),
             core->TextureLibrary->GetID("base_font"),
-            uInput,
-            16,
-            738,
+            std::to_string(core->Timer->DeltaTime()),
+            0,
+            0,
             glm::vec3(1, 1, 1),
             1
         );
