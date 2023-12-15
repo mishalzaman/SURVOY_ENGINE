@@ -14,7 +14,16 @@ namespace BAE {
 
 		bool isBackSpace();
 
+		bool HasWindowResized(int& newWidth, int& newHeight);
+ 
+		// Events
+		bool EQuit() { return _event.type == SDL_QUIT; }
+		bool EKeyDown() { return _event.type == SDL_KEYDOWN; }
+		bool ETextInput() { return _event.type == SDL_TEXTINPUT; }
+		bool EWindowEvent() { return _event.type == SDL_WINDOWEVENT; }
 	private:
 		SDL_Event _event;
+
+		Uint32 _windowEvent();
 	};
 }

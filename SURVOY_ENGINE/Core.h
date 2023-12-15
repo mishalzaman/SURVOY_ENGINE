@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include "Defaults.h"
 #include "Code.h"
 #include "Scene.h"
 #include "ShaderLibrary.h"
@@ -21,23 +22,20 @@ namespace BAE {
 	public:
 		Core();
 		~Core();
-		bool CreateDevice(
-			int width,
-			int height,
-			const char* title);
+		bool CreateDevice(const char* title);
 
 		void DestroyDevice();
 		void BeginRender();
 		void EndRender();
 		bool Quit() { return _quit; }
-		void PerformShutdown() { _quit = true; }
+		void BeginShutdown() { _quit = true; }
+
+		void ResizeViewport(const int nWidth, const int nHeight);
 
 		// Getters
 		int GetError() { return _error; };
 
 	private:
-		float _screenW;
-		float _screenH;
 		const char* _title;
 
 		SDL_Window* _window;

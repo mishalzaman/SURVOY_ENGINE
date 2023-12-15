@@ -10,8 +10,6 @@ BAE::Core::Core() :
     _window(nullptr),
     _context(NULL),
     _error(1),
-    _screenW(0),
-    _screenH(0),
     _title(""),
     _quit(false)
 {
@@ -36,13 +34,9 @@ BAE::Core::~Core() {
 
 
 bool BAE::Core::CreateDevice(
-    int width,
-    int height,
     const char* title
 )
 {
-    _screenW = width;
-    _screenH = height;
     _title = title;
 
     LOG_INFO("------BEGIN-------");
@@ -86,6 +80,28 @@ void BAE::Core::EndRender()
     throw std::runtime_error("Window was not found during game loop");
 }
 
+void BAE::Core::ResizeViewport(const int nWidth, const int nHeight)
+{
+    int setNewW = 0;
+    int setNewH = 0;
+    int offsetX = 0;
+    int offsetY = 0;
+
+    // Calculate the new dimensions while maintaining the 4:3 ratio
+    if (nWidth * 3 > nHeight * 4) {
+        setNewW = nHeight * 4 / 3;
+        setNewH = nHeight;
+        offsetX = (nWidth - setNewW) / 2;
+    }
+    else {
+        setNewW = nWidth;
+        setNewH = nWidth * 3 / 4;
+        offsetY = (nHeight - setNewH) / 2;
+    }
+
+    glViewport(offsetX, offsetY, setNewW, setNewH);
+}
+
 /*==============================================
 INITIALIZATIONS
 ==============================================*/
@@ -114,7 +130,7 @@ bool BAE::Core::_initOpengGL()
 bool BAE::Core::_createWindow()
 {
     LOG_INFO("Initializing _window");
-    _window = SDL_CreateWindow(_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenW, _screenH, SDL_WINDOW_OPENGL);
+    _window = SDL_CreateWindow(_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, Defaults::BASE_SCREEN_WIDTH, Defaults::BASE_SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
     if (!_window) {
         SDL_Quit();
         _error = Code::CORE_WINDOW;
@@ -158,14 +174,14 @@ void BAE::Core::_openGLSettings()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glViewport(0, 0, _screenW, _screenH);
+    glViewport(0, 0, Defaults::BASE_SCREEN_WIDTH, Defaults::BASE_SCREEN_HEIGHT);
 }
 
 void BAE::Core::_initializeSubSystems()
 {
     LOG_INFO("Initializing Sub-systems");
-    Scene = std::make_unique<BAE::Scene>(_screenW, _screenH);
-    ShaderLibrary = std::make_unique<BAE::ShaderLibrary>(_screenW, _screenH);
+    Scene = std::make_unique<BAE::Scene>(Defaults::BASE_SCREEN_WIDTH, Defaults::BASE_SCREEN_HEIGHT);
+    ShaderLibrary = std::make_unique<BAE::ShaderLibrary>(Defaults::BASE_SCREEN_WIDTH, Defaults::BASE_SCREEN_HEIGHT);
     TextureLibrary = std::make_unique<BAE::TextureLibrary>();
     Timer = std::make_unique<BAE::Timer>(16.6667);
     Event = std::make_unique<BAE::Event>();
