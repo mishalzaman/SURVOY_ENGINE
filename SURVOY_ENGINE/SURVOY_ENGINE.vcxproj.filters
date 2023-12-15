@@ -110,6 +110,9 @@
     <ClInclude Include="Logger.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
+    <ClInclude Include="Defaults.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="base_vertex.glsl">

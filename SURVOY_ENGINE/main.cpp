@@ -12,7 +12,7 @@ int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
 
 	if (
-		!core->CreateDevice(1024, 768, "BAE 0.1.0")
+		!core->CreateDevice("BAE 0.1.0")
 		) {
 		return core->GetError();
 	}
@@ -25,27 +25,36 @@ int main(int argc, char* args[]) {
     bool quit = false;
 
     std::string uInput;
+    Sint32 sWidth = 1024;
+    Sint32 sHeight = 768;
 
     while (!core->Quit())
     {
         core->Timer->BeginFrame();
 
         while (core->Event->Poll()) {
-            switch (core->Event->Type())
-            {
-            case SDL_QUIT:
-                core->PerformShutdown();
-                break;
-            case SDL_KEYDOWN:
+            // Shutdown
+            if (core->Event->EQuit()) { core->BeginShutdown(); }
+
+            // Tey input
+            if (core->Event->EKeyDown()) {
                 if (core->Event->isBackSpace()) {
                     if (!uInput.empty()) {
                         uInput.pop_back();
                     }
                 }
-                break;
-            case SDL_TEXTINPUT:
+            }
+
+            // Text input
+            if (core->Event->ETextInput()) {
                 uInput += core->Event->Text();
-                break;
+            }
+
+            // Window event
+            if (core->Event->EWindowEvent()) {
+                if (core->Event->HasWindowResized(sWidth, sHeight)) {
+                    core->ResizeViewport(sWidth, sHeight);
+                }
             }
         }
 
@@ -71,6 +80,16 @@ int main(int argc, char* args[]) {
             std::to_string(core->Timer->DeltaTime()),
             0,
             0,
+            glm::vec3(1, 1, 1),
+            1
+        );
+
+        BAE::RenderText::Render(
+            core->ShaderLibrary->GetID("base_shader"),
+            core->TextureLibrary->GetID("base_font"),
+            "width: " + std::to_string(sWidth) + " height: " + std::to_string(sHeight),
+            0,
+            16,
             glm::vec3(1, 1, 1),
             1
         );

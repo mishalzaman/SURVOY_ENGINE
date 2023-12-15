@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>E:\SURVOY_ENGINE\SURVOY_ENGINE\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\SURVOY_ENGINE\SURVOY_ENGINE\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\DEV\SURVOY_ENGINE\SURVOY_ENGINE\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\DEV\SURVOY_ENGINE\SURVOY_ENGINE\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Code.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Defaults.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Material.h" />
