@@ -133,6 +133,12 @@
     <None Include="base_fragment.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
+    <None Include="base_vertex_3d.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="base_fragment_3d.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Design.txt">

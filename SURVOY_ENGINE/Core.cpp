@@ -66,6 +66,7 @@ void BAE::Core::BeginRender()
     // Clear the screen
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT);
 }
 
 void BAE::Core::EndRender()
@@ -179,6 +180,8 @@ void BAE::Core::_openGLSettings()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    glEnable(GL_DEPTH_TEST);
 
     glViewport(0, 0, Defaults::BASE_SCREEN_WIDTH, Defaults::BASE_SCREEN_HEIGHT);
 }
