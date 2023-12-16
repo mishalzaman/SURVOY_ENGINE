@@ -6,7 +6,8 @@
 #include "Core.h"
 #include "RenderQuad.h"
 #include "RenderText.h"
-#include "Event.h"
+#include "RenderTileset.h"
+#include "MapLoader.h"
 
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
@@ -20,6 +21,7 @@ int main(int argc, char* args[]) {
     core->TextureLibrary->Add("image_1", "assets/testbackground.bmp");
     core->TextureLibrary->Add("image_2", "assets/testbackground2.bmp");
     core->TextureLibrary->Add("test_template", "assets/test_1024_768.bmp");
+    core->TextureLibrary->Add("tileset", "assets/map/tileset.png");
 
 	// loop
     bool quit = false;
@@ -27,6 +29,11 @@ int main(int argc, char* args[]) {
     std::string uInput;
     Sint32 sWidth = 1024;
     Sint32 sHeight = 768;
+
+    // map
+    auto mapLoader = std::make_unique<MapLoader>();
+    mapLoader->Load("assets/map/map1.tmj");
+    const std::vector<int>& graphicData = mapLoader->GetGraphic();
 
     while (!core->Quit())
     {
@@ -64,14 +71,19 @@ int main(int argc, char* args[]) {
 
         core->BeginRender();
 
-        BAE::RenderQuad::Render(
+        BAE::RenderTileset::Render(
             core->ShaderLibrary->GetID("base_shader"),
-            core->TextureLibrary->GetID("test_template"),
+            core->TextureLibrary->GetID("tileset"),
+            graphicData,
             0,
             0,
-            1024,
-            768,
-            1
+            mapLoader->GetTileWidth(),
+            mapLoader->GetTileHeight(),
+            mapLoader->GetMapWidth(),
+            mapLoader->GetMapHeight(),
+            16,
+            6,
+            2
         );
 
         BAE::RenderText::Render(
