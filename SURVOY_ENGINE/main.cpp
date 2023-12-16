@@ -8,6 +8,7 @@
 #include "RenderText.h"
 #include "RenderTileset.h"
 #include "MapLoader.h"
+#include "Defaults.h"
 
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
@@ -22,6 +23,8 @@ int main(int argc, char* args[]) {
     core->TextureLibrary->Add("image_2", "assets/testbackground2.bmp");
     core->TextureLibrary->Add("test_template", "assets/test_1024_768.bmp");
     core->TextureLibrary->Add("tileset", "assets/map/tileset.png");
+
+    core->ShaderLibrary->Add("shader_3d", "base_vertex_3d.glsl", "base_fragment_3d.glsl");
 
 	// loop
     bool quit = false;
@@ -64,20 +67,31 @@ int main(int argc, char* args[]) {
 
         core->BeginRender();
 
-        BAE::RenderTileset::Render(
-            core->ShaderLibrary->GetID("base_shader"),
-            core->TextureLibrary->GetID("tileset"),
-            graphicData,
+        BAE::RenderQuad::Render3d(
+            core->ShaderLibrary->GetID("shader_3d"),
+            core->TextureLibrary->GetID("test_template"),
             0,
             0,
-            mapLoader->GetTileWidth(),
-            mapLoader->GetTileHeight(),
-            mapLoader->GetMapWidth(),
-            mapLoader->GetMapHeight(),
-            16,
-            6,
-            1
+            1024,
+            768,
+            0.75,
+            -40
         );
+
+        //BAE::RenderTileset::Render(
+        //    core->ShaderLibrary->GetID("base_shader"),
+        //    core->TextureLibrary->GetID("tileset"),
+        //    graphicData,
+        //    0,
+        //    0,
+        //    mapLoader->GetTileWidth(),
+        //    mapLoader->GetTileHeight(),
+        //    mapLoader->GetMapWidth(),
+        //    mapLoader->GetMapHeight(),
+        //    16,
+        //    6,
+        //    1
+        //);
 
         BAE::RenderText::Render(
             core->ShaderLibrary->GetID("base_shader"),
