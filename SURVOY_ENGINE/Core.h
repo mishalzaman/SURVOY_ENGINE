@@ -30,8 +30,6 @@ namespace BAE {
 		bool Quit() { return _quit; }
 		void BeginShutdown() { _quit = true; }
 
-		void ResizeViewport(const int nWidth, const int nHeight);
-
 		// Getters
 		int GetError() { return _error; };
 
@@ -43,6 +41,11 @@ namespace BAE {
 
 		int _error;
 		bool _quit;
+
+	/*==============================================
+	WINDOW
+	==============================================*/
+		void _resizeViewport(const int nWidth, const int nHeight);
 
 	/*==============================================
 	INITIALIZATIONS
@@ -82,6 +85,8 @@ namespace BAE {
 	==============================================*/
 	public:
 		std::unique_ptr<Event> Event;
+
+		void EventWindowResize();
 	};
 
 }

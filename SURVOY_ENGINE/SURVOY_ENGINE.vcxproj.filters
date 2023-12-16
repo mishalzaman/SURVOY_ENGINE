@@ -66,6 +66,12 @@
     <ClCompile Include="Logger.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
+    <ClCompile Include="MapLoader.cpp">
+      <Filter>GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTileset.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -111,6 +117,12 @@
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Defaults.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLoader.h">
+      <Filter>GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTileset.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
   </ItemGroup>
