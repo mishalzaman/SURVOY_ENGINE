@@ -80,7 +80,11 @@ void BAE::Core::EndRender()
     throw std::runtime_error("Window was not found during game loop");
 }
 
-void BAE::Core::ResizeViewport(const int nWidth, const int nHeight)
+/*==============================================
+WINDOW
+==============================================*/
+
+void BAE::Core::_resizeViewport(const int nWidth, const int nHeight)
 {
     int setNewW = 0;
     int setNewH = 0;
@@ -187,4 +191,20 @@ void BAE::Core::_initializeSubSystems()
     TextureLibrary = std::make_unique<BAE::TextureLibrary>();
     Timer = std::make_unique<BAE::Timer>(16.6667);
     Event = std::make_unique<BAE::Event>();
+}
+
+/*==============================================
+EVENT
+==============================================*/
+
+void BAE::Core::EventWindowResize()
+{
+    Sint32 sWidth = 1024;
+    Sint32 sHeight = 768;
+
+    if (Event->EWindowEvent()) {
+        if (Event->HasWindowResized(sWidth, sHeight)) {
+            _resizeViewport(sWidth, sHeight);
+        }
+    }
 }

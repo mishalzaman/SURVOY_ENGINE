@@ -27,8 +27,6 @@ int main(int argc, char* args[]) {
     bool quit = false;
 
     std::string uInput;
-    Sint32 sWidth = 1024;
-    Sint32 sHeight = 768;
 
     // map
     auto mapLoader = std::make_unique<MapLoader>();
@@ -57,12 +55,7 @@ int main(int argc, char* args[]) {
                 uInput += core->Event->Text();
             }
 
-            // Window event
-            if (core->Event->EWindowEvent()) {
-                if (core->Event->HasWindowResized(sWidth, sHeight)) {
-                    core->ResizeViewport(sWidth, sHeight);
-                }
-            }
+            core->EventWindowResize();
         }
 
         while (core->Timer->ShouldUpdate()) {
@@ -83,7 +76,7 @@ int main(int argc, char* args[]) {
             mapLoader->GetMapHeight(),
             16,
             6,
-            2
+            1
         );
 
         BAE::RenderText::Render(
@@ -92,16 +85,6 @@ int main(int argc, char* args[]) {
             std::to_string(core->Timer->DeltaTime()),
             0,
             0,
-            glm::vec3(1, 1, 1),
-            1
-        );
-
-        BAE::RenderText::Render(
-            core->ShaderLibrary->GetID("base_shader"),
-            core->TextureLibrary->GetID("base_font"),
-            "width: " + std::to_string(sWidth) + " height: " + std::to_string(sHeight),
-            0,
-            16,
             glm::vec3(1, 1, 1),
             1
         );

@@ -1,4 +1,5 @@
 #include "ShaderLibrary.h"
+#include "Defaults.h"
 
 BAE::ShaderLibrary::ShaderLibrary(int screenW, int screenH):
     _screenW(screenW),
@@ -48,7 +49,7 @@ void BAE::ShaderLibrary::_setDefault()
 {
     Add("base_shader", "base_vertex.glsl", "base_fragment.glsl");
     Get("base_shader")->use();
-    glm::mat4 projectionMatrix = glm::ortho(0.0f, 1024.f, 768.f, 0.0f, -1.0f, 1.0f);
+    glm::mat4 projectionMatrix = glm::ortho(0.0f, static_cast<float>(Defaults::BASE_SCREEN_WIDTH), static_cast<float>(Defaults::BASE_SCREEN_HEIGHT), 0.0f, -1.0f, 1.0f);
     Get("base_shader")->setMat4("projection", projectionMatrix);
     Get("base_shader")->setVec3("textColor", glm::vec3(1.0f, 1.0f, 1.0f)); // White color
 }
