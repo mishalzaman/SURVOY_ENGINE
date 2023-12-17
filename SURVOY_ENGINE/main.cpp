@@ -7,6 +7,7 @@
 #include "RenderQuad.h"
 #include "RenderText.h"
 #include "RenderTileset.h"
+#include "Render3D.h"
 #include "MapLoader.h"
 #include "Defaults.h"
 
@@ -67,15 +68,31 @@ int main(int argc, char* args[]) {
 
         core->BeginRender();
 
-        BAE::RenderQuad::Render3d(
+        //BAE::RenderQuad::Render3d(
+        //    core->ShaderLibrary->GetID("shader_3d"),
+        //    core->TextureLibrary->GetID("test_template"),
+        //    0,
+        //    0,
+        //    1024,
+        //    768,
+        //    0.75,
+        //    -40
+        //);
+
+        BAE::Render3D::TileSet(
             core->ShaderLibrary->GetID("shader_3d"),
-            core->TextureLibrary->GetID("test_template"),
+            core->TextureLibrary->GetID("tileset"),
+            graphicData,
             0,
             0,
-            1024,
-            768,
-            0.75,
-            -40
+            0,
+            mapLoader->GetTileWidth(),
+            mapLoader->GetTileHeight(),
+            mapLoader->GetMapWidth(),
+            mapLoader->GetMapHeight(),
+            16,
+            6,
+            1
         );
 
         //BAE::RenderTileset::Render(
