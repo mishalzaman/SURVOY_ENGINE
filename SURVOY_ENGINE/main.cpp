@@ -92,7 +92,7 @@ int main(int argc, char* args[]) {
             mapLoader->GetMapHeight(),
             16,
             6,
-            0.1
+            1
         );
 
         //BAE::RenderTileset::Render(

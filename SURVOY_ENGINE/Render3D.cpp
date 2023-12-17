@@ -6,7 +6,7 @@ void BAE::Render3D::TileSet(GLuint shaderProgram, GLuint textureID, const std::v
     glm::mat4 modelMatrix = glm::mat4(1.0f);
     modelMatrix = glm::translate(modelMatrix, glm::vec3(x, y, 0.0f)); // Translate
     modelMatrix = glm::rotate(modelMatrix, glm::radians(rotationAngle), glm::vec3(1.0f, 0.0f, 0.0f)); // Rotate around X-axis
-    modelMatrix = glm::scale(modelMatrix, glm::vec3(1024 * scale, 1024 * scale, 1.0f)); // Scale
+    //modelMatrix = glm::scale(modelMatrix, glm::vec3(1024 * scale, 1024 * scale, 1.0f)); // Scale
 
     // Calculate the projection matrix
     float aspect = static_cast<float>(1024) / static_cast<float>(768); // Calculate the aspect ratio based on window dimensions
@@ -66,7 +66,6 @@ void BAE::Render3D::TileSet(GLuint shaderProgram, GLuint textureID, const std::v
             { xpos + w, ypos,       0.0f, u2, v2 },
             { xpos + w, ypos + h,   0.0f, u2, v1 }
         };
-
 
         vertices.insert(vertices.end(), &quadVertices[0][0], &quadVertices[0][0] + 6 * 5);
     }
