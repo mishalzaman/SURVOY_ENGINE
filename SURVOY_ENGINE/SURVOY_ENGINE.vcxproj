@@ -138,6 +138,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Render3D.cpp" />
     <ClCompile Include="RenderQuad.cpp" />
     <ClCompile Include="RenderText.cpp" />
     <ClCompile Include="RenderTileset.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MapLoader.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Render3D.h" />
     <ClInclude Include="RenderQuad.h" />
     <ClInclude Include="RenderText.h" />
     <ClInclude Include="RenderTileset.h" />
