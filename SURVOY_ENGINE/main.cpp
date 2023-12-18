@@ -68,22 +68,10 @@ int main(int argc, char* args[]) {
 
         core->BeginRender();
 
-        //BAE::RenderQuad::Render3d(
-        //    core->ShaderLibrary->GetID("shader_3d"),
-        //    core->TextureLibrary->GetID("test_template"),
-        //    0,
-        //    0,
-        //    1024,
-        //    768,
-        //    0.75,
-        //    -40
-        //);
-
-        BAE::Render3D::TileSet(
-            core->ShaderLibrary->GetID("shader_3d"),
+        BAE::RenderTileset::Render(
+            core->ShaderLibrary->GetID("base_shader"),
             core->TextureLibrary->GetID("tileset"),
             graphicData,
-            0,
             0,
             0,
             mapLoader->GetTileWidth(),
@@ -94,21 +82,6 @@ int main(int argc, char* args[]) {
             6,
             1
         );
-
-        //BAE::RenderTileset::Render(
-        //    core->ShaderLibrary->GetID("base_shader"),
-        //    core->TextureLibrary->GetID("tileset"),
-        //    graphicData,
-        //    0,
-        //    0,
-        //    mapLoader->GetTileWidth(),
-        //    mapLoader->GetTileHeight(),
-        //    mapLoader->GetMapWidth(),
-        //    mapLoader->GetMapHeight(),
-        //    16,
-        //    6,
-        //    1
-        //);
 
         BAE::RenderText::Render(
             core->ShaderLibrary->GetID("base_shader"),
