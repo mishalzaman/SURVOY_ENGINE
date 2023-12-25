@@ -10,6 +10,8 @@
 #include "Render3D.h"
 #include "MapLoader.h"
 #include "Defaults.h"
+#include "Camera3D.h"
+#include "Renderer3D.h"
 
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
@@ -25,8 +27,9 @@ int main(int argc, char* args[]) {
     core->TextureLibrary->Add("test_template", "assets/test_1024_768.bmp");
     core->TextureLibrary->Add("tileset", "assets/map/tileset.png");
     core->TextureLibrary->Add("tileset_test", "assets/map_generator/tileset.png");
+    core->TextureLibrary->Add("wall", "assets/wall.jpg");
 
-    core->ShaderLibrary->Add("shader_3d", "base_vertex_3d.glsl", "base_fragment_3d.glsl");
+    core->ShaderLibrary->Add("shader_3d", "vertex_3d.glsl", "fragment_3d.glsl");
 
 	// loop
     bool quit = false;
@@ -34,9 +37,13 @@ int main(int argc, char* args[]) {
     std::string uInput;
 
     // map
-    auto mapLoader = std::make_unique<MapLoader>();
-    mapLoader->Load("assets/map/map1.tmj");
-    const std::vector<int>& graphicData = mapLoader->GetGraphic();
+    //auto mapLoader = std::make_unique<MapLoader>();
+    //mapLoader->Load("assets/map/map1.tmj");
+    //const std::vector<int>& graphicData = mapLoader->GetGraphic();
+
+    // Camera / Renderer
+    auto camera = std::make_unique<BAE::Camera3D>();
+    auto renderer3d = std::make_unique<BAE::Renderer3D>(core->TextureLibrary->GetID("image_1"));
 
     while (!core->Quit())
     {
@@ -69,20 +76,22 @@ int main(int argc, char* args[]) {
 
         core->BeginRender();
 
-        BAE::RenderTileset::Render(
-            core->ShaderLibrary->GetID("base_shader"),
-            core->TextureLibrary->GetID("tileset"),
-            graphicData,
-            0,
-            0,
-            mapLoader->GetTileWidth(),
-            mapLoader->GetTileHeight(),
-            mapLoader->GetMapWidth(),
-            mapLoader->GetMapHeight(),
-            16,
-            6,
-            1
-        );
+        //BAE::RenderTileset::Render(
+        //    core->ShaderLibrary->GetID("base_shader"),
+        //    core->TextureLibrary->GetID("tileset"),
+        //    graphicData,
+        //    0,
+        //    0,
+        //    mapLoader->GetTileWidth(),
+        //    mapLoader->GetTileHeight(),
+        //    mapLoader->GetMapWidth(),
+        //    mapLoader->GetMapHeight(),
+        //    16,
+        //    6,
+        //    1
+        //);
+
+        renderer3d->render(*core->ShaderLibrary->Get("shader_3d"), *camera, glm::vec3(0,0,0));
 
         BAE::RenderText::Render(
             core->ShaderLibrary->GetID("base_shader"),
@@ -93,6 +102,16 @@ int main(int argc, char* args[]) {
             glm::vec3(1, 1, 1),
             1
         );
+
+        //BAE::RenderQuad::Render(
+        //    core->ShaderLibrary->GetID("base_shader"),
+        //    core->TextureLibrary->GetID("wall"),
+        //    0,
+        //    0,
+        //    512,
+        //    512,
+        //    1
+        //);
 
         core->EndRender();
     }

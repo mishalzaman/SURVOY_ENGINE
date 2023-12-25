@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera3D.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Render3D.cpp" />
+    <ClCompile Include="Renderer3D.cpp" />
     <ClCompile Include="RenderQuad.cpp" />
     <ClCompile Include="RenderText.cpp" />
     <ClCompile Include="RenderTileset.cpp" />
@@ -151,6 +153,7 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera3D.h" />
     <ClInclude Include="Code.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Defaults.h" />
@@ -160,6 +163,7 @@
     <ClInclude Include="MapLoader.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Render3D.h" />
+    <ClInclude Include="Renderer3D.h" />
     <ClInclude Include="RenderQuad.h" />
     <ClInclude Include="RenderText.h" />
     <ClInclude Include="RenderTileset.h" />
@@ -176,6 +180,8 @@
     <None Include="base_fragment_3d.glsl" />
     <None Include="base_vertex.glsl" />
     <None Include="base_vertex_3d.glsl" />
+    <None Include="fragment_3d.glsl" />
+    <None Include="vertex_3d.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Design.txt" />
