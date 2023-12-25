@@ -75,6 +75,9 @@
     <ClCompile Include="Render3D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
+    <ClCompile Include="MapGenerator.cpp">
+      <Filter>GAME</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="Render3D.h">
       <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGenerator.h">
+      <Filter>GAME</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
