@@ -10,7 +10,6 @@
 #include "Render3D.h"
 #include "MapLoader.h"
 #include "Defaults.h"
-#include "MapGenerator.h"
 
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
@@ -38,12 +37,6 @@ int main(int argc, char* args[]) {
     auto mapLoader = std::make_unique<MapLoader>();
     mapLoader->Load("assets/map/map1.tmj");
     const std::vector<int>& graphicData = mapLoader->GetGraphic();
-
-    // map generator
-    int mapColumns = 64;
-    int mapRows = 48;
-    auto mapGenerator = std::make_unique<MapGenerator>();
-    mapGenerator->Create(mapColumns, mapRows);
 
     while (!core->Quit())
     {
@@ -76,20 +69,20 @@ int main(int argc, char* args[]) {
 
         core->BeginRender();
 
-        //BAE::RenderTileset::Render(
-        //    core->ShaderLibrary->GetID("base_shader"),
-        //    core->TextureLibrary->GetID("tileset"),
-        //    graphicData,
-        //    0,
-        //    0,
-        //    mapLoader->GetTileWidth(),
-        //    mapLoader->GetTileHeight(),
-        //    mapLoader->GetMapWidth(),
-        //    mapLoader->GetMapHeight(),
-        //    16,
-        //    6,
-        //    1
-        //);
+        BAE::RenderTileset::Render(
+            core->ShaderLibrary->GetID("base_shader"),
+            core->TextureLibrary->GetID("tileset"),
+            graphicData,
+            0,
+            0,
+            mapLoader->GetTileWidth(),
+            mapLoader->GetTileHeight(),
+            mapLoader->GetMapWidth(),
+            mapLoader->GetMapHeight(),
+            16,
+            6,
+            1
+        );
 
         BAE::RenderText::Render(
             core->ShaderLibrary->GetID("base_shader"),
@@ -99,21 +92,6 @@ int main(int argc, char* args[]) {
             752,
             glm::vec3(1, 1, 1),
             1
-        );
-
-        BAE::RenderTileset::Render(
-            core->ShaderLibrary->GetID("base_shader"),
-            core->TextureLibrary->GetID("tileset_test"),
-            mapGenerator->GetMap(),
-            0,          // screen x
-            0,          // screen y
-            16,         // tile pixel width
-            16,         // tile pixel height
-            mapColumns, // map columns
-            mapRows,    // map height
-            3,          // tilesheet columns
-            1,          // tilesheet rows
-            1           // scale
         );
 
         core->EndRender();
