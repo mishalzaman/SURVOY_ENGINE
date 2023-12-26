@@ -21,6 +21,8 @@ namespace BAE {
 		bool EKeyDown() { return _event.type == SDL_KEYDOWN; }
 		bool ETextInput() { return _event.type == SDL_TEXTINPUT; }
 		bool EWindowEvent() { return _event.type == SDL_WINDOWEVENT; }
+
+		SDL_Event& GetEvent() { return _event; }
 	private:
 		SDL_Event _event;
 

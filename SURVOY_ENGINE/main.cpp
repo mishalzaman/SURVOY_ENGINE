@@ -28,6 +28,7 @@ int main(int argc, char* args[]) {
     core->TextureLibrary->Add("tileset", "assets/map/tileset.png");
     core->TextureLibrary->Add("tileset_test", "assets/map_generator/tileset.png");
     core->TextureLibrary->Add("wall", "assets/wall.jpg");
+    core->TextureLibrary->Add("test_tileset", "assets/tilemap/tilesheet.png");
 
     core->ShaderLibrary->Add("shader_3d", "vertex_3d.glsl", "fragment_3d.glsl");
 
@@ -43,7 +44,7 @@ int main(int argc, char* args[]) {
 
     // Camera / Renderer
     auto camera = std::make_unique<BAE::Camera3D>();
-    auto renderer3d = std::make_unique<BAE::Renderer3D>(core->TextureLibrary->GetID("image_1"));
+    auto renderer3d = std::make_unique<BAE::Renderer3D>(core->TextureLibrary->GetID("test_tileset"));
 
     while (!core->Quit())
     {
@@ -68,8 +69,10 @@ int main(int argc, char* args[]) {
             }
 
             core->EventWindowResize();
-        }
 
+            camera->UpdateOrbit(core->Event->GetEvent(), core->Timer->DeltaTime());
+        }
+         
         while (core->Timer->ShouldUpdate()) {
             // update processes with delta time
         }
