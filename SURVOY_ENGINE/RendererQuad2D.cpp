@@ -1,7 +1,7 @@
-#include "RenderQuad.h"
+#include "RendererQuad2D.h"
 #include <chrono>
 
-void BAE::RenderQuad::Render(GLuint shaderProgram, GLuint textureID, GLfloat x, GLfloat y, GLfloat width, GLfloat height, float scale)
+void BAE::RendererQuad2D::Render(GLuint shaderProgram, GLuint textureID, GLfloat x, GLfloat y, GLfloat width, GLfloat height, float scale)
 {
     // Initialize buffers
     GLuint _VAO, _VBO;
@@ -53,7 +53,7 @@ void BAE::RenderQuad::Render(GLuint shaderProgram, GLuint textureID, GLfloat x, 
     glBindTexture(GL_TEXTURE_2D, 0); // Optionally unbind the texture
 }
 
-void BAE::RenderQuad::Render3d(GLuint shaderProgram, GLuint textureID, GLfloat x, GLfloat y, GLfloat width, GLfloat height, float scale, float rotationAngle)
+void BAE::RendererQuad2D::Render3d(GLuint shaderProgram, GLuint textureID, GLfloat x, GLfloat y, GLfloat width, GLfloat height, float scale, float rotationAngle)
 {
     // Initialize buffers
     float vertices[] = {

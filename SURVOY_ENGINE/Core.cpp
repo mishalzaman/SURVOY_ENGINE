@@ -182,14 +182,11 @@ void BAE::Core::_openGLSettings()
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     glEnable(GL_DEPTH_TEST);
-
-    glViewport(0, 0, Defaults::BASE_SCREEN_WIDTH, Defaults::BASE_SCREEN_HEIGHT);
 }
 
 void BAE::Core::_initializeSubSystems()
 {
     LOG_INFO("Initializing Sub-systems");
-    Scene = std::make_unique<BAE::Scene>(Defaults::BASE_SCREEN_WIDTH, Defaults::BASE_SCREEN_HEIGHT);
     ShaderLibrary = std::make_unique<BAE::ShaderLibrary>(Defaults::BASE_SCREEN_WIDTH, Defaults::BASE_SCREEN_HEIGHT);
     TextureLibrary = std::make_unique<BAE::TextureLibrary>();
     Timer = std::make_unique<BAE::Timer>(16.6667);

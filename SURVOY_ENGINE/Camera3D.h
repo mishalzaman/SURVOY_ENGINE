@@ -34,7 +34,7 @@ namespace BAE {
 
 		float _horizontalAngle = 0.0f; // Horizontal angle towards the target
 		float _verticalAngle = 0.0f;   // Vertical angle
-		float _orbitDistance = 3.0f;    // Distance from the target
+		float _orbitDistance = 3.f;    // Distance from the target
 
 		// Orbit speed factors
 		float _orbitSpeedH = 2.0f;

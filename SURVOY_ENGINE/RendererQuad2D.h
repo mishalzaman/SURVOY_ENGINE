@@ -7,7 +7,7 @@
 #include <string>
 
 namespace BAE {
-	class RenderQuad
+	class RendererQuad2D
 	{
 	public:
 		static void Render(

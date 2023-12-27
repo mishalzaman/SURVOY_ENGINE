@@ -7,7 +7,7 @@
 #include <vector>
 
 namespace BAE {
-	class RenderText
+	class RendererText2D
 	{
 	public:
 		static void Render(

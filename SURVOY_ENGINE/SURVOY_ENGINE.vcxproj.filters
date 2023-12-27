@@ -42,13 +42,10 @@
     <ClCompile Include="Shader.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="RenderQuad.cpp">
+    <ClCompile Include="RendererQuad2D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderText.cpp">
+    <ClCompile Include="RendererText2D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="ShaderLibrary.cpp">
@@ -69,10 +66,7 @@
     <ClCompile Include="MapLoader.cpp">
       <Filter>GAME</Filter>
     </ClCompile>
-    <ClCompile Include="RenderTileset.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="Render3D.cpp">
+    <ClCompile Include="RendererTileset2D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="Renderer3D.cpp">
@@ -104,13 +98,10 @@
     <ClInclude Include="Shader.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="RenderQuad.h">
+    <ClInclude Include="RendererQuad2D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderText.h">
+    <ClInclude Include="RendererText2D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="ShaderLibrary.h">
@@ -137,14 +128,8 @@
     <ClInclude Include="MapLoader.h">
       <Filter>GAME</Filter>
     </ClInclude>
-    <ClInclude Include="RenderTileset.h">
+    <ClInclude Include="RendererTileset2D.h">
       <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="Render3D.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera3D.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MapGenerator.h">
       <Filter>ENGINE</Filter>
@@ -153,6 +138,9 @@
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="MeshGenerator.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera3D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
   </ItemGroup>

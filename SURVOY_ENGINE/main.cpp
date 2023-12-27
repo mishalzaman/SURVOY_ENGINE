@@ -4,15 +4,16 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include "Core.h"
-#include "RenderQuad.h"
-#include "RenderText.h"
-#include "RenderTileset.h"
-#include "Render3D.h"
+#include "RendererQuad2D.h"
+#include "RendererText2D.h"
+#include "RendererTileset2D.h"
 #include "MapLoader.h"
 #include "Defaults.h"
 #include "Camera3D.h"
 #include "Renderer3D.h"
 #include "MeshGenerator.h"
+#include "Defaults.h"
+
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
 
@@ -65,7 +66,7 @@ int main(int argc, char* args[]) {
 
             // Tey input
             if (core->Event->EKeyDown()) {
-                if (core->Event->isBackSpace()) {
+                if (core->Event->isBackSpace()) { 
                     if (!uInput.empty()) {
                         uInput.pop_back();
                     }
@@ -88,24 +89,9 @@ int main(int argc, char* args[]) {
 
         core->BeginRender();
 
-        //BAE::RenderTileset::Render(
-        //    core->ShaderLibrary->GetID("base_shader"),
-        //    core->TextureLibrary->GetID("tileset"),
-        //    graphicData,
-        //    0,
-        //    0,
-        //    mapLoader->GetTileWidth(),
-        //    mapLoader->GetTileHeight(),
-        //    mapLoader->GetMapWidth(),
-        //    mapLoader->GetMapHeight(),
-        //    16,
-        //    6,
-        //    1
-        //);
+        //glViewport(0, 0, BAE::Defaults::BASE_SCREEN_WIDTH, BAE::Defaults::BASE_SCREEN_HEIGHT);
 
-        renderer3d->render(*core->ShaderLibrary->Get("shader_3d"), *camera, glm::vec3(0,0,0));
-
-        BAE::RenderText::Render(
+        BAE::RendererText2D::Render(
             core->ShaderLibrary->GetID("base_shader"),
             core->TextureLibrary->GetID("base_font"),
             std::to_string(core->Timer->DeltaTime()),
@@ -115,15 +101,10 @@ int main(int argc, char* args[]) {
             1
         );
 
-        //BAE::RenderQuad::Render(
-        //    core->ShaderLibrary->GetID("base_shader"),
-        //    core->TextureLibrary->GetID("wall"),
-        //    0,
-        //    0,
-        //    512,
-        //    512,
-        //    1
-        //);
+        renderer3d->render(
+            *core->ShaderLibrary->Get("shader_3d"),
+            *camera, glm::vec3(0,0,0)
+        );
 
         core->EndRender();
     }
