@@ -19,8 +19,6 @@ namespace BAE {
 		GLuint GetID(const std::string& key);
 		void Remove(const std::string& key);
 
-		void _setDefault();
-
 	private:
 		std::map<std::string, std::unique_ptr<Shader>> _shaders;
 

@@ -17,7 +17,5 @@ namespace BAE {
 		void Remove(const std::string& key);
 	private:
 		std::map<std::string, std::unique_ptr<Texture>> _textures;
-
-		void _setDefaulFont();
 	};
 }

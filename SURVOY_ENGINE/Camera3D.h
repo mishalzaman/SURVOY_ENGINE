@@ -10,6 +10,7 @@ namespace BAE {
 	{
 	public:
 		Camera3D();
+		Camera3D(float screenWidth, float screenHeight);
 
 		glm::mat4 View();
 		glm::mat4 Projection();
@@ -17,6 +18,7 @@ namespace BAE {
 		// setters
 		void SetPosition(glm::vec3 val) { _position = val; }
 		void SetTarget(glm::vec3 val) { _target = val; }
+		void UpdateScreenSize(float width, float height);
 
 		void UpdateOrbit(SDL_Event& event, float deltaTime);
 
@@ -31,6 +33,9 @@ namespace BAE {
 		glm::vec3 _right;
 
 		float _fov;
+
+		float _screenWidth;
+		float _screenHeight;
 
 		float _horizontalAngle = 0.0f; // Horizontal angle towards the target
 		float _verticalAngle = 0.0f;   // Vertical angle

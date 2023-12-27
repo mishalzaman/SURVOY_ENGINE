@@ -18,43 +18,64 @@ int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
 
 	if (
-		!core->CreateDevice("BAE 0.1.0")
+		!core->CreateDevice("Automata 0.2.0")
 		) {
 		return core->GetError();
 	}
 
-    core->TextureLibrary->Add("image_1", "assets/testbackground.bmp");
-    core->TextureLibrary->Add("image_2", "assets/testbackground2.bmp");
-    core->TextureLibrary->Add("test_template", "assets/test_1024_768.bmp");
-    core->TextureLibrary->Add("tileset", "assets/map/tileset.png");
-    core->TextureLibrary->Add("tileset_test", "assets/map_generator/tileset.png");
-    core->TextureLibrary->Add("wall", "assets/wall.jpg");
-    core->TextureLibrary->Add("test_tileset", "assets/tilemap/tilesheet.png");
+    /*-------------
+    ASSETS
+    -------------*/
 
+    // 1024 x 768 2D shader
+    core->ShaderLibrary->Add("shader_2d_1024_768", "vertex_2d.glsl", "fragment_2d.glsl");
+    core->ShaderLibrary->Get("shader_2d_1024_768")->use();
+    glm::mat4 projectionMatrix = glm::ortho(0.0f, static_cast<float>(BAE::Defaults::BASE_SCREEN_WIDTH), static_cast<float>(BAE::Defaults::BASE_SCREEN_HEIGHT), 0.0f, -1.0f, 1.0f);
+    core->ShaderLibrary->Get("shader_2d_1024_768")->setMat4("projection", projectionMatrix);
+    core->ShaderLibrary->Get("shader_2d_1024_768")->setVec3("textColor", glm::vec3(1.0f, 1.0f, 1.0f)); // White color
+
+    // 256 x 768 2D shader
+    core->ShaderLibrary->Add("shader_2d_256_768", "vertex_2d.glsl", "fragment_2d.glsl");
+    core->ShaderLibrary->Get("shader_2d_256_768")->use();
+    projectionMatrix = glm::ortho(0.0f, static_cast<float>(256), static_cast<float>(768), 0.0f, -1.0f, 1.0f);
+    core->ShaderLibrary->Get("shader_2d_256_768")->setMat4("projection", projectionMatrix);
+    core->ShaderLibrary->Get("shader_2d_256_768")->setVec3("textColor", glm::vec3(1.0f, 1.0f, 1.0f)); // White color
+
+    // 3D shader
     core->ShaderLibrary->Add("shader_3d", "vertex_3d.glsl", "fragment_3d.glsl");
 
-	// loop
-    bool quit = false;
+    // Textures
+    core->TextureLibrary->Add("base_font", "assets/ExportedFont.bmp");
+    core->TextureLibrary->Add("test_tileset", "assets/tilemap/tilesheet.png");
+    core->TextureLibrary->Add("text_background", "assets/text_background.png");
 
-    std::string uInput;
-
-    // map
-    //auto mapLoader = std::make_unique<MapLoader>();
-    //mapLoader->Load("assets/map/map1.tmj");
-    //const std::vector<int>& graphicData = mapLoader->GetGraphic();
-
-    // Camera / Renderer
-    auto camera = std::make_unique<BAE::Camera3D>();
-
+    /*-------------
+    INITIALIZATIONS
+    -------------*/
+    Sint32 curScreenWidth = BAE::Defaults::BASE_SCREEN_WIDTH;
+    Sint32 curScreenHeight = BAE::Defaults::BASE_SCREEN_HEIGHT;
+    int offsetX = 0;
+    int offsetY = 0;
     std::vector<int> map = {
-        0, 0, 0, 1,
-        0, 1, 0, 0,
-        0, 0, 1, 1,
-        1, 0, 0, 1
+    0, 0, 0, 1, 0, 1, 1, 1,
+    0, 1, 0, 0, 0, 1, 0, 1,
+    0, 0, 1, 1, 0, 1, 0, 1,
+    1, 0, 0, 1, 0, 1, 0, 1,
+    0, 0, 0, 0, 0, 0, 0, 1,
+    0, 1, 0, 0, 1, 0, 0, 1,
+    0, 0, 1, 1, 1, 1, 0, 1,
+    1, 0, 0, 1, 0, 0, 0, 1
     };
-    auto meshGenerator = std::make_unique<BAE::MeshGenerator>(map, 4);
+
+    auto camera3d = std::make_unique<BAE::Camera3D>(768.0f, 768.0f);
+
+    auto meshGenerator = std::make_unique<BAE::MeshGenerator>(map, 8);
     auto renderer3d = std::make_unique<BAE::Renderer3D>(core->TextureLibrary->GetID("test_tileset"), meshGenerator->GetVertices());
 
+    /*-------------
+    GAME LOOP
+    -------------*/
+    bool quit = false;
 
     while (!core->Quit())
     {
@@ -64,23 +85,29 @@ int main(int argc, char* args[]) {
             // Shutdown
             if (core->Event->EQuit()) { core->BeginShutdown(); }
 
-            // Tey input
-            if (core->Event->EKeyDown()) {
-                if (core->Event->isBackSpace()) { 
-                    if (!uInput.empty()) {
-                        uInput.pop_back();
+            if (core->Event->EWindowEvent()) {
+                if (core->Event->HasWindowResized(curScreenWidth, curScreenHeight)) {
+                    int setNewW = 0;
+                    int setNewH = 0;
+
+                    if (curScreenWidth * 3 > curScreenHeight * 4) {
+                        setNewW = curScreenHeight * 4 / 3;
+                        setNewH = curScreenHeight;
+                        offsetX = (curScreenWidth - setNewW) / 2;
                     }
+                    else {
+                        setNewW = curScreenWidth;
+                        setNewH = curScreenWidth * 3 / 4;
+                        offsetY = (curScreenHeight - setNewH) / 2;
+                    }
+
+                    // the updated resolutions are based on screen scale
+                    curScreenWidth = setNewW;
+                    curScreenHeight = setNewH;
                 }
             }
 
-            // Text input
-            if (core->Event->ETextInput()) {
-                uInput += core->Event->Text();
-            }
-
-            core->EventWindowResize();
-
-            camera->UpdateOrbit(core->Event->GetEvent(), core->Timer->DeltaTime());
+            camera3d->UpdateOrbit(core->Event->GetEvent(), core->Timer->DeltaTime());
         }
          
         while (core->Timer->ShouldUpdate()) {
@@ -89,21 +116,69 @@ int main(int argc, char* args[]) {
 
         core->BeginRender();
 
-        //glViewport(0, 0, BAE::Defaults::BASE_SCREEN_WIDTH, BAE::Defaults::BASE_SCREEN_HEIGHT);
+        /*-------------
+        LEFT MESH VIEW
+        -------------*/
+        glViewport(0, 0, 768, 768);
+
+        renderer3d->render(
+            *core->ShaderLibrary->Get("shader_3d"),
+            *camera3d, glm::vec3(0, 0, 0)
+        );
+
+        /*-------------
+        RIGHT TEXT VIEW
+        -------------*/
+        glViewport(768, 0, 256, 768);
 
         BAE::RendererText2D::Render(
-            core->ShaderLibrary->GetID("base_shader"),
+            core->ShaderLibrary->GetID("shader_2d_256_768"),
             core->TextureLibrary->GetID("base_font"),
-            std::to_string(core->Timer->DeltaTime()),
+            std::to_string(core->Timer->DeltaTime()) + " ms",
             0,
-            752,
+            0,
             glm::vec3(1, 1, 1),
             1
         );
 
-        renderer3d->render(
-            *core->ShaderLibrary->Get("shader_3d"),
-            *camera, glm::vec3(0,0,0)
+        BAE::RendererText2D::Render(
+            core->ShaderLibrary->GetID("shader_2d_256_768"),
+            core->TextureLibrary->GetID("base_font"),
+            "Map Vertices\n" + std::to_string(meshGenerator->GetVertices().size()),
+            0,
+            32,
+            glm::vec3(1, 1, 1),
+            1
+        );
+
+        BAE::RendererText2D::Render(
+            core->ShaderLibrary->GetID("shader_2d_256_768"),
+            core->TextureLibrary->GetID("base_font"),
+            "Screen W: " + std::to_string(curScreenWidth),
+            0,
+            80,
+            glm::vec3(1, 1, 1),
+            1
+        );
+
+        BAE::RendererText2D::Render(
+            core->ShaderLibrary->GetID("shader_2d_256_768"),
+            core->TextureLibrary->GetID("base_font"),
+            "Screen H: " + std::to_string(curScreenHeight),
+            0,
+            96,
+            glm::vec3(1, 1, 1),
+            1
+        );
+
+        BAE::RendererQuad2D::Render(
+            core->ShaderLibrary->GetID("shader_2d_256_768"),
+            core->TextureLibrary->GetID("text_background"),
+            0,
+            0,
+            256,
+            768,
+            1
         );
 
         core->EndRender();

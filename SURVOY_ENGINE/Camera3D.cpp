@@ -10,6 +10,20 @@ BAE::Camera3D::Camera3D()
 	_right = glm::normalize(glm::cross(UP_VECTOR, _direction));
 	_up = glm::cross(_direction, _right);
 	_fov = glm::radians(60.0f);
+    _screenWidth = Defaults::BASE_SCREEN_WIDTH;
+    _screenHeight = Defaults::BASE_SCREEN_HEIGHT;
+}
+
+BAE::Camera3D::Camera3D(float screenWidth, float screenHeight)
+{
+    _position = glm::vec3(0.0f, 0.0f, 3.0f);
+    _target = glm::vec3(0.0f, 0.0f, 0.0f);
+    _direction = glm::normalize(_position - _target);
+    _right = glm::normalize(glm::cross(UP_VECTOR, _direction));
+    _up = glm::cross(_direction, _right);
+    _fov = glm::radians(60.0f);
+    _screenWidth = screenWidth;
+    _screenHeight = screenHeight;
 }
 
 glm::mat4 BAE::Camera3D::View()
@@ -28,10 +42,16 @@ glm::mat4 BAE::Camera3D::Projection()
 {
 	return glm::perspective(
 		_fov,
-		(float)Defaults::BASE_SCREEN_WIDTH / (float)Defaults::BASE_SCREEN_HEIGHT,
+		(float)_screenWidth / (float)_screenHeight,
 		0.1f,
 		1000.0f
 	);
+}
+
+void BAE::Camera3D::UpdateScreenSize(float width, float height)
+{
+    _screenWidth = width;
+    _screenHeight = height;
 }
 
 void BAE::Camera3D::UpdateOrbit(SDL_Event& event, float deltaTime)
