@@ -7,7 +7,7 @@
 #include <vector>
 
 namespace BAE {
-	class RenderTileset
+	class RendererTileset2D
 	{
 	public:
 		static void Render(

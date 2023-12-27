@@ -7,7 +7,6 @@
 #include <map>
 #include "Defaults.h"
 #include "Code.h"
-#include "Scene.h"
 #include "ShaderLibrary.h"
 #include "TextureLibrary.h"
 #include "Timer.h"
@@ -77,8 +76,6 @@ namespace BAE {
 	/*==============================================
 	SCENE
 	==============================================*/
-	public:
-		std::unique_ptr<Scene> Scene;
 
 	/*==============================================
 	EVENT

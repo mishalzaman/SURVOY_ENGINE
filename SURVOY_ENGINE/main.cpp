@@ -4,11 +4,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include "Core.h"
-#include "RenderQuad.h"
-#include "RenderText.h"
-#include "RenderTileset.h"
-#include "Render3D.h"
+#include "RendererQuad2D.h"
+#include "RendererText2D.h"
+#include "RendererTileset2D.h"
 #include "MapLoader.h"
+#include "Defaults.h"
+#include "Camera3D.h"
+#include "Renderer3D.h"
+#include "MeshGenerator.h"
 #include "Defaults.h"
 
 int main(int argc, char* args[]) {
@@ -25,8 +28,10 @@ int main(int argc, char* args[]) {
     core->TextureLibrary->Add("test_template", "assets/test_1024_768.bmp");
     core->TextureLibrary->Add("tileset", "assets/map/tileset.png");
     core->TextureLibrary->Add("tileset_test", "assets/map_generator/tileset.png");
+    core->TextureLibrary->Add("wall", "assets/wall.jpg");
+    core->TextureLibrary->Add("test_tileset", "assets/tilemap/tilesheet.png");
 
-    core->ShaderLibrary->Add("shader_3d", "base_vertex_3d.glsl", "base_fragment_3d.glsl");
+    core->ShaderLibrary->Add("shader_3d", "vertex_3d.glsl", "fragment_3d.glsl");
 
 	// loop
     bool quit = false;
@@ -34,9 +39,22 @@ int main(int argc, char* args[]) {
     std::string uInput;
 
     // map
-    auto mapLoader = std::make_unique<MapLoader>();
-    mapLoader->Load("assets/map/map1.tmj");
-    const std::vector<int>& graphicData = mapLoader->GetGraphic();
+    //auto mapLoader = std::make_unique<MapLoader>();
+    //mapLoader->Load("assets/map/map1.tmj");
+    //const std::vector<int>& graphicData = mapLoader->GetGraphic();
+
+    // Camera / Renderer
+    auto camera = std::make_unique<BAE::Camera3D>();
+
+    std::vector<int> map = {
+        0, 0, 0, 1,
+        0, 1, 0, 0,
+        0, 0, 1, 1,
+        1, 0, 0, 1
+    };
+    auto meshGenerator = std::make_unique<BAE::MeshGenerator>(map, 4);
+    auto renderer3d = std::make_unique<BAE::Renderer3D>(core->TextureLibrary->GetID("test_tileset"), meshGenerator->GetVertices());
+
 
     while (!core->Quit())
     {
@@ -48,7 +66,7 @@ int main(int argc, char* args[]) {
 
             // Tey input
             if (core->Event->EKeyDown()) {
-                if (core->Event->isBackSpace()) {
+                if (core->Event->isBackSpace()) { 
                     if (!uInput.empty()) {
                         uInput.pop_back();
                     }
@@ -61,30 +79,19 @@ int main(int argc, char* args[]) {
             }
 
             core->EventWindowResize();
-        }
 
+            camera->UpdateOrbit(core->Event->GetEvent(), core->Timer->DeltaTime());
+        }
+         
         while (core->Timer->ShouldUpdate()) {
             // update processes with delta time
         }
 
         core->BeginRender();
 
-        BAE::RenderTileset::Render(
-            core->ShaderLibrary->GetID("base_shader"),
-            core->TextureLibrary->GetID("tileset"),
-            graphicData,
-            0,
-            0,
-            mapLoader->GetTileWidth(),
-            mapLoader->GetTileHeight(),
-            mapLoader->GetMapWidth(),
-            mapLoader->GetMapHeight(),
-            16,
-            6,
-            1
-        );
+        //glViewport(0, 0, BAE::Defaults::BASE_SCREEN_WIDTH, BAE::Defaults::BASE_SCREEN_HEIGHT);
 
-        BAE::RenderText::Render(
+        BAE::RendererText2D::Render(
             core->ShaderLibrary->GetID("base_shader"),
             core->TextureLibrary->GetID("base_font"),
             std::to_string(core->Timer->DeltaTime()),
@@ -92,6 +99,11 @@ int main(int argc, char* args[]) {
             752,
             glm::vec3(1, 1, 1),
             1
+        );
+
+        renderer3d->render(
+            *core->ShaderLibrary->Get("shader_3d"),
+            *camera, glm::vec3(0,0,0)
         );
 
         core->EndRender();

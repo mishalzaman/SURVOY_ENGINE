@@ -35,12 +35,13 @@ void BAE::Texture::_import(GLuint& fontTexture, const std::string& bitmapFont, i
     //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 
+
     // load and generate the texture
     unsigned char* data = stbi_load(bitmapFont.c_str(), &width, &height, &channels, STBI_rgb_alpha);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
+        //glGenerateMipmap(GL_TEXTURE_2D);
     }
     else
     {

@@ -1,7 +1,7 @@
-#include "RenderTileset.h"
+#include "RendererTileset2D.h"
 #include <iostream>
 
-void BAE::RenderTileset::Render(
+void BAE::RendererTileset2D::Render(
     GLuint shaderProgram,
     GLuint textureID,
     const std::vector<int>& graphic,
