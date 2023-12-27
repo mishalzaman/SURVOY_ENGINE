@@ -14,7 +14,7 @@ namespace BAE {
 	class Renderer3D
 	{
 	public:
-		Renderer3D(GLuint textureID0);
+		Renderer3D(GLuint textureID0, std::vector<float> vertices);
 		~Renderer3D();
 
 		void render(
@@ -31,6 +31,5 @@ namespace BAE {
 		std::vector<float> _vertices;
 
 		void _initializeBuffers();
-		void _testGenerateMap();
 	};
 }

@@ -75,8 +75,17 @@
     <ClCompile Include="Render3D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer3D.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshGenerator.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera3D.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
     <ClCompile Include="MapGenerator.cpp">
-      <Filter>GAME</Filter>
+      <Filter>ENGINE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,8 +143,17 @@
     <ClInclude Include="Render3D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
+    <ClInclude Include="Camera3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="MapGenerator.h">
-      <Filter>GAME</Filter>
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer3D.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshGenerator.h">
+      <Filter>ENGINE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +167,12 @@
       <Filter>ENGINE\Programs</Filter>
     </None>
     <None Include="base_fragment_3d.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="fragment_3d.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="vertex_3d.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
   </ItemGroup>

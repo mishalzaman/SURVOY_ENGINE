@@ -140,6 +140,7 @@
     <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MeshGenerator.cpp" />
     <ClCompile Include="Render3D.cpp" />
     <ClCompile Include="Renderer3D.cpp" />
     <ClCompile Include="RenderQuad.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="MapLoader.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="MeshGenerator.h" />
     <ClInclude Include="Render3D.h" />
     <ClInclude Include="Renderer3D.h" />
     <ClInclude Include="RenderQuad.h" />

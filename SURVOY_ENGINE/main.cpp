@@ -12,7 +12,7 @@
 #include "Defaults.h"
 #include "Camera3D.h"
 #include "Renderer3D.h"
-
+#include "MeshGenerator.h"
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
 
@@ -44,7 +44,16 @@ int main(int argc, char* args[]) {
 
     // Camera / Renderer
     auto camera = std::make_unique<BAE::Camera3D>();
-    auto renderer3d = std::make_unique<BAE::Renderer3D>(core->TextureLibrary->GetID("test_tileset"));
+
+    std::vector<int> map = {
+        0, 0, 0, 1,
+        0, 1, 0, 0,
+        0, 0, 1, 1,
+        1, 0, 0, 1
+    };
+    auto meshGenerator = std::make_unique<BAE::MeshGenerator>(map, 4);
+    auto renderer3d = std::make_unique<BAE::Renderer3D>(core->TextureLibrary->GetID("test_tileset"), meshGenerator->GetVertices());
+
 
     while (!core->Quit())
     {
