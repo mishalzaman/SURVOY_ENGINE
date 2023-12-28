@@ -3,10 +3,10 @@
 #include <vector>
 
 namespace BAE {
-	class MeshGenerator
+	class GridMeshGenerator
 	{
 	public:
-		MeshGenerator(std::vector<int> map, int size);
+		GridMeshGenerator(std::vector<int> map, int size);
 
 		std::vector<float> GetVertices() { return _vertices; }
 	private:

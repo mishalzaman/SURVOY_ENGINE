@@ -72,7 +72,7 @@
     <ClCompile Include="Renderer3D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="MeshGenerator.cpp">
+    <ClCompile Include="GridMeshGenerator.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="Camera3D.cpp">
@@ -137,7 +137,7 @@
     <ClInclude Include="Renderer3D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="MeshGenerator.h">
+    <ClInclude Include="GridMeshGenerator.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Camera3D.h">
@@ -145,24 +145,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="base_vertex.glsl">
-      <Filter>ENGINE\Programs</Filter>
-    </None>
-    <None Include="base_fragment.glsl">
-      <Filter>ENGINE\Programs</Filter>
-    </None>
-    <None Include="base_vertex_3d.glsl">
-      <Filter>ENGINE\Programs</Filter>
-    </None>
-    <None Include="base_fragment_3d.glsl">
-      <Filter>ENGINE\Programs</Filter>
-    </None>
     <None Include="fragment_3d.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
     <None Include="vertex_3d.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
+    <None Include="fragment_2d.glsl" />
+    <None Include="vertex_2d.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Design.txt">

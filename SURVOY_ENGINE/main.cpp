@@ -11,7 +11,7 @@
 #include "Defaults.h"
 #include "Camera3D.h"
 #include "Renderer3D.h"
-#include "MeshGenerator.h"
+#include "GridMeshGenerator.h"
 #include "Defaults.h"
 
 int main(int argc, char* args[]) {
@@ -47,7 +47,6 @@ int main(int argc, char* args[]) {
     // Textures
     core->TextureLibrary->Add("base_font", "assets/ExportedFont.bmp");
     core->TextureLibrary->Add("test_tileset", "assets/tilemap/tilesheet.png");
-    core->TextureLibrary->Add("text_background", "assets/text_background.png");
 
     /*-------------
     INITIALIZATIONS
@@ -57,19 +56,29 @@ int main(int argc, char* args[]) {
     int offsetX = 0;
     int offsetY = 0;
     std::vector<int> map = {
-    0, 0, 0, 1, 0, 1, 1, 1,
-    0, 1, 0, 0, 0, 1, 0, 1,
-    0, 0, 1, 1, 0, 1, 0, 1,
-    1, 0, 0, 1, 0, 1, 0, 1,
-    0, 0, 0, 0, 0, 0, 0, 1,
-    0, 1, 0, 0, 1, 0, 0, 1,
-    0, 0, 1, 1, 1, 1, 0, 1,
-    1, 0, 0, 1, 0, 0, 0, 1
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1,
+        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1,
+        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1,
+        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1,
+        1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
     };
+
+
 
     auto camera3d = std::make_unique<BAE::Camera3D>(768.0f, 768.0f);
 
-    auto meshGenerator = std::make_unique<BAE::MeshGenerator>(map, 8);
+    auto meshGenerator = std::make_unique<BAE::GridMeshGenerator>(map, 16);
     auto renderer3d = std::make_unique<BAE::Renderer3D>(core->TextureLibrary->GetID("test_tileset"), meshGenerator->GetVertices());
 
     /*-------------
@@ -171,13 +180,33 @@ int main(int argc, char* args[]) {
             1
         );
 
-        BAE::RendererQuad2D::Render(
+        BAE::RendererText2D::Render(
             core->ShaderLibrary->GetID("shader_2d_256_768"),
-            core->TextureLibrary->GetID("text_background"),
+            core->TextureLibrary->GetID("base_font"),
+            "HLT -------- 100",
             0,
+            120,
+            glm::vec3(1, 1, 1),
+            1
+        );
+
+        BAE::RendererText2D::Render(
+            core->ShaderLibrary->GetID("shader_2d_256_768"),
+            core->TextureLibrary->GetID("base_font"),
+            "DEF -------- 078",
             0,
-            256,
-            768,
+            136,
+            glm::vec3(1, 1, 1),
+            1
+        );
+
+        BAE::RendererText2D::Render(
+            core->ShaderLibrary->GetID("shader_2d_256_768"),
+            core->TextureLibrary->GetID("base_font"),
+            "STA -------- 023",
+            0,
+            152,
+            glm::vec3(1, 1, 1),
             1
         );
 

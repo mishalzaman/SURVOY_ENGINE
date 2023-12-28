@@ -1,6 +1,6 @@
-#include "MeshGenerator.h"
+#include "GridMeshGenerator.h"
 
-BAE::MeshGenerator::MeshGenerator(std::vector<int> map, int size)
+BAE::GridMeshGenerator::GridMeshGenerator(std::vector<int> map, int size)
 {
 	_vertices.clear();
 
