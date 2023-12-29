@@ -176,6 +176,7 @@
   <ItemGroup>
     <None Include="fragment_2d.glsl" />
     <None Include="fragment_3d.glsl" />
+    <None Include="fragment_3d_lighting.glsl" />
     <None Include="vertex_2d.glsl" />
     <None Include="vertex_3d.glsl" />
   </ItemGroup>

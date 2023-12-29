@@ -38,7 +38,7 @@ void BAE::Renderer3D::render(
     glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
     model = glm::translate(model, position);
     //float angle = 20.0f * i;
-    model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    //model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     shader.setMat4("model", model);
 
     // bind textures on corresponding texture units

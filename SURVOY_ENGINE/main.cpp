@@ -42,7 +42,7 @@ int main(int argc, char* args[]) {
     core->ShaderLibrary->Get("shader_2d_256_768")->setVec3("textColor", glm::vec3(1.0f, 1.0f, 1.0f)); // White color
 
     // 3D shader
-    core->ShaderLibrary->Add("shader_3d", "vertex_3d.glsl", "fragment_3d.glsl");
+    core->ShaderLibrary->Add("shader_3d", "vertex_3d.glsl", "fragment_3d_lighting.glsl");
 
     // Textures
     core->TextureLibrary->Add("base_font", "assets/ExportedFont.bmp");
@@ -56,29 +56,20 @@ int main(int argc, char* args[]) {
     int offsetX = 0;
     int offsetY = 0;
     std::vector<int> map = {
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1,
-        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1,
-        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1,
-        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1,
-        1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
-    };
+        1, 1, 1, 1, 1, 1, 
+        1, 0, 0, 0, 1, 0, 
+        1, 0, 1, 0, 1, 0, 
+        1, 0, 0, 0, 0, 0, 
+        1, 1, 1, 1, 1, 0, 
+        1, 0, 0, 0, 1, 0
 
+    };
+    //std::vector<int> map(32 * 32, 0);
 
 
     auto camera3d = std::make_unique<BAE::Camera3D>(768.0f, 768.0f);
 
-    auto meshGenerator = std::make_unique<BAE::GridMeshGenerator>(map, 16);
+    auto meshGenerator = std::make_unique<BAE::GridMeshGenerator>(map, 6);
     auto renderer3d = std::make_unique<BAE::Renderer3D>(core->TextureLibrary->GetID("test_tileset"), meshGenerator->GetVertices());
 
     /*-------------
@@ -176,36 +167,6 @@ int main(int argc, char* args[]) {
             "Screen H: " + std::to_string(curScreenHeight),
             0,
             96,
-            glm::vec3(1, 1, 1),
-            1
-        );
-
-        BAE::RendererText2D::Render(
-            core->ShaderLibrary->GetID("shader_2d_256_768"),
-            core->TextureLibrary->GetID("base_font"),
-            "HLT -------- 100",
-            0,
-            120,
-            glm::vec3(1, 1, 1),
-            1
-        );
-
-        BAE::RendererText2D::Render(
-            core->ShaderLibrary->GetID("shader_2d_256_768"),
-            core->TextureLibrary->GetID("base_font"),
-            "DEF -------- 078",
-            0,
-            136,
-            glm::vec3(1, 1, 1),
-            1
-        );
-
-        BAE::RendererText2D::Render(
-            core->ShaderLibrary->GetID("shader_2d_256_768"),
-            core->TextureLibrary->GetID("base_font"),
-            "STA -------- 023",
-            0,
-            152,
             glm::vec3(1, 1, 1),
             1
         );

@@ -53,8 +53,6 @@ BAE::GridMeshGenerator::GridMeshGenerator(std::vector<int> map, int size)
             _vertices.insert(_vertices.end(), { x + quadLength, quadLength, z, uMin, vMax }); // Top right (front)
             _vertices.insert(_vertices.end(), { x, quadLength, z, uMax, vMax }); // Top left (front)
 
-
-
             // North facing
             // Triangle 1
             _vertices.insert(_vertices.end(), { x, 0, z + quadLength, uMin, vMin }); // Bottom left
@@ -65,6 +63,11 @@ BAE::GridMeshGenerator::GridMeshGenerator(std::vector<int> map, int size)
             _vertices.insert(_vertices.end(), { x + quadLength, 0, z + quadLength, uMax, vMin }); // Bottom right
             _vertices.insert(_vertices.end(), { x + quadLength, y + quadLength, z + quadLength, uMax, vMax }); // Top right
             _vertices.insert(_vertices.end(), { x, y + quadLength, z + quadLength, uMin, vMax }); // Top left
+
+            uMin = 2.0f / 5.0f;  // Start of the second tile
+            uMax = 3.0f / 5.0f;  // End of the second tile
+            vMin = 0.0f;
+            vMax = 1.0f;         // Full height, as the tileset is only one tile high
 
             // East facing (side of the cube extending along X-axis)
             // Triangle 1
@@ -77,6 +80,11 @@ BAE::GridMeshGenerator::GridMeshGenerator(std::vector<int> map, int size)
             _vertices.insert(_vertices.end(), { x + quadLength, 0, z + quadLength, uMin, vMin }); // Bottom right (back)
             _vertices.insert(_vertices.end(), { x + quadLength, 0, z, uMax, vMin }); // Bottom right (front)
 
+            uMin = 3.0f / 5.0f;  // Start of the second tile
+            uMax = 4.0f / 5.0f;  // End of the second tile
+            vMin = 0.0f;
+            vMax = 1.0f;         // Full height, as the tileset is only one tile high
+
             // West facing (opposite side to East)
             // Triangle 1
             _vertices.insert(_vertices.end(), { x, 0, z, uMin, vMin }); // Bottom left (front)
@@ -87,6 +95,11 @@ BAE::GridMeshGenerator::GridMeshGenerator(std::vector<int> map, int size)
             _vertices.insert(_vertices.end(), { x, y + quadLength, z + quadLength, uMax, vMax }); // Top left (back)
             _vertices.insert(_vertices.end(), { x, 0, z + quadLength, uMax, vMin }); // Bottom left (back)
             _vertices.insert(_vertices.end(), { x, 0, z, uMin, vMin }); // Bottom left (front)
+
+            uMin = 4.0f / 5.0f;  // Start of the second tile
+            uMax = 5.0f / 5.0f;  // End of the second tile
+            vMin = 0.0f;
+            vMax = 1.0f;         // Full height, as the tileset is only one tile high
 
             // Top facing
             // Triangle 1
