@@ -16,6 +16,11 @@ std::string BAE::Event::Text()
 	return _event.text.text;
 }
 
+Uint32 BAE::Event::Sym()
+{
+	return _event.key.keysym.sym;
+}
+
 Uint32 BAE::Event::_windowEvent()
 {
 	return _event.window.event;
