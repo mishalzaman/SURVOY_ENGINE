@@ -13,6 +13,7 @@
 #include "Renderer3D.h"
 #include "GridMeshGenerator.h"
 #include "Defaults.h"
+#include "Model.h"
 
 bool attemptMove(int newRow, int newCol, std::vector<int> map, int mapWidth) {
     if (newRow >= 0 && newRow < map.size() / mapWidth && newCol >= 0 && newCol < mapWidth) {
@@ -50,7 +51,7 @@ int main(int argc, char* args[]) {
     core->ShaderLibrary->Get("shader_2d_256_768")->setVec3("textColor", glm::vec3(1.0f, 1.0f, 1.0f)); // White color
 
     // 3D shader
-    core->ShaderLibrary->Add("shader_3d", "vertex_3d.glsl", "fragment_3d_lighting.glsl");
+    core->ShaderLibrary->Add("shader_3d", "vertex_model_3d.glsl", "fragment_model_3d.glsl");
 
     // Textures
     core->TextureLibrary->Add("base_font", "assets/ExportedFont.bmp");
@@ -80,6 +81,8 @@ int main(int argc, char* args[]) {
     auto renderer3dMap = std::make_unique<BAE::Renderer3D>(core->TextureLibrary->GetID("test_tileset"), meshGenerator->StaticVertices());
     auto renderer3dPlayer = std::make_unique<BAE::Renderer3D>(core->TextureLibrary->GetID("test_tileset"), meshGenerator->PlayerVertices());
 
+    auto model3d = std::make_unique<BAE::Model>("assets/crates/Crate-04.FBX");
+
     /*-------------
     GAME LOOP
     -------------*/
@@ -93,32 +96,32 @@ int main(int argc, char* args[]) {
             // Shutdown
             if (core->Event->EQuit()) { core->BeginShutdown(); }
 
-            if (core->Event->Type() == SDL_KEYDOWN) {
-                switch (core->Event->Sym()) {
-                case SDLK_UP:
-                    if (attemptMove(playerRow - 1, playerColumn, map, 6)) {
-                        playerRow -= 1;
-                    }
-                    break;
-                case SDLK_DOWN:
-                    if (attemptMove(playerRow + 1, playerColumn, map, 6)) {
-                        playerRow += 1;
-                    }
-                    break;
-                case SDLK_LEFT:
-                    if (attemptMove(playerRow, playerColumn - 1, map, 6)) {
-                        playerColumn -= 1;
-                    }
-                    break;
-                case SDLK_RIGHT:
-                    if (attemptMove(playerRow, playerColumn + 1, map, 6)) {
-                        playerColumn += 1;
-                    }
-                    break;
-                }
+            //if (core->Event->Type() == SDL_KEYDOWN) {
+            //    switch (core->Event->Sym()) {
+            //    case SDLK_UP:
+            //        if (attemptMove(playerRow - 1, playerColumn, map, 6)) {
+            //            playerRow -= 1;
+            //        }
+            //        break;
+            //    case SDLK_DOWN:
+            //        if (attemptMove(playerRow + 1, playerColumn, map, 6)) {
+            //            playerRow += 1;
+            //        }
+            //        break;
+            //    case SDLK_LEFT:
+            //        if (attemptMove(playerRow, playerColumn - 1, map, 6)) {
+            //            playerColumn -= 1;
+            //        }
+            //        break;
+            //    case SDLK_RIGHT:
+            //        if (attemptMove(playerRow, playerColumn + 1, map, 6)) {
+            //            playerColumn += 1;
+            //        }
+            //        break;
+            //    }
 
-                std::cout << "row: " << playerRow << "column: " << playerColumn << std::endl;
-            }
+            //    std::cout << "row: " << playerRow << "column: " << playerColumn << std::endl;
+            //}
 
             camera3d->UpdateOrbit(core->Event->GetEvent(), core->Timer->DeltaTime());
         }
@@ -134,15 +137,27 @@ int main(int argc, char* args[]) {
         -------------*/
         glViewport(0, 0, 768, 768);
 
-        renderer3dMap->render(
-            *core->ShaderLibrary->Get("shader_3d"),
-            *camera3d, glm::vec3(0, 0, 0)
-        );
+        //renderer3dMap->render(
+        //    *core->ShaderLibrary->Get("shader_3d"), 
+        //    *camera3d, glm::vec3(0, 0, 0)
+        //);
 
-        renderer3dPlayer->render(
-            *core->ShaderLibrary->Get("shader_3d"),
-            *camera3d, glm::vec3(0, 0, 0)
-        );
+        //renderer3dPlayer->render(
+        //    *core->ShaderLibrary->Get("shader_3d"),
+        //    *camera3d, glm::vec3(0, 0, 0)
+        //);
+
+        core->ShaderLibrary->Get("shader_3d")->use();
+        core->ShaderLibrary->Get("shader_3d")->setMat4("projection", camera3d->Projection());
+        core->ShaderLibrary->Get("shader_3d")->setMat4("view", camera3d->View());
+
+        // render the loaded model
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));	// it's a bit too big for our scene, so scale it down
+        core->ShaderLibrary->Get("shader_3d")->setMat4("model", model);
+
+        model3d->Draw(*core->ShaderLibrary->Get("shader_3d"));
 
         /*-------------
         RIGHT TEXT VIEW
