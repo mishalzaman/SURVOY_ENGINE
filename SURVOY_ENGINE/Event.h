@@ -23,6 +23,7 @@ namespace BAE {
 		bool EWindowEvent() { return _event.type == SDL_WINDOWEVENT; }
 
 		SDL_Event& GetEvent() { return _event; }
+		Uint32 Sym();
 	private:
 		SDL_Event _event;
 
