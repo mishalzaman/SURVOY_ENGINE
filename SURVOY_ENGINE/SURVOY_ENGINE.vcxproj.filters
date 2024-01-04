@@ -36,9 +36,6 @@
     <ClCompile Include="Core.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
@@ -46,15 +43,6 @@
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="RendererText2D.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderLibrary.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureLibrary.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
@@ -78,13 +66,19 @@
     <ClCompile Include="Camera3D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="MapGenerator.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoader.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera2D.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="SVertex2D.h">
       <Filter>ENGINE</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,9 +92,6 @@
     <ClInclude Include="Code.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
@@ -108,15 +99,6 @@
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="RendererText2D.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderLibrary.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureLibrary.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
@@ -137,9 +119,6 @@
     <ClInclude Include="RendererTileset2D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="MapGenerator.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer3D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
@@ -153,6 +132,18 @@
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="SVertex.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="STexture.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoader.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera2D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
   </ItemGroup>
@@ -176,6 +167,10 @@
       <Filter>ENGINE\Programs</Filter>
     </None>
     <None Include="vertex_model_3d.glsl" />
+    <None Include="base_vertex_2d.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="base_fragment_2d.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Design.txt">

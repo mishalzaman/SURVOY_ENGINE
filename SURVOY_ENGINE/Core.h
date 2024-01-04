@@ -7,8 +7,6 @@
 #include <map>
 #include "Defaults.h"
 #include "Code.h"
-#include "ShaderLibrary.h"
-#include "TextureLibrary.h"
 #include "Timer.h"
 #include "Event.h"
 
@@ -58,16 +56,6 @@ namespace BAE {
 		void _openGLSettings();
 		void _initializeSubSystems();
 
-	/*==============================================
-	SHADER
-	==============================================*/
-	public:
-		std::unique_ptr<ShaderLibrary> ShaderLibrary;
-	/*==============================================
-	TEXTURE
-	==============================================*/
-	public:
-		std::unique_ptr<TextureLibrary> TextureLibrary;
 	/*==============================================
 	TIMER
 	==============================================*/
