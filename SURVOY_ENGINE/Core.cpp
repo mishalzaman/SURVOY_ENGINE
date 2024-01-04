@@ -187,8 +187,6 @@ void BAE::Core::_openGLSettings()
 void BAE::Core::_initializeSubSystems()
 {
     LOG_INFO("Initializing Sub-systems");
-    ShaderLibrary = std::make_unique<BAE::ShaderLibrary>(Defaults::BASE_SCREEN_WIDTH, Defaults::BASE_SCREEN_HEIGHT);
-    TextureLibrary = std::make_unique<BAE::TextureLibrary>();
     Timer = std::make_unique<BAE::Timer>(16.6667);
     Event = std::make_unique<BAE::Event>();
 }

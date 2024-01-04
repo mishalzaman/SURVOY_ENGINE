@@ -6,31 +6,21 @@
 #include <string>
 #include <vector>
 #include "Shader.h"
+#include "SVertex.h"
+#include "STexture.h"
 
 namespace BAE {
-	struct Vertex {
-		glm::vec3 Position;
-		glm::vec3 Normal;
-		glm::vec2 TexCoords;
-		glm::vec3 Tangent;
-		glm::vec3 Bitangent;
-	};
-
-	struct TextureM {
-		unsigned int id;
-		std::string type;
-		std::string path;
-	};
-
 	class Mesh
 	{
 	public:
-		Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureM> textures);
+		Mesh(std::vector<SVertex> vertices, std::vector<unsigned int> indices, std::vector<STexture> textures);
 		void Draw(Shader& shader);
+
+		int NumVertices() { return _vertices.size(); }
 	private:
-		std::vector<Vertex> _vertices;
+		std::vector<SVertex> _vertices;
 		std::vector<unsigned int> _indices;
-		std::vector<TextureM> _textures;
+		std::vector<STexture> _textures;
 
 		unsigned int _vao, _vbo, _ebo;
 

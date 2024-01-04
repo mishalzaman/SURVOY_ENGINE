@@ -1,5 +1,4 @@
 #include "Model.h"
-#include "stbi_image.h"
 
 using namespace BAE;
 
@@ -12,6 +11,16 @@ void BAE::Model::Draw(Shader& shader)
 {
 	for (unsigned int i = 0; i < _meshes.size(); i++)
 		_meshes[i].Draw(shader);
+}
+
+int BAE::Model::NumVertices()
+{
+    int count = 0;
+
+    for (unsigned int i = 0; i < _meshes.size(); i++)
+        count += _meshes[i].NumVertices();
+
+    return count;
 }
 
 void BAE::Model::_loadModel(std::string const& path)
@@ -47,14 +56,14 @@ void BAE::Model::_processNode(aiNode* node, const aiScene* scene)
 Mesh BAE::Model::_processMesh(aiMesh* mesh, const aiScene* scene)
 {
     // data to fill
-    std::vector<Vertex> vertices;
+    std::vector<SVertex> vertices;
     std::vector<unsigned int> indices;
-    std::vector<TextureM> textures;
+    std::vector<STexture> textures;
 
     // walk through each of the mesh's vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
-        Vertex vertex;
+        SVertex vertex;
         glm::vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
         // positions
         vector.x = mesh->mVertices[i].x;
@@ -112,74 +121,35 @@ Mesh BAE::Model::_processMesh(aiMesh* mesh, const aiScene* scene)
     // normal: texture_normalN
 
     // 1. diffuse maps
-    std::vector<TextureM> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+    std::vector<STexture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     // 2. specular maps
-    std::vector<TextureM> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+    std::vector<STexture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     // 3. normal maps
-    std::vector<TextureM> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+    std::vector<STexture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
     textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
     // 4. height maps
-    std::vector<TextureM> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+    std::vector<STexture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     // return a mesh object created from the extracted mesh data
     return Mesh(vertices, indices, textures);
 }
 
-unsigned int BAE::Model::_textureFromFile(const char* path, const std::string& directory)
+std::vector<STexture> BAE::Model::loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName)
 {
-    std::string filename = std::string(path);
-    filename = directory + '/' + filename;
-
-    unsigned int textureID;
-    glGenTextures(1, &textureID);
-
-    int width, height, nrComponents;
-    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
-    if (data)
-    {
-        GLenum format;
-        if (nrComponents == 1)
-            format = GL_RED;
-        else if (nrComponents == 3)
-            format = GL_RGB;
-        else if (nrComponents == 4)
-            format = GL_RGBA;
-
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        stbi_image_free(data);
-    }
-    else
-    {
-        std::cout << "Texture failed to load at path: " << path << std::endl;
-        stbi_image_free(data);
-    }
-
-    return textureID;
-}
-
-std::vector<TextureM> BAE::Model::loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName)
-{
-    std::vector<TextureM> textures;
+    std::vector<STexture> textures;
     for (unsigned int i = 0; i < material->GetTextureCount(type); i++)
     {
         aiString str;
         material->GetTexture(type, i, &str);
+        std::string fullPath = _directory + '/' + str.C_Str();
         // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
         bool skip = false;
         for (unsigned int j = 0; j < _textures_loaded.size(); j++)
         {
-            if (std::strcmp(_textures_loaded[j].path.data(), str.C_Str()) == 0)
+            if (std::strcmp(_textures_loaded[j].path.data(), fullPath.c_str()) == 0)
             {
                 textures.push_back(_textures_loaded[j]);
                 skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
@@ -188,11 +158,13 @@ std::vector<TextureM> BAE::Model::loadMaterialTextures(aiMaterial* material, aiT
         }
         if (!skip)
         {   // if texture hasn't been loaded already, load it
-            TextureM texture;
-            texture.id = _textureFromFile(str.C_Str(), this->_directory);
-            texture.type = typeName;
-            texture.path = str.C_Str();
+            STexture texture;
+            texture.path = fullPath;
+            
+            BAE::FileLoader::Texture(texture);
+
             textures.push_back(texture);
+
             _textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecessary load duplicate textures.
         }
     }

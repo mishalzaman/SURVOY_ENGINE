@@ -132,14 +132,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3D.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
+    <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="MapLoader.cpp" />
-    <ClCompile Include="Material.cpp" />
     <ClCompile Include="GridMeshGenerator.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -147,22 +147,20 @@
     <ClCompile Include="RendererQuad2D.cpp" />
     <ClCompile Include="RendererText2D.cpp" />
     <ClCompile Include="RendererTileset2D.cpp" />
-    <ClCompile Include="ShaderLibrary.cpp" />
-    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="TextureLibrary.cpp" />
+    <ClCompile Include="SVertex2D.h" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
     <ClInclude Include="Code.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Defaults.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="FileLoader.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="MapLoader.h" />
-    <ClInclude Include="Material.h" />
     <ClInclude Include="GridMeshGenerator.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
@@ -170,14 +168,15 @@
     <ClInclude Include="RendererQuad2D.h" />
     <ClInclude Include="RendererText2D.h" />
     <ClInclude Include="RendererTileset2D.h" />
-    <ClInclude Include="ShaderLibrary.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="STexture.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stbi_image.h" />
-    <ClInclude Include="TextureLibrary.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="SVertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="base_fragment_2d.glsl" />
+    <None Include="base_vertex_2d.glsl" />
     <None Include="fragment_2d.glsl" />
     <None Include="fragment_3d.glsl" />
     <None Include="fragment_3d_lighting.glsl" />
