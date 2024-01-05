@@ -5,7 +5,6 @@
 #include <iostream>
 #include "Core.h"
 #include "RendererText2D.h"
-#include "RendererQuad2D.h"
 #include "Defaults.h"
 #include "Camera3D.h"
 #include "Camera2D.h"
@@ -13,6 +12,8 @@
 #include "Shader.h"
 #include "STexture.h"
 #include "FileLoader.h"
+#include "World.h"
+#include "Renderer3D.h"
 
 bool attemptMove(int newRow, int newCol, std::vector<int> map, int mapWidth) {
     if (newRow >= 0 && newRow < map.size() / mapWidth && newCol >= 0 && newCol < mapWidth) {
@@ -35,46 +36,55 @@ int main(int argc, char* args[]) {
     INITIALIZATIONS
     =============*/
 
-    /*------------
+    /**=============
     3D
-    -------------*/
+    *=============*/
+    // Camera
     auto camera3d = std::make_unique<BAE::Camera3D>(768.0f, 768.0f);
 
-    // MODEL
-    auto model3d = std::make_unique<BAE::Model>("assets/muffin/muffin.obj");
-    auto shader3D = std::make_unique<BAE::Shader>("vertex_model_3d.glsl", "fragment_model_3d.glsl");
+    // Shader
+    auto shader3D = std::make_unique<BAE::Shader>("vertex_3d.glsl", "fragment_3d.glsl");
 
-    /*------------
-    2D
-    ------------*/
-    auto camera2d = std::make_unique<BAE::Camera2D>(256.0f, 768.0f);
-
-    // FONT
-    auto fontTexture = std::make_unique<BAE::STexture>();
-    GLuint fTextureId;
-    int fWidth;
-    int fHeight;
-    int fChannels;
-    std::string fPath = "assets/ExportedFont.bmp";
-    
-    BAE::FileLoader::Texture(fTextureId, fPath, fWidth, fHeight, fChannels);
-
-    fontTexture->id = fTextureId;
-    fontTexture->width = fWidth;
-    fontTexture->height = fHeight;
-    fontTexture->channel = fChannels;
-    fontTexture->path = fPath;
-    
-    auto shader2D = std::make_unique<BAE::Shader>("vertex_2d.glsl", "fragment_2d.glsl");
-
-    // QUAD
+    // World Mesh
     auto imageTexture = std::make_unique<BAE::STexture>();
     imageTexture->path = "assets/tilemap/tilesheet.png";
     BAE::FileLoader::Texture(*imageTexture);
 
-    auto shader2DQuad = std::make_unique<BAE::Shader>("base_vertex_2d.glsl", "base_fragment_2d.glsl");
+    std::vector<int> map = {
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+    };
 
-    auto renderQuad = std::make_unique<BAE::RendererQuad2D>(*imageTexture, shader2DQuad->ID, 0, 128, 1);
+    auto world = std::make_unique<BAE::World>(map, 16);
+
+    // Renderer
+    auto renderer3d = std::make_unique<BAE::Renderer3D>(imageTexture->id, world->StaticVertices());
+
+    /**=============
+    2D
+    *=============*/
+    auto camera2d = std::make_unique<BAE::Camera2D>(256.0f, 768.0f);
+
+    // FONT
+    auto fontTexture = std::make_unique<BAE::STexture>();
+    fontTexture->path = "assets/ExportedFont.bmp";
+    BAE::FileLoader::Texture(*fontTexture);
+    
+    auto shader2D = std::make_unique<BAE::Shader>("vertex_2d.glsl", "fragment_2d.glsl");
 
     /*=============
     GAME LOOP
@@ -101,16 +111,11 @@ int main(int argc, char* args[]) {
         =============*/
         glViewport(0, 0, 768, 768);
 
-        // 3D model
         shader3D->use();
         shader3D->setMat4("projection", camera3d->Projection());
         shader3D->setMat4("view", camera3d->View());
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-        shader3D->setMat4("model", model);
 
-        model3d->Draw(*shader3D);
+        renderer3d->render(*shader3D, *camera3d, glm::vec3(0, 0, 0));
 
         /*=============
         RIGHT TEXT VIEW
@@ -131,32 +136,6 @@ int main(int argc, char* args[]) {
             glm::vec3(1, 1, 1),
             1
         );
-
-        BAE::RendererText2D::Render(
-            shader2D->ID,
-            fontTexture->id,
-            "VER: " + std::to_string(model3d->NumVertices()),
-            0,
-            16,
-            glm::vec3(1, 1, 1),
-            1
-        );
-
-        BAE::RendererText2D::Render(
-            shader2D->ID,
-            fontTexture->id,
-            "TRI: " + std::to_string(model3d->NumVertices()/3),
-            0,
-            32,
-            glm::vec3(1, 1, 1),
-            1
-        );
-
-        shader2DQuad->use();
-        projectionMatrix = camera2d->Projection();
-        shader2DQuad->setMat4("projection", projectionMatrix);
-
-        renderQuad->Render();
 
         core->EndRender();
     }

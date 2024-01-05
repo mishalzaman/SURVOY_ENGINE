@@ -25,15 +25,6 @@ void BAE::Renderer3D::render(
     shader.use();
     shader.setInt("texture1", 0);
 
-    // time
-    shader.setFloat("time", SDL_GetTicks());
-
-    // projection
-    shader.setMat4("projection", camera.Projection());
-    
-    // view
-    shader.setMat4("view", camera.View());
-
     // model
     glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
     model = glm::translate(model, position);
