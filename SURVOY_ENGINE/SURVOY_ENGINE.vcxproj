@@ -178,11 +178,9 @@
     <None Include="base_fragment_2d.glsl" />
     <None Include="base_vertex_2d.glsl" />
     <None Include="fragment_2d.glsl" />
-    <None Include="fragment_3d.glsl" />
     <None Include="fragment_3d_lighting.glsl" />
     <None Include="fragment_model_3d.glsl" />
     <None Include="vertex_2d.glsl" />
-    <None Include="vertex_3d.glsl" />
     <None Include="vertex_model_3d.glsl" />
   </ItemGroup>
   <ItemGroup>

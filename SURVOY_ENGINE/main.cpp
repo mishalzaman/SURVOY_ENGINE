@@ -40,10 +40,10 @@ int main(int argc, char* args[]) {
     3D
     *=============*/
     // Camera
-    auto camera3d = std::make_unique<BAE::Camera3D>(768.0f, 768.0f);
+    auto camera3d = std::make_unique<BAE::Camera3D>(glm::vec3(0), 1024.0f, 768.0f);
 
     // Shader
-    auto shader3D = std::make_unique<BAE::Shader>("vertex_3d.glsl", "fragment_3d.glsl");
+    auto shader3D = std::make_unique<BAE::Shader>("vertex_model_3d.glsl", "fragment_model_3d.glsl");
 
     // World Mesh
     auto imageTexture = std::make_unique<BAE::STexture>();
@@ -65,19 +65,22 @@ int main(int argc, char* args[]) {
         1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
         1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
         1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     };
 
     auto world = std::make_unique<BAE::World>(map, 16);
 
     // Renderer
-    auto renderer3d = std::make_unique<BAE::Renderer3D>(imageTexture->id, world->StaticVertices());
+    auto renderer3d = std::make_unique<BAE::Renderer3D>(imageTexture->id, world->Vertices());
+    
+    // Update camera
+    camera3d->UpdatePosition(world->CameraPosition());
 
     /**=============
     2D
     *=============*/
-    auto camera2d = std::make_unique<BAE::Camera2D>(256.0f, 768.0f);
+    auto camera2d = std::make_unique<BAE::Camera2D>(1024.0f, 768.0f);
 
     // FONT
     auto fontTexture = std::make_unique<BAE::STexture>();
@@ -101,26 +104,29 @@ int main(int argc, char* args[]) {
         }
          
         while (core->Timer->ShouldUpdate()) {
-            camera3d->UpdateOrbit(core->Event->GetEvent(), core->Timer->DeltaTime());
+            camera3d->TankMovement(core->Event->GetEvent(), core->Timer->DeltaTime());
         }
 
-        core->BeginRender();
+        /*=============
+        RENDER
+        =============*/
 
         /*=============
-        LEFT MESH VIEW
+        3D
         =============*/
-        glViewport(0, 0, 768, 768);
+        core->BeginRender();
+
+        glViewport(0, 0, 1024, 768);
 
         shader3D->use();
-        shader3D->setMat4("projection", camera3d->Projection());
-        shader3D->setMat4("view", camera3d->View());
+        shader3D->setMat4("projection", camera3d->ProjectionMat4());
+        shader3D->setMat4("view", camera3d->ViewMat4());
 
         renderer3d->render(*shader3D, *camera3d, glm::vec3(0, 0, 0));
 
         /*=============
-        RIGHT TEXT VIEW
+        2D
         =============*/
-        glViewport(768, 0, 256, 768);
 
         shader2D->use();
         glm::mat4 projectionMatrix = camera2d->Projection();
