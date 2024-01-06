@@ -148,12 +148,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment_3d.glsl">
-      <Filter>ENGINE\Programs</Filter>
-    </None>
-    <None Include="vertex_3d.glsl">
-      <Filter>ENGINE\Programs</Filter>
-    </None>
     <None Include="fragment_2d.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
@@ -166,11 +160,15 @@
     <None Include="fragment_model_3d.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
-    <None Include="vertex_model_3d.glsl" />
     <None Include="base_vertex_2d.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
-    <None Include="base_fragment_2d.glsl" />
+    <None Include="vertex_model_3d.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="base_fragment_2d.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Design.txt">

@@ -9,12 +9,13 @@
 #include "Shader.h"
 #include "Camera3D.h"
 #include "Defaults.h"
+#include "SVertex.h"
 
 namespace BAE {
 	class Renderer3D
 	{
 	public:
-		Renderer3D(GLuint textureID0, std::vector<float> vertices);
+		Renderer3D(GLuint textureID0, std::vector<SVertex> vertices);
 		~Renderer3D();
 
 		void render(
@@ -28,7 +29,7 @@ namespace BAE {
 		unsigned int _vao;
 		GLuint _textureID0;
 
-		std::vector<float> _vertices;
+		std::vector<SVertex> _vertices;
 
 		void _initializeBuffers();
 	};

@@ -1,7 +1,7 @@
 #include "Renderer3D.h"
 #include <iostream>
 
-BAE::Renderer3D::Renderer3D(GLuint textureID0, std::vector<float> vertices) :
+BAE::Renderer3D::Renderer3D(GLuint textureID0, std::vector<SVertex> vertices) :
     _vbo(0),
     _vao(0),
     _textureID0(textureID0)
@@ -41,7 +41,7 @@ void BAE::Renderer3D::render(
     glDrawArrays(
         GL_TRIANGLES,
         0,
-        _vertices.size() / 5
+        _vertices.size()
     );
 }
 
@@ -51,14 +51,16 @@ void BAE::Renderer3D::_initializeBuffers()
     glGenBuffers(1, &_vbo);
 
     glBindVertexArray(_vao);
-
     glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * _vertices.size(), _vertices.data(), GL_DYNAMIC_DRAW);
 
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glBufferData(GL_ARRAY_BUFFER, _vertices.size() * sizeof(SVertex), &_vertices[0], GL_STATIC_DRAW);
+
+    // vertex positions
     glEnableVertexAttribArray(0);
-    // texture coord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertex), (void*)0);
+    // vertex texture coords
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(SVertex), (void*)offsetof(SVertex, TexCoords));
+
+    glBindVertexArray(0);
 }
