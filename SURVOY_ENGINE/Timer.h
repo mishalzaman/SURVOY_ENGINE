@@ -8,7 +8,7 @@ namespace BAE {
 	public:
 		Timer(double updateInterval);
 		void BeginFrame();
-		bool ShouldUpdate();
+		bool PhysicsUpdate();
 
 		double DeltaTime() { return _deltaTime; }
 	private:

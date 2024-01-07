@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include <cmath>
 #include "Defaults.h"
 
 const float YAW = -90.0f;
@@ -25,7 +26,7 @@ namespace BAE {
 
 	private:
 		glm::vec3 _position;
-		glm::vec3 _front;
+		glm::vec3 _forward;
 		glm::vec3 _up;
 		glm::vec3 _right;
 		glm::vec3 _worldUp;

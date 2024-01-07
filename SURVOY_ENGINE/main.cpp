@@ -103,7 +103,7 @@ int main(int argc, char* args[]) {
             if (core->Event->EQuit()) { core->BeginShutdown(); }
         }
          
-        while (core->Timer->ShouldUpdate()) {
+        while (core->Timer->PhysicsUpdate()) {
             camera3d->TankMovement(core->Event->GetEvent(), core->Timer->DeltaTime());
         }
 

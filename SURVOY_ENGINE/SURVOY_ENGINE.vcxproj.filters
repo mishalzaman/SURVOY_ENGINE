@@ -81,6 +81,9 @@
     <ClCompile Include="SVertex2D.h">
       <Filter>ENGINE</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>GAME</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Camera2D.h">
       <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>GAME</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

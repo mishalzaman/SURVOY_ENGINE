@@ -15,7 +15,7 @@ void BAE::Timer::BeginFrame()
     _accumulator += _deltaTime;
 }
 
-bool BAE::Timer::ShouldUpdate()
+bool BAE::Timer::PhysicsUpdate()
 {
     if (_accumulator >= _updateInterval) {
         _accumulator -= _updateInterval;
