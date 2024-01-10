@@ -14,14 +14,10 @@
 #include "FileLoader.h"
 #include "World.h"
 #include "Renderer3D.h"
-
-bool attemptMove(int newRow, int newCol, std::vector<int> map, int mapWidth) {
-    if (newRow >= 0 && newRow < map.size() / mapWidth && newCol >= 0 && newCol < mapWidth) {
-        return true;
-    }
-
-    return false;
-}
+#include "Physics.h"
+#include "PhysicsDebugDraw.h"
+#include "Grid.h"
+#include "PhysicsCharacter.h"
 
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
@@ -32,11 +28,13 @@ int main(int argc, char* args[]) {
 		return core->GetError();
 	}
 
-    /*=============
+    /*============= 
     INITIALIZATIONS
     =============*/
 
-    /**=============
+    auto grid = std::make_unique<BAE::Grid>();
+
+    /*=============
     3D
     *=============*/
     // Camera
@@ -73,9 +71,18 @@ int main(int argc, char* args[]) {
 
     // Renderer
     auto renderer3d = std::make_unique<BAE::Renderer3D>(imageTexture->id, world->Vertices());
+
+    // Physics Character
+    auto character = std::make_unique<BAE::PhysicsCharacter>(world->CameraPosition());
     
     // Update camera
-    camera3d->UpdatePosition(world->CameraPosition());
+    camera3d->SetPosition(character->V3Position());
+    camera3d->SetForward(character->V3Forward());
+
+    // Physics
+    auto physics = std::make_unique<BAE::Physics>();
+    physics->CreateStaticShape(world->Vertices());
+    physics->CreatePlayerCapsule(*character);
 
     /**=============
     2D
@@ -101,20 +108,50 @@ int main(int argc, char* args[]) {
         while (core->Event->Poll()) {
             // Shutdown
             if (core->Event->EQuit()) { core->BeginShutdown(); }
+
+            if (core->Event->Sym() == SDLK_ESCAPE) {
+                core->BeginShutdown();
+            }
         }
-         
+
+
         while (core->Timer->PhysicsUpdate()) {
-            camera3d->TankMovement(core->Event->GetEvent(), core->Timer->DeltaTime());
+
+            character->Move(core->Timer->DeltaTimeMS());
+
+            /*=============
+            PHYSICS
+            =============*/
+            physics->UpdatePlayerCapsule(*character);
+
+            physics->Simulate(core->Timer->DeltaTimeMS());
+
+            physics->RetrieveVectorsPlayerCapsule(*character);
+
+            camera3d->SetPosition(character->V3Position());
+            camera3d->SetForward(character->V3Forward());
+            camera3d->Update();
         }
+
+
 
         /*=============
         RENDER
         =============*/
 
+        core->BeginRender();
+
+        //grid->render(camera3d->ProjectionMat4(), camera3d->ViewMat4(), glm::vec3(0, 0, 0));
+
+        /*=============
+        PHYSICS DEBUG
+        =============*/
+
+        //physics->DrawDebug(camera3d->ProjectionMat4(), camera3d->ViewMat4());
+
         /*=============
         3D
         =============*/
-        core->BeginRender();
 
         glViewport(0, 0, 1024, 768);
 
@@ -129,14 +166,14 @@ int main(int argc, char* args[]) {
         =============*/
 
         shader2D->use();
-        glm::mat4 projectionMatrix = camera2d->Projection();
+        glm::mat4 projectionMatrix = camera2d->Mat4Projection();
         shader2D->setMat4("projection", projectionMatrix);
         shader2D->setVec3("textColor", glm::vec3(1.0f, 1.0f, 1.0f));
 
         BAE::RendererText2D::Render(
             shader2D->ID,
             fontTexture->id,
-            std::to_string(core->Timer->DeltaTime()) + " ms",
+            std::to_string(core->Timer->DeltaTimeMS()) + " ms",
             0,
             0,
             glm::vec3(1, 1, 1),

@@ -112,7 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;assimp-vc143-mt.lib;minizip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;assimp-vc143-mt.lib;minizip.lib;Bullet3Common_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletInverseDynamics_Debug.lib;BulletSoftBody_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,13 +134,17 @@
   <ItemGroup>
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3D.cpp" />
+    <ClCompile Include="CameraHelpers.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="FileLoader.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapLoader.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="PhysicsCharacter.cpp" />
+    <ClCompile Include="PhysicsDebugDraw.h" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -155,14 +159,17 @@
   <ItemGroup>
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
+    <ClInclude Include="CameraHelpers.h" />
     <ClInclude Include="Code.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Defaults.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="FileLoader.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MapLoader.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Physics.h" />
+    <ClInclude Include="PhysicsCharacter.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
@@ -179,9 +186,13 @@
   <ItemGroup>
     <None Include="base_fragment_2d.glsl" />
     <None Include="base_vertex_2d.glsl" />
+    <None Include="debug.frag" />
+    <None Include="debug.vert" />
     <None Include="fragment_2d.glsl" />
     <None Include="fragment_3d_lighting.glsl" />
     <None Include="fragment_model_3d.glsl" />
+    <None Include="grid_fragment.glsl" />
+    <None Include="grid_vertex.glsl" />
     <None Include="vertex_2d.glsl" />
     <None Include="vertex_model_3d.glsl" />
   </ItemGroup>

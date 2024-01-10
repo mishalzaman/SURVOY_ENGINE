@@ -81,8 +81,20 @@
     <ClCompile Include="SVertex2D.h">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>GAME</Filter>
+    <ClCompile Include="Physics.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsDebugDraw.h">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsCharacter.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraHelpers.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,8 +161,17 @@
     <ClInclude Include="Camera2D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>GAME</Filter>
+    <ClInclude Include="Physics.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsCharacter.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraHelpers.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +194,18 @@
       <Filter>ENGINE\Programs</Filter>
     </None>
     <None Include="base_fragment_2d.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="debug.vert">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="debug.frag">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="grid_vertex.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="grid_fragment.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
   </ItemGroup>

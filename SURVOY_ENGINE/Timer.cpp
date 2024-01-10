@@ -10,9 +10,11 @@ BAE::Timer::Timer(double updateInterval):
 void BAE::Timer::BeginFrame()
 {
     Uint64 now = SDL_GetPerformanceCounter();
-    _deltaTime = (double)((now - _lastTime) * 1000 / (double)SDL_GetPerformanceFrequency());
+
+    _deltaTimeS = (double)((now - _lastTime) / (double)SDL_GetPerformanceFrequency());
+    _deltaTimeMS = (double)((now - _lastTime) * 1000 / (double)SDL_GetPerformanceFrequency());
     _lastTime = now;
-    _accumulator += _deltaTime;
+    _accumulator += _deltaTimeMS;
 }
 
 bool BAE::Timer::PhysicsUpdate()
