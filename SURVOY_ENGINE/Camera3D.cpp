@@ -5,8 +5,7 @@
 BAE::Camera3D::Camera3D(glm::vec3 position, float screenWidth, float screenHeight):
     _forward(glm::vec3(0)),
     _right(glm::vec3(0)),
-    _up(glm::vec3(0)),
-    _movementSpeed(0.001f)
+    _up(glm::vec3(0))
 {
     _position = position;
     _screenWidth = screenWidth;
@@ -15,10 +14,6 @@ BAE::Camera3D::Camera3D(glm::vec3 position, float screenWidth, float screenHeigh
     _worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
     _yaw = YAW;
     _pitch = PITCH;
-
-    _velocity = glm::vec3(0.0f);  // Initialize velocity to zero
-    _acceleration = 0.009f;       // Set a suitable acceleration rate
-    _maxSpeed = 0.09f;            // Set a maximum speed
 
     _updateCameraVectors();
 }
@@ -36,39 +31,6 @@ glm::mat4 BAE::Camera3D::ProjectionMat4()
     	0.1f,
     	1000.0f
     );
-}
-
-void BAE::Camera3D::TankMovement(SDL_Event& event, float deltaTime)
-{
-    const Uint8* keystate = SDL_GetKeyboardState(NULL);
-
-    // Accelerate or decelerate based on input
-    if (keystate[SDL_SCANCODE_W]) {
-        _velocity += _forward * _acceleration * deltaTime;
-    }
-    else if (keystate[SDL_SCANCODE_S]) {
-        _velocity -= _forward * _acceleration * deltaTime;
-    }
-    else {
-        // Apply deceleration
-        _velocity *= 0.95f;  // Adjust this value for smoother deceleration
-    }
-
-    // Clamp the velocity to the maximum speed
-    if (glm::length(_velocity) > _maxSpeed) {
-        _velocity = glm::normalize(_velocity) * _maxSpeed;
-    }
-
-    if (keystate[SDL_SCANCODE_A]) {
-        _yaw -= 2.0f;
-    }
-    if (keystate[SDL_SCANCODE_D]) {
-        _yaw += 2.0f;
-    }
-
-    _position += _velocity;
-
-    _updateCameraVectors();
 }
 
 void BAE::Camera3D::LookAtTarget(glm::vec3 target)

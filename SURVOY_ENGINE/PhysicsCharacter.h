@@ -23,7 +23,7 @@ namespace BAE {
 		// getters
 		glm::vec3 V3Position() { return _v3Position; }
 		glm::vec3 V3Forward() { return _v3Forward; }
-		glm::vec3 V3Velocity() { std::cout << _v3Velocity.x << std::endl; return _v3Velocity; }
+		glm::vec3 V3Velocity() { return _v3Velocity; }
 		float fYaw() { return _fYaw; }
 
 		// setters

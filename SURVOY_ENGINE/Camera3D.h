@@ -20,12 +20,10 @@ namespace BAE {
 		glm::mat4 ViewMat4();
 		glm::mat4 ProjectionMat4();
 		glm::vec3 Position() { return _position; }
-		glm::vec3 Velocity() { return _velocity; }
 		float Yaw() { return glm::radians(_yaw); }
 
 		void UpdatePosition(glm::vec3 position) { _position = position; }
 
-		void TankMovement(SDL_Event& event, float deltaTime);
 		void LookAtTarget(glm::vec3 target);
 
 		void UpdateCamera(glm::vec3 position, glm::vec3 forward);
@@ -39,11 +37,6 @@ namespace BAE {
 
 		float _yaw;
 		float _pitch;
-
-		float _movementSpeed;
-		glm::vec3 _velocity;  // Current velocity of the camera
-		float _acceleration;  // Acceleration rate of the camera
-		float _maxSpeed;      // Maximum speed of the camera
 
 		float _screenWidth;
 		float _screenHeight;
