@@ -93,6 +93,9 @@
     <ClCompile Include="PhysicsCharacter.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
+    <ClCompile Include="CameraHelpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -166,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsCharacter.h">
       <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraHelpers.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

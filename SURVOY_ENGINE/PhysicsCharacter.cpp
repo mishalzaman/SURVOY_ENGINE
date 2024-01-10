@@ -1,4 +1,4 @@
-#include "PhysicsCharacter.h"
+ #include "PhysicsCharacter.h"
 
 BAE::PhysicsCharacter::PhysicsCharacter(glm::vec3 position):
     _v3Forward(glm::vec3(0)),
@@ -63,7 +63,8 @@ void BAE::PhysicsCharacter::Move(float deltaTime)
     }
     else {
         // Apply deceleration
-        _v3Velocity *= 0.95f;  // Adjust this value for smoother deceleration
+        float decelerationFactor = pow(0.95f, deltaTime); // Adjust for frame rate independence
+        _v3Velocity *= decelerationFactor;
     }
 
     // Clamp the velocity to the maximum speed
@@ -75,6 +76,10 @@ void BAE::PhysicsCharacter::Move(float deltaTime)
     if (keystate[SDL_SCANCODE_D]) {
         _fYaw += TURN_SPEED;
     }
+
+    std::cout << "Velocity: X: " << _v3Velocity.x
+        << " Y: " << _v3Velocity.y
+        << " Z: " << _v3Velocity.z << std::endl;
 
     _v3Position += _v3Velocity;
 

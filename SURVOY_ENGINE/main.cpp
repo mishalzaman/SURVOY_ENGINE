@@ -15,18 +15,9 @@
 #include "World.h"
 #include "Renderer3D.h"
 #include "Physics.h"
-#include <bullet/btBulletDynamicsCommon.h>
 #include "PhysicsDebugDraw.h"
 #include "Grid.h"
 #include "PhysicsCharacter.h"
-
-bool attemptMove(int newRow, int newCol, std::vector<int> map, int mapWidth) {
-    if (newRow >= 0 && newRow < map.size() / mapWidth && newCol >= 0 && newCol < mapWidth) {
-        return true;
-    }
-
-    return false;
-}
 
 int main(int argc, char* args[]) {
 	auto core = std::make_unique<BAE::Core>();
@@ -85,13 +76,13 @@ int main(int argc, char* args[]) {
     auto character = std::make_unique<BAE::PhysicsCharacter>(world->CameraPosition());
     
     // Update camera
-    camera3d->UpdatePosition(character->V3Position());
-    //camera3d->LookAtTarget(glm::vec3(0, 0, 0));
+    camera3d->SetPosition(character->V3Position());
+    camera3d->SetForward(character->V3Forward());
 
     // Physics
     auto physics = std::make_unique<BAE::Physics>();
     physics->CreateStaticShape(world->Vertices());
-    physics->CreateCapsule(camera3d->Position());
+    physics->CreatePlayerCapsule(*character);
 
     /**=============
     2D
@@ -123,18 +114,26 @@ int main(int argc, char* args[]) {
             }
         }
 
-        character->Move(core->Timer->DeltaTimeMS());
 
         while (core->Timer->PhysicsUpdate()) {
-            camera3d->UpdateCamera(character->V3Position(), character->V3Forward());
+
+            character->Move(core->Timer->DeltaTimeMS());
 
             /*=============
             PHYSICS
             =============*/
+            physics->UpdatePlayerCapsule(*character);
 
-            physics->UpdateCharacter(character->V3Forward(), character->V3Velocity());
             physics->Simulate(core->Timer->DeltaTimeMS());
+
+            physics->RetrieveVectorsPlayerCapsule(*character);
+
+            camera3d->SetPosition(character->V3Position());
+            camera3d->SetForward(character->V3Forward());
+            camera3d->Update();
         }
+
+
 
         /*=============
         RENDER
@@ -142,13 +141,13 @@ int main(int argc, char* args[]) {
 
         core->BeginRender();
 
-        grid->render(camera3d->ProjectionMat4(), camera3d->ViewMat4(), glm::vec3(0, 0, 0));
+        //grid->render(camera3d->ProjectionMat4(), camera3d->ViewMat4(), glm::vec3(0, 0, 0));
 
         /*=============
-        PHYSICS
+        PHYSICS DEBUG
         =============*/
 
-        physics->DrawDebug(camera3d->ProjectionMat4(), camera3d->ViewMat4());
+        //physics->DrawDebug(camera3d->ProjectionMat4(), camera3d->ViewMat4());
 
         /*=============
         3D
@@ -167,7 +166,7 @@ int main(int argc, char* args[]) {
         =============*/
 
         shader2D->use();
-        glm::mat4 projectionMatrix = camera2d->Projection();
+        glm::mat4 projectionMatrix = camera2d->Mat4Projection();
         shader2D->setMat4("projection", projectionMatrix);
         shader2D->setVec3("textColor", glm::vec3(1.0f, 1.0f, 1.0f));
 

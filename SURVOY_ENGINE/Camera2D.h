@@ -7,11 +7,15 @@ namespace BAE {
 	class Camera2D
 	{
 	public:
-		Camera2D(const float width, const float height);
+		Camera2D(
+			const float width,
+			const float height
+		);
 
-		glm::mat4 Projection();
+		glm::mat4 Mat4Projection();
+
 	private:
-		const float _screenWidth;
-		const float _screenHeight;
+		const float			_fScreenWidth;
+		const float			_fScreenHeight;
 	};
 }

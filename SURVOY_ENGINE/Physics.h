@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include "SVertex.h"
+#include "PhysicsCharacter.h"
 
 namespace BAE {
 	class Physics
@@ -21,14 +22,13 @@ namespace BAE {
 
 
 		void CreateStaticShape(const std::vector<SVertex>& vertices);
-		void CreateCapsule(glm::vec3 position);
+
 
 		void IterateShapes(glm::vec3 forward, glm::vec3 velocity, float yaw);
 
-		void UpdateCharacter(glm::vec3 forward, glm::vec3 velocity);
-		glm::vec3 GetCharacterOrigin();
-		float GetCharacterYaw();
-
+		void CreatePlayerCapsule(PhysicsCharacter& character);
+		void UpdatePlayerCapsule(PhysicsCharacter& character);
+		void RetrieveVectorsPlayerCapsule(PhysicsCharacter& character);
 	private:
 		void _initialize();
 

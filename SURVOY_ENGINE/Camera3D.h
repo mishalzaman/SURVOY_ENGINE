@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <cmath>
 #include "Defaults.h"
+#include "CameraHelpers.h"
 
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
@@ -19,29 +20,23 @@ namespace BAE {
 		Camera3D(glm::vec3 position, float screenWidth, float screenHeight);
 		glm::mat4 ViewMat4();
 		glm::mat4 ProjectionMat4();
-		glm::vec3 Position() { return _position; }
-		float Yaw() { return glm::radians(_yaw); }
 
-		void UpdatePosition(glm::vec3 position) { _position = position; }
-
-		void LookAtTarget(glm::vec3 target);
-
-		void UpdateCamera(glm::vec3 position, glm::vec3 forward);
+		void SetPosition(glm::vec3 position);
+		void SetForward(glm::vec3 forward);
+		void Update();
 
 	private:
+		// cached values
 		glm::vec3 _position;
 		glm::vec3 _forward;
 		glm::vec3 _up;
 		glm::vec3 _right;
 		glm::vec3 _worldUp;
 
-		float _yaw;
-		float _pitch;
-
 		float _screenWidth;
 		float _screenHeight;
 
-		void _updateCameraVectors();
+		void _cacheVectors();
 	};
 }
 

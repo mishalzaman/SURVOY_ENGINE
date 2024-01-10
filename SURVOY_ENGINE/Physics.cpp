@@ -106,37 +106,6 @@ void BAE::Physics::_initialize()
 	_world = std::make_unique<btDiscreteDynamicsWorld>(_dispatcher.get(), _broadphase.get(), _solver.get(), _collisionConfiguration.get());
 }
 
-void BAE::Physics::CreateCapsule(glm::vec3 position)
-{
-	btCollisionShape* groundShape = new btCapsuleShape(0.5f, 1.f);
-
-	_collisionShapes.push_back(groundShape);
-
-	btTransform groundTransform;
-	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(position.x, position.y, position.z));
-
-	btScalar mass(100.f);
-
-	//rigidbody is dynamic if and only if mass is non zero, otherwise static
-	bool isDynamic = (mass != 0.f);
-
-	btVector3 localInertia(0, 0, 0);
-	if (isDynamic)
-		groundShape->calculateLocalInertia(mass, localInertia);
-
-	//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
-	btRigidBody* body = new btRigidBody(rbInfo);
-	body->setAngularFactor(btVector3(0, 1, 0));
-
-	_character = body;
-
-	//add the body to the dynamics world
-	_world->addRigidBody(body);
-}
-
 void BAE::Physics::IterateShapes(glm::vec3 forward, glm::vec3 velocity, float yaw)
 {
 	for (int j = _world->getNumCollisionObjects() - 1; j >= 0; j--)
@@ -164,43 +133,80 @@ void BAE::Physics::IterateShapes(glm::vec3 forward, glm::vec3 velocity, float ya
 	}
 }
 
-void BAE::Physics::UpdateCharacter(glm::vec3 forward, glm::vec3 velocity)
+void BAE::Physics::UpdatePlayerCapsule(PhysicsCharacter& character)
 {
-	btTransform capsuleTransform;
-	_character->getMotionState()->getWorldTransform(capsuleTransform);
+	glm::vec3 charVelocity = character.V3Velocity();
+	glm::vec3 charForward = character.V3Forward();
 
-	// Activate the body
+	// Convert glm::vec3 to btVector3 for Bullet Physics
+	btVector3 bulletVelocity(charVelocity.x, charVelocity.y, charVelocity.z);
+
 	_character->activate(true);
 
-	// Calculate the forward direction based on yaw
-	// Assuming yaw is in radians and affects the Y-axis
-	btVector3 forwardDirection(forward.x, forward.y, forward.z);
-	forwardDirection.normalize();
+	// Set the linear velocity of the rigid body
+	_character->setLinearVelocity(bulletVelocity *40);
 
-	// Apply the calculated direction to the velocity
-	btVector3 newVelocity = forwardDirection * velocity.length();
-	_character->setLinearVelocity(newVelocity);
+	// If you need to update the orientation as well
+	// Compute the quaternion from the forward vector
+	btVector3 forward(charForward.x, charForward.y, charForward.z);
+	forward.normalize();
+	btVector3 up(0, 1, 0); // Assuming 'up' is in the Y direction
+	btVector3 right = up.cross(forward).normalized();
+	up = forward.cross(right).normalized();
+
+	btMatrix3x3 orientation(right.x(), up.x(), forward.x(),
+		right.y(), up.y(), forward.y(),
+		right.z(), up.z(), forward.z());
+	btQuaternion rotation;
+	orientation.getRotation(rotation);
+
+	// Set the rigid body's orientation
+	btTransform transform = _character->getWorldTransform();
+	transform.setRotation(rotation);
+	_character->setWorldTransform(transform);
 }
 
-glm::vec3 BAE::Physics::GetCharacterOrigin()
+void BAE::Physics::RetrieveVectorsPlayerCapsule(PhysicsCharacter& character)
 {
-	if (_character) {
-		const btTransform& trans = _character->getWorldTransform();
-		btVector3 pos = trans.getOrigin();
-		return glm::vec3(pos.getX(), pos.getY(), pos.getZ());
-	}
-	return glm::vec3();  // Return a default vector if _character is nullptr
+	btTransform trans;
+
+	// position
+	_character->getMotionState()->getWorldTransform(trans);
+	btVector3 pos = trans.getOrigin(); // This is the position
+
+	character.SetV3Position(glm::vec3(pos.x(), pos.y(), pos.z()));
 }
 
-float BAE::Physics::GetCharacterYaw()
+void BAE::Physics::CreatePlayerCapsule(PhysicsCharacter& character)
 {
-	if (_character) {
-		const btTransform& trans = _character->getWorldTransform();
-		btQuaternion rot = trans.getRotation();
-		btScalar roll, pitch, yaw;
-		trans.getBasis().getEulerYPR(yaw, pitch, roll);
-		return yaw;
-	}
-	return 0;
-}
+	glm::vec3 position = character.V3Position();
+	float yaw = character.fYaw();
+	// Assuming pitch is available in your PhysicsCharacter
+	float pitch = character.fPitch();
 
+	btCollisionShape* groundShape = new btCapsuleShape(0.5f, 1.f);
+	_collisionShapes.push_back(groundShape);
+
+	btTransform groundTransform;
+	groundTransform.setIdentity();
+	groundTransform.setOrigin(btVector3(position.x, position.y, position.z));
+
+	// Create a quaternion from yaw and pitch
+	btQuaternion rotation;
+	rotation.setEuler(yaw, pitch, 0); // Assuming roll is zero
+	groundTransform.setRotation(rotation);
+
+	btScalar mass(1.f);
+	bool isDynamic = (mass != 0.f);
+	btVector3 localInertia(0, 0, 0);
+	if (isDynamic)
+		groundShape->calculateLocalInertia(mass, localInertia);
+
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+	btRigidBody* body = new btRigidBody(rbInfo);
+	body->setAngularFactor(btVector3(0, 1, 0));
+
+	_character = body;
+	_world->addRigidBody(body);
+}
