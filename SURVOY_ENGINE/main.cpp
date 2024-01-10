@@ -14,6 +14,11 @@
 #include "FileLoader.h"
 #include "World.h"
 #include "Renderer3D.h"
+#include "Physics.h"
+#include <bullet/btBulletDynamicsCommon.h>
+#include "PhysicsDebugDraw.h"
+#include "Grid.h"
+#include "PhysicsCharacter.h"
 
 bool attemptMove(int newRow, int newCol, std::vector<int> map, int mapWidth) {
     if (newRow >= 0 && newRow < map.size() / mapWidth && newCol >= 0 && newCol < mapWidth) {
@@ -32,11 +37,13 @@ int main(int argc, char* args[]) {
 		return core->GetError();
 	}
 
-    /*=============
+    /*============= 
     INITIALIZATIONS
     =============*/
 
-    /**=============
+    auto grid = std::make_unique<BAE::Grid>();
+
+    /*=============
     3D
     *=============*/
     // Camera
@@ -73,9 +80,18 @@ int main(int argc, char* args[]) {
 
     // Renderer
     auto renderer3d = std::make_unique<BAE::Renderer3D>(imageTexture->id, world->Vertices());
+
+    // Physics Character
+    auto character = std::make_unique<BAE::PhysicsCharacter>(world->CameraPosition());
     
     // Update camera
-    camera3d->UpdatePosition(world->CameraPosition());
+    camera3d->UpdatePosition(character->V3Position());
+    //camera3d->LookAtTarget(glm::vec3(0, 0, 0));
+
+    // Physics
+    auto physics = std::make_unique<BAE::Physics>();
+    physics->CreateStaticShape(world->Vertices());
+    physics->CreateCapsule(camera3d->Position());
 
     /**=============
     2D
@@ -101,20 +117,42 @@ int main(int argc, char* args[]) {
         while (core->Event->Poll()) {
             // Shutdown
             if (core->Event->EQuit()) { core->BeginShutdown(); }
+
+            if (core->Event->Sym() == SDLK_ESCAPE) {
+                core->BeginShutdown();
+            }
         }
-         
+
+        character->Move(core->Timer->DeltaTimeMS());
+
         while (core->Timer->PhysicsUpdate()) {
-            camera3d->TankMovement(core->Event->GetEvent(), core->Timer->DeltaTime());
+            camera3d->UpdateCamera(character->V3Position(), character->V3Forward());
+
+            /*=============
+            PHYSICS
+            =============*/
+
+            physics->UpdateCharacter(character->V3Forward(), character->V3Velocity());
+            physics->Simulate(core->Timer->DeltaTimeMS());
         }
 
         /*=============
         RENDER
         =============*/
 
+        core->BeginRender();
+
+        grid->render(camera3d->ProjectionMat4(), camera3d->ViewMat4(), glm::vec3(0, 0, 0));
+
+        /*=============
+        PHYSICS
+        =============*/
+
+        physics->DrawDebug(camera3d->ProjectionMat4(), camera3d->ViewMat4());
+
         /*=============
         3D
         =============*/
-        core->BeginRender();
 
         glViewport(0, 0, 1024, 768);
 
@@ -136,7 +174,7 @@ int main(int argc, char* args[]) {
         BAE::RendererText2D::Render(
             shader2D->ID,
             fontTexture->id,
-            std::to_string(core->Timer->DeltaTime()) + " ms",
+            std::to_string(core->Timer->DeltaTimeMS()) + " ms",
             0,
             0,
             glm::vec3(1, 1, 1),

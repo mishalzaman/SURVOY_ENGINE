@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <iostream>
 
 namespace BAE {
 	class Timer
@@ -10,11 +11,13 @@ namespace BAE {
 		void BeginFrame();
 		bool PhysicsUpdate();
 
-		double DeltaTime() { return _deltaTime; }
+		double DeltaTimeS() { return _deltaTimeS; }
+		double DeltaTimeMS() { return _deltaTimeMS; }
 	private:
 		double _updateInterval; // Fixed update interval in milliseconds
 		Uint64 _lastTime;       // Last recorded time
-		double _deltaTime;      // Time elapsed since the last frame
+		double _deltaTimeMS;      // Time elapsed since the last frame
+		double _deltaTimeS;
 		double _accumulator;    // Accumulates elapsed time
 	};
 }

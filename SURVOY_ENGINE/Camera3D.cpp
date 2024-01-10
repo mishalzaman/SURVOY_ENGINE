@@ -17,8 +17,8 @@ BAE::Camera3D::Camera3D(glm::vec3 position, float screenWidth, float screenHeigh
     _pitch = PITCH;
 
     _velocity = glm::vec3(0.0f);  // Initialize velocity to zero
-    _acceleration = 0.0009f;       // Set a suitable acceleration rate
-    _maxSpeed = 0.009f;            // Set a maximum speed
+    _acceleration = 0.009f;       // Set a suitable acceleration rate
+    _maxSpeed = 0.09f;            // Set a maximum speed
 
     _updateCameraVectors();
 }
@@ -66,11 +66,41 @@ void BAE::Camera3D::TankMovement(SDL_Event& event, float deltaTime)
         _yaw += 2.0f;
     }
 
-    _position += _velocity * deltaTime;
+    _position += _velocity;
 
     _updateCameraVectors();
 }
 
+void BAE::Camera3D::LookAtTarget(glm::vec3 target)
+{
+    glm::vec3 direction = glm::normalize(target - _position);
+
+    // Calculate pitch
+    _pitch = glm::degrees(asin(direction.y));
+
+    // Calculate yaw
+    _yaw = glm::degrees(atan2(direction.z, direction.x));
+
+    // Update camera vectors
+    _updateCameraVectors();
+}
+
+void BAE::Camera3D::UpdateCamera(glm::vec3 position, glm::vec3 forward)
+{
+    _forward = glm::normalize(forward);
+
+    _right = glm::normalize(glm::cross(
+        _forward,
+        glm::vec3(0.0f, 1.0f, 0.0f) // world up
+    ));
+
+    _up = glm::normalize(glm::cross(
+        _right,
+        _forward
+    ));
+
+    _position = position;
+}
 
 void BAE::Camera3D::_updateCameraVectors()
 {
