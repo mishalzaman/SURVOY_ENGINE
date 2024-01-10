@@ -18,6 +18,7 @@ namespace BAE {
 		void Draw(Shader& shader);
 
 		int NumVertices();
+		std::vector<STexture> Vertices();
 
 	private:
 		std::vector<Mesh> _meshes;
