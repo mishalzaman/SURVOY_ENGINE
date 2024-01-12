@@ -13,7 +13,7 @@ namespace BAE {
 	class Mesh
 	{
 	public:
-		Mesh(std::vector<SVertex> vertices, std::vector<unsigned int> indices, std::vector<STexture> textures);
+		Mesh(std::vector<SVertex> vertices, std::vector<unsigned int> indices, std::vector<STexture> textures, glm::mat4 transformation);
 		void Draw(Shader& shader);
 
 		int NumVertices() { return _vertices.size(); }
@@ -23,6 +23,7 @@ namespace BAE {
 		std::vector<STexture> _textures;
 
 		unsigned int _vao, _vbo, _ebo;
+		glm::mat4 _transformation;
 
 		void _setupMesh();
 	};

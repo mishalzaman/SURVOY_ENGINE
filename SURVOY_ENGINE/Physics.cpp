@@ -114,7 +114,7 @@ void BAE::Physics::UpdatePlayerGeometry(glm::vec3 velocity, glm::vec3 forward)
 	_character->activate(true);
 
 	// Set the linear velocity of the rigid body
-	_character->setLinearVelocity(bulletVelocity * 40);
+	_character->setLinearVelocity(bulletVelocity * 1000);
 
 	// If you need to update the orientation as well
 	// Compute the quaternion from the forward vector

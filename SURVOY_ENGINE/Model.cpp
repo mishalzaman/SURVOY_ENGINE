@@ -1,4 +1,5 @@
 #include "Model.h"
+#include <iostream>
 
 using namespace BAE;
 
@@ -9,7 +10,7 @@ BAE::Model::Model(std::string const& path)
 
 void BAE::Model::Draw(Shader& shader)
 {
-	for (unsigned int i = 0; i < _meshes.size(); i++)
+    for (unsigned int i = 0; i < _meshes.size(); i++)
 		_meshes[i].Draw(shader);
 }
 
@@ -35,25 +36,31 @@ void BAE::Model::_loadModel(std::string const& path)
     }
     _directory = path.substr(0, path.find_last_of('/'));
 
-    _processNode(scene->mRootNode, scene);
+    _processNode(scene->mRootNode, scene, glm::mat4(1.0f));
 }
 
-void BAE::Model::_processNode(aiNode* node, const aiScene* scene)
+void BAE::Model::_processNode(aiNode* node, const aiScene* scene, glm::mat4 parentTransform)
 {
+    // Convert aiMatrix4x4 to glm::mat4
+    glm::mat4 nodeTransform = _convertToGLMMat4(node->mTransformation);
+
+    // Combine with parent transform
+    glm::mat4 globalTransform = parentTransform * nodeTransform;
+
     // process all the node's meshes (if any)
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        _meshes.push_back(_processMesh(mesh, scene));
+        _meshes.push_back(_processMesh(mesh, scene, globalTransform));
     }
     // then do the same for each of its children
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        _processNode(node->mChildren[i], scene);
+        _processNode(node->mChildren[i], scene, globalTransform);
     }
 }
 
-Mesh BAE::Model::_processMesh(aiMesh* mesh, const aiScene* scene)
+Mesh BAE::Model::_processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 transformation)
 {
     // data to fill
     std::vector<SVertex> vertices;
@@ -133,8 +140,11 @@ Mesh BAE::Model::_processMesh(aiMesh* mesh, const aiScene* scene)
     std::vector<STexture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
+    //glm::mat4 scaledTransformation = glm::scale(transformation, glm::vec3(0.2f, 0.2f, 0.2f));
+
+
     // return a mesh object created from the extracted mesh data
-    return Mesh(vertices, indices, textures);
+    return Mesh(vertices, indices, textures, transformation);
 }
 
 std::vector<STexture> BAE::Model::loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName)
@@ -169,4 +179,17 @@ std::vector<STexture> BAE::Model::loadMaterialTextures(aiMaterial* material, aiT
         }
     }
     return textures;
+}
+
+glm::mat4 BAE::Model::_convertToGLMMat4(const aiMatrix4x4& from)
+{
+    glm::mat4 to;
+
+    // Copy the data from aiMatrix4x4 to glm::mat4
+    to[0][0] = from.a1; to[1][0] = from.a2; to[2][0] = from.a3; to[3][0] = from.a4;
+    to[0][1] = from.b1; to[1][1] = from.b2; to[2][1] = from.b3; to[3][1] = from.b4;
+    to[0][2] = from.c1; to[1][2] = from.c2; to[2][2] = from.c3; to[3][2] = from.c4;
+    to[0][3] = from.d1; to[1][3] = from.d2; to[2][3] = from.d3; to[3][3] = from.d4;
+
+    return to;
 }

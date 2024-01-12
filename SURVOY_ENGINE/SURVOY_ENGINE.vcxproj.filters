@@ -94,7 +94,7 @@
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="CameraHelpers.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ENGINE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,7 +171,7 @@
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="CameraHelpers.h">
-      <Filter>Header Files</Filter>
+      <Filter>ENGINE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

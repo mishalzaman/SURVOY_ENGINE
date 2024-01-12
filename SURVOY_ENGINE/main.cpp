@@ -38,6 +38,8 @@ int main(int argc, char* args[]) {
     3D
     *=============*/
 
+    auto modelmesh = std::make_unique<BAE::Model>("assets/Level0/block_a_b.fbx");
+
     // Camera
     auto camera3d = std::make_unique<BAE::Camera3D>(glm::vec3(0), 1024.0f, 768.0f);
 
@@ -126,7 +128,7 @@ int main(int argc, char* args[]) {
             physics->Simulate(core->Timer->DeltaTimeMS());
         }
 
-        character->PositionV3(physics->PlayerPosition());
+        //character->PositionV3(physics->PlayerPosition());
 
         camera3d->SetPosition(character->PositionV3());
         camera3d->SetForward(character->ForwardV3());
@@ -153,10 +155,20 @@ int main(int argc, char* args[]) {
         glViewport(0, 0, 1024, 768);
 
         shader3D->use();
+
+        glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+        //model = glm::translate(model, glm::vec3(0));
+        //float angle = 20.0f * i;
+        //model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(2, 2, 2));
+        shader3D->setMat4("model", model);
+
         shader3D->setMat4("projection", camera3d->ProjectionMat4());
         shader3D->setMat4("view", camera3d->ViewMat4());
 
-        renderer3d->render(*shader3D, *camera3d, glm::vec3(0, 0, 0));
+        //renderer3d->render(*shader3D, *camera3d, glm::vec3(0, 0, 0));
+
+        modelmesh->Draw(*shader3D);
 
         /*=============
         2D
