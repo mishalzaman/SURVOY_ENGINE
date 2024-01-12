@@ -156,13 +156,6 @@ int main(int argc, char* args[]) {
 
         shader3D->use();
 
-        glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-        //model = glm::translate(model, glm::vec3(0));
-        //float angle = 20.0f * i;
-        //model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(2, 2, 2));
-        shader3D->setMat4("model", model);
-
         shader3D->setMat4("projection", camera3d->ProjectionMat4());
         shader3D->setMat4("view", camera3d->ViewMat4());
 
