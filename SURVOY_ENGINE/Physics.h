@@ -20,15 +20,12 @@ namespace BAE {
 		void Simulate(float deltaTime);
 		void DrawDebug(glm::mat4 projection, glm::mat4 view);
 
+		void CreateLevelGeometry(const std::vector<SVertex>& vertices);
 
-		void CreateStaticShape(const std::vector<SVertex>& vertices);
-
-
-		void IterateShapes(glm::vec3 forward, glm::vec3 velocity, float yaw);
-
-		void CreatePlayerCapsule(PhysicsCharacter& character);
-		void UpdatePlayerCapsule(PhysicsCharacter& character);
-		void RetrieveVectorsPlayerCapsule(PhysicsCharacter& character);
+		void CreatePlayerGeometry(glm::vec3 position, float yaw, float pitch);
+		void UpdatePlayerGeometry(PhysicsCharacter& character);
+		void UpdatePlayerGeometry(glm::vec3 velocity, glm::vec3 forward);
+		glm::vec3 PlayerPosition();
 	private:
 		void _initialize();
 

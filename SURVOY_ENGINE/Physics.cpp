@@ -51,7 +51,7 @@ void BAE::Physics::DrawDebug(glm::mat4 projection, glm::mat4 view)
     _world->debugDrawWorld();
 }
 
-void BAE::Physics::CreateStaticShape(const std::vector<SVertex>& vertices)
+void BAE::Physics::CreateLevelGeometry(const std::vector<SVertex>& vertices)
 {
 	btTriangleMesh* meshInterface = new btTriangleMesh;
 
@@ -106,57 +106,27 @@ void BAE::Physics::_initialize()
 	_world = std::make_unique<btDiscreteDynamicsWorld>(_dispatcher.get(), _broadphase.get(), _solver.get(), _collisionConfiguration.get());
 }
 
-void BAE::Physics::IterateShapes(glm::vec3 forward, glm::vec3 velocity, float yaw)
+void BAE::Physics::UpdatePlayerGeometry(glm::vec3 velocity, glm::vec3 forward)
 {
-	for (int j = _world->getNumCollisionObjects() - 1; j >= 0; j--)
-	{
-		btCollisionObject* obj = _world->getCollisionObjectArray()[j];
-		btRigidBody* body = btRigidBody::upcast(obj);
-
-		if (body && body->getMotionState())
-		{
-			if (body->getCollisionShape()->getName() == "CapsuleShape")
-			{
-				// Activate the body
-				body->activate(true);
-
-				// Calculate the forward direction based on yaw
-				// Assuming yaw is in radians and affects the Y-axis
-				btVector3 forwardDirection(forward.x, forward.y, forward.z);
-				forwardDirection.normalize();
-
-				// Apply the calculated direction to the velocity
-				btVector3 newVelocity = forwardDirection * velocity.length();
-				body->setLinearVelocity(newVelocity);
-			}
-		}
-	}
-}
-
-void BAE::Physics::UpdatePlayerCapsule(PhysicsCharacter& character)
-{
-	glm::vec3 charVelocity = character.V3Velocity();
-	glm::vec3 charForward = character.V3Forward();
-
 	// Convert glm::vec3 to btVector3 for Bullet Physics
-	btVector3 bulletVelocity(charVelocity.x, charVelocity.y, charVelocity.z);
+	btVector3 bulletVelocity(velocity.x, velocity.y, velocity.z);
 
 	_character->activate(true);
 
 	// Set the linear velocity of the rigid body
-	_character->setLinearVelocity(bulletVelocity *40);
+	_character->setLinearVelocity(bulletVelocity * 40);
 
 	// If you need to update the orientation as well
 	// Compute the quaternion from the forward vector
-	btVector3 forward(charForward.x, charForward.y, charForward.z);
-	forward.normalize();
+	btVector3 forwardV(forward.x, forward.y, forward.z);
+	forwardV.normalize();
 	btVector3 up(0, 1, 0); // Assuming 'up' is in the Y direction
-	btVector3 right = up.cross(forward).normalized();
-	up = forward.cross(right).normalized();
+	btVector3 right = up.cross(forwardV).normalized();
+	up = forwardV.cross(right).normalized();
 
-	btMatrix3x3 orientation(right.x(), up.x(), forward.x(),
-		right.y(), up.y(), forward.y(),
-		right.z(), up.z(), forward.z());
+	btMatrix3x3 orientation(right.x(), up.x(), forwardV.x(),
+		right.y(), up.y(), forwardV.y(),
+		right.z(), up.z(), forwardV.z());
 	btQuaternion rotation;
 	orientation.getRotation(rotation);
 
@@ -166,7 +136,7 @@ void BAE::Physics::UpdatePlayerCapsule(PhysicsCharacter& character)
 	_character->setWorldTransform(transform);
 }
 
-void BAE::Physics::RetrieveVectorsPlayerCapsule(PhysicsCharacter& character)
+glm::vec3 BAE::Physics::PlayerPosition()
 {
 	btTransform trans;
 
@@ -174,16 +144,11 @@ void BAE::Physics::RetrieveVectorsPlayerCapsule(PhysicsCharacter& character)
 	_character->getMotionState()->getWorldTransform(trans);
 	btVector3 pos = trans.getOrigin(); // This is the position
 
-	character.SetV3Position(glm::vec3(pos.x(), pos.y(), pos.z()));
+	return glm::vec3(pos.x(), pos.y(), pos.z());
 }
 
-void BAE::Physics::CreatePlayerCapsule(PhysicsCharacter& character)
+void BAE::Physics::CreatePlayerGeometry(glm::vec3 position, float yaw, float pitch)
 {
-	glm::vec3 position = character.V3Position();
-	float yaw = character.fYaw();
-	// Assuming pitch is available in your PhysicsCharacter
-	float pitch = character.fPitch();
-
 	btCollisionShape* groundShape = new btCapsuleShape(0.5f, 1.f);
 	_collisionShapes.push_back(groundShape);
 
@@ -205,8 +170,9 @@ void BAE::Physics::CreatePlayerCapsule(PhysicsCharacter& character)
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
 	btRigidBody* body = new btRigidBody(rbInfo);
-	body->setAngularFactor(btVector3(0, 1, 0));
+	body->setAngularFactor(btVector3(0, 0, 0));
 
 	_character = body;
+
 	_world->addRigidBody(body);
 }

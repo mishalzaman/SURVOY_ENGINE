@@ -77,9 +77,9 @@ void BAE::PhysicsCharacter::Move(float deltaTime)
         _fYaw += TURN_SPEED;
     }
 
-    std::cout << "Velocity: X: " << _v3Velocity.x
-        << " Y: " << _v3Velocity.y
-        << " Z: " << _v3Velocity.z << std::endl;
+    //std::cout << "Velocity: X: " << _v3Velocity.x
+    //    << " Y: " << _v3Velocity.y
+    //    << " Z: " << _v3Velocity.z << std::endl;
 
     _v3Position += _v3Velocity;
 

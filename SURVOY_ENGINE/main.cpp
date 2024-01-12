@@ -77,13 +77,13 @@ int main(int argc, char* args[]) {
     auto character = std::make_unique<BAE::PhysicsCharacter>(world->CameraPosition());
     
     // Update camera
-    camera3d->SetPosition(character->V3Position());
-    camera3d->SetForward(character->V3Forward());
+    camera3d->SetPosition(character->PositionV3());
+    camera3d->SetForward(character->ForwardV3());
 
     // Physics
     auto physics = std::make_unique<BAE::Physics>();
-    physics->CreateStaticShape(world->Vertices());
-    physics->CreatePlayerCapsule(*character);
+    physics->CreateLevelGeometry(world->Vertices());
+    physics->CreatePlayerGeometry(character->PositionV3(), character->YawF(), character->PitchF());
 
     /**=============
     2D
@@ -115,26 +115,22 @@ int main(int argc, char* args[]) {
             }
         }
 
+        character->Move(core->Timer->DeltaTimeMS());
+
+        physics->UpdatePlayerGeometry(character->VelocityV3(), character->ForwardV3());
 
         while (core->Timer->PhysicsUpdate()) {
-
-            character->Move(core->Timer->DeltaTimeMS());
-
             /*=============
             PHYSICS
             =============*/
-            physics->UpdatePlayerCapsule(*character);
-
             physics->Simulate(core->Timer->DeltaTimeMS());
-
-            physics->RetrieveVectorsPlayerCapsule(*character);
-
-            camera3d->SetPosition(character->V3Position());
-            camera3d->SetForward(character->V3Forward());
-            camera3d->Update();
         }
 
+        character->PositionV3(physics->PlayerPosition());
 
+        camera3d->SetPosition(character->PositionV3());
+        camera3d->SetForward(character->ForwardV3());
+        camera3d->Update();
 
         /*=============
         RENDER
