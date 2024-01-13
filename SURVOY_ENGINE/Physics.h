@@ -21,9 +21,9 @@ namespace BAE {
 		void DrawDebug(glm::mat4 projection, glm::mat4 view);
 
 		void CreateLevelGeometry(const std::vector<SVertex>& vertices);
+		void CreateLevelGeometry(const std::vector<SVertex>& vertices, glm::mat4 tranformation);
 
 		void CreatePlayerGeometry(glm::vec3 position, float yaw, float pitch);
-		void UpdatePlayerGeometry(PhysicsCharacter& character);
 		void UpdatePlayerGeometry(glm::vec3 velocity, glm::vec3 forward);
 		glm::vec3 PlayerPosition();
 	private:

@@ -88,6 +88,50 @@ void BAE::Physics::CreateLevelGeometry(const std::vector<SVertex>& vertices)
 	_world->addRigidBody(body);
 }
 
+void BAE::Physics::CreateLevelGeometry(const std::vector<SVertex>& vertices, glm::mat4 tranformation)
+{
+	btTriangleMesh* meshInterface = new btTriangleMesh;
+
+	glm::mat4 transform = tranformation;
+
+	for (int i = 0; i < vertices.size(); i += 3) {
+		// Transform each vertex by the mesh's transformation matrix
+		glm::vec4 transformedVertex0 = transform * glm::vec4(vertices[i].Position, 1.0f);
+		glm::vec4 transformedVertex1 = transform * glm::vec4(vertices[i + 1].Position, 1.0f);
+		glm::vec4 transformedVertex2 = transform * glm::vec4(vertices[i + 2].Position, 1.0f);
+
+		btVector3 vertex0(transformedVertex0.x, transformedVertex0.y, transformedVertex0.z);
+		btVector3 vertex1(transformedVertex1.x, transformedVertex1.y, transformedVertex1.z);
+		btVector3 vertex2(transformedVertex2.x, transformedVertex2.y, transformedVertex2.z);
+
+		meshInterface->addTriangle(vertex0, vertex1, vertex2);
+	}
+
+	btBvhTriangleMeshShape* groundShape = new btBvhTriangleMeshShape(meshInterface, true, true);
+
+	_collisionShapes.push_back(groundShape);
+
+	btTransform groundTransform;
+	groundTransform.setIdentity();
+
+	btScalar mass(0.);
+
+	//rigidbody is dynamic if and only if mass is non zero, otherwise static
+	bool isDynamic = (mass != 0.f);
+
+	btVector3 localInertia(0, 0, 0);
+	if (isDynamic)
+		groundShape->calculateLocalInertia(mass, localInertia);
+
+	//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+	btRigidBody* body = new btRigidBody(rbInfo);
+
+	//add the body to the dynamics world
+	_world->addRigidBody(body);
+}
+
 void BAE::Physics::_initialize()
 {
 	// create the collision configuration
@@ -114,7 +158,7 @@ void BAE::Physics::UpdatePlayerGeometry(glm::vec3 velocity, glm::vec3 forward)
 	_character->activate(true);
 
 	// Set the linear velocity of the rigid body
-	_character->setLinearVelocity(bulletVelocity * 1000);
+	_character->setLinearVelocity(bulletVelocity * 40);
 
 	// If you need to update the orientation as well
 	// Compute the quaternion from the forward vector

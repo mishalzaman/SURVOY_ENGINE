@@ -16,7 +16,9 @@ namespace BAE {
 		Mesh(std::vector<SVertex> vertices, std::vector<unsigned int> indices, std::vector<STexture> textures, glm::mat4 transformation);
 		void Draw(Shader& shader);
 
+		glm::mat4 TransformationMat4() { return _transformation; };
 		int NumVertices() { return _vertices.size(); }
+		std::vector<SVertex> Vertices() { return _vertices; }
 	private:
 		std::vector<SVertex> _vertices;
 		std::vector<unsigned int> _indices;

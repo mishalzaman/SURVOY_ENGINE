@@ -1,6 +1,16 @@
 #include "Model.h"
 #include <iostream>
 
+
+/*
+IMPORTANT NOTES
+
+- Blender
+  - When exporting make sure to triangulate faces otherwise a range error is thrown
+  - Check scaling
+  - Creating Parent-Child relationship. Select the child, select the parent. Then press ctrl-p and select "Object (Keep transforms)"
+*/
+
 using namespace BAE;
 
 BAE::Model::Model(std::string const& path)
@@ -41,6 +51,9 @@ void BAE::Model::_loadModel(std::string const& path)
 
 void BAE::Model::_processNode(aiNode* node, const aiScene* scene, glm::mat4 parentTransform)
 {
+    // apply rotation of -45 if FBX file. Otherwise comment this out for a OBJ file.
+    parentTransform = glm::rotate(parentTransform, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
     // Convert aiMatrix4x4 to glm::mat4
     glm::mat4 nodeTransform = _convertToGLMMat4(node->mTransformation);
 
@@ -53,10 +66,12 @@ void BAE::Model::_processNode(aiNode* node, const aiScene* scene, glm::mat4 pare
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
         _meshes.push_back(_processMesh(mesh, scene, globalTransform));
     }
+
     // then do the same for each of its children
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
         _processNode(node->mChildren[i], scene, globalTransform);
+
     }
 }
 
@@ -141,7 +156,6 @@ Mesh BAE::Model::_processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 tran
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     //glm::mat4 scaledTransformation = glm::scale(transformation, glm::vec3(0.2f, 0.2f, 0.2f));
-
 
     // return a mesh object created from the extracted mesh data
     return Mesh(vertices, indices, textures, transformation);

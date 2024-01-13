@@ -38,6 +38,7 @@ int main(int argc, char* args[]) {
     3D
     *=============*/
 
+    // model
     auto modelmesh = std::make_unique<BAE::Model>("assets/Level0/block_a_b.fbx");
 
     // Camera
@@ -76,7 +77,7 @@ int main(int argc, char* args[]) {
     auto renderer3d = std::make_unique<BAE::Renderer3D>(imageTexture->id, world->Vertices());
 
     // Physics Character
-    auto character = std::make_unique<BAE::PhysicsCharacter>(world->CameraPosition());
+    auto character = std::make_unique<BAE::PhysicsCharacter>(glm::vec3(0));
     
     // Update camera
     camera3d->SetPosition(character->PositionV3());
@@ -84,8 +85,13 @@ int main(int argc, char* args[]) {
 
     // Physics
     auto physics = std::make_unique<BAE::Physics>();
-    physics->CreateLevelGeometry(world->Vertices());
+    //physics->CreateLevelGeometry(world->Vertices());
     physics->CreatePlayerGeometry(character->PositionV3(), character->YawF(), character->PitchF());
+
+    for (unsigned int i = 0; i < modelmesh->Meshes().size(); i++) {
+        physics->CreateLevelGeometry(modelmesh->Meshes()[i].Vertices(), modelmesh->Meshes()[i].TransformationMat4());
+    }
+
 
     /**=============
     2D
@@ -128,7 +134,7 @@ int main(int argc, char* args[]) {
             physics->Simulate(core->Timer->DeltaTimeMS());
         }
 
-        //character->PositionV3(physics->PlayerPosition());
+        character->PositionV3(physics->PlayerPosition());
 
         camera3d->SetPosition(character->PositionV3());
         camera3d->SetForward(character->ForwardV3());

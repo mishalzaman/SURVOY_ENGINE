@@ -7,7 +7,7 @@ BAE::PhysicsCharacter::PhysicsCharacter(glm::vec3 position):
     _fMovementSpeed(0.001f),
     _v3Velocity(glm::vec3(0.0f)),
     _fAcceleration(0.09f),
-    _fMaxSpeed(0.09f),
+    _fMaxSpeed(1.09f),
     _fMass(1.f),
     _v3Position(position)
 {
