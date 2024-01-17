@@ -1,7 +1,5 @@
 
 #include <memory>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include "Core.h"
 #include "RendererText2D.h"
@@ -10,10 +8,6 @@
 #include "Camera2D.h"
 #include "Model.h"
 #include "Shader.h"
-#include "STexture.h"
-#include "FileLoader.h"
-#include "World.h"
-#include "Renderer3D.h"
 #include "Physics.h"
 #include "PhysicsDebugDraw.h"
 #include "Grid.h"
@@ -47,35 +41,6 @@ int main(int argc, char* args[]) {
     // Shader
     auto shader3D = std::make_unique<BAE::Shader>("vertex_model_3d.glsl", "fragment_model_3d.glsl");
 
-    // World Mesh
-    auto imageTexture = std::make_unique<BAE::STexture>();
-    imageTexture->path = "assets/tilemap/tilesheet.png";
-    BAE::FileLoader::Texture(*imageTexture);
-
-    std::vector<int> map = {
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1,
-        1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-    };
-
-    auto world = std::make_unique<BAE::World>(map, 16);
-
-    // Renderer
-    auto renderer3d = std::make_unique<BAE::Renderer3D>(imageTexture->id, world->Vertices());
-
     // Physics Character
     auto character = std::make_unique<BAE::PhysicsCharacter>(glm::vec3(0));
     
@@ -91,7 +56,6 @@ int main(int argc, char* args[]) {
     for (unsigned int i = 0; i < modelmesh->Meshes().size(); i++) {
         physics->CreateLevelGeometry(modelmesh->Meshes()[i].Vertices(), modelmesh->Meshes()[i].TransformationMat4());
     }
-
 
     /**=============
     2D
@@ -164,8 +128,6 @@ int main(int argc, char* args[]) {
 
         shader3D->setMat4("projection", camera3d->ProjectionMat4());
         shader3D->setMat4("view", camera3d->ViewMat4());
-
-        //renderer3d->render(*shader3D, *camera3d, glm::vec3(0, 0, 0));
 
         modelmesh->Draw(*shader3D);
 
