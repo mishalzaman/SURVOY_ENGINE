@@ -33,7 +33,7 @@ int main(int argc, char* args[]) {
     *=============*/
 
     // model
-    auto modelmesh = std::make_unique<BAE::Model>("assets/Level0/block_a_b.fbx");
+    auto modelmesh = std::make_unique<BAE::Model>("assets/TestLevel/TestLevel.fbx");
 
     // Camera
     auto camera3d = std::make_unique<BAE::Camera3D>(glm::vec3(0), 1024.0f, 768.0f);
@@ -42,7 +42,7 @@ int main(int argc, char* args[]) {
     auto shader3D = std::make_unique<BAE::Shader>("vertex_model_3d.glsl", "fragment_model_3d.glsl");
 
     // Physics Character
-    auto character = std::make_unique<BAE::PhysicsCharacter>(glm::vec3(0));
+    auto character = std::make_unique<BAE::PhysicsCharacter>(glm::vec3(0,10,0));
     
     // Update camera
     camera3d->SetPosition(character->PositionV3());
