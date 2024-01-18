@@ -31,5 +31,7 @@ namespace BAE {
 		std::vector<STexture> loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName);
 
 		glm::mat4 _convertToGLMMat4(const aiMatrix4x4& from);
+
+		glm::vec3 _playerStartPost;
 	};
 }

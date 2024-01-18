@@ -1,4 +1,20 @@
 
+/*
+DEVELOPMENT NOTES
+=================
+
+BLENDER -> OpenGL
+-----------------
+
+Exporting:
+    - Select all meshes to export
+    - Export to FBX
+    - Triangulate faces
+    - Set scale to 0.01?
+
+*/
+
+
 #include <memory>
 #include <iostream>
 #include "Core.h"
@@ -45,7 +61,7 @@ int main(int argc, char* args[]) {
     auto character = std::make_unique<BAE::PhysicsCharacter>(glm::vec3(0,10,0));
     
     // Update camera
-    camera3d->SetPosition(character->PositionV3());
+    camera3d->SetPosition(glm::vec3(0));
     camera3d->SetForward(character->ForwardV3());
 
     // Physics
