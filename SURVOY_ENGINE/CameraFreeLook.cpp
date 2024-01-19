@@ -29,7 +29,7 @@ void BAE::CameraFreeLook::_move(float deltaTime)
 {
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
-    float velocity = _acceleration * deltaTime;
+    float velocity = _acceleration * SPEED * deltaTime;
 
     if (keystate[SDL_SCANCODE_W]) {
         _Position += _Forward * velocity;
@@ -50,8 +50,8 @@ void BAE::CameraFreeLook::_mouseLook(float deltaTime)
     float xOffset = _mouseX;
     float yOffset = _mouseY;
 
-    xOffset *= C_MOUSE_SENSITIVITY * deltaTime;
-    yOffset *= C_MOUSE_SENSITIVITY * deltaTime;
+    xOffset *= MOUSE_SENSITIVITY * deltaTime;
+    yOffset *= MOUSE_SENSITIVITY * deltaTime;
 
     _Yaw += xOffset;
     _Pitch -= yOffset;

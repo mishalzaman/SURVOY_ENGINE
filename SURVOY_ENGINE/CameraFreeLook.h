@@ -4,12 +4,12 @@
 #include <iostream>
 #include "Camera3DBase.h"
 
-const float C_SPEED = 2.f;
-const float C_MOUSE_SENSITIVITY = 20.f;
-
 namespace BAE {
 	class CameraFreeLook : public Camera3DBase
 	{
+	const float SPEED = 2.f;
+	const float MOUSE_SENSITIVITY = 20.f;
+
 	public:
 		CameraFreeLook(float screenWidth, float screenHeight);
 		void Update(float deltaTime);
