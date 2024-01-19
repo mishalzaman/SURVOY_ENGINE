@@ -20,7 +20,6 @@ Exporting:
 #include "Core.h"
 #include "RendererText2D.h"
 #include "Defaults.h"
-#include "Camera3D.h"
 #include "Camera2D.h"
 #include "Model.h"
 #include "Shader.h"
@@ -29,6 +28,7 @@ Exporting:
 #include "Grid.h"
 #include "PhysicsCharacter.h"
 #include "CameraFreeLook.h"
+#include "CameraFollow.h"
 
 int main(int argc, char* args[]) {
 	/*============= 
@@ -47,6 +47,7 @@ int main(int argc, char* args[]) {
 
 	// 3D
 	auto LevelModel = std::make_unique<BAE::Model>("assets/TestLevel/TestLevel.fbx");
+	auto CameraFollow= std::make_unique<BAE::CameraFollow>(1024.0f, 768.0f);
 	auto CameraFreeLook = std::make_unique<BAE::CameraFreeLook>(1024.0f, 768.0f);
 	auto Shader3D = std::make_unique<BAE::Shader>("vertex_model_3d.glsl", "fragment_model_3d.glsl");
 
@@ -60,9 +61,6 @@ int main(int argc, char* args[]) {
 	/*=============
 	SETUP
 	=============*/
-
-	CameraFreeLook->Position(glm::vec3(0,0.2,1));
-	CameraFreeLook->Forward(glm::vec3(0, 0, 1));
 
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 
@@ -92,6 +90,10 @@ int main(int argc, char* args[]) {
 				break;
 				// handle mouse motion
 			case SDL_MOUSEMOTION:
+				CameraFollow->SetMouseOffsets(
+					e.motion.xrel,
+					e.motion.yrel
+				);
 				CameraFreeLook->SetMouseOffsets(
 					e.motion.xrel,
 					e.motion.yrel
@@ -103,10 +105,9 @@ int main(int argc, char* args[]) {
 		}
 		
 		while (Core->Timer->PhysicsUpdate()) {
-			CameraFreeLook->Update(deltaTime);	
+			CameraFollow->Update(glm::vec3(0, 1, 0), deltaTime);
+			CameraFreeLook->Update(deltaTime);
 		}
-
-
 
 		/*=============
 		RENDER

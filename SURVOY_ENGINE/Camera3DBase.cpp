@@ -1,10 +1,10 @@
 #include "Camera3DBase.h"
 
 BAE::Camera3DBase::Camera3DBase(float screenWidth, float screenHeight):
-    _Forward(glm::vec3(0)),
+    _Forward(glm::vec3(0,0,1)),
     _Right(glm::vec3(0)),
     _Up(glm::vec3(0,1,0)),
-    _Position(glm::vec3(0)),
+    _Position(glm::vec3(0,1,1)),
     _screenWidth(screenWidth),
     _screenHeight(screenHeight)
 {

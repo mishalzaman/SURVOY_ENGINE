@@ -57,8 +57,7 @@ void BAE::Model::_processNode(aiNode* node, const aiScene* scene, glm::mat4 pare
     std::cout << node->mName.C_Str() << std::endl;
 
     if (std::string(node->mName.C_Str()) == "PLAYER_START") {
-        // do not render
-        return;
+        // do something with player
     }
 
     // Convert aiMatrix4x4 to glm::mat4
