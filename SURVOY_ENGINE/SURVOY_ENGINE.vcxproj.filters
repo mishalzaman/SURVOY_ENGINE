@@ -57,15 +57,6 @@
     <ClCompile Include="RendererTileset2D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer3D.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera3D.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
@@ -94,6 +85,15 @@
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="CameraHelpers.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera3DBase.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraFreeLook.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraFollow.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,15 +134,6 @@
     <ClInclude Include="RendererTileset2D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer3D.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera3D.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
@@ -171,6 +162,15 @@
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="CameraHelpers.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera3DBase.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraFreeLook.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraFollow.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
   </ItemGroup>

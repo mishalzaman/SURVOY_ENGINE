@@ -133,7 +133,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera2D.cpp" />
-    <ClCompile Include="Camera3D.cpp" />
+    <ClCompile Include="Camera3DBase.cpp" />
+    <ClCompile Include="CameraFollow.cpp" />
+    <ClCompile Include="CameraFreeLook.cpp" />
     <ClCompile Include="CameraHelpers.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
@@ -145,10 +147,8 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PhysicsCharacter.cpp" />
     <ClCompile Include="PhysicsDebugDraw.h" />
-    <ClCompile Include="World.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Renderer3D.cpp" />
     <ClCompile Include="RendererQuad2D.cpp" />
     <ClCompile Include="RendererText2D.cpp" />
     <ClCompile Include="RendererTileset2D.cpp" />
@@ -158,7 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera2D.h" />
-    <ClInclude Include="Camera3D.h" />
+    <ClInclude Include="Camera3DBase.h" />
+    <ClInclude Include="CameraFollow.h" />
+    <ClInclude Include="CameraFreeLook.h" />
     <ClInclude Include="CameraHelpers.h" />
     <ClInclude Include="Code.h" />
     <ClInclude Include="Core.h" />
@@ -170,10 +172,8 @@
     <ClInclude Include="MapLoader.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PhysicsCharacter.h" />
-    <ClInclude Include="World.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="Renderer3D.h" />
     <ClInclude Include="RendererQuad2D.h" />
     <ClInclude Include="RendererText2D.h" />
     <ClInclude Include="RendererTileset2D.h" />
