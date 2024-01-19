@@ -54,6 +54,13 @@ void BAE::Model::_processNode(aiNode* node, const aiScene* scene, glm::mat4 pare
     // apply rotation of -45 if FBX file. Otherwise comment this out for a OBJ file.
     //parentTransform = glm::rotate(parentTransform, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
+    std::cout << node->mName.C_Str() << std::endl;
+
+    if (std::string(node->mName.C_Str()) == "PLAYER_START") {
+        // do not render
+        return;
+    }
+
     // Convert aiMatrix4x4 to glm::mat4
     glm::mat4 nodeTransform = _convertToGLMMat4(node->mTransformation);
 

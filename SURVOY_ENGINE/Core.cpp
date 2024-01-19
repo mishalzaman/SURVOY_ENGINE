@@ -81,6 +81,12 @@ void BAE::Core::EndRender()
     throw std::runtime_error("Window was not found during game loop");
 }
 
+void BAE::Core::BeginShutdown()
+{
+    std::cout << "beginning shutdown" << std::endl;
+    _quit = true;
+}
+
 /*==============================================
 WINDOW
 ==============================================*/

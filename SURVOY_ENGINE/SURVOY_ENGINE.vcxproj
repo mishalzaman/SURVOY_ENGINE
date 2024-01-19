@@ -134,6 +134,8 @@
   <ItemGroup>
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3D.cpp" />
+    <ClCompile Include="Camera3DBase.cpp" />
+    <ClCompile Include="CameraFreeLook.cpp" />
     <ClCompile Include="CameraHelpers.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
@@ -159,6 +161,8 @@
   <ItemGroup>
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
+    <ClInclude Include="Camera3DBase.h" />
+    <ClInclude Include="CameraFreeLook.h" />
     <ClInclude Include="CameraHelpers.h" />
     <ClInclude Include="Code.h" />
     <ClInclude Include="Core.h" />

@@ -25,7 +25,7 @@ namespace BAE {
 		void BeginRender();
 		void EndRender();
 		bool Quit() { return _quit; }
-		void BeginShutdown() { _quit = true; }
+		void BeginShutdown();
 
 		// Getters
 		int GetError() { return _error; };
