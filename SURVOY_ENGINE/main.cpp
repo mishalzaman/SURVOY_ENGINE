@@ -120,11 +120,11 @@ int main(int argc, char* args[]) {
 		RENDER - 3D
 		=============*/
 
-		Grid->render(CameraFreeLook->Projection(), CameraFreeLook->View(), glm::vec3(0, 0, 0));
+		Grid->render(CameraFollow->Projection(), CameraFollow->View(), glm::vec3(0, 0, 0));
 
 		Shader3D->use();
-		Shader3D->setMat4("projection", CameraFreeLook->Projection());
-		Shader3D->setMat4("view", CameraFreeLook->View());
+		Shader3D->setMat4("projection", CameraFollow->Projection());
+		Shader3D->setMat4("view", CameraFollow->View());
 
 		LevelModel->Draw(*Shader3D);
 

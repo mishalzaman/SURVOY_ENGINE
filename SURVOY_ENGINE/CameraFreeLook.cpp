@@ -3,9 +3,7 @@
 
 BAE::CameraFreeLook::CameraFreeLook(float screenWidth, float screenHeight) :
     Camera3DBase(screenWidth, screenHeight),
-    _acceleration(2.f),
-    _mouseX(0),
-    _mouseY(0)
+    _acceleration(2.f)
 {
 
 }
@@ -21,8 +19,8 @@ void BAE::CameraFreeLook::Update(float deltaTime)
 
 void BAE::CameraFreeLook::SetMouseOffsets(float x, float y)
 {
-    _mouseX = x;
-    _mouseY = y;
+    _MouseX = x;
+    _MouseY = y;
 }
 
 void BAE::CameraFreeLook::_move(float deltaTime)
@@ -47,8 +45,8 @@ void BAE::CameraFreeLook::_move(float deltaTime)
 
 void BAE::CameraFreeLook::_mouseLook(float deltaTime)
 {
-    float xOffset = _mouseX;
-    float yOffset = _mouseY;
+    float xOffset = _MouseX;
+    float yOffset = _MouseY;
 
     xOffset *= MOUSE_SENSITIVITY * deltaTime;
     yOffset *= MOUSE_SENSITIVITY * deltaTime;
@@ -62,6 +60,6 @@ void BAE::CameraFreeLook::_mouseLook(float deltaTime)
     if (_Pitch < -89.0f)
         _Pitch = -89.0f;
 
-    _mouseX = 0;
-    _mouseY = 0;
+    _MouseX = 0;
+    _MouseY = 0;
 }

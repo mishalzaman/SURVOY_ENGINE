@@ -5,8 +5,6 @@ BAE::CameraFollow::CameraFollow(float screenWidth, float screenHeight):
 	Camera3DBase(screenWidth, screenHeight),
 	_target(glm::vec3(0)),
 	_acceleration(2.f),
-	_mouseX(0),
-	_mouseY(0),
     _distanceToTarget(2.0f)
 {
 }
@@ -21,8 +19,8 @@ void BAE::CameraFollow::Update(glm::vec3 target, float deltaTime)
 
 void BAE::CameraFollow::SetMouseOffsets(float x, float y)
 {
-    _mouseX = x;
-    _mouseY = y;
+    _MouseX = x;
+    _MouseY = y;
 }
 
 void BAE::CameraFollow::_move(float deltaTime)
@@ -51,11 +49,11 @@ void BAE::CameraFollow::_move(float deltaTime)
 void BAE::CameraFollow::_orbit(float deltaTime)
 {
     // Sensitivity scaling
-    float sensitivity = C_MOUSE_SENSITIVITY * deltaTime;
+    float sensitivity = MOUSE_SENSITIVITY * deltaTime;
 
     // Adjust yaw and pitch based on mouse movement
-    _Yaw += _mouseX * sensitivity;
-    _Pitch += _mouseY * sensitivity;
+    _Yaw += _MouseX * sensitivity;
+    _Pitch += _MouseY * sensitivity;
 
     // Clamp the pitch
     _Pitch = std::max(std::min(_Pitch, 89.0f), -89.0f);
@@ -80,7 +78,7 @@ void BAE::CameraFollow::_orbit(float deltaTime)
     _Up = glm::normalize(glm::cross(_Right, _Forward));
 
     // Reset mouse offsets
-    _mouseX = 0;
-    _mouseY = 0;
+    _MouseX = 0;
+    _MouseY = 0;
 }
 

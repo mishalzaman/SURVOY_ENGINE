@@ -12,16 +12,13 @@ namespace BAE {
 
 	public:
 		CameraFreeLook(float screenWidth, float screenHeight);
-		void Update(float deltaTime);
-		void SetMouseOffsets(float x, float y);
+		void			Update(float deltaTime);
+		void			SetMouseOffsets(float x, float y);
 
-		float _acceleration;
-
-		float _mouseX;
-		float _mouseY;
+		float			_acceleration;
 
 	private:
-		void _move(float deltaTime);
-		void _mouseLook(float deltaTime);
+		void			_move(float deltaTime);
+		void			_mouseLook(float deltaTime);
 	};
 }

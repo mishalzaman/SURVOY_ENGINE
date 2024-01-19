@@ -28,6 +28,9 @@ namespace BAE {
 		float _Yaw = -90.0f;
 		float _Pitch = 0.0f;
 
+		float _MouseX;		 // Relative X offset from last position		
+		float _MouseY;		 // Relative Y offset from last position
+
 	private:
 		float _screenWidth;
 		float _screenHeight;

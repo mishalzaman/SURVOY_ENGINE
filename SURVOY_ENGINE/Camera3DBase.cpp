@@ -6,7 +6,9 @@ BAE::Camera3DBase::Camera3DBase(float screenWidth, float screenHeight):
     _Up(glm::vec3(0,1,0)),
     _Position(glm::vec3(0,1,1)),
     _screenWidth(screenWidth),
-    _screenHeight(screenHeight)
+    _screenHeight(screenHeight),
+    _MouseX(0),
+    _MouseY(0)
 {
     UpdateVectors();
 }
