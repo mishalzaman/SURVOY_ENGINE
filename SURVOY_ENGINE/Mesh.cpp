@@ -1,7 +1,13 @@
 #include "Mesh.h"
 #include <iostream>
 
-BAE::Mesh::Mesh(std::vector<SVertex> vertices, std::vector<unsigned int> indices, std::vector<STexture> textures, glm::mat4 transformation):
+BAE::Mesh::Mesh(
+	std::vector<SVertex> vertices,
+	std::vector<unsigned int> indices,
+	std::vector<STexture> textures,
+	glm::mat4 transformation,
+	std::string name
+):
 	_vao(0),
 	_vbo(0),
 	_ebo(0)
@@ -10,6 +16,9 @@ BAE::Mesh::Mesh(std::vector<SVertex> vertices, std::vector<unsigned int> indices
 	this->_indices = indices;
 	this->_textures = textures;
 	this->_transformation = transformation;
+	this->_name = name;
+
+	std::cout << _name << std::endl;
 
 	_setupMesh();
 }
