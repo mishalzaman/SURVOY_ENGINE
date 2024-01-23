@@ -5,7 +5,7 @@ BAE::CameraFollow::CameraFollow(float screenWidth, float screenHeight):
 	Camera3DBase(screenWidth, screenHeight),
 	_target(glm::vec3(0)),
 	_acceleration(2.f),
-    _distanceToTarget(2.0f)
+    _distanceToTarget(DISTANCE_TO_FOLLOW)
 {
 }
 
@@ -14,7 +14,7 @@ void BAE::CameraFollow::Update(glm::vec3 target, float deltaTime)
     _target = target;
 
     _orbit(deltaTime);
-    _move(deltaTime);
+    _move();
 }
 
 void BAE::CameraFollow::SetMouseOffsets(float x, float y)
@@ -23,7 +23,7 @@ void BAE::CameraFollow::SetMouseOffsets(float x, float y)
     _MouseY = y;
 }
 
-void BAE::CameraFollow::_move(float deltaTime)
+void BAE::CameraFollow::_move()
 {
     // Convert yaw and pitch to radians
     float yawRad = glm::radians(_Yaw);

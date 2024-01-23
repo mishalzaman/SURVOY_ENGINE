@@ -84,7 +84,7 @@
     <ClCompile Include="PhysicsCharacter.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="CameraHelpers.cpp">
+    <ClCompile Include="VectorHelpers.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="Camera3DBase.cpp">
@@ -164,7 +164,7 @@
     <ClInclude Include="PhysicsCharacter.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="CameraHelpers.h">
+    <ClInclude Include="VectorHelpers.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Camera3DBase.h">

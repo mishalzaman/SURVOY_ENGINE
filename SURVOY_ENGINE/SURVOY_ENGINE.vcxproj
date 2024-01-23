@@ -136,7 +136,7 @@
     <ClCompile Include="Camera3DBase.cpp" />
     <ClCompile Include="CameraFollow.cpp" />
     <ClCompile Include="CameraFreeLook.cpp" />
-    <ClCompile Include="CameraHelpers.cpp" />
+    <ClCompile Include="VectorHelpers.cpp" />
     <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
@@ -162,7 +162,7 @@
     <ClInclude Include="Camera3DBase.h" />
     <ClInclude Include="CameraFollow.h" />
     <ClInclude Include="CameraFreeLook.h" />
-    <ClInclude Include="CameraHelpers.h" />
+    <ClInclude Include="VectorHelpers.h" />
     <ClInclude Include="CharacterController.h" />
     <ClInclude Include="Code.h" />
     <ClInclude Include="Core.h" />

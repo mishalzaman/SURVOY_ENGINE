@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PHYSICS_H
+#define PHYSICS_H
 
 #include <bullet/btBulletDynamicsCommon.h>
 #include <bullet/btBulletCollisionCommon.h>
@@ -22,13 +23,8 @@ namespace BAE {
 
 		void StaticTriangleMesh(const std::vector<SVertex>& vertices, glm::mat4 tranformation);
 
-		btDiscreteDynamicsWorld* World() {
-			return _world.get();
-		}
-
-		btAlignedObjectArray<btCollisionShape*> CollisionShapes() {
-			return _collisionShapes;
-		}
+		btDiscreteDynamicsWorld& World();
+		btAlignedObjectArray<btCollisionShape*>& CollisionShapes() { return _collisionShapes; }
 
 	private:
 		std::unique_ptr<btDefaultCollisionConfiguration> _collisionConfiguration;
@@ -41,3 +37,5 @@ namespace BAE {
 		btAlignedObjectArray<btCollisionShape*> _collisionShapes;
 	};
 }
+
+#endif

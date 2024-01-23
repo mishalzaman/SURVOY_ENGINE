@@ -6,6 +6,9 @@ BAE::CharacterController::CharacterController():
 	_yaw(-90.0f),
 	_pitch(0.0f)
 {
+	_forward = BAE::VectorHelpers::ForwardVec3(_yaw, _pitch);
+	_right = BAE::VectorHelpers::RightVec3(_forward);
+	_up = BAE::VectorHelpers::UpVec3(_forward, _right);
 }
 
 BAE::CharacterController::~CharacterController()
@@ -47,4 +50,54 @@ void BAE::CharacterController::CreatePhysicalCharacter(
 	_physicalCharacter = body;
 
 	world->addRigidBody(body);
+}
+
+void BAE::CharacterController::Move(float deltaTime)
+{
+	const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
+	glm::vec3 direction(0.0f);
+
+	if (keystate[SDL_SCANCODE_W]) {
+		direction += _forward;
+	}
+	if (keystate[SDL_SCANCODE_S]) {
+		direction -= _forward;
+	}
+	if (keystate[SDL_SCANCODE_A]) {
+		direction -= _right;
+	}
+	if (keystate[SDL_SCANCODE_D]) {
+		direction += _right;
+	}
+
+	if (glm::length(direction) > 0 && _physicalCharacter) {
+		direction = glm::normalize(direction);
+		float velocity = ACCELERATION * MOVEMENT_SPEED * deltaTime;
+
+		// Set the velocity of the physical character
+		_physicalCharacter->activate(true);
+		_physicalCharacter->setLinearVelocity(btVector3(direction.x, direction.y, direction.z) * velocity);
+	}
+}
+
+glm::vec3 BAE::CharacterController::Position()
+{
+	// Retrieve the updated position from Bullet's world transform
+	btTransform trans;
+	if (_physicalCharacter->getMotionState()) {
+		_physicalCharacter->getMotionState()->getWorldTransform(trans);
+		_position = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
+	}
+
+	return _position;
+}
+
+void BAE::CharacterController::UpdateYaw(float yaw)
+{
+	_yaw = yaw;
+
+	_forward = BAE::VectorHelpers::ForwardVec3(_yaw, _pitch);
+	_right = BAE::VectorHelpers::RightVec3(_forward);
+	_up = BAE::VectorHelpers::UpVec3(_forward, _right);
 }

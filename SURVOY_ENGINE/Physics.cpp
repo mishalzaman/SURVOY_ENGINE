@@ -105,3 +105,12 @@ void BAE::Physics::StaticTriangleMesh(const std::vector<SVertex>& vertices, glm:
 	//add the body to the dynamics world
 	_world->addRigidBody(body);
 }
+
+btDiscreteDynamicsWorld& BAE::Physics::World()
+{
+	if (!_world) {
+		// Handle the error according to your application's needs
+		throw std::runtime_error("Attempted to access a null world pointer in Physics::World()");
+	}
+	return *_world.get();
+}

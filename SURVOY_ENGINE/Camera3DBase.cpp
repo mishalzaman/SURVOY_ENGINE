@@ -15,12 +15,12 @@ BAE::Camera3DBase::Camera3DBase(float screenWidth, float screenHeight):
 
 glm::mat4 BAE::Camera3DBase::View()
 {
-    return BAE::CameraHelpers::ViewMat4(_Position, _Forward, _Up);
+    return BAE::VectorHelpers::ViewMat4(_Position, _Forward, _Up);
 }
 
 glm::mat4 BAE::Camera3DBase::Projection()
 {
-    return CameraHelpers::ProjectionMat4(_screenWidth, _screenHeight, 60.0f);
+    return VectorHelpers::ProjectionMat4(_screenWidth, _screenHeight, 60.0f);
 }
 
 void BAE::Camera3DBase::Position(glm::vec3 position)
@@ -41,7 +41,7 @@ void BAE::Camera3DBase::UpdateVectors()
     front.z = sin(glm::radians(_Yaw)) * cos(glm::radians(_Pitch));
     _Forward = glm::normalize(front);
 
-    _Right = BAE::CameraHelpers::RightVec3(_Forward);
+    _Right = BAE::VectorHelpers::RightVec3(_Forward);
 
-    _Up = BAE::CameraHelpers::UpVec3(_Forward, _Right);
+    _Up = BAE::VectorHelpers::UpVec3(_Forward, _Right);
 }
