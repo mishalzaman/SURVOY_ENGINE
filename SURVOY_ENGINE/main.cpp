@@ -64,7 +64,13 @@ int main(int argc, char* args[]) {
 
 	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
 		if (LevelModel->Meshes()[i].Name() == "PLAYER_START") {
-			Physics->DynamicCapsule(LevelModel->Meshes()[i].Position(), -90, 0, &CharacterController->PhysicsRef);
+			Physics->DynamicCapsule(LevelModel->Meshes()[i].Position(), -90, 0, &CharacterController->_physicalCharacter);
+
+			CharacterController->CreatePhysicalCharacter(
+				LevelModel->Meshes()[i].Position(),
+				Physics->World(), 
+				Physics->CollisionShapes()
+			);
 
 			continue;
 		}

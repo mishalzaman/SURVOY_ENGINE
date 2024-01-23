@@ -23,6 +23,14 @@ namespace BAE {
 		void StaticTriangleMesh(const std::vector<SVertex>& vertices, glm::mat4 tranformation);
 		void DynamicCapsule(glm::vec3 position, float yaw, float pitch, btRigidBody** ref);
 
+		btDiscreteDynamicsWorld* World() {
+			return _world.get();
+		}
+
+		btAlignedObjectArray<btCollisionShape*> CollisionShapes() {
+			return _collisionShapes;
+		}
+
 	private:
 		std::unique_ptr<btDefaultCollisionConfiguration> _collisionConfiguration;
 		std::unique_ptr<btCollisionDispatcher> _dispatcher;

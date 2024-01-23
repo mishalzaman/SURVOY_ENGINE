@@ -19,6 +19,19 @@ namespace BAE {
 		CharacterController();
 		~CharacterController();
 
-		btRigidBody* PhysicsRef;
+		void CreatePhysicalCharacter(
+			glm::vec3 position,
+			btDiscreteDynamicsWorld* world,
+			btAlignedObjectArray<btCollisionShape*> collisionShapes
+		);
+
+		btRigidBody* _physicalCharacter;
+
+	private:
+		glm::vec3 _position;
+		float _yaw;
+		float _pitch;
+
+
 	};
 }

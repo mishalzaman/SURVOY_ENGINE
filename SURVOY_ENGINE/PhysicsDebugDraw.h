@@ -25,7 +25,7 @@ using namespace BAE;
 class PhysicsDebugDraw : public btIDebugDraw {
 public:
 	GLuint VBO, VAO;
-	Shader shader = Shader("physics_debug_draw_fragment.glsl", "physics_debug_draw_fragment.glsl");
+	Shader shader = Shader("physics_debug_draw_vertex.glsl", "physics_debug_draw_fragment.glsl");
 	void SetMatrices(glm::mat4 pViewMatrix, glm::mat4 pProjectionMatrix)
 	{
 		this->shader.use();
