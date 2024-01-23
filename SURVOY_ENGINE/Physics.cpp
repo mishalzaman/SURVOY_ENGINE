@@ -105,33 +105,3 @@ void BAE::Physics::StaticTriangleMesh(const std::vector<SVertex>& vertices, glm:
 	//add the body to the dynamics world
 	_world->addRigidBody(body);
 }
-
-void BAE::Physics::DynamicCapsule(glm::vec3 position, float yaw, float pitch, btRigidBody** ref)
-{
-	btCollisionShape* groundShape = new btCapsuleShape(0.5f, 1.f);
-	_collisionShapes.push_back(groundShape);
-	
-	btTransform groundTransform;
-	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(position.x, position.y, position.z));
-	
-	// Create a quaternion from yaw and pitch
-	btQuaternion rotation;
-	rotation.setEuler(yaw, pitch, 0); // Assuming roll is zero
-	groundTransform.setRotation(rotation);
-	
-	btScalar mass(1.f);
-	bool isDynamic = (mass != 0.f);
-	btVector3 localInertia(0, 0, 0);
-	if (isDynamic)
-		groundShape->calculateLocalInertia(mass, localInertia);
-	
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
-	btRigidBody* body = new btRigidBody(rbInfo);
-	body->setAngularFactor(btVector3(0, 0, 0));
-	
-	*ref = body;
-	
-	_world->addRigidBody(body);
-}

@@ -21,7 +21,6 @@ namespace BAE {
 		void Simulate(float deltaTime);
 
 		void StaticTriangleMesh(const std::vector<SVertex>& vertices, glm::mat4 tranformation);
-		void DynamicCapsule(glm::vec3 position, float yaw, float pitch, btRigidBody** ref);
 
 		btDiscreteDynamicsWorld* World() {
 			return _world.get();

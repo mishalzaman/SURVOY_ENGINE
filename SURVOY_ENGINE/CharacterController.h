@@ -25,13 +25,11 @@ namespace BAE {
 			btAlignedObjectArray<btCollisionShape*> collisionShapes
 		);
 
-		btRigidBody* _physicalCharacter;
-
 	private:
 		glm::vec3 _position;
 		float _yaw;
 		float _pitch;
 
-
+		btRigidBody* _physicalCharacter;
 	};
 }
