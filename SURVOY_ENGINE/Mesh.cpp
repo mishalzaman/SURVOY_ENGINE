@@ -18,8 +18,6 @@ BAE::Mesh::Mesh(
 	this->_transformation = transformation;
 	this->_name = name;
 
-	std::cout << _name << std::endl;
-
 	_setupMesh();
 }
 
@@ -49,6 +47,16 @@ void BAE::Mesh::Draw(Shader& shader)
 	glBindVertexArray(_vao);
 	glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+}
+
+glm::vec3 BAE::Mesh::Position()
+{
+	glm::vec3 position;
+	position.x = _transformation[3].x;
+	position.y = _transformation[3].y;
+	position.z = _transformation[3].z;
+
+	return position;
 }
 
 void BAE::Mesh::_setupMesh()

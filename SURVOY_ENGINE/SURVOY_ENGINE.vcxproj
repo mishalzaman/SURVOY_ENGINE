@@ -137,6 +137,7 @@
     <ClCompile Include="CameraFollow.cpp" />
     <ClCompile Include="CameraFreeLook.cpp" />
     <ClCompile Include="CameraHelpers.cpp" />
+    <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="FileLoader.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="CameraFollow.h" />
     <ClInclude Include="CameraFreeLook.h" />
     <ClInclude Include="CameraHelpers.h" />
+    <ClInclude Include="CharacterController.h" />
     <ClInclude Include="Code.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Defaults.h" />
@@ -186,15 +188,15 @@
   <ItemGroup>
     <None Include="base_fragment_2d.glsl" />
     <None Include="base_vertex_2d.glsl" />
-    <None Include="debug.frag" />
-    <None Include="debug.vert" />
+    <None Include="lighting_3d_vertex.glsl" />
+    <None Include="lighting_3d_fragment.glsl" />
+    <None Include="physics_debug_draw_fragment.glsl" />
+    <None Include="physics_debug_draw_vertex.glsl" />
     <None Include="fragment_2d.glsl" />
-    <None Include="fragment_3d_lighting.glsl" />
     <None Include="fragment_model_3d.glsl" />
     <None Include="grid_fragment.glsl" />
     <None Include="grid_vertex.glsl" />
     <None Include="vertex_2d.glsl" />
-    <None Include="vertex_model_3d.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Design.txt" />

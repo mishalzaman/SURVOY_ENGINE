@@ -20,8 +20,9 @@ BAE::Model::Model(std::string const& path)
 
 void BAE::Model::Draw(Shader& shader)
 {
-    for (unsigned int i = 0; i < _meshes.size(); i++)
-		_meshes[i].Draw(shader);
+    for (unsigned int i = 0; i < _meshes.size(); i++) {
+        _meshes[i].Draw(shader);
+    }
 }
 
 int BAE::Model::NumVertices()

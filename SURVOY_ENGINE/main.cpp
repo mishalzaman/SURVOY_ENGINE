@@ -26,9 +26,9 @@ Exporting:
 #include "Physics.h"
 #include "PhysicsDebugDraw.h"
 #include "Grid.h"
-#include "PhysicsCharacter.h"
 #include "CameraFreeLook.h"
 #include "CameraFollow.h"
+#include "CharacterController.h"
 
 int main(int argc, char* args[]) {
 	/*============= 
@@ -42,16 +42,39 @@ int main(int argc, char* args[]) {
 	INITIALIZATIONS
 	=============*/
 
-	// Helper
+	/*-------------
+	Helper
+	--------------*/
 	auto Grid = std::make_unique<BAE::Grid>();
 
-	// 3D
+	/*-------------
+	3D
+	--------------*/
 	auto LevelModel = std::make_unique<BAE::Model>("assets/TestLevel/TestLevel.fbx");
 	auto CameraFollow= std::make_unique<BAE::CameraFollow>(1024.0f, 768.0f);
 	auto CameraFreeLook = std::make_unique<BAE::CameraFreeLook>(1024.0f, 768.0f);
-	auto Shader3D = std::make_unique<BAE::Shader>("vertex_model_3d.glsl", "fragment_model_3d.glsl");
+	auto Shader3D = std::make_unique<BAE::Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
 
-	// 2D
+	auto CharacterController = std::make_unique<BAE::CharacterController>();
+
+	/*-------------
+	3D - Physics
+	--------------*/
+	auto Physics = std::make_unique<BAE::Physics>();
+
+	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
+		if (LevelModel->Meshes()[i].Name() == "PLAYER_START") {
+			Physics->DynamicCapsule(LevelModel->Meshes()[i].Position(), -90, 0, &CharacterController->PhysicsRef);
+
+			continue;
+		}
+		
+		Physics->StaticTriangleMesh(LevelModel->Meshes()[i].Vertices(), LevelModel->Meshes()[i].TransformationMat4());
+	}
+
+	/*-------------
+	2D
+	--------------*/
 	auto Camera2D = std::make_unique<BAE::Camera2D>(1024.0f, 768.0f);
 	auto FontTexture = std::make_unique<BAE::STexture>();
 		FontTexture->path = "assets/ExportedFont.bmp";
@@ -107,6 +130,8 @@ int main(int argc, char* args[]) {
 		while (Core->Timer->PhysicsUpdate()) {
 			CameraFollow->Update(glm::vec3(0, 1, 0), deltaTime);
 			CameraFreeLook->Update(deltaTime);
+
+			Physics->Simulate(deltaTime);
 		}
 
 		/*=============
@@ -120,11 +145,16 @@ int main(int argc, char* args[]) {
 		RENDER - 3D
 		=============*/
 
+		Physics->DrawDebug(CameraFreeLook->Projection(), CameraFreeLook->View());
+
 		Grid->render(CameraFreeLook->Projection(), CameraFreeLook->View(), glm::vec3(0, 0, 0));
 
 		Shader3D->use();
 		Shader3D->setMat4("projection", CameraFreeLook->Projection());
 		Shader3D->setMat4("view", CameraFreeLook->View());
+		Shader3D->setVec3("lightPos", glm::vec3(8, 10, 8));
+		Shader3D->setVec3("viewPos", CameraFreeLook->Position());
+		Shader3D->setVec3("lightColor", glm::vec3(1, 1, 1));
 
 		LevelModel->Draw(*Shader3D);
 

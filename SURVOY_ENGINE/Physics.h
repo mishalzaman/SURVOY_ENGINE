@@ -8,7 +8,6 @@
 #include <vector>
 #include <iostream>
 #include "SVertex.h"
-#include "PhysicsCharacter.h"
 
 namespace BAE {
 	class Physics
@@ -17,18 +16,14 @@ namespace BAE {
 		Physics();
 		~Physics();
 
-		void Simulate(float deltaTime);
 		void DrawDebug(glm::mat4 projection, glm::mat4 view);
 
-		void CreateLevelGeometry(const std::vector<SVertex>& vertices);
-		void CreateLevelGeometry(const std::vector<SVertex>& vertices, glm::mat4 tranformation);
+		void Simulate(float deltaTime);
 
-		void CreatePlayerGeometry(glm::vec3 position, float yaw, float pitch);
-		void UpdatePlayerGeometry(glm::vec3 velocity, glm::vec3 forward);
-		glm::vec3 PlayerPosition();
+		void StaticTriangleMesh(const std::vector<SVertex>& vertices, glm::mat4 tranformation);
+		void DynamicCapsule(glm::vec3 position, float yaw, float pitch, btRigidBody** ref);
+
 	private:
-		void _initialize();
-
 		std::unique_ptr<btDefaultCollisionConfiguration> _collisionConfiguration;
 		std::unique_ptr<btCollisionDispatcher> _dispatcher;
 		std::unique_ptr<btDbvtBroadphase> _broadphase;
@@ -37,8 +32,5 @@ namespace BAE {
 
 		PhysicsDebugDraw _physicsDebugDraw;
 		btAlignedObjectArray<btCollisionShape*> _collisionShapes;
-		std::vector<std::shared_ptr<btTriangleMesh>> _triangleMeshes;
-
-		btRigidBody* _character;
 	};
 }
