@@ -68,6 +68,7 @@ Logger::~Logger() {
 }
 
 void Logger::Log(LogLevel level, const std::string& message) {
+    return;
     std::unique_lock<std::mutex> lock(_mutex);
     _logQueue.push("[" + LogLevelToString(level) + "] " + message);
     _condVar.notify_one();
