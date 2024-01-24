@@ -26,9 +26,12 @@ Exporting:
 #include "Physics.h"
 #include "PhysicsDebugDraw.h"
 #include "Grid.h"
-#include "PhysicsCharacter.h"
 #include "CameraFreeLook.h"
 #include "CameraFollow.h"
+#include "CharacterController.h"
+
+const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
+const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
 
 int main(int argc, char* args[]) {
 	/*============= 
@@ -42,17 +45,43 @@ int main(int argc, char* args[]) {
 	INITIALIZATIONS
 	=============*/
 
-	// Helper
+	/*-------------
+	Helper
+	--------------*/
 	auto Grid = std::make_unique<BAE::Grid>();
 
-	// 3D
+	/*-------------
+	3D
+	--------------*/
 	auto LevelModel = std::make_unique<BAE::Model>("assets/TestLevel/TestLevel.fbx");
-	auto CameraFollow= std::make_unique<BAE::CameraFollow>(1024.0f, 768.0f);
-	auto CameraFreeLook = std::make_unique<BAE::CameraFreeLook>(1024.0f, 768.0f);
-	auto Shader3D = std::make_unique<BAE::Shader>("vertex_model_3d.glsl", "fragment_model_3d.glsl");
+	auto CameraFollow= std::make_unique<BAE::CameraFollow>(SCREEN_WIDTH, SCREEN_HEIGHT);
+	auto CameraFreeLook = std::make_unique<BAE::CameraFreeLook>(SCREEN_WIDTH, SCREEN_HEIGHT);
+	auto Shader3D = std::make_unique<BAE::Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
 
-	// 2D
-	auto Camera2D = std::make_unique<BAE::Camera2D>(1024.0f, 768.0f);
+
+
+	/*-------------
+	3D - Physics
+	--------------*/
+	auto Physics = std::make_unique<BAE::Physics>();
+	auto CharacterController = std::make_unique<BAE::CharacterController>(Physics->World(), Physics->CollisionShapes());
+
+	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
+		if (LevelModel->Meshes()[i].Name() == "PLAYER_START") {
+			CharacterController->CreatePhysicalCharacter(
+				LevelModel->Meshes()[i].Position()
+			);
+
+			continue;
+		}
+		
+		Physics->StaticTriangleMesh(LevelModel->Meshes()[i].Vertices(), LevelModel->Meshes()[i].TransformationMat4());
+	}
+
+	/*-------------
+	2D
+	--------------*/
+	auto Camera2D = std::make_unique<BAE::Camera2D>(SCREEN_WIDTH, SCREEN_HEIGHT);
 	auto FontTexture = std::make_unique<BAE::STexture>();
 		FontTexture->path = "assets/ExportedFont.bmp";
 		BAE::FileLoader::Texture(*FontTexture);
@@ -105,7 +134,15 @@ int main(int argc, char* args[]) {
 		}
 		
 		while (Core->Timer->PhysicsUpdate()) {
-			CameraFollow->Update(glm::vec3(0, 1, 0), deltaTime);
+			CharacterController->UpdateYaw(CameraFollow->Yaw());
+			CharacterController->Move(deltaTime);
+
+			Physics->Simulate(deltaTime);
+
+			CameraFollow->Target(CharacterController->Position());
+			CameraFollow->Orbit(deltaTime);
+			CameraFollow->Move();
+
 			CameraFreeLook->Update(deltaTime);
 		}
 
@@ -114,19 +151,39 @@ int main(int argc, char* args[]) {
 		=============*/
 		Core->BeginRender();
 
-		glViewport(0, 0, 1024, 768);
+		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 		/*=============
 		RENDER - 3D
 		=============*/
+
+		Physics->DrawDebug(CameraFollow->Projection(), CameraFollow->View());
 
 		Grid->render(CameraFollow->Projection(), CameraFollow->View(), glm::vec3(0, 0, 0));
 
 		Shader3D->use();
 		Shader3D->setMat4("projection", CameraFollow->Projection());
 		Shader3D->setMat4("view", CameraFollow->View());
+		Shader3D->setVec3("lightPos", glm::vec3(8, 10, 8));
+		Shader3D->setVec3("viewPos", CameraFollow->Position());
+		Shader3D->setVec3("lightColor", glm::vec3(1, 1, 1));
 
 		LevelModel->Draw(*Shader3D);
+
+
+
+		//Physics->DrawDebug(CameraFreeLook->Projection(), CameraFreeLook->View());
+
+		//Grid->render(CameraFreeLook->Projection(), CameraFreeLook->View(), glm::vec3(0, 0, 0));
+
+		//Shader3D->use();
+		//Shader3D->setMat4("projection", CameraFreeLook->Projection());
+		//Shader3D->setMat4("view", CameraFreeLook->View());
+		//Shader3D->setVec3("lightPos", glm::vec3(8, 10, 8));
+		//Shader3D->setVec3("viewPos", CameraFreeLook->Position());
+		//Shader3D->setVec3("lightColor", glm::vec3(1, 1, 1));
+
+		//LevelModel->Draw(*Shader3D);
 
 		/*=============
 		RENDER - 2D
@@ -142,31 +199,51 @@ int main(int argc, char* args[]) {
 			FontTexture->id,
             std::to_string(Core->Timer->DeltaTimeMS()) + " ms",
             0,
-            0,
+            16,
             glm::vec3(1, 1, 1),
             1
         );
 
 
-		BAE::RendererText2D::Render(
-			Shader2D->ID,
-			FontTexture->id,
-			"Camera Position:\n" + std::to_string(CameraFreeLook->Position().x) + ",\n" + std::to_string(CameraFreeLook->Position().y) + ",\n" + std::to_string(CameraFreeLook->Position().z) + "",
-			0,
-			32,
-			glm::vec3(1, 1, 1),
-			1
-		);
+		//BAE::RendererText2D::Render(
+		//	Shader2D->ID,
+		//	FontTexture->id,
+		//	"Camera Position:\n" + std::to_string(CameraFreeLook->Position().x) + ",\n" + std::to_string(CameraFreeLook->Position().y) + ",\n" + std::to_string(CameraFreeLook->Position().z) + "",
+		//	0,
+		//	32,
+		//	glm::vec3(1, 1, 1),
+		//	1
+		//);
+
+		//BAE::RendererText2D::Render(
+		//	Shader2D->ID,
+		//	FontTexture->id,
+		//	"Camera Forward:\n" + std::to_string(CameraFreeLook->Forward().x) + ",\n" + std::to_string(CameraFreeLook->Forward().y) + ",\n" + std::to_string(CameraFreeLook->Forward().z) + "",
+		//	0,
+		//	112,
+		//	glm::vec3(1, 1, 1),
+		//	1
+		//);
 
 		BAE::RendererText2D::Render(
 			Shader2D->ID,
 			FontTexture->id,
-			"Camera Forward:\n" + std::to_string(CameraFreeLook->Forward().x) + ",\n" + std::to_string(CameraFreeLook->Forward().y) + ",\n" + std::to_string(CameraFreeLook->Forward().z) + "",
+			"Character Position:\n" + std::to_string(CharacterController->Position().x) + ",\n" + std::to_string(CharacterController->Position().y) + ",\n" + std::to_string(CharacterController->Position().z) + "",
 			0,
-			112,
+			208,
 			glm::vec3(1, 1, 1),
 			1
 		);
+
+		//BAE::RendererText2D::Render(
+		//	Shader2D->ID,
+		//	FontTexture->id,
+		//	"Character Forward:\n" + std::to_string(CharacterController->Forward().x) + ",\n" + std::to_string(CharacterController->Forward().y) + ",\n" + std::to_string(CharacterController->Forward().z) + "",
+		//	0,
+		//	288,
+		//	glm::vec3(1, 1, 1),
+		//	1
+		//);
 
 		Core->EndRender();
 	}

@@ -13,12 +13,20 @@ namespace BAE {
 	class Mesh
 	{
 	public:
-		Mesh(std::vector<SVertex> vertices, std::vector<unsigned int> indices, std::vector<STexture> textures, glm::mat4 transformation);
+		Mesh(
+			std::vector<SVertex> vertices,
+			std::vector<unsigned int> indices,
+			std::vector<STexture> textures,
+			glm::mat4 transformation,
+			std::string name
+		);
 		void Draw(Shader& shader);
 
 		glm::mat4 TransformationMat4() { return _transformation; };
+		glm::vec3 Position();
 		int NumVertices() { return _vertices.size(); }
 		std::vector<SVertex> Vertices() { return _vertices; }
+		std::string Name() { return _name; }
 	private:
 		std::vector<SVertex> _vertices;
 		std::vector<unsigned int> _indices;
@@ -26,6 +34,8 @@ namespace BAE {
 
 		unsigned int _vao, _vbo, _ebo;
 		glm::mat4 _transformation;
+
+		std::string _name;
 
 		void _setupMesh();
 	};

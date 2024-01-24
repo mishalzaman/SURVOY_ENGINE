@@ -1,7 +1,13 @@
 #include "Mesh.h"
 #include <iostream>
 
-BAE::Mesh::Mesh(std::vector<SVertex> vertices, std::vector<unsigned int> indices, std::vector<STexture> textures, glm::mat4 transformation):
+BAE::Mesh::Mesh(
+	std::vector<SVertex> vertices,
+	std::vector<unsigned int> indices,
+	std::vector<STexture> textures,
+	glm::mat4 transformation,
+	std::string name
+):
 	_vao(0),
 	_vbo(0),
 	_ebo(0)
@@ -10,6 +16,7 @@ BAE::Mesh::Mesh(std::vector<SVertex> vertices, std::vector<unsigned int> indices
 	this->_indices = indices;
 	this->_textures = textures;
 	this->_transformation = transformation;
+	this->_name = name;
 
 	_setupMesh();
 }
@@ -40,6 +47,16 @@ void BAE::Mesh::Draw(Shader& shader)
 	glBindVertexArray(_vao);
 	glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+}
+
+glm::vec3 BAE::Mesh::Position()
+{
+	glm::vec3 position;
+	position.x = _transformation[3].x;
+	position.y = _transformation[3].y;
+	position.z = _transformation[3].z;
+
+	return position;
 }
 
 void BAE::Mesh::_setupMesh()

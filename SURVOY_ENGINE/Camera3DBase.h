@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "CameraHelpers.h"
+#include "VectorHelpers.h"
 
 namespace BAE {
 	class Camera3DBase

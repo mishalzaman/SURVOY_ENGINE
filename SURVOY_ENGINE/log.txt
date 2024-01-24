@@ -20,6 +20,7 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration has NOT been destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -33,6 +34,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -46,6 +52,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -59,6 +70,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -72,6 +88,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -85,6 +106,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -98,6 +124,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -111,6 +142,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -124,6 +160,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -137,6 +178,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -150,2440 +196,6 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -2593,158 +205,6 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -2754,10 +214,6 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -2767,10 +223,6 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -2780,10 +232,6 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -2793,6 +241,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -2806,6 +259,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -2819,6 +277,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -2832,6 +295,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -2845,6 +313,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -2858,6 +331,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -2871,6 +349,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -2884,6 +367,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -2897,6 +385,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -2910,6 +403,11 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
+[Info] _collisionConfiguration will be destroyed
+[Info] _dispatcher will be destroyed
+[Info] _broadphase will be destroyed
+[Info] _solver will be destroyed
+[Info] _world will be destroyed
 [Info] Destroy _window
 [Info] Destroy _context
 [Info] Shutting down BAE
@@ -3811,15 +1309,6 @@
 [Info] Destroy _context
 [Info] Shutting down BAE
 [Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -3846,15 +1335,6 @@
 [Info] Destroy _context
 [Info] Shutting down BAE
 [Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -3972,15 +1452,6 @@
 [Info] Destroy _context
 [Info] Shutting down BAE
 [Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -4072,15 +1543,6 @@
 [Info] Destroy _context
 [Info] Shutting down BAE
 [Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -4090,10 +1552,6 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -4103,10 +1561,6 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -4415,10 +1869,6 @@
 [Info] Initializing GLEW
 [Info] Initializing OpenGL settings
 [Info] Initializing Sub-systems
-[Info] Destroy _window
-[Info] Destroy _context
-[Info] Shutting down BAE
-[Info] ------END--------
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -4653,15 +2103,6 @@
 [Info] Destroy _context
 [Info] Shutting down BAE
 [Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -4675,24 +2116,6 @@
 [Info] Destroy _context
 [Info] Shutting down BAE
 [Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -4797,15 +2220,6 @@
 [Info] Destroy _context
 [Info] Shutting down BAE
 [Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2
@@ -4832,15 +2246,6 @@
 [Info] Destroy _context
 [Info] Shutting down BAE
 [Info] ------END--------
-[Info] ------BEGIN-------
-[Info] Initializing Core
-[Info] Initializing SDL2
-[Info] Initializing OpenGL context
-[Info] Initializing _window
-[Info] Initializing SDL context
-[Info] Initializing GLEW
-[Info] Initializing OpenGL settings
-[Info] Initializing Sub-systems
 [Info] ------BEGIN-------
 [Info] Initializing Core
 [Info] Initializing SDL2

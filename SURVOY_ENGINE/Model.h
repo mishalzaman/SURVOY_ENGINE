@@ -27,7 +27,7 @@ namespace BAE {
 
 		void _loadModel(std::string const& path);
 		void _processNode(aiNode* node, const aiScene* scene, glm::mat4 parentTransform);
-		Mesh _processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 transformation);
+		Mesh _processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 transformation, aiString name);
 		std::vector<STexture> loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName);
 
 		glm::mat4 _convertToGLMMat4(const aiMatrix4x4& from);

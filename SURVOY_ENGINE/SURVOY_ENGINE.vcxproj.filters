@@ -81,10 +81,7 @@
     <ClCompile Include="Grid.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsCharacter.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraHelpers.cpp">
+    <ClCompile Include="VectorHelpers.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="Camera3DBase.cpp">
@@ -94,6 +91,9 @@
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="CameraFollow.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterController.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
   </ItemGroup>
@@ -158,10 +158,7 @@
     <ClInclude Include="Grid.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsCharacter.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraHelpers.h">
+    <ClInclude Include="VectorHelpers.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Camera3DBase.h">
@@ -173,6 +170,9 @@
     <ClInclude Include="CameraFollow.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterController.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_2d.glsl">
@@ -181,31 +181,31 @@
     <None Include="vertex_2d.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
-    <None Include="fragment_3d_lighting.glsl">
-      <Filter>ENGINE\Programs</Filter>
-    </None>
     <None Include="fragment_model_3d.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
     <None Include="base_vertex_2d.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
-    <None Include="vertex_model_3d.glsl">
-      <Filter>ENGINE\Programs</Filter>
-    </None>
     <None Include="base_fragment_2d.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
-    <None Include="debug.vert">
+    <None Include="physics_debug_draw_vertex.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
-    <None Include="debug.frag">
+    <None Include="physics_debug_draw_fragment.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
     <None Include="grid_vertex.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
     <None Include="grid_fragment.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="lighting_3d_fragment.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="lighting_3d_vertex.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
   </ItemGroup>

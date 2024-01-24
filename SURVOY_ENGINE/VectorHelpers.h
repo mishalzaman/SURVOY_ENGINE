@@ -8,7 +8,7 @@ const float NEAR = 0.1f;
 const float FAR = 1000.0f;
 
 namespace BAE {
-	class CameraHelpers
+	class VectorHelpers
 	{
 	public:
 		static glm::mat4 ViewMat4(

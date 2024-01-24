@@ -29,16 +29,16 @@ void BAE::CameraFreeLook::_move(float deltaTime)
 
     float velocity = _acceleration * SPEED * deltaTime;
 
-    if (keystate[SDL_SCANCODE_W]) {
+    if (keystate[SDL_SCANCODE_UP]) {
         _Position += _Forward * velocity;
     }
-    if (keystate[SDL_SCANCODE_S]) {
+    if (keystate[SDL_SCANCODE_DOWN]) {
         _Position -= _Forward * velocity;
     }
-    if (keystate[SDL_SCANCODE_A]) {
+    if (keystate[SDL_SCANCODE_LEFT]) {
         _Position -= _Right * velocity;
     }
-    if (keystate[SDL_SCANCODE_D]) {
+    if (keystate[SDL_SCANCODE_RIGHT]) {
         _Position += _Right * velocity;
     }
 }

@@ -20,8 +20,9 @@ BAE::Model::Model(std::string const& path)
 
 void BAE::Model::Draw(Shader& shader)
 {
-    for (unsigned int i = 0; i < _meshes.size(); i++)
-		_meshes[i].Draw(shader);
+    for (unsigned int i = 0; i < _meshes.size(); i++) {
+        _meshes[i].Draw(shader);
+    }
 }
 
 int BAE::Model::NumVertices()
@@ -54,12 +55,6 @@ void BAE::Model::_processNode(aiNode* node, const aiScene* scene, glm::mat4 pare
     // apply rotation of -45 if FBX file. Otherwise comment this out for a OBJ file.
     //parentTransform = glm::rotate(parentTransform, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
-    std::cout << node->mName.C_Str() << std::endl;
-
-    if (std::string(node->mName.C_Str()) == "PLAYER_START") {
-        // do something with player
-    }
-
     // Convert aiMatrix4x4 to glm::mat4
     glm::mat4 nodeTransform = _convertToGLMMat4(node->mTransformation);
 
@@ -70,7 +65,7 @@ void BAE::Model::_processNode(aiNode* node, const aiScene* scene, glm::mat4 pare
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        _meshes.push_back(_processMesh(mesh, scene, globalTransform));
+        _meshes.push_back(_processMesh(mesh, scene, globalTransform, node->mName));
     }
 
     // then do the same for each of its children
@@ -81,7 +76,7 @@ void BAE::Model::_processNode(aiNode* node, const aiScene* scene, glm::mat4 pare
     }
 }
 
-Mesh BAE::Model::_processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 transformation)
+Mesh BAE::Model::_processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 transformation, aiString name)
 {
     // data to fill
     std::vector<SVertex> vertices;
@@ -164,7 +159,7 @@ Mesh BAE::Model::_processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 tran
     //glm::mat4 scaledTransformation = glm::scale(transformation, glm::vec3(0.2f, 0.2f, 0.2f));
 
     // return a mesh object created from the extracted mesh data
-    return Mesh(vertices, indices, textures, transformation);
+    return Mesh(vertices, indices, textures, transformation, name.C_Str());
 }
 
 std::vector<STexture> BAE::Model::loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName)
