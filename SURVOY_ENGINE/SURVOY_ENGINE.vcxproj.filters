@@ -81,9 +81,6 @@
     <ClCompile Include="Grid.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsCharacter.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
     <ClCompile Include="VectorHelpers.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
@@ -159,9 +156,6 @@
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Grid.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsCharacter.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="VectorHelpers.h">

@@ -6,9 +6,7 @@ BAE::CharacterController::CharacterController():
 	_yaw(-90.0f),
 	_pitch(0.0f)
 {
-	_forward = BAE::VectorHelpers::ForwardVec3(_yaw, _pitch);
-	_right = BAE::VectorHelpers::RightVec3(_forward);
-	_up = BAE::VectorHelpers::UpVec3(_forward, _right);
+	_updateVectors();
 }
 
 BAE::CharacterController::~CharacterController()
@@ -47,6 +45,8 @@ void BAE::CharacterController::CreatePhysicalCharacter(
 	btRigidBody* body = new btRigidBody(rbInfo);
 	body->setAngularFactor(btVector3(0, 0, 0));
 
+	body->forceActivationState(true);
+
 	_physicalCharacter = body;
 
 	world->addRigidBody(body);
@@ -76,7 +76,6 @@ void BAE::CharacterController::Move(float deltaTime)
 		float velocity = ACCELERATION * MOVEMENT_SPEED * deltaTime;
 
 		// Set the velocity of the physical character
-		_physicalCharacter->activate(true);
 		_physicalCharacter->setLinearVelocity(btVector3(direction.x, direction.y, direction.z) * velocity);
 	}
 }
@@ -96,7 +95,11 @@ glm::vec3 BAE::CharacterController::Position()
 void BAE::CharacterController::UpdateYaw(float yaw)
 {
 	_yaw = yaw;
+	_updateVectors();
+}
 
+void BAE::CharacterController::_updateVectors()
+{
 	_forward = BAE::VectorHelpers::ForwardVec3(_yaw, _pitch);
 	_right = BAE::VectorHelpers::RightVec3(_forward);
 	_up = BAE::VectorHelpers::UpVec3(_forward, _right);

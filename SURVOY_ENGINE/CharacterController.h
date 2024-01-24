@@ -38,6 +38,8 @@ namespace BAE {
 		glm::vec3 _up;
 
 		btRigidBody* _physicalCharacter;
+
+		void _updateVectors();
 	};
 }
 

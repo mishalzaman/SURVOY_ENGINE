@@ -30,8 +30,8 @@ Exporting:
 #include "CameraFollow.h"
 #include "CharacterController.h"
 
-const float SCREEN_WIDTH = 1024.0f;
-const float SCREEN_HEIGHT = 768.0f;
+const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
+const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
 
 int main(int argc, char* args[]) {
 	/*============= 
@@ -198,7 +198,7 @@ int main(int argc, char* args[]) {
 			FontTexture->id,
             std::to_string(Core->Timer->DeltaTimeMS()) + " ms",
             0,
-            0,
+            16,
             glm::vec3(1, 1, 1),
             1
         );
