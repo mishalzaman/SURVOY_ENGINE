@@ -23,12 +23,12 @@ void BAE::CharacterController::CreatePhysicalCharacter(
 {
 	_position = position;
 	
-	btCollisionShape* groundShape = new btCapsuleShape(0.5f, 1.f);
+	btCollisionShape* groundShape = new btCapsuleShape(0.25f, 1.25f);
 	_collisionShapesRef.push_back(groundShape);
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(_position.x, _position.y, _position.z));
+	groundTransform.setOrigin(btVector3(_position.x, _position.y+1, _position.z));
 
 	// Create a quaternion from yaw and pitch
 	btQuaternion rotation;
