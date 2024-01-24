@@ -14,15 +14,19 @@
 namespace BAE {
 	class CharacterController
 	{
-
+		enum CharacterState {
+			IDLE,
+			WALKING,
+			JUMPING
+		};
 	public:
 		static constexpr float MOVEMENT_SPEED = 32.f;
 		static constexpr float ACCELERATION = 4.0f;
 
-		CharacterController();
+		CharacterController(btDiscreteDynamicsWorld& world, btAlignedObjectArray<btCollisionShape*>& collisionShapes);
 		~CharacterController();
 
-		void CreatePhysicalCharacter(glm::vec3 position, btDiscreteDynamicsWorld* world, btAlignedObjectArray<btCollisionShape*> collisionShapes);
+		void CreatePhysicalCharacter(glm::vec3 position);
 
 		void Move(float deltaTime);
 		glm::vec3 Position();
@@ -38,8 +42,13 @@ namespace BAE {
 		glm::vec3 _up;
 
 		btRigidBody* _physicalCharacter;
+		CharacterState _state;
 
 		void _updateVectors();
+		bool _isOnGround();
+
+		btDiscreteDynamicsWorld& _worldRef;
+		btAlignedObjectArray<btCollisionShape*>& _collisionShapesRef;
 	};
 }
 

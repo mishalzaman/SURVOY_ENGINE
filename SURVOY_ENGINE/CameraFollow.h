@@ -15,6 +15,9 @@ namespace BAE {
 		void			SetMouseOffsets(float x, float y);
 
 		float			Yaw() { return _Yaw; }
+		void			Orbit(float deltaTime);
+		void			Move();
+		void			Target(glm::vec3 target);
 	private:
 		float			_acceleration;
 

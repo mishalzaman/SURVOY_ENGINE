@@ -1,10 +1,13 @@
 #include "CharacterController.h"
 
-BAE::CharacterController::CharacterController():
+BAE::CharacterController::CharacterController(btDiscreteDynamicsWorld& world, btAlignedObjectArray<btCollisionShape*>& collisionShapes):
 	_position(glm::vec3(0)),
 	_physicalCharacter(nullptr),
 	_yaw(-90.0f),
-	_pitch(0.0f)
+	_pitch(0.0f),
+	_state(CharacterState::IDLE),
+	_worldRef(world),
+	_collisionShapesRef(collisionShapes)
 {
 	_updateVectors();
 }
@@ -15,15 +18,13 @@ BAE::CharacterController::~CharacterController()
 }
 
 void BAE::CharacterController::CreatePhysicalCharacter(
-	glm::vec3 position,
-	btDiscreteDynamicsWorld* world,
-	btAlignedObjectArray<btCollisionShape*> collisionShapes
+	glm::vec3 position
 )
 {
 	_position = position;
 	
 	btCollisionShape* groundShape = new btCapsuleShape(0.5f, 1.f);
-	collisionShapes.push_back(groundShape);
+	_collisionShapesRef.push_back(groundShape);
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
@@ -45,11 +46,9 @@ void BAE::CharacterController::CreatePhysicalCharacter(
 	btRigidBody* body = new btRigidBody(rbInfo);
 	body->setAngularFactor(btVector3(0, 0, 0));
 
-	body->forceActivationState(true);
-
 	_physicalCharacter = body;
 
-	world->addRigidBody(body);
+	_worldRef.addRigidBody(body);
 }
 
 void BAE::CharacterController::Move(float deltaTime)
@@ -76,6 +75,7 @@ void BAE::CharacterController::Move(float deltaTime)
 		float velocity = ACCELERATION * MOVEMENT_SPEED * deltaTime;
 
 		// Set the velocity of the physical character
+		_physicalCharacter->activate(true);
 		_physicalCharacter->setLinearVelocity(btVector3(direction.x, direction.y, direction.z) * velocity);
 	}
 }
@@ -103,4 +103,19 @@ void BAE::CharacterController::_updateVectors()
 	_forward = BAE::VectorHelpers::ForwardVec3(_yaw, _pitch);
 	_right = BAE::VectorHelpers::RightVec3(_forward);
 	_up = BAE::VectorHelpers::UpVec3(_forward, _right);
+}
+
+bool BAE::CharacterController::_isOnGround()
+{
+	const float CHECK_GROUND_DISTANCE = 1;
+
+	btVector3 start = _physicalCharacter->getWorldTransform().getOrigin();
+	btVector3 end = start - btVector3(0, CHECK_GROUND_DISTANCE, 0); // CHECK_GROUND_DISTANCE is the depth to check
+
+	btCollisionWorld::ClosestRayResultCallback rayCallback(start, end);
+
+	// Perform the ray test
+	_worldRef.rayTest(start, end, rayCallback);
+
+	return rayCallback.hasHit();
 }

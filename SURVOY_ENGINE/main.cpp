@@ -58,19 +58,18 @@ int main(int argc, char* args[]) {
 	auto CameraFreeLook = std::make_unique<BAE::CameraFreeLook>(SCREEN_WIDTH, SCREEN_HEIGHT);
 	auto Shader3D = std::make_unique<BAE::Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
 
-	auto CharacterController = std::make_unique<BAE::CharacterController>();
+
 
 	/*-------------
 	3D - Physics
 	--------------*/
 	auto Physics = std::make_unique<BAE::Physics>();
+	auto CharacterController = std::make_unique<BAE::CharacterController>(Physics->World(), Physics->CollisionShapes());
 
 	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
 		if (LevelModel->Meshes()[i].Name() == "PLAYER_START") {
 			CharacterController->CreatePhysicalCharacter(
-				LevelModel->Meshes()[i].Position(),
-				&Physics->World(),
-				Physics->CollisionShapes()
+				LevelModel->Meshes()[i].Position()
 			);
 
 			continue;
@@ -135,15 +134,17 @@ int main(int argc, char* args[]) {
 		}
 		
 		while (Core->Timer->PhysicsUpdate()) {
+			CharacterController->UpdateYaw(CameraFollow->Yaw());
 			CharacterController->Move(deltaTime);
 
 			Physics->Simulate(deltaTime);
 
-			CameraFollow->Update(CharacterController->Position(), deltaTime);
+			CameraFollow->Target(CharacterController->Position());
+			CameraFollow->Orbit(deltaTime);
+			CameraFollow->Move();
+
 			CameraFreeLook->Update(deltaTime);
 		}
-
-		CharacterController->UpdateYaw(CameraFollow->Yaw());
 
 		/*=============
 		RENDER
