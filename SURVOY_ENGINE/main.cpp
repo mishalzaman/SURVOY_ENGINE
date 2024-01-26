@@ -142,7 +142,7 @@ int main(int argc, char* args[]) {
 	LOAD
 	=============*/
 
-	systemManager->LoadSystems();
+	systemManager->Load();
 
 	/*=============
 	LOOP
@@ -177,7 +177,7 @@ int main(int argc, char* args[]) {
 		FIXED UPDATE
 		=============*/
 		while (Core->Timer->PhysicsUpdate()) {
-			systemManager->UpdateSystems(deltaTime);
+			
 		}
 
 		/*=============
@@ -187,12 +187,18 @@ int main(int argc, char* args[]) {
 		
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+		systemManager->Renders();
+
+		std::cout << deltaTime << std::endl;
+
 		Core->EndRender();
 	}
 
 	/*=============
 	SHUT DOWN
 	=============*/
+
+	systemManager->Unload();
 
 	Core->DestroyDevice();
 

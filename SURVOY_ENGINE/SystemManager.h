@@ -12,6 +12,8 @@ namespace ECS {
         std::unordered_map<std::type_index, std::shared_ptr<System>> systems;
         std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities;
 
+
+
     public:
         SystemManager(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
             : entities(entities) {}
@@ -31,15 +33,27 @@ namespace ECS {
             return nullptr;
         }
 
-        void UpdateSystems(float deltaTime) {
+        void Load() {
             for (auto& [type, system] : systems) {
-                system->Update(deltaTime, entities);
+                system->Load(entities);
             }
         }
 
-        void LoadSystems() {
+        void Renders() {
             for (auto& [type, system] : systems) {
-                system->Load(entities);
+                system->Renders(entities);
+            }
+        }
+
+        void Physics(float deltaTime) {
+            for (auto& [type, system] : systems) {
+                system->Physics(deltaTime, entities);
+            }
+        }
+
+        void Unload() {
+            for (auto& [type, system] : systems) {
+                system->Unload(entities);
             }
         }
     };
