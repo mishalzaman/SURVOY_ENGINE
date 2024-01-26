@@ -22,10 +22,12 @@ namespace BAE {
 		);
 		void Draw(Shader& shader);
 
-		glm::mat4 TransformationMat4() { return _transformation; };
+		glm::mat4 Transformation() { return _transformation; };
 		glm::vec3 Position();
 		int NumVertices() { return _vertices.size(); }
 		std::vector<SVertex> Vertices() { return _vertices; }
+		std::vector<unsigned int> Indices() { return _indices; }
+		std::vector<STexture> Textures() { return _textures; }
 		std::string Name() { return _name; }
 	private:
 		std::vector<SVertex> _vertices;
