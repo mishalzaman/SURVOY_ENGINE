@@ -7,6 +7,7 @@
 #include "MeshComponent.h"
 #include "BuffersComponent.h"
 #include "TexturesComponent.h"
+#include "CameraComponent.h"
 #include "Shader.h"
 
 namespace ECS {
@@ -15,6 +16,8 @@ namespace ECS {
 	private:
 		EntityManager& _entityManager;
 		std::unique_ptr<Shader> _defaultShader;
+		glm::mat4 _view;
+		glm::mat4 _projection;
 
 		void _render(
 			const TransformComponent& transform,

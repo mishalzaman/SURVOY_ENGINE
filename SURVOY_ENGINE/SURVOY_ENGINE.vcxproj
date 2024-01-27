@@ -136,8 +136,10 @@
     <ClCompile Include="BuffersComponent.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3DBase.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraFollow.cpp" />
     <ClCompile Include="CameraFreeLook.cpp" />
+    <ClCompile Include="CameraSystem.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -172,8 +174,10 @@
     <ClInclude Include="BuffersComponent.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3DBase.h" />
+    <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraFollow.h" />
     <ClInclude Include="CameraFreeLook.h" />
+    <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="Entity.h" />

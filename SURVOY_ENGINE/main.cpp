@@ -78,6 +78,8 @@ Core ECS Classes:
 #include "BuffersComponent.h"
 #include "TexturesComponent.h"
 #include "MeshRenderSystem.h"
+#include "CameraSystem.h"
+#include "CameraComponent.h"
 
 const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
 const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
@@ -98,6 +100,7 @@ int main(int argc, char* args[]) {
 
 	auto systemManager = std::make_unique<ECS::SystemManager>(entityManager->getEntities());
 	systemManager->AddSystem<ECS::MeshRenderSystem>(*entityManager);
+	systemManager->AddSystem<ECS::CameraSystem>(*entityManager);
 
 	/*=============
 	INITIALIZE
@@ -105,9 +108,11 @@ int main(int argc, char* args[]) {
 
 	auto LevelModel = std::make_unique<BAE::Model>("assets/TestLevel/TestLevel.fbx");
 
+	int entityId = 0;
+
 	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
 		// Create a new entity for each mesh
-		int entityId = entityManager->createEntity();
+		entityId = entityManager->createEntity();
 
 		// Add a TransformComponent with default or specific transform data
 		// For example, using default values here:
@@ -137,6 +142,15 @@ int main(int argc, char* args[]) {
 			LevelModel->Meshes()[i].Textures()
 		);
 	}
+
+	// Camera
+	int cameraEntityId = entityManager->createEntity();
+	entityManager->addComponent<ECS::CameraComponent>(
+		cameraEntityId,
+		glm::vec3(0, 1, 0),
+		1024.0f,
+		768.0f
+	);
 
 	/*=============
 	LOAD
@@ -168,6 +182,8 @@ int main(int argc, char* args[]) {
 						Core->BeginShutdown();
 					}
 					break;
+				case SDL_MOUSEMOTION:
+					break;
 				default:
 					break;
 			}
@@ -177,7 +193,7 @@ int main(int argc, char* args[]) {
 		FIXED UPDATE
 		=============*/
 		while (Core->Timer->PhysicsUpdate()) {
-			
+			systemManager->Physics(deltaTime);
 		}
 
 		/*=============

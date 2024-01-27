@@ -138,6 +138,12 @@
     <ClCompile Include="TexturesComponent.cpp">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -247,6 +253,12 @@
     </ClInclude>
     <ClInclude Include="TexturesComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
