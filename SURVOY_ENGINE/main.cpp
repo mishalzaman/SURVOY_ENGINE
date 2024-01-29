@@ -135,8 +135,6 @@ int main(int argc, char* args[]) {
 			entityId,
 			LevelModel->Meshes()[i].Textures()
 		);
-
-
 	}
 
 	// Camera
@@ -201,7 +199,7 @@ int main(int argc, char* args[]) {
 
 		systemManager->Renders();
 
-		std::cout << deltaTime << std::endl;
+		std::cout << Core->Timer->DeltaTimeMS() << std::endl;
 
 		Core->EndRender();
 	}

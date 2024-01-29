@@ -14,12 +14,14 @@ namespace ECS {
         std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>> _entities;
 
     public:
+        int getLastEntId() { return nextEntityId - 1; }
+
         int createEntity() {
             int entityId = nextEntityId++;
             _entities[entityId] = {};
             return entityId;
         }
-
+         
         void destroyEntity(int entityId) {
             _entities.erase(entityId);
         }
