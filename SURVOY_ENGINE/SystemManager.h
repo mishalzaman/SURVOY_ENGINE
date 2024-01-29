@@ -4,18 +4,16 @@
 #include <memory>
 #include <typeindex>
 #include "System.h"
-#include "Component.h"
 
 namespace ECS {
     class SystemManager {
     private:
         std::unordered_map<std::type_index, std::shared_ptr<System>> systems;
-        std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities;
-
-
+        // Updated type to match the new entity-component storage structure
+        std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities;
 
     public:
-        SystemManager(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
+        SystemManager(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
             : entities(entities) {}
 
         template<typename T, typename... TArgs>

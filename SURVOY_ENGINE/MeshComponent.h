@@ -2,13 +2,12 @@
 
 #include <vector>
 #include <string>
-#include "Component.h"
 #include "SVertex.h"
 
 using namespace BAE;
 
 namespace ECS {
-	class MeshComponent : public Component
+	struct MeshComponent
 	{
 	public:
 		MeshComponent(

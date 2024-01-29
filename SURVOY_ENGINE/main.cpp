@@ -114,8 +114,6 @@ int main(int argc, char* args[]) {
 		// Create a new entity for each mesh
 		entityId = entityManager->createEntity();
 
-		// Add a TransformComponent with default or specific transform data
-		// For example, using default values here:
 		entityManager->addComponent<ECS::TransformComponent>(
 			entityId,
 			LevelModel->Meshes()[i].Position(), // Position
@@ -131,16 +129,14 @@ int main(int argc, char* args[]) {
 			LevelModel->Meshes()[i].Indices()
 		);
 
-		entityManager->addComponent<ECS::BuffersComponent>(
-			entityId,
-			LevelModel->Meshes()[i].Vertices(),
-			LevelModel->Meshes()[i].Indices()
-		);
+		entityManager->addComponent<ECS::BuffersComponent>(entityId);
 
 		entityManager->addComponent<ECS::TexturesComponent>(
 			entityId,
 			LevelModel->Meshes()[i].Textures()
 		);
+
+
 	}
 
 	// Camera
@@ -214,7 +210,7 @@ int main(int argc, char* args[]) {
 	SHUT DOWN
 	=============*/
 
-	systemManager->Unload();
+	//systemManager->Unload();
 
 	Core->DestroyDevice();
 

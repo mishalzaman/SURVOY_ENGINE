@@ -4,7 +4,7 @@ ECS::CameraSystem::CameraSystem(EntityManager& manager) : _entityManager(manager
 {
 }
 
-void ECS::CameraSystem::Load(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
+void ECS::CameraSystem::Load(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
 {
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
@@ -27,7 +27,7 @@ void ECS::CameraSystem::Load(std::unordered_map<int, std::vector<std::shared_ptr
     }
 }
 
-void ECS::CameraSystem::Physics(float deltaTime, std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
+void ECS::CameraSystem::Physics(float deltaTime, std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
 {
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
@@ -53,12 +53,12 @@ void ECS::CameraSystem::Physics(float deltaTime, std::unordered_map<int, std::ve
     }
 }
 
-void ECS::CameraSystem::Renders(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
+void ECS::CameraSystem::Renders(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
 {
     // N/A
 }
 
-void ECS::CameraSystem::Unload(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
+void ECS::CameraSystem::Unload(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
 {
     // N/A
 }

@@ -17,10 +17,10 @@ namespace ECS {
 
 		CameraSystem(EntityManager& manager);
 
-		void Load(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities) override;
-		void Physics(float deltaTime, std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities) override;
-		void Renders(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities);
-		void Unload(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities);
+		void Load(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
+		void Physics(float deltaTime, std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
+		void Renders(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
+		void Unload(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
 
 	private:
 		EntityManager& _entityManager;

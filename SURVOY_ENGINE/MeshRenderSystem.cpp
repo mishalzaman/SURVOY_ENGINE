@@ -6,7 +6,7 @@ ECS::MeshRenderSystem::MeshRenderSystem(EntityManager& manager) : _entityManager
     _defaultShader = std::make_unique<Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
 }
 
-void ECS::MeshRenderSystem::Load(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
+void ECS::MeshRenderSystem::Load(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
 {
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
@@ -21,12 +21,12 @@ void ECS::MeshRenderSystem::Load(std::unordered_map<int, std::vector<std::shared
     }
 }
 
-void ECS::MeshRenderSystem::Physics(float deltaTime, std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
+void ECS::MeshRenderSystem::Physics(float deltaTime, std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
 {
     // Not handled
 }
 
-void ECS::MeshRenderSystem::Renders(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
+void ECS::MeshRenderSystem::Renders(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
 {
 
 
@@ -57,7 +57,7 @@ void ECS::MeshRenderSystem::Renders(std::unordered_map<int, std::vector<std::sha
     }
 }
 
-void ECS::MeshRenderSystem::Unload(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
+void ECS::MeshRenderSystem::Unload(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
 {
     for (const auto& entityPair : entities) {
         BuffersComponent* buffers = _entityManager.getComponent<BuffersComponent>(entityPair.first);

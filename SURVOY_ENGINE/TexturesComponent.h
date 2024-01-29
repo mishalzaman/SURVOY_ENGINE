@@ -1,16 +1,16 @@
 #pragma once
 
 #include <vector>
-#include "Component.h"
 #include "STexture.h"
 
 using namespace BAE;
 
 namespace ECS {
-	class TexturesComponent : public Component
+	struct TexturesComponent
 	{
 	public:
-		TexturesComponent(std::vector<STexture> textures);
+		TexturesComponent(std::vector<STexture> textures) :
+			Textures(textures) {};
 
 		std::vector<STexture> Textures;
 	};
