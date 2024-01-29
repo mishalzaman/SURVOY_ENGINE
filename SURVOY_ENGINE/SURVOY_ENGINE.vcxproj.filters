@@ -25,6 +25,15 @@
     <Filter Include="ENGINE\Programs">
       <UniqueIdentifier>{7378ff2a-b63a-4bf7-8829-2a876c49b893}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ENGINE\ECS">
+      <UniqueIdentifier>{a4ed8985-ea9a-49ff-be28-28611d101f6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ENGINE\ECS\Components">
+      <UniqueIdentifier>{4ebcdc48-3937-4fd1-808e-7f1e7be3c07d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ENGINE\ECS\Systems">
+      <UniqueIdentifier>{60e9a6ec-973e-4ad5-b508-f48b30275328}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Event.cpp">
@@ -95,6 +104,45 @@
     </ClCompile>
     <ClCompile Include="CharacterController.cpp">
       <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>ENGINE\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>ENGINE\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>ENGINE\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>ENGINE\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemManager.cpp">
+      <Filter>ENGINE\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
+      <Filter>ENGINE\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshComponent.cpp">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BuffersComponent.cpp">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturesComponent.cpp">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +220,45 @@
     </ClInclude>
     <ClInclude Include="CharacterController.h">
       <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>ENGINE\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>ENGINE\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>ENGINE\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>ENGINE\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemManager.h">
+      <Filter>ENGINE\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>ENGINE\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffersComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturesComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
