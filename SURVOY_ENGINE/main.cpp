@@ -80,27 +80,30 @@ Core ECS Classes:
 #include "MeshRenderSystem.h"
 #include "CameraSystem.h"
 #include "CameraComponent.h"
+#include "MouseRelXY.h"
 
 const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
 const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
 
 int main(int argc, char* args[]) {
 
-	/*============= 
+	/*=============
 	ENGINE / CORE
 	=============*/
 
 	auto Core = std::make_unique<BAE::Core>();
-	if (!Core->CreateDevice("Automata 0.2.0")) { return Core->GetError();}
+	if (!Core->CreateDevice("Automata 0.2.0")) { return Core->GetError(); }
 
 	/*=============
 	ECS SETUP
 	=============*/
 	auto entityManager = std::make_unique<ECS::EntityManager>();
 
-	auto systemManager = std::make_unique<ECS::SystemManager>(entityManager->getEntities());
-	systemManager->AddSystem<ECS::MeshRenderSystem>(*entityManager);
-	systemManager->AddSystem<ECS::CameraSystem>(*entityManager);
+	// Pass a reference to the EntityManager object
+	auto systemManager = std::make_unique<ECS::SystemManager>(*entityManager);
+
+	systemManager->AddSystem<ECS::MeshRenderSystem>();
+	systemManager->AddSystem<ECS::CameraSystem>();
 
 	/*=============
 	INITIALIZE
@@ -114,8 +117,6 @@ int main(int argc, char* args[]) {
 		// Create a new entity for each mesh
 		entityId = entityManager->createEntity();
 
-		// Add a TransformComponent with default or specific transform data
-		// For example, using default values here:
 		entityManager->addComponent<ECS::TransformComponent>(
 			entityId,
 			LevelModel->Meshes()[i].Position(), // Position
@@ -131,11 +132,7 @@ int main(int argc, char* args[]) {
 			LevelModel->Meshes()[i].Indices()
 		);
 
-		entityManager->addComponent<ECS::BuffersComponent>(
-			entityId,
-			LevelModel->Meshes()[i].Vertices(),
-			LevelModel->Meshes()[i].Indices()
-		);
+		entityManager->addComponent<ECS::BuffersComponent>(entityId);
 
 		entityManager->addComponent<ECS::TexturesComponent>(
 			entityId,
@@ -151,12 +148,15 @@ int main(int argc, char* args[]) {
 		1024.0f,
 		768.0f
 	);
+	entityManager->addComponent<ECS::MouseRelXY>(cameraEntityId);
 
 	/*=============
 	LOAD
 	=============*/
 
 	systemManager->Load();
+
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	/*=============
 	LOOP
@@ -189,11 +189,13 @@ int main(int argc, char* args[]) {
 			}
 		}
 
+		systemManager->Update();
+
 		/*=============
 		FIXED UPDATE
 		=============*/
 		while (Core->Timer->PhysicsUpdate()) {
-			systemManager->Physics(deltaTime);
+			systemManager->Update(deltaTime);
 		}
 
 		/*=============
@@ -205,7 +207,7 @@ int main(int argc, char* args[]) {
 
 		systemManager->Renders();
 
-		std::cout << deltaTime << std::endl;
+		std::cout << Core->Timer->DeltaTimeS() << std::endl;
 
 		Core->EndRender();
 	}

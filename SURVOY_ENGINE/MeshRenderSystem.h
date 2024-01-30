@@ -1,6 +1,9 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
+#include <typeindex>
+#include <glm/glm.hpp>
 #include "System.h"
 #include "EntityManager.h"
 #include "TransformComponent.h"
@@ -11,29 +14,28 @@
 #include "Shader.h"
 
 namespace ECS {
-	class MeshRenderSystem : public System
-	{
-	private:
-		EntityManager& _entityManager;
-		std::unique_ptr<Shader> _defaultShader;
-		glm::mat4 _view;
-		glm::mat4 _projection;
+    class MeshRenderSystem : public System {
+    public:
+        MeshRenderSystem();
 
-		void _render(
-			const TransformComponent& transform,
-			const MeshComponent& mesh,
-			const BuffersComponent& buffers,
-			const TexturesComponent& textures
-		);
+        void Load(EntityManager& entityManager) override;
+        void Update(EntityManager& entityManager) override;
+        void Update(float deltaTime, EntityManager& entityManager) override;
+        void Renders(EntityManager& entityManager) override;
+        void Unload(EntityManager& entityManager) override;
 
-		void _initBuffers(const MeshComponent& mesh, BuffersComponent& buffers);
+    private:
+        std::unique_ptr<Shader> _defaultShader;
+        glm::mat4 _view;
+        glm::mat4 _projection;
 
-	public:
-		MeshRenderSystem(EntityManager& manager);
+        void _render(
+            const TransformComponent& transform,
+            const MeshComponent& mesh,
+            const BuffersComponent& buffers,
+            const TexturesComponent& textures
+        );
 
-		void Load(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities) override;
-		void Physics(float deltaTime, std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities) override;
-		void Renders(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities);
-		void Unload(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities);
-	};
+        void _initBuffers(const MeshComponent& mesh, BuffersComponent& buffers);
+    };
 }

@@ -1,10 +1,9 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "Component.h"
 
 namespace ECS {
-	class CameraComponent : public Component
+	struct CameraComponent
 	{
 	public:
 		// cached values

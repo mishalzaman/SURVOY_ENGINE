@@ -1,21 +1,13 @@
 #pragma once
 
 #include <GL/glew.h>
-#include <vector>
-#include "Component.h"
-#include "SVertex.h"
-
-using namespace BAE;
 
 namespace ECS {
-	class BuffersComponent : public Component
-	{
-	public:
-		BuffersComponent(
-			std::vector<SVertex> vertices,
-			std::vector<unsigned int> indices
-		);
+    struct BuffersComponent {
+        unsigned int VAO, VBO, EBO;
 
-		unsigned int VAO, VBO, EBO;
-	};
+        // You can still have constructors in a struct.
+        BuffersComponent() : VAO(0), VBO(0), EBO(0) {}
+        // Add other constructors or methods as needed.
+    };
 }

@@ -1,55 +1,54 @@
 #include "MeshRenderSystem.h"
 #include "VectorHelpers.h"
 
-ECS::MeshRenderSystem::MeshRenderSystem(EntityManager& manager) : _entityManager(manager)
+ECS::MeshRenderSystem::MeshRenderSystem()
 {
     _defaultShader = std::make_unique<Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
 }
 
-void ECS::MeshRenderSystem::Load(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
-{
+void ECS::MeshRenderSystem::Load(ECS::EntityManager& entityManager) {
+    auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
 
         // Retrieve the components required for rendering
-        BuffersComponent* buffers = _entityManager.getComponent<BuffersComponent>(entityId);
-        MeshComponent* mesh = _entityManager.getComponent<MeshComponent>(entityId);
+        ECS::BuffersComponent* buffers = entityManager.getComponent<ECS::BuffersComponent>(entityId);
+        ECS::MeshComponent* mesh = entityManager.getComponent<ECS::MeshComponent>(entityId);
 
         if (mesh && buffers) {
+            // Initialize the buffers for the mesh
             _initBuffers(*mesh, *buffers);
         }
     }
 }
 
-void ECS::MeshRenderSystem::Physics(float deltaTime, std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
-{
-    // Not handled
-}
+void ECS::MeshRenderSystem::Renders(ECS::EntityManager& entityManager) {
+    auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
 
-void ECS::MeshRenderSystem::Renders(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
-{
-
-
+    // First pass to set up the camera view and projection
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
 
-        // Retrieve the components required for rendering
-        CameraComponent* camera = _entityManager.getComponent<CameraComponent>(entityId);
+        // Retrieve the CameraComponent for the current entity
+        ECS::CameraComponent* camera = entityManager.getComponent<ECS::CameraComponent>(entityId);
 
         if (camera) {
             _view = camera->View;
             _projection = camera->Projection;
+            break; // Assuming only one active camera, break after setting view and projection
         }
     }
 
+    // Second pass to render each entity
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
 
         // Retrieve the components required for rendering
-        TransformComponent* transform = _entityManager.getComponent<TransformComponent>(entityId);
-        MeshComponent* mesh = _entityManager.getComponent<MeshComponent>(entityId);
-        BuffersComponent* buffers = _entityManager.getComponent<BuffersComponent>(entityId);
-        TexturesComponent* textures = _entityManager.getComponent<TexturesComponent>(entityId);
+        ECS::TransformComponent* transform = entityManager.getComponent<ECS::TransformComponent>(entityId);
+        ECS::MeshComponent* mesh = entityManager.getComponent<ECS::MeshComponent>(entityId);
+        ECS::BuffersComponent* buffers = entityManager.getComponent<ECS::BuffersComponent>(entityId);
+        ECS::TexturesComponent* textures = entityManager.getComponent<ECS::TexturesComponent>(entityId);
 
         if (transform && mesh && buffers && textures) {
             _render(*transform, *mesh, *buffers, *textures);
@@ -57,10 +56,13 @@ void ECS::MeshRenderSystem::Renders(std::unordered_map<int, std::vector<std::sha
     }
 }
 
-void ECS::MeshRenderSystem::Unload(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
-{
+void ECS::MeshRenderSystem::Unload(ECS::EntityManager& entityManager) {
+    auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+
     for (const auto& entityPair : entities) {
-        BuffersComponent* buffers = _entityManager.getComponent<BuffersComponent>(entityPair.first);
+        int entityId = entityPair.first;
+
+        ECS::BuffersComponent* buffers = entityManager.getComponent<ECS::BuffersComponent>(entityId);
         if (buffers) {
             // Delete VAO, VBO, and EBO
             glDeleteVertexArrays(1, &buffers->VAO);
@@ -69,6 +71,15 @@ void ECS::MeshRenderSystem::Unload(std::unordered_map<int, std::vector<std::shar
         }
     }
 }
+
+void ECS::MeshRenderSystem::Update(EntityManager& entityManager)
+{
+}
+
+void ECS::MeshRenderSystem::Update(float deltaTime, EntityManager& entityManager)
+{
+}
+
 
 void ECS::MeshRenderSystem::_render(const TransformComponent& transform, const MeshComponent& mesh, const BuffersComponent& buffers, const TexturesComponent& textures)
 {

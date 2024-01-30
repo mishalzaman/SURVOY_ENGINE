@@ -4,24 +4,22 @@
 #include <memory>
 #include <typeindex>
 #include "System.h"
-#include "Component.h"
 
 namespace ECS {
     class SystemManager {
     private:
         std::unordered_map<std::type_index, std::shared_ptr<System>> systems;
-        std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities;
-
-
+        EntityManager& entityManager; // Reference to EntityManager
 
     public:
-        SystemManager(std::unordered_map<int, std::vector<std::shared_ptr<Component>>>& entities)
-            : entities(entities) {}
+        SystemManager(EntityManager& entityManager)
+            : entityManager(entityManager) {}
 
         template<typename T, typename... TArgs>
         void AddSystem(TArgs&&... args) {
             std::shared_ptr<T> system = std::make_shared<T>(std::forward<TArgs>(args)...);
             systems[typeid(T)] = system;
+            // Initialize the system if necessary
         }
 
         template<typename T>
@@ -35,25 +33,31 @@ namespace ECS {
 
         void Load() {
             for (auto& [type, system] : systems) {
-                system->Load(entities);
+                system->Load(entityManager);
+            }
+        }
+
+        void Update() {
+            for (auto& [type, system] : systems) {
+                system->Update(entityManager);
+            }
+        }
+
+        void Update(float deltaTime) {
+            for (auto& [type, system] : systems) {
+                system->Update(deltaTime, entityManager);
             }
         }
 
         void Renders() {
             for (auto& [type, system] : systems) {
-                system->Renders(entities);
-            }
-        }
-
-        void Physics(float deltaTime) {
-            for (auto& [type, system] : systems) {
-                system->Physics(deltaTime, entities);
+                system->Renders(entityManager);
             }
         }
 
         void Unload() {
             for (auto& [type, system] : systems) {
-                system->Unload(entities);
+                system->Unload(entityManager);
             }
         }
     };
