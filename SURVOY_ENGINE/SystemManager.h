@@ -9,17 +9,17 @@ namespace ECS {
     class SystemManager {
     private:
         std::unordered_map<std::type_index, std::shared_ptr<System>> systems;
-        // Updated type to match the new entity-component storage structure
-        std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities;
+        EntityManager& entityManager; // Reference to EntityManager
 
     public:
-        SystemManager(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
-            : entities(entities) {}
+        SystemManager(EntityManager& entityManager)
+            : entityManager(entityManager) {}
 
         template<typename T, typename... TArgs>
         void AddSystem(TArgs&&... args) {
             std::shared_ptr<T> system = std::make_shared<T>(std::forward<TArgs>(args)...);
             systems[typeid(T)] = system;
+            // Initialize the system if necessary
         }
 
         template<typename T>
@@ -33,25 +33,25 @@ namespace ECS {
 
         void Load() {
             for (auto& [type, system] : systems) {
-                system->Load(entities);
+                system->Load(entityManager);
             }
         }
 
         void Renders() {
             for (auto& [type, system] : systems) {
-                system->Renders(entities);
+                system->Renders(entityManager);
             }
         }
 
         void Physics(float deltaTime) {
             for (auto& [type, system] : systems) {
-                system->Physics(deltaTime, entities);
+                system->Physics(deltaTime, entityManager);
             }
         }
 
         void Unload() {
             for (auto& [type, system] : systems) {
-                system->Unload(entities);
+                system->Unload(entityManager);
             }
         }
     };

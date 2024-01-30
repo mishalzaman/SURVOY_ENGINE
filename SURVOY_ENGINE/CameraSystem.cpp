@@ -1,16 +1,18 @@
 #include "CameraSystem.h"
 
-ECS::CameraSystem::CameraSystem(EntityManager& manager) : _entityManager(manager), _acceleration(2.f)
+ECS::CameraSystem::CameraSystem() : _acceleration(2.f)
 {
 }
 
-void ECS::CameraSystem::Load(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
+void ECS::CameraSystem::Load(EntityManager& entityManager)
 {
+    auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
 
-        // Retrieve the components required for rendering
-        CameraComponent* camera = _entityManager.getComponent<CameraComponent>(entityId);
+        // Retrieve the CameraComponent required for the camera system
+        ECS::CameraComponent* camera = entityManager.getComponent<ECS::CameraComponent>(entityId);
 
         if (camera) {
             _updateVectors(
@@ -27,38 +29,38 @@ void ECS::CameraSystem::Load(std::unordered_map<int, std::unordered_map<std::typ
     }
 }
 
-void ECS::CameraSystem::Physics(float deltaTime, std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
-{
+void ECS::CameraSystem::Physics(float deltaTime, ECS::EntityManager& entityManager) {
+    // Access the entity-component mapping from the EntityManager
+    auto& entities = entityManager.getEntityComponentIndices();
+
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
 
-        // Retrieve the components required for rendering
-        CameraComponent* camera = _entityManager.getComponent<CameraComponent>(entityId);
+        // Retrieve the CameraComponent required for the camera system
+        ECS::CameraComponent* camera = entityManager.getComponent<ECS::CameraComponent>(entityId);
 
         if (camera) {
+            // Process camera movement and orientation based on input and deltaTime
             _move(deltaTime, camera->Position, camera->Forward, camera->Right);
             _mouseLook(deltaTime, camera->Yaw, camera->Pitch, camera->MouseX, camera->MouseY);
 
-            _updateVectors(
-                camera->Forward,
-                camera->Up,
-                camera->Right,
-                camera->Yaw,
-                camera->Pitch
-            );
+            // Update the camera vectors and matrices
+            _updateVectors(camera->Forward, camera->Up, camera->Right, camera->Yaw, camera->Pitch);
 
+            // Calculate view and projection matrices
             camera->View = BAE::VectorHelpers::ViewMat4(camera->Position, camera->Forward, camera->Up);
             camera->Projection = BAE::VectorHelpers::ProjectionMat4(camera->ScreenWidth, camera->ScreenHeight, 60.0f);
         }
     }
 }
 
-void ECS::CameraSystem::Renders(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
+
+void ECS::CameraSystem::Renders(EntityManager& entityManager)
 {
     // N/A
 }
 
-void ECS::CameraSystem::Unload(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities)
+void ECS::CameraSystem::Unload(EntityManager& entityManager)
 {
     // N/A
 }

@@ -98,9 +98,11 @@ int main(int argc, char* args[]) {
 	=============*/
 	auto entityManager = std::make_unique<ECS::EntityManager>();
 
-	//auto systemManager = std::make_unique<ECS::SystemManager>(entityManager->getEntities());
-	//systemManager->AddSystem<ECS::MeshRenderSystem>(*entityManager);
-	//systemManager->AddSystem<ECS::CameraSystem>(*entityManager);
+	// Pass a reference to the EntityManager object
+	auto systemManager = std::make_unique<ECS::SystemManager>(*entityManager);
+
+	systemManager->AddSystem<ECS::MeshRenderSystem>();
+	systemManager->AddSystem<ECS::CameraSystem>();
 
 	/*=============
 	INITIALIZE
@@ -114,43 +116,43 @@ int main(int argc, char* args[]) {
 		// Create a new entity for each mesh
 		entityId = entityManager->createEntity();
 
-		//entityManager->addComponent<ECS::TransformComponent>(
-		//	entityId,
-		//	LevelModel->Meshes()[i].Position(), // Position
-		//	glm::quat(1.0f, 0.0f, 0.0f, 0.0f), // Rotation
-		//	glm::vec3(1.0f), // Scale
-		//	LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
-		//);
+		entityManager->addComponent<ECS::TransformComponent>(
+			entityId,
+			LevelModel->Meshes()[i].Position(), // Position
+			glm::quat(1.0f, 0.0f, 0.0f, 0.0f), // Rotation
+			glm::vec3(1.0f), // Scale
+			LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
+		);
 
-		//entityManager->addComponent<ECS::MeshComponent>(
-		//	entityId,
-		//	LevelModel->Meshes()[i].Name(),
-		//	LevelModel->Meshes()[i].Vertices(),
-		//	LevelModel->Meshes()[i].Indices()
-		//);
+		entityManager->addComponent<ECS::MeshComponent>(
+			entityId,
+			LevelModel->Meshes()[i].Name(),
+			LevelModel->Meshes()[i].Vertices(),
+			LevelModel->Meshes()[i].Indices()
+		);
 
 		entityManager->addComponent<ECS::BuffersComponent>(entityId);
 
-		//entityManager->addComponent<ECS::TexturesComponent>(
-		//	entityId,
-		//	LevelModel->Meshes()[i].Textures()
-		//);
+		entityManager->addComponent<ECS::TexturesComponent>(
+			entityId,
+			LevelModel->Meshes()[i].Textures()
+		);
 	}
 
 	// Camera
-	//int cameraEntityId = entityManager->createEntity();
-	//entityManager->addComponent<ECS::CameraComponent>(
-	//	cameraEntityId,
-	//	glm::vec3(0, 1, 0),
-	//	1024.0f,
-	//	768.0f
-	//);
+	int cameraEntityId = entityManager->createEntity();
+	entityManager->addComponent<ECS::CameraComponent>(
+		cameraEntityId,
+		glm::vec3(0, 1, 0),
+		1024.0f,
+		768.0f
+	);
 
 	/*=============
 	LOAD
 	=============*/
 
-	//systemManager->Load();
+	systemManager->Load();
 
 	/*=============
 	LOOP
@@ -187,7 +189,7 @@ int main(int argc, char* args[]) {
 		FIXED UPDATE
 		=============*/
 		while (Core->Timer->PhysicsUpdate()) {
-			//systemManager->Physics(deltaTime);
+			systemManager->Physics(deltaTime);
 		}
 
 		/*=============
@@ -197,9 +199,9 @@ int main(int argc, char* args[]) {
 		
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		//systemManager->Renders();
+		systemManager->Renders();
 
-		//std::cout << Core->Timer->DeltaTimeMS() << std::endl;
+		std::cout << Core->Timer->DeltaTimeS() << std::endl;
 
 		Core->EndRender();
 	}
@@ -208,7 +210,7 @@ int main(int argc, char* args[]) {
 	SHUT DOWN
 	=============*/
 
-	//systemManager->Unload();
+	systemManager->Unload();
 
 	Core->DestroyDevice();
 

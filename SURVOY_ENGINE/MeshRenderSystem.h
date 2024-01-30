@@ -16,14 +16,13 @@
 namespace ECS {
     class MeshRenderSystem : public System {
     public:
-        MeshRenderSystem(EntityManager& manager);
+        MeshRenderSystem();
 
-        void Load(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
-        void Physics(float deltaTime, std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
-        void Renders(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
-        void Unload(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
+        void Load(EntityManager& entityManager) override;
+        void Physics(float deltaTime, EntityManager& entityManager) override;
+        void Renders(EntityManager& entityManager) override;
+        void Unload(EntityManager& entityManager) override;
     private:
-        EntityManager& _entityManager;
         std::unique_ptr<Shader> _defaultShader;
         glm::mat4 _view;
         glm::mat4 _projection;

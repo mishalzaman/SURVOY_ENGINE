@@ -15,15 +15,14 @@ namespace ECS {
 		const float SPEED = 2.f;
 		const float MOUSE_SENSITIVITY = 20.f;
 
-		CameraSystem(EntityManager& manager);
+		CameraSystem();
 
-		void Load(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
-		void Physics(float deltaTime, std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
-		void Renders(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
-		void Unload(std::unordered_map<int, std::unordered_map<std::type_index, std::shared_ptr<void>>>& entities) override;
+		void Load(EntityManager& entityManager) override;
+		void Physics(float deltaTime, EntityManager& entityManager) override;
+		void Renders(EntityManager& entityManager) override;
+		void Unload(EntityManager& entityManager) override;
 
 	private:
-		EntityManager& _entityManager;
 		float _acceleration;
 
 		void _updateVectors(glm::vec3& forward, glm::vec3& up, glm::vec3& right, float& yaw, float& pitch);

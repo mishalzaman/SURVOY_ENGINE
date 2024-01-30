@@ -32,7 +32,7 @@ namespace ECS {
                 entityId = nextEntityId++;
             }
             entityComponentIndices[entityId] = {}; // Initialize the entry
-            std::cout << "entity ID: " << entityId << std::endl;
+
             return entityId;
         }
 
