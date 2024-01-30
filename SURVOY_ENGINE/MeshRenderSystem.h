@@ -19,9 +19,11 @@ namespace ECS {
         MeshRenderSystem();
 
         void Load(EntityManager& entityManager) override;
-        void Physics(float deltaTime, EntityManager& entityManager) override;
+        void Update(EntityManager& entityManager) override;
+        void Update(float deltaTime, EntityManager& entityManager) override;
         void Renders(EntityManager& entityManager) override;
         void Unload(EntityManager& entityManager) override;
+
     private:
         std::unique_ptr<Shader> _defaultShader;
         glm::mat4 _view;

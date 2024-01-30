@@ -80,6 +80,7 @@ Core ECS Classes:
 #include "MeshRenderSystem.h"
 #include "CameraSystem.h"
 #include "CameraComponent.h"
+#include "MouseRelXY.h"
 
 const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
 const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
@@ -147,12 +148,15 @@ int main(int argc, char* args[]) {
 		1024.0f,
 		768.0f
 	);
+	entityManager->addComponent<ECS::MouseRelXY>(cameraEntityId);
 
 	/*=============
 	LOAD
 	=============*/
 
 	systemManager->Load();
+
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	/*=============
 	LOOP
@@ -185,11 +189,13 @@ int main(int argc, char* args[]) {
 			}
 		}
 
+		systemManager->Update();
+
 		/*=============
 		FIXED UPDATE
 		=============*/
 		while (Core->Timer->PhysicsUpdate()) {
-			systemManager->Physics(deltaTime);
+			systemManager->Update(deltaTime);
 		}
 
 		/*=============

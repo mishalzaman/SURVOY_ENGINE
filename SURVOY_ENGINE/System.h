@@ -9,7 +9,8 @@ namespace ECS {
 
         // Update method signatures to accept a reference to EntityManager
         virtual void Load(EntityManager& entityManager) = 0;
-        virtual void Physics(float deltaTime, EntityManager& entityManager) = 0;
+        virtual void Update(EntityManager& entityManager) = 0;
+        virtual void Update(float deltaTime, EntityManager& entityManager) = 0;
         virtual void Renders(EntityManager& entityManager) = 0;
         virtual void Unload(EntityManager& entityManager) = 0;
 

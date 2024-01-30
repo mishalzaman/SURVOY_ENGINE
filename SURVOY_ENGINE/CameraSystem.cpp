@@ -29,7 +29,23 @@ void ECS::CameraSystem::Load(EntityManager& entityManager)
     }
 }
 
-void ECS::CameraSystem::Physics(float deltaTime, ECS::EntityManager& entityManager) {
+void ECS::CameraSystem::Renders(EntityManager& entityManager)
+{
+    // N/A
+}
+
+void ECS::CameraSystem::Unload(EntityManager& entityManager)
+{
+    // N/A
+}
+
+void ECS::CameraSystem::Update(EntityManager& entityManager)
+{
+    // N/A
+}
+
+void ECS::CameraSystem::Update(float deltaTime, EntityManager& entityManager)
+{
     // Access the entity-component mapping from the EntityManager
     auto& entities = entityManager.getEntityComponentIndices();
 
@@ -52,17 +68,6 @@ void ECS::CameraSystem::Physics(float deltaTime, ECS::EntityManager& entityManag
             camera->Projection = BAE::VectorHelpers::ProjectionMat4(camera->ScreenWidth, camera->ScreenHeight, 60.0f);
         }
     }
-}
-
-
-void ECS::CameraSystem::Renders(EntityManager& entityManager)
-{
-    // N/A
-}
-
-void ECS::CameraSystem::Unload(EntityManager& entityManager)
-{
-    // N/A
 }
 
 void ECS::CameraSystem::_updateVectors(
@@ -112,16 +117,16 @@ void ECS::CameraSystem::_move(float deltaTime, glm::vec3& position, const glm::v
 
     float velocity = _acceleration * SPEED * deltaTime;
 
-    if (keystate[SDL_SCANCODE_UP]) {
+    if (keystate[SDL_SCANCODE_W]) {
         position += forward * velocity;
     }
-    if (keystate[SDL_SCANCODE_DOWN]) {
+    if (keystate[SDL_SCANCODE_S]) {
         position -= forward * velocity;
     }
-    if (keystate[SDL_SCANCODE_LEFT]) {
+    if (keystate[SDL_SCANCODE_A]) {
         position -= right * velocity;
     }
-    if (keystate[SDL_SCANCODE_RIGHT]) {
+    if (keystate[SDL_SCANCODE_D]) {
         position += right * velocity;
     }
 }

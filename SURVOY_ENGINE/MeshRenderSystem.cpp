@@ -23,11 +23,6 @@ void ECS::MeshRenderSystem::Load(ECS::EntityManager& entityManager) {
     }
 }
 
-void ECS::MeshRenderSystem::Physics(float deltaTime, EntityManager& entityManager)
-{
-    // Not handled
-}
-
 void ECS::MeshRenderSystem::Renders(ECS::EntityManager& entityManager) {
     auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
 
@@ -75,6 +70,14 @@ void ECS::MeshRenderSystem::Unload(ECS::EntityManager& entityManager) {
             glDeleteBuffers(1, &buffers->EBO);
         }
     }
+}
+
+void ECS::MeshRenderSystem::Update(EntityManager& entityManager)
+{
+}
+
+void ECS::MeshRenderSystem::Update(float deltaTime, EntityManager& entityManager)
+{
 }
 
 

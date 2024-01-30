@@ -37,15 +37,21 @@ namespace ECS {
             }
         }
 
-        void Renders() {
+        void Update() {
             for (auto& [type, system] : systems) {
-                system->Renders(entityManager);
+                system->Update(entityManager);
             }
         }
 
-        void Physics(float deltaTime) {
+        void Update(float deltaTime) {
             for (auto& [type, system] : systems) {
-                system->Physics(deltaTime, entityManager);
+                system->Update(deltaTime, entityManager);
+            }
+        }
+
+        void Renders() {
+            for (auto& [type, system] : systems) {
+                system->Renders(entityManager);
             }
         }
 
