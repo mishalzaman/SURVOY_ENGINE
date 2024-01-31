@@ -4,7 +4,7 @@ ECS::CameraSystem::CameraSystem() : _acceleration(2.f), _curRelX(0.f), _curRelY(
 {
 }
 
-void ECS::CameraSystem::Load(EntityManager& entityManager)
+void ECS::CameraSystem::Load(EntityManager& entityManager, Physics& physics)
 {
     auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
 
@@ -34,7 +34,7 @@ void ECS::CameraSystem::Renders(EntityManager& entityManager)
     // N/A
 }
 
-void ECS::CameraSystem::Unload(EntityManager& entityManager)
+void ECS::CameraSystem::Unload(EntityManager& entityManager, Physics& physics)
 {
     // N/A
 }
@@ -45,12 +45,12 @@ void ECS::CameraSystem::UpdateVec3(EntityManager& entityManager, float x, float 
     _curRelY = y;
 }
 
-void ECS::CameraSystem::Update(EntityManager& entityManager)
+void ECS::CameraSystem::Update(EntityManager& entityManager, Physics& physics)
 {
     // N/A
 }
 
-void ECS::CameraSystem::Update(float deltaTime, EntityManager& entityManager)
+void ECS::CameraSystem::Update(float deltaTime, EntityManager& entityManager, Physics& physics)
 {
     // Access the entity-component mapping from the EntityManager
     auto& entities = entityManager.getEntityComponentIndices();

@@ -12,17 +12,18 @@
 #include "TexturesComponent.h"
 #include "CameraComponent.h"
 #include "Shader.h"
+#include "Physics.h"
 
 namespace ECS {
     class MeshRenderSystem : public System {
     public:
         MeshRenderSystem();
 
-        void Load(EntityManager& entityManager) override;
-        void Update(EntityManager& entityManager) override;
-        void Update(float deltaTime, EntityManager& entityManager) override;
+        void Load(EntityManager& entityManager, Physics& physics) override;
+        void Update(EntityManager& entityManager, Physics& physics) override;
+        void Update(float deltaTime, EntityManager& entityManager, Physics& physics) override;
         void Renders(EntityManager& entityManager) override;
-        void Unload(EntityManager& entityManager) override;
+        void Unload(EntityManager& entityManager, Physics& physics) override;
         void UpdateVec3(EntityManager& entityManager, float x, float y, float z) override;
 
     private:

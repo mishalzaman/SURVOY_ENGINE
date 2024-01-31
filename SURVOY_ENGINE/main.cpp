@@ -81,6 +81,9 @@ Core ECS Classes:
 #include "CameraSystem.h"
 #include "CameraComponent.h"
 #include "MouseRelXY.h"
+#include "Physics.h"
+#include "StaticPhysicsBodyComponent.h"
+#include "PhysicsSystem.h"
 
 const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
 const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
@@ -95,15 +98,21 @@ int main(int argc, char* args[]) {
 	if (!Core->CreateDevice("Automata 0.2.0")) { return Core->GetError(); }
 
 	/*=============
+	PHYSICS
+	=============*/
+	auto physics = std::make_unique<BAE::Physics>();
+
+	/*=============
 	ECS SETUP
 	=============*/
 	auto entityManager = std::make_unique<ECS::EntityManager>();
 
 	// Pass a reference to the EntityManager object
-	auto systemManager = std::make_unique<ECS::SystemManager>(*entityManager);
+	auto systemManager = std::make_unique<ECS::SystemManager>(*entityManager, *physics);
 
 	systemManager->AddSystem<ECS::MeshRenderSystem>();
 	systemManager->AddSystem<ECS::CameraSystem>();
+	systemManager->AddSystem<ECS::PhysicsSystem>();
 
 	/*=============
 	INITIALIZE
@@ -138,6 +147,7 @@ int main(int argc, char* args[]) {
 			entityId,
 			LevelModel->Meshes()[i].Textures()
 		);
+		entityManager->addComponent<ECS::StaticPhysicsBodyComponent>(entityId);
 	}
 
 	// Camera
@@ -148,6 +158,7 @@ int main(int argc, char* args[]) {
 		1024.0f,
 		768.0f
 	);
+
 
 	/*=============
 	LOAD
@@ -204,6 +215,12 @@ int main(int argc, char* args[]) {
 		Core->BeginRender();
 		
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		
+		physics->DrawDebug(
+			entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->Projection,
+			entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->View
+		);
 
 		systemManager->Renders();
 
