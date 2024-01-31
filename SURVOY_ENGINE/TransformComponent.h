@@ -5,10 +5,10 @@
 
 namespace ECS {
     struct TransformComponent {
-        glm::vec3 position;
-        glm::quat rotation;
-        glm::vec3 scale;
-        glm::mat4 transformation;
+        glm::vec3 Position;
+        glm::quat Rotation;
+        glm::vec3 Scale;
+        glm::mat4 Transformation;
 
         // Constructor that takes position, rotation, scale, and transformation matrix
         TransformComponent(
@@ -16,6 +16,6 @@ namespace ECS {
             const glm::quat& rot,
             const glm::vec3& scl,
             const glm::mat4& trans)
-            : position(pos), rotation(rot), scale(scl), transformation(trans) {}
+            : Position(pos), Rotation(rot), Scale(scl), Transformation(trans) {}
     };
 }

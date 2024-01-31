@@ -113,7 +113,7 @@ void ECS::MeshRenderSystem::_render(const TransformComponent& transform, const M
         _defaultShader->setInt(("material." + name + number).c_str(), i);
         glBindTexture(GL_TEXTURE_2D, textures.Textures[i].id);
 
-        _defaultShader->setMat4("model", transform.transformation);
+        _defaultShader->setMat4("model", transform.Transformation);
     }
     glActiveTexture(GL_TEXTURE0);
 

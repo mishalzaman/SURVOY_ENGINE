@@ -123,6 +123,15 @@
     <ClCompile Include="PhysicsSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="DynamicPhysicsCapsuleComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterControllerComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMovementSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -237,6 +246,9 @@
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMovementSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>

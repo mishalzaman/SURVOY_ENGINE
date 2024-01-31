@@ -6,19 +6,45 @@ ECS::PhysicsSystem::PhysicsSystem()
 
 void ECS::PhysicsSystem::Load(EntityManager& entityManager, Physics& physics)
 {
-    auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+	_static(entityManager, physics);
+	_dynamicCapsule(entityManager, physics);
+}
 
-    for (const auto& entityPair : entities) {
-        int entityId = entityPair.first;
+void ECS::PhysicsSystem::Update(EntityManager& entityManager, Physics& physics)
+{
+}
 
-        ECS::MeshComponent* mesh = entityManager.getComponent<ECS::MeshComponent>(entityId);
-        ECS::TransformComponent* transform = entityManager.getComponent<ECS::TransformComponent>(entityId);
-        ECS::StaticPhysicsBodyComponent* staticPhysicsBody = entityManager.getComponent<ECS::StaticPhysicsBodyComponent>(entityId);
+void ECS::PhysicsSystem::Update(float deltaTime, EntityManager& entityManager, Physics& physics)
+{
+}
 
-        if (mesh && transform && staticPhysicsBody) {
+void ECS::PhysicsSystem::Renders(EntityManager& entityManager)
+{
+}
+
+void ECS::PhysicsSystem::Unload(EntityManager& entityManager, Physics& physics)
+{
+}
+
+void ECS::PhysicsSystem::UpdateVec3(EntityManager& entityManager, float x, float y, float z)
+{
+}
+
+void ECS::PhysicsSystem::_static(EntityManager& entityManager, Physics& physics)
+{
+	auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+
+	for (const auto& entityPair : entities) {
+		int entityId = entityPair.first;
+
+		ECS::MeshComponent* mesh = entityManager.getComponent<ECS::MeshComponent>(entityId);
+		ECS::TransformComponent* transform = entityManager.getComponent<ECS::TransformComponent>(entityId);
+		ECS::StaticPhysicsBodyComponent* staticPhysicsBody = entityManager.getComponent<ECS::StaticPhysicsBodyComponent>(entityId);
+
+		if (mesh && transform && staticPhysicsBody) {
 			btTriangleMesh* meshInterface = new btTriangleMesh;
 
-			glm::mat4 transformation = transform->transformation;
+			glm::mat4 transformation = transform->Transformation;
 
 			for (int i = 0; i < mesh->Vertices.size(); i += 3) {
 				// Transform each vertex by the mesh's transformation matrix
@@ -58,26 +84,50 @@ void ECS::PhysicsSystem::Load(EntityManager& entityManager, Physics& physics)
 
 			//add the body to the dynamics world
 			physics.World().addRigidBody(body);
-        }
-    }
+		}
+	}
 }
 
-void ECS::PhysicsSystem::Update(EntityManager& entityManager, Physics& physics)
+void ECS::PhysicsSystem::_dynamicCapsule(EntityManager& entityManager, Physics& physics)
 {
-}
+	auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
 
-void ECS::PhysicsSystem::Update(float deltaTime, EntityManager& entityManager, Physics& physics)
-{
-}
+	for (const auto& entityPair : entities) {
+		int entityId = entityPair.first;
 
-void ECS::PhysicsSystem::Renders(EntityManager& entityManager)
-{
-}
+		ECS::MeshComponent* mesh = entityManager.getComponent<ECS::MeshComponent>(entityId);
+		ECS::TransformComponent* transform = entityManager.getComponent<ECS::TransformComponent>(entityId);
+		ECS::DynamicPhysicsCapsuleComponent* dynamicCapsule = entityManager.getComponent<ECS::DynamicPhysicsCapsuleComponent>(entityId);
 
-void ECS::PhysicsSystem::Unload(EntityManager& entityManager, Physics& physics)
-{
-}
+		if (mesh && transform && dynamicCapsule) {
+			glm::vec3 position = transform->Transformation[3];
 
-void ECS::PhysicsSystem::UpdateVec3(EntityManager& entityManager, float x, float y, float z)
-{
+			btCollisionShape* groundShape = new btCapsuleShape(0.25f, 1.25f);
+			physics.CollisionShapes().push_back(groundShape);
+
+			btTransform groundTransform;
+			groundTransform.setIdentity();
+			groundTransform.setOrigin(btVector3(position.x, position.y + 1, position.z));
+
+			// Create a quaternion from yaw and pitch
+			btQuaternion rotation;
+			rotation.setEuler(-90, 0, 0); // Assuming roll is zero
+			groundTransform.setRotation(rotation);
+
+			btScalar mass(1.f);
+			bool isDynamic = (mass != 0.f);
+			btVector3 localInertia(0, 0, 0);
+			if (isDynamic)
+				groundShape->calculateLocalInertia(mass, localInertia);
+
+			btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
+			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+			btRigidBody* body = new btRigidBody(rbInfo);
+			body->setAngularFactor(btVector3(0, 0, 0));
+
+			dynamicCapsule->Body = body;
+
+			physics.World().addRigidBody(body);
+		}
+	}
 }

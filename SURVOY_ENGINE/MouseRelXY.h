@@ -4,10 +4,10 @@ namespace ECS {
 	struct MouseRelXY
 	{
 	public:
-		MouseRelXY() : x(0), y(0) {};
+		MouseRelXY() : X(0), Y(0) {};
 
-		float x;
-		float y;
+		float X;
+		float Y;
 	};
 }
 #pragma once

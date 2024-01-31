@@ -4,6 +4,7 @@
 #include "StaticPhysicsBodyComponent.h"
 #include "MeshComponent.h"
 #include "TransformComponent.h"
+#include "DynamicPhysicsCapsuleComponent.h"
 
 namespace ECS {
     class PhysicsSystem : public System
@@ -19,6 +20,7 @@ namespace ECS {
         void UpdateVec3(EntityManager& entityManager, float x, float y, float z) override;
 
     private:
-
+        void _static(EntityManager& entityManager, Physics& physics);
+        void _dynamicCapsule(EntityManager& entityManager, Physics& physics);
     };
 }
