@@ -72,6 +72,10 @@ void ECS::MeshRenderSystem::Unload(ECS::EntityManager& entityManager) {
     }
 }
 
+void ECS::MeshRenderSystem::UpdateVec3(EntityManager& entityManager, float x, float y, float z)
+{
+}
+
 void ECS::MeshRenderSystem::Update(EntityManager& entityManager)
 {
 }

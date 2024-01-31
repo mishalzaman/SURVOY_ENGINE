@@ -14,7 +14,7 @@ namespace ECS {
 	{	
 	public:
 		const float SPEED = 2.f;
-		const float MOUSE_SENSITIVITY = 20.f;
+		const float MOUSE_SENSITIVITY = 10.f;
 
 		CameraSystem();
 
@@ -23,6 +23,7 @@ namespace ECS {
 		void Update(float deltaTime, EntityManager& entityManager) override;
 		void Renders(EntityManager& entityManager) override;
 		void Unload(EntityManager& entityManager) override;
+		void UpdateVec3(EntityManager& entityManager, float x, float y, float z) override;
 
 	private:
 		float _acceleration;
@@ -31,7 +32,8 @@ namespace ECS {
 		void _mouseLook(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY);
 		void _move(float deltaTime, glm::vec3& position, const glm::vec3& forward, const glm::vec3& right);
 
-
+		float _curRelX;
+		float _curRelY;
 	};
 
 }

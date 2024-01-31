@@ -23,6 +23,7 @@ namespace ECS {
         void Update(float deltaTime, EntityManager& entityManager) override;
         void Renders(EntityManager& entityManager) override;
         void Unload(EntityManager& entityManager) override;
+        void UpdateVec3(EntityManager& entityManager, float x, float y, float z) override;
 
     private:
         std::unique_ptr<Shader> _defaultShader;

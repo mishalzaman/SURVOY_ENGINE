@@ -1,6 +1,6 @@
 #include "CameraSystem.h"
 
-ECS::CameraSystem::CameraSystem() : _acceleration(2.f)
+ECS::CameraSystem::CameraSystem() : _acceleration(2.f), _curRelX(0.f), _curRelY(0.f)
 {
 }
 
@@ -39,6 +39,12 @@ void ECS::CameraSystem::Unload(EntityManager& entityManager)
     // N/A
 }
 
+void ECS::CameraSystem::UpdateVec3(EntityManager& entityManager, float x, float y, float z)
+{
+    _curRelX = x;
+    _curRelY = y;
+}
+
 void ECS::CameraSystem::Update(EntityManager& entityManager)
 {
     // N/A
@@ -57,8 +63,8 @@ void ECS::CameraSystem::Update(float deltaTime, EntityManager& entityManager)
 
         if (camera) {
             // Process camera movement and orientation based on input and deltaTime
+            _mouseLook(deltaTime, camera->Yaw, camera->Pitch, _curRelX, _curRelY);
             _move(deltaTime, camera->Position, camera->Forward, camera->Right);
-            _mouseLook(deltaTime, camera->Yaw, camera->Pitch, camera->MouseX, camera->MouseY);
 
             // Update the camera vectors and matrices
             _updateVectors(camera->Forward, camera->Up, camera->Right, camera->Yaw, camera->Pitch);
@@ -66,6 +72,9 @@ void ECS::CameraSystem::Update(float deltaTime, EntityManager& entityManager)
             // Calculate view and projection matrices
             camera->View = BAE::VectorHelpers::ViewMat4(camera->Position, camera->Forward, camera->Up);
             camera->Projection = BAE::VectorHelpers::ProjectionMat4(camera->ScreenWidth, camera->ScreenHeight, 60.0f);
+
+            _curRelX = 0.f;
+            _curRelY = 0.f;
         }
     }
 }

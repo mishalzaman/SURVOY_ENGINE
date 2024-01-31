@@ -60,5 +60,11 @@ namespace ECS {
                 system->Unload(entityManager);
             }
         }
+
+        void UpdateVec3(float x, float y, float z) {
+            for (auto& [type, system] : systems) {
+                system->UpdateVec3(entityManager, x, y, z);
+            }
+        }
     };
 }

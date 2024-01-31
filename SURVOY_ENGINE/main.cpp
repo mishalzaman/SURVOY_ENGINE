@@ -148,7 +148,6 @@ int main(int argc, char* args[]) {
 		1024.0f,
 		768.0f
 	);
-	entityManager->addComponent<ECS::MouseRelXY>(cameraEntityId);
 
 	/*=============
 	LOAD
@@ -183,6 +182,7 @@ int main(int argc, char* args[]) {
 					}
 					break;
 				case SDL_MOUSEMOTION:
+					systemManager->UpdateVec3(e.motion.xrel, e.motion.yrel, 0.f);
 					break;
 				default:
 					break;

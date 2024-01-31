@@ -13,6 +13,7 @@ namespace ECS {
         virtual void Update(float deltaTime, EntityManager& entityManager) = 0;
         virtual void Renders(EntityManager& entityManager) = 0;
         virtual void Unload(EntityManager& entityManager) = 0;
+        virtual void UpdateVec3(EntityManager& entityManager, float x, float y, float z) = 0;
 
         // Add other common system functionality here if needed
     };
