@@ -84,6 +84,7 @@ Core ECS Classes:
 #include "Physics.h"
 #include "StaticPhysicsBodyComponent.h"
 #include "PhysicsSystem.h"
+#include "DynamicPhysicsBodyComponent.h"
 
 const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
 const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
@@ -123,31 +124,59 @@ int main(int argc, char* args[]) {
 	int entityId = 0;
 
 	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
+
 		// Create a new entity for each mesh
 		entityId = entityManager->createEntity();
 
-		entityManager->addComponent<ECS::TransformComponent>(
-			entityId,
-			LevelModel->Meshes()[i].Position(), // Position
-			glm::quat(1.0f, 0.0f, 0.0f, 0.0f), // Rotation
-			glm::vec3(1.0f), // Scale
-			LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
-		);
+		if (LevelModel->Meshes()[i].Name().find("BOID") != std::string::npos) {
+			entityManager->addComponent<ECS::TransformComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Transformation()[3], // Position
+				glm::quat(1.0f, 0.0f, 0.0f, 0.0f), // Rotation
+				glm::vec3(1.0f), // Scale
+				LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
+			);
 
-		entityManager->addComponent<ECS::MeshComponent>(
-			entityId,
-			LevelModel->Meshes()[i].Name(),
-			LevelModel->Meshes()[i].Vertices(),
-			LevelModel->Meshes()[i].Indices()
-		);
+			entityManager->addComponent<ECS::MeshComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Name(),
+				LevelModel->Meshes()[i].Vertices(),
+				LevelModel->Meshes()[i].Indices()
+			);
 
-		entityManager->addComponent<ECS::BuffersComponent>(entityId);
+			entityManager->addComponent<ECS::BuffersComponent>(entityId);
 
-		entityManager->addComponent<ECS::TexturesComponent>(
-			entityId,
-			LevelModel->Meshes()[i].Textures()
-		);
-		entityManager->addComponent<ECS::StaticPhysicsBodyComponent>(entityId);
+			entityManager->addComponent<ECS::TexturesComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Textures()
+			);
+			entityManager->addComponent<ECS::DynamicPhysicsBodyComponent>(entityId);
+		}
+		else
+		{
+			entityManager->addComponent<ECS::TransformComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Position(), // Position
+				glm::quat(1.0f, 0.0f, 0.0f, 0.0f), // Rotation
+				glm::vec3(1.0f), // Scale
+				LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
+			);
+
+			entityManager->addComponent<ECS::MeshComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Name(),
+				LevelModel->Meshes()[i].Vertices(),
+				LevelModel->Meshes()[i].Indices()
+			);
+
+			entityManager->addComponent<ECS::BuffersComponent>(entityId);
+
+			entityManager->addComponent<ECS::TexturesComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Textures()
+			);
+			entityManager->addComponent<ECS::StaticPhysicsBodyComponent>(entityId);
+		}
 	}
 
 	// Camera
@@ -206,6 +235,7 @@ int main(int argc, char* args[]) {
 		FIXED UPDATE
 		=============*/
 		while (Core->Timer->PhysicsUpdate()) {
+			physics->Simulate(deltaTime);
 			systemManager->Update(deltaTime);
 		}
 
@@ -217,10 +247,10 @@ int main(int argc, char* args[]) {
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 		
-		physics->DrawDebug(
-			entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->Projection,
-			entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->View
-		);
+		//physics->DrawDebug(
+		//	entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->Projection,
+		//	entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->View
+		//);
 
 		systemManager->Renders();
 

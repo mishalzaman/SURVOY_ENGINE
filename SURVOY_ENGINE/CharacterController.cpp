@@ -28,7 +28,7 @@ void BAE::CharacterController::CreatePhysicalCharacter(
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(_position.x, _position.y+1, _position.z));
+	groundTransform.setOrigin(btVector3(_position.x, _position.y, _position.z));
 
 	// Create a quaternion from yaw and pitch
 	btQuaternion rotation;

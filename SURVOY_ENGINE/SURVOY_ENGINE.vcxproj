@@ -171,6 +171,7 @@
     <ClInclude Include="CameraFollow.h" />
     <ClInclude Include="CameraFreeLook.h" />
     <ClInclude Include="CameraSystem.h" />
+    <ClInclude Include="DynamicPhysicsBodyComponent.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="MeshRenderSystem.h" />
