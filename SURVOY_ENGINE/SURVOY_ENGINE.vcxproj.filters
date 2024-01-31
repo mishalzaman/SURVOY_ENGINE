@@ -120,6 +120,9 @@
     <ClCompile Include="CameraSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Event.h">
@@ -229,6 +232,12 @@
     </ClInclude>
     <ClInclude Include="MouseRelXY.h">
       <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticPhysicsBodyComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

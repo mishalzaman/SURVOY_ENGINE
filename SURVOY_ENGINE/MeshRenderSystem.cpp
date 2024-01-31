@@ -6,7 +6,7 @@ ECS::MeshRenderSystem::MeshRenderSystem()
     _defaultShader = std::make_unique<Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
 }
 
-void ECS::MeshRenderSystem::Load(ECS::EntityManager& entityManager) {
+void ECS::MeshRenderSystem::Load(ECS::EntityManager& entityManager, Physics& physics) {
     auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
 
     for (const auto& entityPair : entities) {
@@ -56,7 +56,7 @@ void ECS::MeshRenderSystem::Renders(ECS::EntityManager& entityManager) {
     }
 }
 
-void ECS::MeshRenderSystem::Unload(ECS::EntityManager& entityManager) {
+void ECS::MeshRenderSystem::Unload(ECS::EntityManager& entityManager, Physics& physics) {
     auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
 
     for (const auto& entityPair : entities) {
@@ -76,11 +76,11 @@ void ECS::MeshRenderSystem::UpdateVec3(EntityManager& entityManager, float x, fl
 {
 }
 
-void ECS::MeshRenderSystem::Update(EntityManager& entityManager)
+void ECS::MeshRenderSystem::Update(EntityManager& entityManager, Physics& physics)
 {
 }
 
-void ECS::MeshRenderSystem::Update(float deltaTime, EntityManager& entityManager)
+void ECS::MeshRenderSystem::Update(float deltaTime, EntityManager& entityManager, Physics& physics)
 {
 }
 

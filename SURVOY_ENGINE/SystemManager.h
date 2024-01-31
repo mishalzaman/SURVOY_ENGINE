@@ -4,16 +4,20 @@
 #include <memory>
 #include <typeindex>
 #include "System.h"
+#include "Physics.h"
+
+using namespace BAE;
 
 namespace ECS {
     class SystemManager {
     private:
         std::unordered_map<std::type_index, std::shared_ptr<System>> systems;
         EntityManager& entityManager; // Reference to EntityManager
+        Physics& physics;
 
     public:
-        SystemManager(EntityManager& entityManager)
-            : entityManager(entityManager) {}
+        SystemManager(EntityManager& entityManager, Physics& physics)
+            : entityManager(entityManager), physics(physics) {}
 
         template<typename T, typename... TArgs>
         void AddSystem(TArgs&&... args) {
@@ -33,19 +37,19 @@ namespace ECS {
 
         void Load() {
             for (auto& [type, system] : systems) {
-                system->Load(entityManager);
+                system->Load(entityManager, physics);
             }
         }
 
         void Update() {
             for (auto& [type, system] : systems) {
-                system->Update(entityManager);
+                system->Update(entityManager, physics);
             }
         }
 
         void Update(float deltaTime) {
             for (auto& [type, system] : systems) {
-                system->Update(deltaTime, entityManager);
+                system->Update(deltaTime, entityManager, physics);
             }
         }
 
@@ -57,7 +61,7 @@ namespace ECS {
 
         void Unload() {
             for (auto& [type, system] : systems) {
-                system->Unload(entityManager);
+                system->Unload(entityManager, physics);
             }
         }
 
