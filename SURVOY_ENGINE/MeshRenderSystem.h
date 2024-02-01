@@ -13,11 +13,17 @@
 #include "CameraComponent.h"
 #include "Shader.h"
 #include "Physics.h"
+#include "IObserver.h"
+#include "EventManager.h"
+#include "CameraViewProjectionEvent.h"
 
 namespace ECS {
-    class MeshRenderSystem : public System {
+    class MeshRenderSystem : public System, public IObserver {
     public:
-        MeshRenderSystem();
+        MeshRenderSystem(EventManager& eventManager);
+        ~MeshRenderSystem();
+
+        void onNotify(const Event& event) override;
 
         void Load(EntityManager& entityManager, Physics& physics) override;
         void Update(EntityManager& entityManager, Physics& physics) override;
@@ -39,5 +45,7 @@ namespace ECS {
         );
 
         void _initBuffers(const MeshComponent& mesh, BuffersComponent& buffers);
+
+        EventManager& _eventManager;
     };
 }

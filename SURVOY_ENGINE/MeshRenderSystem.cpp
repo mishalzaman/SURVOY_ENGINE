@@ -1,9 +1,24 @@
 #include "MeshRenderSystem.h"
-#include "VectorHelpers.h"
 
-ECS::MeshRenderSystem::MeshRenderSystem()
+ECS::MeshRenderSystem::MeshRenderSystem(EventManager& eventManager): _eventManager(eventManager)
 {
     _defaultShader = std::make_unique<Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
+    _eventManager.subscribe(this);
+}
+
+ECS::MeshRenderSystem::~MeshRenderSystem()
+{
+    _eventManager.unsubscribe(this);
+}
+
+void ECS::MeshRenderSystem::onNotify(const Event& event)
+{
+    const auto* cameraEvent = dynamic_cast<const CameraViewProjectionEvent*>(&event);
+
+    if (cameraEvent) {
+        _view = cameraEvent->getViewMatrix();
+        _projection = cameraEvent->getProjectionMatrix();
+    }
 }
 
 void ECS::MeshRenderSystem::Load(ECS::EntityManager& entityManager, Physics& physics) {
@@ -25,20 +40,6 @@ void ECS::MeshRenderSystem::Load(ECS::EntityManager& entityManager, Physics& phy
 
 void ECS::MeshRenderSystem::Renders(ECS::EntityManager& entityManager) {
     auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
-
-    // First pass to set up the camera view and projection
-    for (const auto& entityPair : entities) {
-        int entityId = entityPair.first;
-
-        // Retrieve the CameraComponent for the current entity
-        ECS::CameraComponent* camera = entityManager.getComponent<ECS::CameraComponent>(entityId);
-
-        if (camera) {
-            _view = camera->View;
-            _projection = camera->Projection;
-            break; // Assuming only one active camera, break after setting view and projection
-        }
-    }
 
     // Second pass to render each entity
     for (const auto& entityPair : entities) {
@@ -87,9 +88,6 @@ void ECS::MeshRenderSystem::Update(float deltaTime, EntityManager& entityManager
 
 void ECS::MeshRenderSystem::_render(const TransformComponent& transform, const MeshComponent& mesh, const BuffersComponent& buffers, const TexturesComponent& textures)
 {
-    glm::mat4 view = BAE::VectorHelpers::ViewMat4(glm::vec3(0, 1, 0), glm::vec3(1, 0, 0), glm::vec3(0, 1, 0));
-    glm::mat4 projection = BAE::VectorHelpers::ProjectionMat4(1024.f, 768.f, 60.f);
-
     _defaultShader->use();
     _defaultShader->setMat4("projection", _projection);
     _defaultShader->setMat4("view", _view);

@@ -8,7 +8,6 @@
 #include "Defaults.h"
 #include "Code.h"
 #include "Timer.h"
-#include "Event.h"
 
 namespace BAE {
 	class Core
@@ -61,17 +60,6 @@ namespace BAE {
 	==============================================*/
 	public:
 		std::unique_ptr<Timer> Timer;
-	/*==============================================
-	SCENE
-	==============================================*/
-
-	/*==============================================
-	EVENT
-	==============================================*/
-	public:
-		std::unique_ptr<Event> Event;
-
-		void EventWindowResize();
 	};
 
 }

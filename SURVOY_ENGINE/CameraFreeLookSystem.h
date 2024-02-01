@@ -9,15 +9,26 @@
 #include "VectorHelpers.h"
 #include "MouseRelXY.h"
 #include "Physics.h"
+#include "EventManager.h"
+#include "CameraViewProjectionEvent.h"
+#include "IObserver.h"
+#include "InputMouseRelXYEvent.h"
+#include "ScreenDimensionsComponent.h"
+#include "CameraMatricesComponent.h"
+#include "CameraMouseComponent.h"
+#include "CameraOrientationComponent.h"
 
 namespace ECS {
-	class CameraSystem : public System
+	class CameraFreeLookSystem : public System, public IObserver
 	{	
 	public:
 		const float SPEED = 2.f;
 		const float MOUSE_SENSITIVITY = 10.f;
 
-		CameraSystem();
+		CameraFreeLookSystem(EventManager& eventManager, int cameraEntityId);
+		~CameraFreeLookSystem();
+
+		void onNotify(const Event& event) override;
 
 		void Load(EntityManager& entityManager, Physics& physics) override;
 		void Update(EntityManager& entityManager, Physics& physics) override;
@@ -27,6 +38,8 @@ namespace ECS {
 		void UpdateVec3(EntityManager& entityManager, float x, float y, float z) override;
 
 	private:
+		int _cameraEntityId;
+
 		float _acceleration;
 
 		void _updateVectors(glm::vec3& forward, glm::vec3& up, glm::vec3& right, float& yaw, float& pitch);
@@ -35,6 +48,8 @@ namespace ECS {
 
 		float _curRelX;
 		float _curRelY;
+
+		EventManager& _eventManager;
 	};
 
 }
