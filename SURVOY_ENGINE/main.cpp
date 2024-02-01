@@ -78,12 +78,18 @@ Core ECS Classes:
 #include "BuffersComponent.h"
 #include "TexturesComponent.h"
 #include "MeshRenderSystem.h"
-#include "CameraSystem.h"
+#include "CameraFreeLookSystem.h"
 #include "CameraComponent.h"
 #include "MouseRelXY.h"
 #include "Physics.h"
 #include "StaticPhysicsBodyComponent.h"
 #include "PhysicsSystem.h"
+#include "EventManager.h"
+#include "InputMouseRelXYEvent.h"
+#include "ScreenDimensionsComponent.h"
+#include "CameraMatricesComponent.h"
+#include "CameraMouseComponent.h"
+#include "CameraOrientationComponent.h"
 
 const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
 const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
@@ -98,6 +104,11 @@ int main(int argc, char* args[]) {
 	if (!Core->CreateDevice("Automata 0.2.0")) { return Core->GetError(); }
 
 	/*=============
+	OBSERVER
+	=============*/
+	auto eventManager = std::make_unique<EventManager>();
+
+	/*=============
 	PHYSICS
 	=============*/
 	auto physics = std::make_unique<BAE::Physics>();
@@ -106,13 +117,6 @@ int main(int argc, char* args[]) {
 	ECS SETUP
 	=============*/
 	auto entityManager = std::make_unique<ECS::EntityManager>();
-
-	// Pass a reference to the EntityManager object
-	auto systemManager = std::make_unique<ECS::SystemManager>(*entityManager, *physics);
-
-	systemManager->AddSystem<ECS::MeshRenderSystem>();
-	systemManager->AddSystem<ECS::CameraSystem>();
-	systemManager->AddSystem<ECS::PhysicsSystem>();
 
 	/*=============
 	INITIALIZE
@@ -152,17 +156,26 @@ int main(int argc, char* args[]) {
 
 	// Camera
 	int cameraEntityId = entityManager->createEntity();
-	entityManager->addComponent<ECS::CameraComponent>(
+	entityManager->addComponent<ECS::ScreenDimensionsComponent>(
 		cameraEntityId,
-		glm::vec3(0, 1, 0),
-		1024.0f,
-		768.0f
+		1024.f,
+		768.f
 	);
+	entityManager->addComponent<ECS::CameraMatricesComponent>(cameraEntityId);
+	entityManager->addComponent<ECS::CameraOrientationComponent>(cameraEntityId, glm::vec3(0, 1, 0));
+	entityManager->addComponent<ECS::CameraMouseComponent>(cameraEntityId);
 
 
 	/*=============
 	LOAD
 	=============*/
+
+	// Pass a reference to the EntityManager object
+	auto systemManager = std::make_unique<ECS::SystemManager>(*entityManager, *physics);
+
+	systemManager->AddSystem<ECS::CameraFreeLookSystem>(*eventManager, cameraEntityId);
+	systemManager->AddSystem<ECS::PhysicsSystem>();
+	systemManager->AddSystem<ECS::MeshRenderSystem>(*eventManager);
 
 	systemManager->Load();
 
@@ -193,7 +206,8 @@ int main(int argc, char* args[]) {
 					}
 					break;
 				case SDL_MOUSEMOTION:
-					systemManager->UpdateVec3(e.motion.xrel, e.motion.yrel, 0.f);
+					//systemManager->UpdateVec3(e.motion.xrel, e.motion.yrel, 0.f);
+					eventManager->notifyAll(InputMouseRelXYEvent(e.motion.xrel, e.motion.yrel));
 					break;
 				default:
 					break;
@@ -217,10 +231,10 @@ int main(int argc, char* args[]) {
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 		
-		physics->DrawDebug(
-			entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->Projection,
-			entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->View
-		);
+		//physics->DrawDebug(
+		//	entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->Projection,
+		//	entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->View
+		//);
 
 		systemManager->Renders();
 

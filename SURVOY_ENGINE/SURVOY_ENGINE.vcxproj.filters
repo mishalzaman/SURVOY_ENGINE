@@ -34,11 +34,14 @@
     <Filter Include="ENGINE\ECS\Systems">
       <UniqueIdentifier>{60e9a6ec-973e-4ad5-b508-f48b30275328}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ENGINE\Observer">
+      <UniqueIdentifier>{c2c0de01-3acd-4add-9a5b-e433bff11e1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ENGINE\Observer\Events">
+      <UniqueIdentifier>{c7045dfb-9927-4070-acb0-46e837c010cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Event.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>GAME</Filter>
     </ClCompile>
@@ -117,17 +120,32 @@
     <ClCompile Include="MeshRenderSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="CameraSystem.cpp">
+    <ClCompile Include="CameraFreeLookSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>ENGINE\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="IObserver.cpp">
+      <Filter>ENGINE\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>ENGINE\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraViewProjectionEvent.cpp">
+      <Filter>ENGINE\Observer\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="InputMouseRelXYEvent.cpp">
+      <Filter>ENGINE\Observer\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraMatricesComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Event.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
     <ClInclude Include="Core.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
@@ -227,17 +245,38 @@
     <ClInclude Include="CameraComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="CameraSystem.h">
+    <ClInclude Include="CameraFreeLookSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseRelXY.h">
-      <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="StaticPhysicsBodyComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>ENGINE\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="IObserver.h">
+      <Filter>ENGINE\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>ENGINE\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraViewProjectionEvent.h">
+      <Filter>ENGINE\Observer\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="InputMouseRelXYEvent.h">
+      <Filter>ENGINE\Observer\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraOrientationComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMouseComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenDimensionsComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -180,21 +180,4 @@ void BAE::Core::_openGLSettings()
 void BAE::Core::_initializeSubSystems()
 {
     Timer = std::make_unique<BAE::Timer>(16.6667);
-    Event = std::make_unique<BAE::Event>();
-}
-
-/*==============================================
-EVENT
-==============================================*/
-
-void BAE::Core::EventWindowResize()
-{
-    Sint32 sWidth = 1024;
-    Sint32 sHeight = 768;
-
-    if (Event->EWindowEvent()) {
-        if (Event->HasWindowResized(sWidth, sHeight)) {
-            _resizeViewport(sWidth, sHeight);
-        }
-    }
 }
