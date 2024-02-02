@@ -1,11 +1,15 @@
 #include "CameraFreeLookSystem.h"
 
-ECS::CameraFreeLookSystem::CameraFreeLookSystem(EventManager& eventManager, int cameraEntityId) :
-    _acceleration(2.f),
-    _curRelX(0.f),
-    _curRelY(0.f),
+ECS::CameraFreeLookSystem::CameraFreeLookSystem(
+    EntityManager& entityManager,
+    Physics& physics,
+    EventManager& eventManager,
+    int cameraEntityId
+    ) :
     _eventManager(eventManager),
-    _cameraEntityId(cameraEntityId)
+    _cameraEntityId(cameraEntityId),
+    _entityManager(entityManager),
+    _physics(physics)
 {
     _eventManager.subscribe(this);
 }
@@ -20,16 +24,20 @@ void ECS::CameraFreeLookSystem::onNotify(const Event& event)
     const auto* inputEvent = dynamic_cast<const InputMouseRelXYEvent*>(&event);
 
     if (inputEvent) {
-        _curRelX = inputEvent->getMouseX();
-        _curRelY = inputEvent->getMouseY();
+        ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(_cameraEntityId);
+
+        if (mouse) {
+            mouse->MouseRelX = inputEvent->getMouseX();
+            mouse->MouseRelY = inputEvent->getMouseY();
+        }
     }
 }
 
-void ECS::CameraFreeLookSystem::Load(EntityManager& entityManager, Physics& physics)
+void ECS::CameraFreeLookSystem::Load()
 {
-    ECS::ScreenDimensionsComponent* screen = entityManager.getComponent<ECS::ScreenDimensionsComponent>(_cameraEntityId);
-    ECS::CameraMatricesComponent* matrices = entityManager.getComponent<ECS::CameraMatricesComponent>(_cameraEntityId);
-    ECS::CameraOrientationComponent* orientation = entityManager.getComponent<ECS::CameraOrientationComponent>(_cameraEntityId);
+    ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(_cameraEntityId);
+    ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(_cameraEntityId);
+    ECS::CameraOrientationComponent* orientation = _entityManager.getComponent<ECS::CameraOrientationComponent>(_cameraEntityId);
 
     if (screen && matrices && orientation) {
         _updateVectors(
@@ -47,35 +55,31 @@ void ECS::CameraFreeLookSystem::Load(EntityManager& entityManager, Physics& phys
     }
 }
 
-void ECS::CameraFreeLookSystem::Renders(EntityManager& entityManager)
+void ECS::CameraFreeLookSystem::Renders()
 {
     // N/A
 }
 
-void ECS::CameraFreeLookSystem::Unload(EntityManager& entityManager, Physics& physics)
+void ECS::CameraFreeLookSystem::Unload()
 {
     // N/A
 }
 
-void ECS::CameraFreeLookSystem::UpdateVec3(EntityManager& entityManager, float x, float y, float z)
-{
-
-}
-
-void ECS::CameraFreeLookSystem::Update(EntityManager& entityManager, Physics& physics)
+void ECS::CameraFreeLookSystem::Update()
 {
     // N/A
 }
 
-void ECS::CameraFreeLookSystem::Update(float deltaTime, EntityManager& entityManager, Physics& physics)
+void ECS::CameraFreeLookSystem::Update(float deltaTime)
 {
-    ECS::ScreenDimensionsComponent* screen = entityManager.getComponent<ECS::ScreenDimensionsComponent>(_cameraEntityId);
-    ECS::CameraMatricesComponent* matrices = entityManager.getComponent<ECS::CameraMatricesComponent>(_cameraEntityId);
-    ECS::CameraOrientationComponent* orientation = entityManager.getComponent<ECS::CameraOrientationComponent>(_cameraEntityId);
+    ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(_cameraEntityId);
+    ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(_cameraEntityId);
+    ECS::CameraOrientationComponent* orientation = _entityManager.getComponent<ECS::CameraOrientationComponent>(_cameraEntityId);
+    ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(_cameraEntityId);
 
-    if (screen && matrices && orientation) {
+    if (screen && matrices && orientation && mouse) {
         // Process camera movement and orientation based on input and deltaTime
-        _mouseLook(deltaTime, orientation->Yaw, orientation->Pitch, _curRelX, _curRelY);
+        _mouseLook(deltaTime, orientation->Yaw, orientation->Pitch, mouse->MouseRelX, mouse->MouseRelY);
         _move(deltaTime, orientation->Position, orientation->Forward, orientation->Right);
 
         // Update the camera vectors and matrices
@@ -84,9 +88,6 @@ void ECS::CameraFreeLookSystem::Update(float deltaTime, EntityManager& entityMan
         // Calculate view and projection matrices
         matrices->View = BAE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
         matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
-
-        _curRelX = 0.f;
-        _curRelY = 0.f;
 
         _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
     }
@@ -137,7 +138,7 @@ void ECS::CameraFreeLookSystem::_move(float deltaTime, glm::vec3& position, cons
 {
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
-    float velocity = _acceleration * SPEED * deltaTime;
+    float velocity = ACCELERATION * SPEED * deltaTime;
 
     if (keystate[SDL_SCANCODE_W]) {
         position += forward * velocity;

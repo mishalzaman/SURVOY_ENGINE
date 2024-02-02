@@ -171,11 +171,11 @@ int main(int argc, char* args[]) {
 	=============*/
 
 	// Pass a reference to the EntityManager object
-	auto systemManager = std::make_unique<ECS::SystemManager>(*entityManager, *physics);
+	auto systemManager = std::make_unique<ECS::SystemManager>();
 
-	systemManager->AddSystem<ECS::CameraFreeLookSystem>(*eventManager, cameraEntityId);
-	systemManager->AddSystem<ECS::PhysicsSystem>();
-	systemManager->AddSystem<ECS::MeshRenderSystem>(*eventManager);
+	systemManager->AddSystem<ECS::CameraFreeLookSystem>(*entityManager, *physics, *eventManager, cameraEntityId);
+	systemManager->AddSystem<ECS::PhysicsSystem>(*entityManager, *physics);
+	systemManager->AddSystem<ECS::MeshRenderSystem>(*entityManager, *physics, *eventManager);
 
 	systemManager->Load();
 

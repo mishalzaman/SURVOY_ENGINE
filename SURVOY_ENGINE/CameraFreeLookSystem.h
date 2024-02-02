@@ -24,32 +24,28 @@ namespace ECS {
 	public:
 		const float SPEED = 2.f;
 		const float MOUSE_SENSITIVITY = 10.f;
+		const float ACCELERATION = 2.f;
 
-		CameraFreeLookSystem(EventManager& eventManager, int cameraEntityId);
+		CameraFreeLookSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager, int cameraEntityId);
 		~CameraFreeLookSystem();
 
 		void onNotify(const Event& event) override;
 
-		void Load(EntityManager& entityManager, Physics& physics) override;
-		void Update(EntityManager& entityManager, Physics& physics) override;
-		void Update(float deltaTime, EntityManager& entityManager, Physics& physics) override;
-		void Renders(EntityManager& entityManager) override;
-		void Unload(EntityManager& entityManager, Physics& physics) override;
-		void UpdateVec3(EntityManager& entityManager, float x, float y, float z) override;
+		void Load() override;
+		void Update() override;
+		void Update(float deltaTime) override;
+		void Renders() override;
+		void Unload() override;
 
 	private:
 		int _cameraEntityId;
-
-		float _acceleration;
+		EventManager& _eventManager;
+		EntityManager& _entityManager;
+		Physics& _physics;
 
 		void _updateVectors(glm::vec3& forward, glm::vec3& up, glm::vec3& right, float& yaw, float& pitch);
 		void _mouseLook(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY);
 		void _move(float deltaTime, glm::vec3& position, const glm::vec3& forward, const glm::vec3& right);
-
-		float _curRelX;
-		float _curRelY;
-
-		EventManager& _eventManager;
 	};
 
 }

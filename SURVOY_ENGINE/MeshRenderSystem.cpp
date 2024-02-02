@@ -1,6 +1,7 @@
 #include "MeshRenderSystem.h"
 
-ECS::MeshRenderSystem::MeshRenderSystem(EventManager& eventManager): _eventManager(eventManager)
+ECS::MeshRenderSystem::MeshRenderSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager):
+    _eventManager(eventManager), _entityManager(entityManager), _physics(physics)
 {
     _defaultShader = std::make_unique<Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
     _eventManager.subscribe(this);
@@ -21,15 +22,15 @@ void ECS::MeshRenderSystem::onNotify(const Event& event)
     }
 }
 
-void ECS::MeshRenderSystem::Load(ECS::EntityManager& entityManager, Physics& physics) {
-    auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+void ECS::MeshRenderSystem::Load() {
+    auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
 
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
 
         // Retrieve the components required for rendering
-        ECS::BuffersComponent* buffers = entityManager.getComponent<ECS::BuffersComponent>(entityId);
-        ECS::MeshComponent* mesh = entityManager.getComponent<ECS::MeshComponent>(entityId);
+        ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(entityId);
+        ECS::MeshComponent* mesh = _entityManager.getComponent<ECS::MeshComponent>(entityId);
 
         if (mesh && buffers) {
             // Initialize the buffers for the mesh
@@ -38,18 +39,18 @@ void ECS::MeshRenderSystem::Load(ECS::EntityManager& entityManager, Physics& phy
     }
 }
 
-void ECS::MeshRenderSystem::Renders(ECS::EntityManager& entityManager) {
-    auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+void ECS::MeshRenderSystem::Renders() {
+    auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
 
     // Second pass to render each entity
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
 
         // Retrieve the components required for rendering
-        ECS::TransformComponent* transform = entityManager.getComponent<ECS::TransformComponent>(entityId);
-        ECS::MeshComponent* mesh = entityManager.getComponent<ECS::MeshComponent>(entityId);
-        ECS::BuffersComponent* buffers = entityManager.getComponent<ECS::BuffersComponent>(entityId);
-        ECS::TexturesComponent* textures = entityManager.getComponent<ECS::TexturesComponent>(entityId);
+        ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
+        ECS::MeshComponent* mesh = _entityManager.getComponent<ECS::MeshComponent>(entityId);
+        ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(entityId);
+        ECS::TexturesComponent* textures = _entityManager.getComponent<ECS::TexturesComponent>(entityId);
 
         if (transform && mesh && buffers && textures) {
             _render(*transform, *mesh, *buffers, *textures);
@@ -57,13 +58,13 @@ void ECS::MeshRenderSystem::Renders(ECS::EntityManager& entityManager) {
     }
 }
 
-void ECS::MeshRenderSystem::Unload(ECS::EntityManager& entityManager, Physics& physics) {
-    auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+void ECS::MeshRenderSystem::Unload() {
+    auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
 
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
 
-        ECS::BuffersComponent* buffers = entityManager.getComponent<ECS::BuffersComponent>(entityId);
+        ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(entityId);
         if (buffers) {
             // Delete VAO, VBO, and EBO
             glDeleteVertexArrays(1, &buffers->VAO);
@@ -73,15 +74,11 @@ void ECS::MeshRenderSystem::Unload(ECS::EntityManager& entityManager, Physics& p
     }
 }
 
-void ECS::MeshRenderSystem::UpdateVec3(EntityManager& entityManager, float x, float y, float z)
+void ECS::MeshRenderSystem::Update()
 {
 }
 
-void ECS::MeshRenderSystem::Update(EntityManager& entityManager, Physics& physics)
-{
-}
-
-void ECS::MeshRenderSystem::Update(float deltaTime, EntityManager& entityManager, Physics& physics)
+void ECS::MeshRenderSystem::Update(float deltaTime)
 {
 }
 

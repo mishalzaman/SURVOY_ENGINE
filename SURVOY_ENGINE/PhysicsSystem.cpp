@@ -1,19 +1,20 @@
 #include "PhysicsSystem.h"
 
-ECS::PhysicsSystem::PhysicsSystem()
+ECS::PhysicsSystem::PhysicsSystem(EntityManager& entityManager, Physics& physics):
+	_entityManager(entityManager), _physics(physics)
 {
 }
 
-void ECS::PhysicsSystem::Load(EntityManager& entityManager, Physics& physics)
+void ECS::PhysicsSystem::Load()
 {
-    auto& entities = entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+    auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
 
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
 
-        ECS::MeshComponent* mesh = entityManager.getComponent<ECS::MeshComponent>(entityId);
-        ECS::TransformComponent* transform = entityManager.getComponent<ECS::TransformComponent>(entityId);
-        ECS::StaticPhysicsBodyComponent* staticPhysicsBody = entityManager.getComponent<ECS::StaticPhysicsBodyComponent>(entityId);
+        ECS::MeshComponent* mesh = _entityManager.getComponent<ECS::MeshComponent>(entityId);
+        ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
+        ECS::StaticPhysicsBodyComponent* staticPhysicsBody = _entityManager.getComponent<ECS::StaticPhysicsBodyComponent>(entityId);
 
         if (mesh && transform && staticPhysicsBody) {
 			btTriangleMesh* meshInterface = new btTriangleMesh;
@@ -35,7 +36,7 @@ void ECS::PhysicsSystem::Load(EntityManager& entityManager, Physics& physics)
 
 			btBvhTriangleMeshShape* groundShape = new btBvhTriangleMeshShape(meshInterface, true, true);
 
-			physics.CollisionShapes().push_back(groundShape);
+			_physics.CollisionShapes().push_back(groundShape);
 
 			btTransform groundTransform;
 			groundTransform.setIdentity();
@@ -57,27 +58,23 @@ void ECS::PhysicsSystem::Load(EntityManager& entityManager, Physics& physics)
 			staticPhysicsBody->Body = body;
 
 			//add the body to the dynamics world
-			physics.World().addRigidBody(body);
+			_physics.World().addRigidBody(body);
         }
     }
 }
 
-void ECS::PhysicsSystem::Update(EntityManager& entityManager, Physics& physics)
+void ECS::PhysicsSystem::Update()
 {
 }
 
-void ECS::PhysicsSystem::Update(float deltaTime, EntityManager& entityManager, Physics& physics)
+void ECS::PhysicsSystem::Update(float deltaTime)
 {
 }
 
-void ECS::PhysicsSystem::Renders(EntityManager& entityManager)
+void ECS::PhysicsSystem::Renders()
 {
 }
 
-void ECS::PhysicsSystem::Unload(EntityManager& entityManager, Physics& physics)
-{
-}
-
-void ECS::PhysicsSystem::UpdateVec3(EntityManager& entityManager, float x, float y, float z)
+void ECS::PhysicsSystem::Unload()
 {
 }
