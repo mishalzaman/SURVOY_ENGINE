@@ -138,9 +138,7 @@
     <ClCompile Include="CameraFollow.cpp" />
     <ClCompile Include="CameraFreeLook.cpp" />
     <ClCompile Include="CameraMatricesComponent.h" />
-    <ClCompile Include="InputMouseRelXYEvent.cpp" />
     <ClCompile Include="CameraFreeLookSystem.cpp" />
-    <ClCompile Include="CameraViewProjectionEvent.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -186,6 +184,7 @@
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="MeshRenderSystem.h" />
+    <ClInclude Include="MoveDirectionEvent.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="ScreenDimensionsComponent.h" />
     <ClInclude Include="StaticPhysicsBodyComponent.h" />

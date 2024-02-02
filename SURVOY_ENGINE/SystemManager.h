@@ -15,12 +15,9 @@ namespace ECS {
     private:
         std::unordered_map<std::type_index, std::shared_ptr<System>> systemMap;
         std::vector<std::shared_ptr<System>> systemList;
-        EntityManager& entityManager;
-        Physics& physics;
 
     public:
-        SystemManager(EntityManager& entityManager, Physics& physics)
-            : entityManager(entityManager), physics(physics) {}
+        SystemManager() {}
 
         template<typename T, typename... TArgs>
         void AddSystem(TArgs&&... args) {
@@ -41,37 +38,31 @@ namespace ECS {
 
         void Load() {
             for (auto& system : systemList) {
-                system->Load(entityManager, physics);
+                system->Load();
             }
         }
 
         void Update() {
             for (auto& system : systemList) {
-                system->Update(entityManager, physics);
+                system->Update();
             }
         }
 
         void Update(float deltaTime) {
             for (auto& system : systemList) {
-                system->Update(deltaTime, entityManager, physics);
+                system->Update(deltaTime);
             }
         }
 
         void Renders() {
             for (auto& system : systemList) {
-                system->Renders(entityManager);
+                system->Renders();
             }
         }
 
         void Unload() {
             for (auto& system : systemList) {
-                system->Unload(entityManager, physics);
-            }
-        }
-
-        void UpdateVec3(float x, float y, float z) {
-            for (auto& system : systemList) {
-                system->UpdateVec3(entityManager, x, y, z);
+                system->Unload();
             }
         }
     };
