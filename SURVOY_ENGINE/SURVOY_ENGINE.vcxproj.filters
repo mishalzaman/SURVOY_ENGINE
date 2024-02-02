@@ -135,12 +135,6 @@
     <ClCompile Include="EventManager.cpp">
       <Filter>ENGINE\Observer</Filter>
     </ClCompile>
-    <ClCompile Include="CameraViewProjectionEvent.cpp">
-      <Filter>ENGINE\Observer\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="InputMouseRelXYEvent.cpp">
-      <Filter>ENGINE\Observer\Events</Filter>
-    </ClCompile>
     <ClCompile Include="CameraMatricesComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClCompile>
@@ -276,6 +270,12 @@
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="ScreenDimensionsComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveDirectionEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>

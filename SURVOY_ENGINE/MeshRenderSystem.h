@@ -16,6 +16,8 @@
 #include "IObserver.h"
 #include "EventManager.h"
 #include "CameraViewProjectionEvent.h"
+#include "ProgramComponent.h"
+#include "CameraMatricesComponent.h"
 
 namespace ECS {
     class MeshRenderSystem : public System, public IObserver {
@@ -32,15 +34,13 @@ namespace ECS {
         void Unload() override;
 
     private:
-        std::unique_ptr<Shader> _defaultShader;
-        glm::mat4 _view;
-        glm::mat4 _projection;
-
         void _render(
             const TransformComponent& transform,
             const MeshComponent& mesh,
             const BuffersComponent& buffers,
-            const TexturesComponent& textures
+            const TexturesComponent& textures,
+            const ProgramComponent& shader,
+            const CameraMatricesComponent& matrices
         );
 
         void _initBuffers(const MeshComponent& mesh, BuffersComponent& buffers);

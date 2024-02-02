@@ -90,6 +90,7 @@ Core ECS Classes:
 #include "CameraMatricesComponent.h"
 #include "CameraMouseComponent.h"
 #include "CameraOrientationComponent.h"
+#include "ProgramComponent.h"
 
 const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
 const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
@@ -102,6 +103,8 @@ int main(int argc, char* args[]) {
 
 	auto Core = std::make_unique<BAE::Core>();
 	if (!Core->CreateDevice("Automata 0.2.0")) { return Core->GetError(); }
+
+	auto shader3d = std::make_unique<Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
 
 	/*=============
 	OBSERVER
@@ -152,6 +155,8 @@ int main(int argc, char* args[]) {
 			LevelModel->Meshes()[i].Textures()
 		);
 		entityManager->addComponent<ECS::StaticPhysicsBodyComponent>(entityId);
+		entityManager->addComponent<ECS::ProgramComponent>(entityId, *shader3d);
+		entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
 	}
 
 	// Camera

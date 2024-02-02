@@ -187,6 +187,7 @@
     <ClInclude Include="MoveDirectionEvent.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="ScreenDimensionsComponent.h" />
+    <ClInclude Include="ProgramComponent.h" />
     <ClInclude Include="StaticPhysicsBodyComponent.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
