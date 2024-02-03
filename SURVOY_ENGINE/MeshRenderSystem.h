@@ -39,11 +39,12 @@ namespace ECS {
             const MeshComponent& mesh,
             const BuffersComponent& buffers,
             const TexturesComponent& textures,
-            const ProgramComponent& shader,
             const CameraMatricesComponent& matrices
         );
 
         void _initBuffers(const MeshComponent& mesh, BuffersComponent& buffers);
+
+        std::unique_ptr<BAE::Shader> _shader;
 
         EntityManager& _entityManager;
         Physics& _physics;

@@ -125,7 +125,7 @@ int main(int argc, char* args[]) {
 	INITIALIZE
 	=============*/
 
-	auto LevelModel = std::make_unique<BAE::Model>("assets/TestLevel/TestLevel.fbx");
+	auto LevelModel = std::make_unique<BAE::Model>("assets/Level_0/level.fbx");
 
 	int entityId = 0;
 
@@ -155,7 +155,6 @@ int main(int argc, char* args[]) {
 			LevelModel->Meshes()[i].Textures()
 		);
 		entityManager->addComponent<ECS::StaticPhysicsBodyComponent>(entityId);
-		entityManager->addComponent<ECS::ProgramComponent>(entityId, *shader3d);
 		entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
 	}
 
