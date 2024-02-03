@@ -18,6 +18,7 @@
 #include "CameraViewProjectionEvent.h"
 #include "ProgramComponent.h"
 #include "CameraMatricesComponent.h"
+#include "CameraPositionEvent.h"
 
 namespace ECS {
     class MeshRenderSystem : public System, public IObserver {
@@ -45,6 +46,7 @@ namespace ECS {
         void _initBuffers(const MeshComponent& mesh, BuffersComponent& buffers);
 
         std::unique_ptr<BAE::Shader> _shader;
+        glm::vec3 _cameraPosition;
 
         EntityManager& _entityManager;
         Physics& _physics;

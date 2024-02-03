@@ -278,6 +278,9 @@
     <ClInclude Include="ProgramComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
+    <ClInclude Include="CameraPositionEvent.h">
+      <Filter>ENGINE\Observer\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_2d.glsl">

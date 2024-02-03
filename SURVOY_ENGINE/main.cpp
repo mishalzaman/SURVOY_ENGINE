@@ -242,7 +242,7 @@ int main(int argc, char* args[]) {
 
 		systemManager->Renders();
 
-		std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
 
 		Core->EndRender();
 	}

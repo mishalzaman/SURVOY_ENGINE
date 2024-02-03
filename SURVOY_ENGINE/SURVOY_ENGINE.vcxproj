@@ -175,6 +175,7 @@
     <ClInclude Include="CameraFreeLook.h" />
     <ClInclude Include="CameraMouseComponent.h" />
     <ClInclude Include="CameraOrientationComponent.h" />
+    <ClInclude Include="CameraPositionEvent.h" />
     <ClInclude Include="InputMouseRelXYEvent.h" />
     <ClInclude Include="CameraFreeLookSystem.h" />
     <ClInclude Include="CameraViewProjectionEvent.h" />
