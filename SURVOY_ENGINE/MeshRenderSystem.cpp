@@ -121,7 +121,7 @@ void ECS::MeshRenderSystem::_render(
 )
 {
     _shader->use();
-    _shader->setVec3("lightPos", glm::vec3(4, 20, 4));
+    _shader->setVec3("lightPos", glm::vec3(2, 20, 6));
     _shader->setVec3("viewPos", _cameraPosition);
     _shader->setVec3("lightColor", glm::vec3(0.7, 0.7, 0.7));
     _shader->setMat4("projection", matrices.Projection);
