@@ -82,6 +82,7 @@ Core ECS Classes:
 #include "CameraComponent.h"
 #include "MouseRelXY.h"
 #include "Physics.h"
+#include "PhysicsDebugDraw.h"
 #include "StaticPhysicsBodyComponent.h"
 #include "PhysicsSystem.h"
 #include "EventManager.h"
@@ -178,7 +179,7 @@ int main(int argc, char* args[]) {
 	auto systemManager = std::make_unique<ECS::SystemManager>();
 
 	systemManager->AddSystem<ECS::CameraFreeLookSystem>(*entityManager, *physics, *eventManager, cameraEntityId);
-	systemManager->AddSystem<ECS::PhysicsSystem>(*entityManager, *physics);
+	systemManager->AddSystem<ECS::PhysicsSystem>(*entityManager, *physics, *eventManager);
 	systemManager->AddSystem<ECS::MeshRenderSystem>(*entityManager, *physics, *eventManager);
 
 	systemManager->Load();
@@ -233,12 +234,6 @@ int main(int argc, char* args[]) {
 		Core->BeginRender();
 		
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-		
-		//physics->DrawDebug(
-		//	entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->Projection,
-		//	entityManager->getComponent<ECS::CameraComponent>(cameraEntityId)->View
-		//);
 
 		systemManager->Renders();
 
