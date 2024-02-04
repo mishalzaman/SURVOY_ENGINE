@@ -31,6 +31,23 @@ void ECS::MeshRenderSystem::onNotify(const Event& event)
             }
         }
     }
+
+    const auto* cameraPositionEvent = dynamic_cast<const CameraPositionEvent*>(&event);
+
+    if (cameraEvent) {
+        auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+
+        // Second pass to render each entity
+        for (const auto& entityPair : entities) {
+            int entityId = entityPair.first;
+
+            ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
+
+            if (transform) {
+                _cameraPosition = transform->position;
+            }
+        }
+    }
 }
 
 void ECS::MeshRenderSystem::Load() {
@@ -53,11 +70,6 @@ void ECS::MeshRenderSystem::Load() {
 void ECS::MeshRenderSystem::Renders() {
     auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
 
-    _shader->use();
-    _shader->setVec3("lightPos", glm::vec3(8, 10, 8));
-    _shader->setVec3("viewPos", glm::vec3(0, 1, 0));
-    _shader->setVec3("lightColor", glm::vec3(1, 1, 1));
-
     // Second pass to render each entity
     for (const auto& entityPair : entities) {
         int entityId = entityPair.first;
@@ -68,9 +80,6 @@ void ECS::MeshRenderSystem::Renders() {
         ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(entityId);
         ECS::TexturesComponent* textures = _entityManager.getComponent<ECS::TexturesComponent>(entityId);
         ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
-
-        _shader->setMat4("projection", matrices->Projection);
-        _shader->setMat4("view", matrices->View);
 
         if (transform && mesh && buffers && textures && matrices) {
             _render(*transform, *mesh, *buffers, *textures, *matrices);
@@ -111,6 +120,15 @@ void ECS::MeshRenderSystem::_render(
     const CameraMatricesComponent& matrices
 )
 {
+    _shader->use();
+    _shader->setVec3("lightPos", glm::vec3(2, 20, 6));
+    _shader->setVec3("viewPos", _cameraPosition);
+    _shader->setVec3("lightColor", glm::vec3(0.7, 0.7, 0.7));
+    _shader->setMat4("projection", matrices.Projection);
+    _shader->setMat4("view", matrices.View);
+    _shader->setInt("texture1", 0);
+    _shader->setMat4("model", transform.transformation);
+
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
     for (unsigned int i = 0; i < textures.Textures.size(); i++)
@@ -124,10 +142,9 @@ void ECS::MeshRenderSystem::_render(
         else if (name == "texture_specular")
             number = std::to_string(specularNr++);
 
-        _shader->setInt(("material." + name + number).c_str(), i);
         glBindTexture(GL_TEXTURE_2D, textures.Textures[i].id);
 
-        _shader->setMat4("model", transform.transformation);
+
     }
     glActiveTexture(GL_TEXTURE0);
 
