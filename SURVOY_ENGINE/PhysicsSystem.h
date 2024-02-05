@@ -29,5 +29,7 @@ namespace ECS {
         EntityManager& _entityManager;
         Physics& _physics;
         EventManager& _eventManager;
+
+        void _createStaticTriangleMeshBody();
     };
 }

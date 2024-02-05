@@ -23,16 +23,38 @@ void ECS::PhysicsSystem::onNotify(const Event& event)
 
 void ECS::PhysicsSystem::Load()
 {
-    auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+	_createStaticTriangleMeshBody();
+}
 
-    for (const auto& entityPair : entities) {
-        int entityId = entityPair.first;
+void ECS::PhysicsSystem::Update()
+{
+}
 
-        ECS::MeshComponent* mesh = _entityManager.getComponent<ECS::MeshComponent>(entityId);
-        ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
-        ECS::StaticPhysicsBodyComponent* staticPhysicsBody = _entityManager.getComponent<ECS::StaticPhysicsBodyComponent>(entityId);
+void ECS::PhysicsSystem::Update(float deltaTime)
+{
+}
 
-        if (mesh && transform && staticPhysicsBody) {
+void ECS::PhysicsSystem::Renders()
+{
+	_physics.DrawDebug();
+}
+
+void ECS::PhysicsSystem::Unload()
+{
+}
+
+void ECS::PhysicsSystem::_createStaticTriangleMeshBody()
+{
+	auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+
+	for (const auto& entityPair : entities) {
+		int entityId = entityPair.first;
+
+		ECS::MeshComponent* mesh = _entityManager.getComponent<ECS::MeshComponent>(entityId);
+		ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
+		ECS::StaticPhysicsBodyComponent* staticPhysicsBody = _entityManager.getComponent<ECS::StaticPhysicsBodyComponent>(entityId);
+
+		if (mesh && transform && staticPhysicsBody) {
 			btTriangleMesh* meshInterface = new btTriangleMesh;
 
 			glm::mat4 transformation = transform->transformation;
@@ -75,23 +97,6 @@ void ECS::PhysicsSystem::Load()
 
 			//add the body to the dynamics world
 			_physics.World().addRigidBody(body);
-        }
-    }
-}
-
-void ECS::PhysicsSystem::Update()
-{
-}
-
-void ECS::PhysicsSystem::Update(float deltaTime)
-{
-}
-
-void ECS::PhysicsSystem::Renders()
-{
-	_physics.DrawDebug();
-}
-
-void ECS::PhysicsSystem::Unload()
-{
+		}
+	}
 }
