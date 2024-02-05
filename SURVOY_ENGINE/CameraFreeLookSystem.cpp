@@ -100,6 +100,7 @@ void ECS::CameraFreeLookSystem::Update(float deltaTime)
             matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
 
             _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
+            _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
         }
     }
 }

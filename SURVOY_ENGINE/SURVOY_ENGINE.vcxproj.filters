@@ -138,6 +138,9 @@
     <ClCompile Include="CameraMatricesComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClCompile>
+    <ClCompile Include="CameraThirdPersonSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="CameraPositionEvent.h">
       <Filter>ENGINE\Observer\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraThirdPersonSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -139,6 +139,7 @@
     <ClCompile Include="CameraFreeLook.cpp" />
     <ClCompile Include="CameraMatricesComponent.h" />
     <ClCompile Include="CameraFreeLookSystem.cpp" />
+    <ClCompile Include="CameraThirdPersonSystem.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="CameraMouseComponent.h" />
     <ClInclude Include="CameraOrientationComponent.h" />
     <ClInclude Include="CameraPositionEvent.h" />
+    <ClInclude Include="CameraThirdPersonSystem.h" />
     <ClInclude Include="InputMouseRelXYEvent.h" />
     <ClInclude Include="CameraFreeLookSystem.h" />
     <ClInclude Include="CameraViewProjectionEvent.h" />
