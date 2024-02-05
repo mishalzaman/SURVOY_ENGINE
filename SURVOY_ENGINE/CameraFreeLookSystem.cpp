@@ -3,11 +3,9 @@
 ECS::CameraFreeLookSystem::CameraFreeLookSystem(
     EntityManager& entityManager,
     Physics& physics,
-    EventManager& eventManager,
-    int cameraEntityId
+    EventManager& eventManager
     ) :
     _eventManager(eventManager),
-    _cameraEntityId(cameraEntityId),
     _entityManager(entityManager),
     _physics(physics)
 {
@@ -24,35 +22,43 @@ void ECS::CameraFreeLookSystem::onNotify(const Event& event)
     const auto* inputEvent = dynamic_cast<const InputMouseRelXYEvent*>(&event);
 
     if (inputEvent) {
-        ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(_cameraEntityId);
+        std::vector<int> entities = _entityManager.getByTag("Camera");
 
-        if (mouse) {
-            mouse->MouseRelX = inputEvent->getMouseX();
-            mouse->MouseRelY = inputEvent->getMouseY();
+        for (int entityId : entities) {
+            ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);
+
+            if (mouse) {
+                mouse->MouseRelX = inputEvent->getMouseX();
+                mouse->MouseRelY = inputEvent->getMouseY();
+            }
         }
     }
 }
 
 void ECS::CameraFreeLookSystem::Load()
 {
-    ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(_cameraEntityId);
-    ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(_cameraEntityId);
-    ECS::CameraOrientationComponent* orientation = _entityManager.getComponent<ECS::CameraOrientationComponent>(_cameraEntityId);
+    std::vector<int> entities = _entityManager.getByTag("Camera");
 
-    if (screen && matrices && orientation) {
-        _updateVectors(
-            orientation->Forward,
-            orientation->Up,
-            orientation->Right,
-            orientation->Yaw,
-            orientation->Pitch
-        );
+    for (int entityId : entities) {
+        ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
+        ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
+        ECS::CameraOrientationComponent* orientation = _entityManager.getComponent<ECS::CameraOrientationComponent>(entityId);
 
-        matrices->View = BAE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
-        matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
+        if (screen && matrices && orientation) {
+            _updateVectors(
+                orientation->Forward,
+                orientation->Up,
+                orientation->Right,
+                orientation->Yaw,
+                orientation->Pitch
+            );
 
-        _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
-        _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
+            matrices->View = BAE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
+            matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
+
+            _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
+            _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
+        }
     }
 }
 
@@ -73,24 +79,28 @@ void ECS::CameraFreeLookSystem::Update()
 
 void ECS::CameraFreeLookSystem::Update(float deltaTime)
 {
-    ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(_cameraEntityId);
-    ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(_cameraEntityId);
-    ECS::CameraOrientationComponent* orientation = _entityManager.getComponent<ECS::CameraOrientationComponent>(_cameraEntityId);
-    ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(_cameraEntityId);
+    std::vector<int> entities = _entityManager.getByTag("Camera");
 
-    if (screen && matrices && orientation && mouse) {
-        // Process camera movement and orientation based on input and deltaTime
-        _mouseLook(deltaTime, orientation->Yaw, orientation->Pitch, mouse->MouseRelX, mouse->MouseRelY);
-        _move(deltaTime, orientation->Position, orientation->Forward, orientation->Right);
+    for (int entityId : entities) {
+        ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
+        ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
+        ECS::CameraOrientationComponent* orientation = _entityManager.getComponent<ECS::CameraOrientationComponent>(entityId);
+        ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);
 
-        // Update the camera vectors and matrices
-        _updateVectors(orientation->Forward, orientation->Up, orientation->Right, orientation->Yaw, orientation->Pitch);
+        if (screen && matrices && orientation && mouse) {
+            // Process camera movement and orientation based on input and deltaTime
+            _mouseLook(deltaTime, orientation->Yaw, orientation->Pitch, mouse->MouseRelX, mouse->MouseRelY);
+            _move(deltaTime, orientation->Position, orientation->Forward, orientation->Right);
 
-        // Calculate view and projection matrices
-        matrices->View = BAE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
-        matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
+            // Update the camera vectors and matrices
+            _updateVectors(orientation->Forward, orientation->Up, orientation->Right, orientation->Yaw, orientation->Pitch);
 
-        _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
+            // Calculate view and projection matrices
+            matrices->View = BAE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
+            matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
+
+            _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
+        }
     }
 }
 

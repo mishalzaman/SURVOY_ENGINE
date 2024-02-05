@@ -27,7 +27,7 @@ namespace ECS {
 		const float MOUSE_SENSITIVITY = 10.f;
 		const float ACCELERATION = 2.f;
 
-		CameraFreeLookSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager, int cameraEntityId);
+		CameraFreeLookSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
 		~CameraFreeLookSystem();
 
 		void onNotify(const Event& event) override;
@@ -39,7 +39,6 @@ namespace ECS {
 		void Unload() override;
 
 	private:
-		int _cameraEntityId;
 		EventManager& _eventManager;
 		EntityManager& _entityManager;
 		Physics& _physics;
