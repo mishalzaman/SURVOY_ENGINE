@@ -49,9 +49,9 @@ BAE::Physics::~Physics()
 	}
 }
 
-void BAE::Physics::DrawDebug(glm::mat4 projection, glm::mat4 view)
+void BAE::Physics::DrawDebug()
 {
-	_physicsDebugDraw.SetMatrices(view, projection);
+	_physicsDebugDraw.SetMatrices(_view, _projection);
 	_physicsDebugDraw.setDebugMode(btIDebugDraw::DBG_DrawWireframe);
 	
 	_world->debugDrawWorld();

@@ -1,7 +1,7 @@
 #include "PhysicsSystem.h"
 
 ECS::PhysicsSystem::PhysicsSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager):
-	_entityManager(entityManager), _physics(physics), _eventManager(eventManager), _projection(glm::mat4(1)), _view(glm::mat4(1))
+	_entityManager(entityManager), _physics(physics), _eventManager(eventManager)
 {
 	_eventManager.subscribe(this);
 }
@@ -16,8 +16,8 @@ void ECS::PhysicsSystem::onNotify(const Event& event)
 	const auto* cameraEvent = dynamic_cast<const CameraViewProjectionEvent*>(&event);
 
 	if (cameraEvent) {
-		_view = cameraEvent->getViewMatrix();
-		_projection = cameraEvent->getProjectionMatrix();
+		_physics.View(cameraEvent->getViewMatrix());
+		_physics.Projection(cameraEvent->getProjectionMatrix());
 	}
 }
 
@@ -89,7 +89,7 @@ void ECS::PhysicsSystem::Update(float deltaTime)
 
 void ECS::PhysicsSystem::Renders()
 {
-	_physics.DrawDebug(_projection, _view);
+	_physics.DrawDebug();
 }
 
 void ECS::PhysicsSystem::Unload()

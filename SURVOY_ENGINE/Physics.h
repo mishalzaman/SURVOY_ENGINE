@@ -17,7 +17,7 @@ namespace BAE {
 		Physics();
 		~Physics();
 
-		void DrawDebug(glm::mat4 projection, glm::mat4 view);
+		void DrawDebug();
 
 		void Simulate(float deltaTime);
 
@@ -25,6 +25,11 @@ namespace BAE {
 
 		btDiscreteDynamicsWorld& World();
 		btAlignedObjectArray<btCollisionShape*>& CollisionShapes() { return _collisionShapes; }
+
+		void View(glm::mat4 view) { _view = view; }
+		void Projection(glm::mat4 projection) { _projection = projection; }
+		glm::mat4 View() { return _view; }
+		glm::mat4 Projection() { return _projection; }
 
 	private:
 		std::unique_ptr<btDefaultCollisionConfiguration> _collisionConfiguration;
@@ -35,6 +40,9 @@ namespace BAE {
 
 		PhysicsDebugDraw _physicsDebugDraw;
 		btAlignedObjectArray<btCollisionShape*> _collisionShapes;
+
+		glm::mat4 _view;
+		glm::mat4 _projection;
 	};
 }
 
