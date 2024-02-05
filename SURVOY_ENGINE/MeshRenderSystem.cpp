@@ -3,7 +3,6 @@
 ECS::MeshRenderSystem::MeshRenderSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager):
     _eventManager(eventManager), _entityManager(entityManager), _physics(physics)
 {
-    _shader = std::make_unique<Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
     _eventManager.subscribe(this);
 }
 
@@ -107,38 +106,58 @@ void ECS::MeshRenderSystem::_render(
     const CameraMatricesComponent& matrices
 )
 {
-    _shader->use();
-    _shader->setVec3("lightPos", glm::vec3(2, 20, 6));
-    _shader->setVec3("viewPos", _cameraPosition);
-    _shader->setVec3("lightColor", glm::vec3(0.7, 0.7, 0.7));
-    _shader->setMat4("projection", matrices.Projection);
-    _shader->setMat4("view", matrices.View);
-    _shader->setInt("texture1", 0);
-    _shader->setMat4("model", transform.transformation);
+    glm::vec3 viewPosition = glm::vec3(0);
 
-    unsigned int diffuseNr = 1;
-    unsigned int specularNr = 1;
-    for (unsigned int i = 0; i < textures.Textures.size(); i++)
-    {
-        glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
-        // retrieve texture number (the N in diffuse_textureN)
-        std::string number;
-        std::string name = textures.Textures[i].type;
-        if (name == "texture_diffuse")
-            number = std::to_string(diffuseNr++);
-        else if (name == "texture_specular")
-            number = std::to_string(specularNr++);
+    std::vector<int> entitiesC = _entityManager.getByTag("Camera");
+    for (int entityId : entitiesC) {
+        ECS::CameraOrientationComponent* orientation = _entityManager.getComponent<ECS::CameraOrientationComponent>(entityId);
 
-        glBindTexture(GL_TEXTURE_2D, textures.Textures[i].id);
-
-
+        if (orientation) {
+            viewPosition = orientation->Position;
+        }
     }
-    glActiveTexture(GL_TEXTURE0);
 
-    // draw mesh
-    glBindVertexArray(buffers.VAO);
-    glDrawElements(GL_TRIANGLES, mesh.Indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    // get shader
+    std::vector<int> entities = _entityManager.getByTag("Shader 3d");
+
+    for (int entityId : entities) {
+        ECS::ProgramComponent* shader = _entityManager.getComponent<ECS::ProgramComponent>(entityId);
+        if (shader) {
+            shader->Program.use();
+            shader->Program.setVec3("lightPos", glm::vec3(2, 20, 6));
+            shader->Program.setVec3("viewPos", viewPosition);
+            shader->Program.setVec3("lightColor", glm::vec3(0.7, 0.7, 0.7));
+            shader->Program.setMat4("projection", matrices.Projection);
+            shader->Program.setMat4("view", matrices.View);
+            shader->Program.setInt("texture1", 0);
+            shader->Program.setMat4("model", transform.transformation);
+
+            unsigned int diffuseNr = 1;
+            unsigned int specularNr = 1;
+            for (unsigned int i = 0; i < textures.Textures.size(); i++)
+            {
+                glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
+                // retrieve texture number (the N in diffuse_textureN)
+                std::string number;
+                std::string name = textures.Textures[i].type;
+                if (name == "texture_diffuse")
+                    number = std::to_string(diffuseNr++);
+                else if (name == "texture_specular")
+                    number = std::to_string(specularNr++);
+
+                glBindTexture(GL_TEXTURE_2D, textures.Textures[i].id);
+
+
+            }
+            glActiveTexture(GL_TEXTURE0);
+
+            // draw mesh
+            glBindVertexArray(buffers.VAO);
+            glDrawElements(GL_TRIANGLES, mesh.Indices.size(), GL_UNSIGNED_INT, 0);
+            glBindVertexArray(0);
+
+        }
+    }
 }
 
 void ECS::MeshRenderSystem::_initBuffers(const MeshComponent& mesh, BuffersComponent& buffers)

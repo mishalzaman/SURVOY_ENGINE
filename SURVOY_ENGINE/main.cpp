@@ -130,6 +130,7 @@ int main(int argc, char* args[]) {
 
 	int entityId = 0;
 
+	// Mesh
 	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
 		// Create a new entity for each mesh
 		entityId = entityManager->createEntity();
@@ -141,16 +142,13 @@ int main(int argc, char* args[]) {
 			glm::vec3(1.0f), // Scale
 			LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
 		);
-
 		entityManager->addComponent<ECS::MeshComponent>(
 			entityId,
 			LevelModel->Meshes()[i].Name(),
 			LevelModel->Meshes()[i].Vertices(),
 			LevelModel->Meshes()[i].Indices()
 		);
-
 		entityManager->addComponent<ECS::BuffersComponent>(entityId);
-
 		entityManager->addComponent<ECS::TexturesComponent>(
 			entityId,
 			LevelModel->Meshes()[i].Textures()
@@ -162,17 +160,20 @@ int main(int argc, char* args[]) {
 	}
 
 	// Camera
-	int cameraEntityId = entityManager->createEntity();
+	entityId = entityManager->createEntity();
 	entityManager->addComponent<ECS::ScreenDimensionsComponent>(
-		cameraEntityId,
+		entityId,
 		1024.f,
 		768.f
 	);
-	entityManager->addComponent<ECS::CameraMatricesComponent>(cameraEntityId);
-	entityManager->addComponent<ECS::CameraOrientationComponent>(cameraEntityId, glm::vec3(0, 1, 0));
-	entityManager->addComponent<ECS::CameraMouseComponent>(cameraEntityId);
-	entityManager->addByTag("Camera", cameraEntityId);
+	entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
+	entityManager->addComponent<ECS::CameraOrientationComponent>(entityId, glm::vec3(0, 1, 0));
+	entityManager->addComponent<ECS::CameraMouseComponent>(entityId);
+	entityManager->addByTag("Camera", entityId);
 
+	// Shader
+	entityManager->addComponent<ECS::ProgramComponent>(entityId, *shader3d);
+	entityManager->addByTag("Shader 3d", entityId);
 
 	/*=============
 	LOAD
@@ -240,7 +241,7 @@ int main(int argc, char* args[]) {
 
 		systemManager->Renders();
 
-		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		std::cout << Core->Timer->DeltaTimeS() << std::endl;
 
 		Core->EndRender();
 	}
