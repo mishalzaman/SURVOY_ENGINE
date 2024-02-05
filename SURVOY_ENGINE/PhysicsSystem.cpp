@@ -45,11 +45,9 @@ void ECS::PhysicsSystem::Unload()
 
 void ECS::PhysicsSystem::_createStaticTriangleMeshBody()
 {
-	auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+	std::vector<int> entities = _entityManager.getByTag("Mesh");
 
-	for (const auto& entityPair : entities) {
-		int entityId = entityPair.first;
-
+	for (int entityId : entities) {
 		ECS::MeshComponent* mesh = _entityManager.getComponent<ECS::MeshComponent>(entityId);
 		ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
 		ECS::StaticPhysicsBodyComponent* staticPhysicsBody = _entityManager.getComponent<ECS::StaticPhysicsBodyComponent>(entityId);

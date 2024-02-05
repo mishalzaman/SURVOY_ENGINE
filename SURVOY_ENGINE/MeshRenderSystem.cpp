@@ -15,14 +15,12 @@ ECS::MeshRenderSystem::~MeshRenderSystem()
 void ECS::MeshRenderSystem::onNotify(const Event& event)
 {
     const auto* cameraEvent = dynamic_cast<const CameraViewProjectionEvent*>(&event);
+    const auto* cameraPositionEvent = dynamic_cast<const CameraPositionEvent*>(&event);
 
     if (cameraEvent) {
-        auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+        std::vector<int> entities = _entityManager.getByTag("Mesh");
 
-        // Second pass to render each entity
-        for (const auto& entityPair : entities) {
-            int entityId = entityPair.first;
-
+        for (int entityId : entities) {
             ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
 
             if (matrices) {
@@ -32,15 +30,10 @@ void ECS::MeshRenderSystem::onNotify(const Event& event)
         }
     }
 
-    const auto* cameraPositionEvent = dynamic_cast<const CameraPositionEvent*>(&event);
+    if (cameraPositionEvent) {
+        std::vector<int> entities = _entityManager.getByTag("Mesh");
 
-    if (cameraEvent) {
-        auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
-
-        // Second pass to render each entity
-        for (const auto& entityPair : entities) {
-            int entityId = entityPair.first;
-
+        for (int entityId : entities) {
             ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
 
             if (transform) {
@@ -51,11 +44,10 @@ void ECS::MeshRenderSystem::onNotify(const Event& event)
 }
 
 void ECS::MeshRenderSystem::Load() {
-    auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+    // Retrieve entity IDs by tag
+    std::vector<int> entities = _entityManager.getByTag("Mesh");
 
-    for (const auto& entityPair : entities) {
-        int entityId = entityPair.first;
-
+    for (int entityId : entities) {
         // Retrieve the components required for rendering
         ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(entityId);
         ECS::MeshComponent* mesh = _entityManager.getComponent<ECS::MeshComponent>(entityId);
@@ -68,12 +60,9 @@ void ECS::MeshRenderSystem::Load() {
 }
 
 void ECS::MeshRenderSystem::Renders() {
-    auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+    std::vector<int> entities = _entityManager.getByTag("Mesh");
 
-    // Second pass to render each entity
-    for (const auto& entityPair : entities) {
-        int entityId = entityPair.first;
-
+    for (int entityId : entities) {
         // Retrieve the components required for rendering
         ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
         ECS::MeshComponent* mesh = _entityManager.getComponent<ECS::MeshComponent>(entityId);
@@ -88,11 +77,9 @@ void ECS::MeshRenderSystem::Renders() {
 }
 
 void ECS::MeshRenderSystem::Unload() {
-    auto& entities = _entityManager.getEntityComponentIndices(); // Access the entity-component mapping
+    std::vector<int> entities = _entityManager.getByTag("Mesh");
 
-    for (const auto& entityPair : entities) {
-        int entityId = entityPair.first;
-
+    for (int entityId : entities) {
         ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(entityId);
         if (buffers) {
             // Delete VAO, VBO, and EBO

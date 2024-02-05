@@ -8,6 +8,7 @@
 #include <deque>
 #include <stdexcept>
 #include <iostream>
+#include <unordered_set>
 
 namespace ECS {
     class EntityManager {
@@ -18,6 +19,10 @@ namespace ECS {
         std::unordered_map<std::type_index, std::vector<std::shared_ptr<void>>> componentArrays;
         // Mapping from entity IDs to component indices
         std::unordered_map<int, std::unordered_map<std::type_index, size_t>> entityComponentIndices;
+
+        std::unordered_map<std::string, std::unordered_set<int>> tagToEntities; // Map from tag to entity IDs
+        std::unordered_map<int, std::string> entityToTag; // Map from entity ID to its tag
+
 
     public:
         int createEntity() {
@@ -61,6 +66,17 @@ namespace ECS {
                 }
                 entityComponentIndices.erase(entityId); // Remove entity from map
             }
+
+            // Remove from tagging system
+            if (entityToTag.find(entityId) != entityToTag.end()) {
+                std::string tag = entityToTag[entityId];
+                tagToEntities[tag].erase(entityId);
+                if (tagToEntities[tag].empty()) {
+                    tagToEntities.erase(tag);
+                }
+                entityToTag.erase(entityId);
+            }
+
             idPool.push_back(entityId); // Recycle ID
         }
 
@@ -123,6 +139,26 @@ namespace ECS {
             const std::unordered_map<std::type_index, std::vector<std::shared_ptr<void>>>&> {
 
             return std::make_pair(std::ref(entityComponentIndices), std::ref(componentArrays));
+        }
+
+        // Add a tag to an entity
+        void addByTag(const std::string& tag, int entityId) {
+            if (!entityComponentIndices.count(entityId)) {
+                throw std::runtime_error("Entity ID does not exist");
+            }
+            tagToEntities[tag].insert(entityId);
+            entityToTag[entityId] = tag;
+        }
+
+        // Retrieve entities by their tag
+        std::vector<int> getByTag(const std::string& tag) {
+            std::vector<int> entitiesWithTag;
+            if (tagToEntities.find(tag) != tagToEntities.end()) {
+                for (int entityId : tagToEntities[tag]) {
+                    entitiesWithTag.push_back(entityId);
+                }
+            }
+            return entitiesWithTag;
         }
     };
 }

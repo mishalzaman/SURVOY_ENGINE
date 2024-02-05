@@ -157,6 +157,8 @@ int main(int argc, char* args[]) {
 		);
 		entityManager->addComponent<ECS::StaticPhysicsBodyComponent>(entityId);
 		entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
+
+		entityManager->addByTag("Mesh", entityId);
 	}
 
 	// Camera
@@ -169,6 +171,7 @@ int main(int argc, char* args[]) {
 	entityManager->addComponent<ECS::CameraMatricesComponent>(cameraEntityId);
 	entityManager->addComponent<ECS::CameraOrientationComponent>(cameraEntityId, glm::vec3(0, 1, 0));
 	entityManager->addComponent<ECS::CameraMouseComponent>(cameraEntityId);
+	entityManager->addByTag("Camera", cameraEntityId);
 
 
 	/*=============
@@ -178,7 +181,7 @@ int main(int argc, char* args[]) {
 	// Pass a reference to the EntityManager object
 	auto systemManager = std::make_unique<ECS::SystemManager>();
 
-	systemManager->AddSystem<ECS::CameraFreeLookSystem>(*entityManager, *physics, *eventManager, cameraEntityId);
+	systemManager->AddSystem<ECS::CameraFreeLookSystem>(*entityManager, *physics, *eventManager);
 	systemManager->AddSystem<ECS::PhysicsSystem>(*entityManager, *physics, *eventManager);
 	systemManager->AddSystem<ECS::MeshRenderSystem>(*entityManager, *physics, *eventManager);
 
@@ -237,7 +240,7 @@ int main(int argc, char* args[]) {
 
 		systemManager->Renders();
 
-		std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
 
 		Core->EndRender();
 	}
