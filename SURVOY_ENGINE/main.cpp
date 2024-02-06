@@ -71,32 +71,7 @@ Core ECS Classes:
 #include <memory>
 #include "Core.h"
 #include "Model.h"
-#include "EntityManager.h"
-#include "SystemManager.h"
-#include "TransformComponent.h"
-#include "MeshComponent.h"
-#include "BuffersComponent.h"
-#include "TexturesComponent.h"
-#include "MeshRenderSystem.h"
-#include "CameraFreeLookSystem.h"
-#include "CameraComponent.h"
-#include "MouseRelXY.h"
-#include "Physics.h"
-#include "PhysicsDebugDraw.h"
-#include "StaticPhysicsBodyComponent.h"
-#include "PhysicsSystem.h"
-#include "EventManager.h"
-#include "InputMouseRelXYEvent.h"
-#include "ScreenDimensionsComponent.h"
-#include "CameraMatricesComponent.h"
-#include "CameraMouseComponent.h"
-#include "ProgramComponent.h"
-#include "CameraThirdPersonSystem.h"
-#include "DynamicCapsulePhysicsBodyComponent.h"
-#include "CharacterControllerSystem.h"
-#include "VelocityComponent.h"
-#include "OrientationComponent.h"
-#include "Grid.h"
+#include "ECSCommon.h"
 
 const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
 const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
@@ -291,7 +266,7 @@ int main(int argc, char* args[]) {
 
 		systemManager->Renders();
 
-		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		std::cout << Core->Timer->DeltaTimeS() << std::endl;
 
 		Core->EndRender();
 	}
