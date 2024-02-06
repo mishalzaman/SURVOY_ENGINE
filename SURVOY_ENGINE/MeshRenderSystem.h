@@ -19,7 +19,7 @@
 #include "ProgramComponent.h"
 #include "CameraMatricesComponent.h"
 #include "CameraPositionEvent.h"
-#include "CameraOrientationComponent.h"
+#include "OrientationComponent.h"
 
 namespace ECS {
     class MeshRenderSystem : public System, public IObserver {

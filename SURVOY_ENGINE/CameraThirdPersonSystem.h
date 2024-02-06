@@ -11,11 +11,11 @@
 #include "CameraMouseComponent.h"
 #include "ScreenDimensionsComponent.h"
 #include "CameraMatricesComponent.h"
-#include "CameraOrientationComponent.h"
 #include "CameraPositionEvent.h"
 #include "CameraViewProjectionEvent.h"
 #include "CameraPositionEvent.h"
 #include "TransformComponent.h"
+#include "OrientationComponent.h"
 
 namespace ECS {
 	class CameraThirdPersonSystem : public System, public IObserver

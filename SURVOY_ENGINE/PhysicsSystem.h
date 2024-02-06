@@ -9,6 +9,9 @@
 #include "IObserver.h"
 #include "CameraViewProjectionEvent.h"
 #include "CameraMatricesComponent.h"
+#include "DynamicCapsulePhysicsBodyComponent.h"
+#include "OrientationComponent.h"
+#include "VelocityComponent.h"
 
 namespace ECS {
     class PhysicsSystem : public System, public IObserver
@@ -31,5 +34,6 @@ namespace ECS {
         EventManager& _eventManager;
 
         void _createStaticTriangleMeshBody();
+        void _createDynamicCapsuleBody();
     };
 }

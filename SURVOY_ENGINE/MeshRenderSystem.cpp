@@ -110,7 +110,7 @@ void ECS::MeshRenderSystem::_render(
 
     std::vector<int> entitiesC = _entityManager.getByTag("Camera");
     for (int entityId : entitiesC) {
-        ECS::CameraOrientationComponent* orientation = _entityManager.getComponent<ECS::CameraOrientationComponent>(entityId);
+        ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
 
         if (orientation) {
             viewPosition = orientation->Position;

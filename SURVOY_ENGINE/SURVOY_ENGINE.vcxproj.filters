@@ -141,6 +141,9 @@
     <ClCompile Include="CameraThirdPersonSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterControllerSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -266,9 +269,6 @@
     <ClInclude Include="InputMouseRelXYEvent.h">
       <Filter>ENGINE\Observer\Events</Filter>
     </ClInclude>
-    <ClInclude Include="CameraOrientationComponent.h">
-      <Filter>ENGINE\ECS\Components</Filter>
-    </ClInclude>
     <ClInclude Include="CameraMouseComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
@@ -286,6 +286,18 @@
     </ClInclude>
     <ClInclude Include="CameraThirdPersonSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterControllerSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="VelocityComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="OrientationComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
