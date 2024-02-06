@@ -18,6 +18,6 @@ namespace ECS {
 			Up(glm::vec3(0, 1, 0)),
 			Right(glm::vec3(0)),
 			Yaw(-90.0f),
-			Pitch(-45.0f) {}
+			Pitch(-22.0f) {}
 	};
 }
