@@ -36,7 +36,7 @@ void ECS::MeshRenderSystem::onNotify(const Event& event)
             ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
 
             if (transform) {
-                _cameraPosition = transform->position;
+                _cameraPosition = transform->Position;
             }
         }
     }
@@ -130,7 +130,7 @@ void ECS::MeshRenderSystem::_render(
             shader->Program.setMat4("projection", matrices.Projection);
             shader->Program.setMat4("view", matrices.View);
             shader->Program.setInt("texture1", 0);
-            shader->Program.setMat4("model", transform.transformation);
+            shader->Program.setMat4("model", transform.Transformation);
 
             unsigned int diffuseNr = 1;
             unsigned int specularNr = 1;

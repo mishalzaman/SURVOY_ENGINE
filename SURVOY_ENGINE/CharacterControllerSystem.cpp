@@ -63,7 +63,7 @@ void ECS::CharacterControllerSystem::Renders()
 		ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
 
 		if (transform) {
-			position = btVector3(transform->transformation[3].x, transform->transformation[3].y+1, transform->transformation[3].z);
+			position = btVector3(transform->Position.x, transform->Position.y+1, transform->Position.z);
 
 		}
 	}

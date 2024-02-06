@@ -70,7 +70,7 @@ void ECS::CameraThirdPersonSystem::Update(float deltaTime)
         ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
 
         if (transform) {
-            target = transform->transformation[3];
+            target = transform->Position;
         }
     }
 

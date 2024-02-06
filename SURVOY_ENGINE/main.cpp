@@ -113,43 +113,37 @@ int main(int argc, char* args[]) {
 	// Mesh
 	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
 		if (LevelModel->Meshes()[i].Name() == "PLAYER_START") {
-			entityId = entityManager->createEntity();
-			entityManager->addComponent<ECS::TransformComponent>(
-				entityId,
-				LevelModel->Meshes()[i].Position(), // Position
-				glm::quat(1.0f, 0.0f, 0.0f, 0.0f), // Rotation
-				glm::vec3(1.0f), // Scale
-				LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
-			);
-			entityManager->addComponent<ECS::MeshComponent>(
-				entityId,
-				LevelModel->Meshes()[i].Name(),
-				LevelModel->Meshes()[i].Vertices(),
-				LevelModel->Meshes()[i].Indices()
-			);
-			entityManager->addComponent<ECS::BuffersComponent>(entityId);
-			entityManager->addComponent<ECS::TexturesComponent>(
-				entityId,
-				LevelModel->Meshes()[i].Textures()
-			);
-			entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
-			entityManager->addByTag("Player Mesh", entityId);
+			{
+				entityId = entityManager->createEntity();
+				entityManager->addComponent<ECS::TransformComponent>(entityId, LevelModel->Meshes()[i].Transformation());
+				entityManager->addComponent<ECS::MeshComponent>(
+					entityId,
+					LevelModel->Meshes()[i].Name(),
+					LevelModel->Meshes()[i].Vertices(),
+					LevelModel->Meshes()[i].Indices()
+				);
+				entityManager->addComponent<ECS::BuffersComponent>(entityId);
+				entityManager->addComponent<ECS::TexturesComponent>(
+					entityId,
+					LevelModel->Meshes()[i].Textures()
+				);
+				entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
+				entityManager->addByTag("Player Mesh", entityId);
+			}
 
-			entityId = entityManager->createEntity();
-			entityManager->addComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
-			entityManager->addComponent<ECS::VelocityComponent>(entityId);
-			entityManager->addComponent<ECS::OrientationComponent>(entityId, LevelModel->Meshes()[i].Position());
-			entityManager->addByTag("Player Controller", entityId);
-
+			{
+				entityId = entityManager->createEntity();
+				entityManager->addComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
+				entityManager->addComponent<ECS::VelocityComponent>(entityId);
+				entityManager->addComponent<ECS::OrientationComponent>(entityId, LevelModel->Meshes()[i].Position());
+				entityManager->addByTag("Player Controller", entityId);
+			}
 		}
 		else {
 			entityId = entityManager->createEntity();
 
 			entityManager->addComponent<ECS::TransformComponent>(
 				entityId,
-				LevelModel->Meshes()[i].Position(), // Position
-				glm::quat(1.0f, 0.0f, 0.0f, 0.0f), // Rotation
-				glm::vec3(1.0f), // Scale
 				LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
 			);
 			entityManager->addComponent<ECS::MeshComponent>(

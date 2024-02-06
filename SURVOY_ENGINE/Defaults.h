@@ -3,7 +3,7 @@
 namespace BAE {
 	class Defaults {
 	public:
-		const static int BASE_SCREEN_WIDTH = 2048;
-		const static int BASE_SCREEN_HEIGHT = 1536;
+		const static int BASE_SCREEN_WIDTH = 1024;
+		const static int BASE_SCREEN_HEIGHT = 768;
 	};
 }

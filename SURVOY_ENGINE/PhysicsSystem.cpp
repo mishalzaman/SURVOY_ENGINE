@@ -69,7 +69,7 @@ void ECS::PhysicsSystem::_createStaticTriangleMeshBody()
 		if (mesh && transform && staticPhysicsBody) {
 			btTriangleMesh* meshInterface = new btTriangleMesh;
 
-			glm::mat4 transformation = transform->transformation;
+			glm::mat4 transformation = transform->Transformation;
 
 			for (int i = 0; i < mesh->Vertices.size(); i += 3) {
 				// Transform each vertex by the mesh's transformation matrix
@@ -123,7 +123,7 @@ void ECS::PhysicsSystem::_createDynamicCapsuleBody()
 		ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
 
 		if (transform) {
-			position = transform->position;
+			position = transform->Position;
 		}
 	}
 
