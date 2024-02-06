@@ -1,4 +1,6 @@
 #include "CharacterController.h"
+#include <iostream>
+
 
 BAE::CharacterController::CharacterController(btDiscreteDynamicsWorld& world, btAlignedObjectArray<btCollisionShape*>& collisionShapes):
 	_position(glm::vec3(0)),
@@ -73,6 +75,8 @@ void BAE::CharacterController::Move(float deltaTime)
 	if (glm::length(direction) > 0 && _physicalCharacter) {
 		direction = glm::normalize(direction);
 		float velocity = ACCELERATION * MOVEMENT_SPEED * deltaTime;
+
+		std::cout << velocity << std::endl;
 
 		// Set the velocity of the physical character
 		_physicalCharacter->activate(true);

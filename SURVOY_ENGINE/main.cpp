@@ -90,8 +90,13 @@ Core ECS Classes:
 #include "ScreenDimensionsComponent.h"
 #include "CameraMatricesComponent.h"
 #include "CameraMouseComponent.h"
-#include "CameraOrientationComponent.h"
 #include "ProgramComponent.h"
+#include "CameraThirdPersonSystem.h"
+#include "DynamicCapsulePhysicsBodyComponent.h"
+#include "CharacterControllerSystem.h"
+#include "VelocityComponent.h"
+#include "OrientationComponent.h"
+#include "Grid.h"
 
 const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
 const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
@@ -132,34 +137,77 @@ int main(int argc, char* args[]) {
 
 	// Mesh
 	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
-		// Create a new entity for each mesh
-		entityId = entityManager->createEntity();
+		if (LevelModel->Meshes()[i].Name() == "PLAYER_START") {
+			entityId = entityManager->createEntity();
+			entityManager->addComponent<ECS::TransformComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Position(), // Position
+				glm::quat(1.0f, 0.0f, 0.0f, 0.0f), // Rotation
+				glm::vec3(1.0f), // Scale
+				LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
+			);
+			entityManager->addComponent<ECS::MeshComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Name(),
+				LevelModel->Meshes()[i].Vertices(),
+				LevelModel->Meshes()[i].Indices()
+			);
+			entityManager->addComponent<ECS::BuffersComponent>(entityId);
+			entityManager->addComponent<ECS::TexturesComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Textures()
+			);
+			entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
+			entityManager->addByTag("Player Mesh", entityId);
 
-		entityManager->addComponent<ECS::TransformComponent>(
-			entityId,
-			LevelModel->Meshes()[i].Position(), // Position
-			glm::quat(1.0f, 0.0f, 0.0f, 0.0f), // Rotation
-			glm::vec3(1.0f), // Scale
-			LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
-		);
-		entityManager->addComponent<ECS::MeshComponent>(
-			entityId,
-			LevelModel->Meshes()[i].Name(),
-			LevelModel->Meshes()[i].Vertices(),
-			LevelModel->Meshes()[i].Indices()
-		);
-		entityManager->addComponent<ECS::BuffersComponent>(entityId);
-		entityManager->addComponent<ECS::TexturesComponent>(
-			entityId,
-			LevelModel->Meshes()[i].Textures()
-		);
-		entityManager->addComponent<ECS::StaticPhysicsBodyComponent>(entityId);
-		entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
+			entityId = entityManager->createEntity();
+			entityManager->addComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
+			entityManager->addComponent<ECS::VelocityComponent>(entityId);
+			entityManager->addComponent<ECS::OrientationComponent>(entityId, LevelModel->Meshes()[i].Position());
+			entityManager->addByTag("Player Controller", entityId);
 
-		entityManager->addByTag("Mesh", entityId);
+		}
+		else {
+			entityId = entityManager->createEntity();
+
+			entityManager->addComponent<ECS::TransformComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Position(), // Position
+				glm::quat(1.0f, 0.0f, 0.0f, 0.0f), // Rotation
+				glm::vec3(1.0f), // Scale
+				LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
+			);
+			entityManager->addComponent<ECS::MeshComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Name(),
+				LevelModel->Meshes()[i].Vertices(),
+				LevelModel->Meshes()[i].Indices()
+			);
+			entityManager->addComponent<ECS::BuffersComponent>(entityId);
+			entityManager->addComponent<ECS::TexturesComponent>(
+				entityId,
+				LevelModel->Meshes()[i].Textures()
+			);
+			entityManager->addComponent<ECS::StaticPhysicsBodyComponent>(entityId);
+			entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
+
+			entityManager->addByTag("Mesh", entityId);
+		}
 	}
 
-	// Camera
+	// Camera Free Look
+	//entityId = entityManager->createEntity();
+	//entityManager->addComponent<ECS::ScreenDimensionsComponent>(
+	//	entityId,
+	//	1024.f,
+	//	768.f
+	//);
+	//entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
+	//entityManager->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 1, 0));
+	//entityManager->addComponent<ECS::CameraMouseComponent>(entityId);
+	//entityManager->addByTag("Camera", entityId);
+
+	// Camera Third Person
 	entityId = entityManager->createEntity();
 	entityManager->addComponent<ECS::ScreenDimensionsComponent>(
 		entityId,
@@ -167,9 +215,9 @@ int main(int argc, char* args[]) {
 		768.f
 	);
 	entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
-	entityManager->addComponent<ECS::CameraOrientationComponent>(entityId, glm::vec3(0, 1, 0));
+	entityManager->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 1, 0));
 	entityManager->addComponent<ECS::CameraMouseComponent>(entityId);
-	entityManager->addByTag("Camera", entityId);
+	entityManager->addByTag("Camera Third Person", entityId);
 
 	// Shader
 	entityManager->addComponent<ECS::ProgramComponent>(entityId, *shader3d);
@@ -182,8 +230,10 @@ int main(int argc, char* args[]) {
 	// Pass a reference to the EntityManager object
 	auto systemManager = std::make_unique<ECS::SystemManager>();
 
-	systemManager->AddSystem<ECS::CameraFreeLookSystem>(*entityManager, *physics, *eventManager);
+	//systemManager->AddSystem<ECS::CameraFreeLookSystem>(*entityManager, *physics, *eventManager);
+	systemManager->AddSystem<ECS::CameraThirdPersonSystem>(*entityManager, *physics, *eventManager);
 	systemManager->AddSystem<ECS::PhysicsSystem>(*entityManager, *physics, *eventManager);
+	systemManager->AddSystem<ECS::CharacterControllerSystem>(*entityManager, *physics, *eventManager);
 	systemManager->AddSystem<ECS::MeshRenderSystem>(*entityManager, *physics, *eventManager);
 
 	systemManager->Load();
@@ -223,14 +273,14 @@ int main(int argc, char* args[]) {
 			}
 		}
 
-		systemManager->Update();
-
 		/*=============
 		FIXED UPDATE
 		=============*/
 		while (Core->Timer->PhysicsUpdate()) {
 			systemManager->Update(deltaTime);
 		}
+
+		systemManager->Update();
 
 		/*=============
 		RENDER
@@ -241,7 +291,7 @@ int main(int argc, char* args[]) {
 
 		systemManager->Renders();
 
-		std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
 
 		Core->EndRender();
 	}

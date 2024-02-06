@@ -24,14 +24,28 @@ void ECS::PhysicsSystem::onNotify(const Event& event)
 void ECS::PhysicsSystem::Load()
 {
 	_createStaticTriangleMeshBody();
+	_createDynamicCapsuleBody();
 }
 
 void ECS::PhysicsSystem::Update()
 {
+	std::vector<int> entities = _entityManager.getByTag("Player Mesh");
+
+	for (int entityId : entities) {
+		ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
+		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
+		ECS::VelocityComponent* velocity = _entityManager.getComponent<ECS::VelocityComponent>(entityId);
+
+		if (dynamic && orientation && velocity) {
+			dynamic->Body->activate(true);
+			dynamic->Body->setLinearVelocity(btVector3(velocity->Direction.x, velocity->Direction.y, velocity->Direction.z) * velocity->Velocity);
+		}
+	}
 }
 
 void ECS::PhysicsSystem::Update(float deltaTime)
 {
+	_physics.Simulate(deltaTime);
 }
 
 void ECS::PhysicsSystem::Renders()
@@ -94,6 +108,56 @@ void ECS::PhysicsSystem::_createStaticTriangleMeshBody()
 			staticPhysicsBody->Body = body;
 
 			//add the body to the dynamics world
+			_physics.World().addRigidBody(body);
+		}
+	}
+}
+
+void ECS::PhysicsSystem::_createDynamicCapsuleBody()
+{
+	std::vector<int> entitiesPM = _entityManager.getByTag("Player Mesh");
+
+	glm::vec3 position;
+
+	for (int entityId : entitiesPM) {
+		ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
+
+		if (transform) {
+			position = transform->position;
+		}
+	}
+
+	std::vector<int> entitiesPC = _entityManager.getByTag("Player Controller");
+
+	for (int entityId : entitiesPC) {
+		ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
+
+		if (dynamic) {
+			btCollisionShape* groundShape = new btCapsuleShape(0.25f, 1.25f);
+			_physics.CollisionShapes().push_back(groundShape);
+
+			btTransform groundTransform;
+			groundTransform.setIdentity();
+			groundTransform.setOrigin(btVector3(position.x, position.y + 1, position.z));
+
+			// Create a quaternion from yaw and pitch
+			btQuaternion rotation;
+			rotation.setEuler(-90.f, 0.f, 0.f); // Assuming roll is zero
+			groundTransform.setRotation(rotation);
+
+			btScalar mass(1.f);
+			bool isDynamic = (mass != 0.f);
+			btVector3 localInertia(0, 0, 0);
+			if (isDynamic)
+				groundShape->calculateLocalInertia(mass, localInertia);
+
+			btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
+			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+			btRigidBody* body = new btRigidBody(rbInfo);
+			body->setAngularFactor(btVector3(0, 0, 0));
+
+			dynamic->Body = body;
+
 			_physics.World().addRigidBody(body);
 		}
 	}

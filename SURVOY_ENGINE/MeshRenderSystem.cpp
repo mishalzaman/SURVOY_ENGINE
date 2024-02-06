@@ -17,7 +17,7 @@ void ECS::MeshRenderSystem::onNotify(const Event& event)
     const auto* cameraPositionEvent = dynamic_cast<const CameraPositionEvent*>(&event);
 
     if (cameraEvent) {
-        std::vector<int> entities = _entityManager.getByTag("Mesh");
+        std::vector<int> entities = _entityManager.getByTags("Mesh, Player Mesh");
 
         for (int entityId : entities) {
             ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
@@ -30,7 +30,7 @@ void ECS::MeshRenderSystem::onNotify(const Event& event)
     }
 
     if (cameraPositionEvent) {
-        std::vector<int> entities = _entityManager.getByTag("Mesh");
+        std::vector<int> entities = _entityManager.getByTags("Mesh, Player Mesh");
 
         for (int entityId : entities) {
             ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
@@ -44,7 +44,7 @@ void ECS::MeshRenderSystem::onNotify(const Event& event)
 
 void ECS::MeshRenderSystem::Load() {
     // Retrieve entity IDs by tag
-    std::vector<int> entities = _entityManager.getByTag("Mesh");
+    std::vector<int> entities = _entityManager.getByTags("Mesh, Player Mesh");
 
     for (int entityId : entities) {
         // Retrieve the components required for rendering
@@ -59,7 +59,7 @@ void ECS::MeshRenderSystem::Load() {
 }
 
 void ECS::MeshRenderSystem::Renders() {
-    std::vector<int> entities = _entityManager.getByTag("Mesh");
+    std::vector<int> entities = _entityManager.getByTags("Mesh, Player Mesh");
 
     for (int entityId : entities) {
         // Retrieve the components required for rendering
@@ -76,7 +76,7 @@ void ECS::MeshRenderSystem::Renders() {
 }
 
 void ECS::MeshRenderSystem::Unload() {
-    std::vector<int> entities = _entityManager.getByTag("Mesh");
+    std::vector<int> entities = _entityManager.getByTags("Mesh, Player Mesh");
 
     for (int entityId : entities) {
         ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(entityId);
@@ -110,7 +110,7 @@ void ECS::MeshRenderSystem::_render(
 
     std::vector<int> entitiesC = _entityManager.getByTag("Camera");
     for (int entityId : entitiesC) {
-        ECS::CameraOrientationComponent* orientation = _entityManager.getComponent<ECS::CameraOrientationComponent>(entityId);
+        ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
 
         if (orientation) {
             viewPosition = orientation->Position;

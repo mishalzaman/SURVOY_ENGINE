@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 namespace ECS {
-	struct CameraOrientationComponent
+	struct OrientationComponent
 	{
 		glm::vec3 Position;
 		glm::vec3 Forward;
@@ -12,12 +12,12 @@ namespace ECS {
 		float Yaw;
 		float Pitch;
 
-		CameraOrientationComponent(glm::vec3 position) :
+		OrientationComponent(glm::vec3 position) :
 			Position(position),
 			Forward(glm::vec3(0, 0, 1)),
 			Up(glm::vec3(0, 1, 0)),
 			Right(glm::vec3(0)),
 			Yaw(-90.0f),
-			Pitch(0.0f) {}
+			Pitch(0.f) {}
 	};
 }

@@ -139,6 +139,8 @@
     <ClCompile Include="CameraFreeLook.cpp" />
     <ClCompile Include="CameraMatricesComponent.h" />
     <ClCompile Include="CameraFreeLookSystem.cpp" />
+    <ClCompile Include="CameraThirdPersonSystem.cpp" />
+    <ClCompile Include="CharacterControllerSystem.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -174,8 +176,10 @@
     <ClInclude Include="CameraFollow.h" />
     <ClInclude Include="CameraFreeLook.h" />
     <ClInclude Include="CameraMouseComponent.h" />
-    <ClInclude Include="CameraOrientationComponent.h" />
     <ClInclude Include="CameraPositionEvent.h" />
+    <ClInclude Include="CameraThirdPersonSystem.h" />
+    <ClInclude Include="CharacterControllerSystem.h" />
+    <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="InputMouseRelXYEvent.h" />
     <ClInclude Include="CameraFreeLookSystem.h" />
     <ClInclude Include="CameraViewProjectionEvent.h" />
@@ -186,6 +190,7 @@
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="MeshRenderSystem.h" />
     <ClInclude Include="MoveDirectionEvent.h" />
+    <ClInclude Include="OrientationComponent.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="ScreenDimensionsComponent.h" />
     <ClInclude Include="ProgramComponent.h" />
@@ -214,6 +219,7 @@
     <ClInclude Include="stbi_image.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="SVertex.h" />
+    <ClInclude Include="VelocityComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="base_fragment_2d.glsl" />

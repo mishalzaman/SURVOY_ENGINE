@@ -9,6 +9,10 @@
 #include <stdexcept>
 #include <iostream>
 #include <unordered_set>
+#include <algorithm>
+#include <string>
+#include <sstream>
+#include <algorithm>
 
 namespace ECS {
     class EntityManager {
@@ -159,6 +163,28 @@ namespace ECS {
                 }
             }
             return entitiesWithTag;
+        }
+
+        std::vector<int> getByTags(const std::string& tags) {
+            std::vector<int> combinedEntities;
+            std::stringstream tagStream(tags);
+            std::string tag;
+
+            while (getline(tagStream, tag, ',')) {
+                // Trim leading and trailing spaces from tag if necessary
+                tag.erase(0, tag.find_first_not_of(" \n\r\t"));
+                tag.erase(tag.find_last_not_of(" \n\r\t") + 1);
+
+                std::vector<int> entities = getByTag(tag); // Assuming this is the actual method fetching entities
+                combinedEntities.insert(combinedEntities.end(), entities.begin(), entities.end());
+            }
+
+            // Optionally, remove duplicate entities if a single entity can have multiple tags
+            std::sort(combinedEntities.begin(), combinedEntities.end());
+            auto last = std::unique(combinedEntities.begin(), combinedEntities.end());
+            combinedEntities.erase(last, combinedEntities.end());
+
+            return combinedEntities;
         }
     };
 }

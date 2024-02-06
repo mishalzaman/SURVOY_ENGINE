@@ -42,7 +42,7 @@ void ECS::CameraFreeLookSystem::Load()
     for (int entityId : entities) {
         ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
         ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
-        ECS::CameraOrientationComponent* orientation = _entityManager.getComponent<ECS::CameraOrientationComponent>(entityId);
+        ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
 
         if (screen && matrices && orientation) {
             _updateVectors(
@@ -84,7 +84,7 @@ void ECS::CameraFreeLookSystem::Update(float deltaTime)
     for (int entityId : entities) {
         ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
         ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
-        ECS::CameraOrientationComponent* orientation = _entityManager.getComponent<ECS::CameraOrientationComponent>(entityId);
+        ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
         ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);
 
         if (screen && matrices && orientation && mouse) {
@@ -100,6 +100,7 @@ void ECS::CameraFreeLookSystem::Update(float deltaTime)
             matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
 
             _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
+            _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
         }
     }
 }
