@@ -33,7 +33,7 @@ void ECS::CharacterControllerSystem::Load()
 	}
 }
 
-void ECS::CharacterControllerSystem::Update()
+void ECS::CharacterControllerSystem::UpdatePrePhysics()
 {
 
 }
@@ -74,7 +74,7 @@ void ECS::CharacterControllerSystem::Update(float deltaTime)
 	}
 }
 
-void ECS::CharacterControllerSystem::Renders()
+void ECS::CharacterControllerSystem::Render()
 {
 	std::vector<int> entities = _entityManager.getByTag("Player Controller");
 

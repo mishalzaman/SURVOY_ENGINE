@@ -32,9 +32,9 @@ namespace ECS {
 		void onNotify(const Event& event) override;
 
 		void Load() override;
-		void Update() override;
+		void UpdatePrePhysics() override;
 		void Update(float deltaTime) override;
-		void Renders() override;
+		void Render() override;
 		void Unload() override;
 
 	private:

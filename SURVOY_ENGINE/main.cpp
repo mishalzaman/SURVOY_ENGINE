@@ -229,7 +229,7 @@ int main(int argc, char* args[]) {
 			systemManager->Update(deltaTime);
 		}
 
-		systemManager->Update();
+		systemManager->UpdatePrePhysics();
 
 		/*=============
 		RENDER
@@ -238,7 +238,7 @@ int main(int argc, char* args[]) {
 		
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		systemManager->Renders();
+		systemManager->Render();
 
 		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
 

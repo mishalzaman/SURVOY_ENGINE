@@ -62,7 +62,7 @@ void ECS::CameraFreeLookSystem::Load()
     }
 }
 
-void ECS::CameraFreeLookSystem::Renders()
+void ECS::CameraFreeLookSystem::Render()
 {
     // N/A
 }
@@ -72,7 +72,7 @@ void ECS::CameraFreeLookSystem::Unload()
     // N/A
 }
 
-void ECS::CameraFreeLookSystem::Update()
+void ECS::CameraFreeLookSystem::UpdatePrePhysics()
 {
     // N/A
 }

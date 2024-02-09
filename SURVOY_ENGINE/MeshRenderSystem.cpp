@@ -58,7 +58,7 @@ void ECS::MeshRenderSystem::Load() {
     }
 }
 
-void ECS::MeshRenderSystem::Renders() {
+void ECS::MeshRenderSystem::Render() {
     std::vector<int> entities = _entityManager.getByTags("Mesh");
 
     for (int entityId : entities) {
@@ -89,7 +89,7 @@ void ECS::MeshRenderSystem::Unload() {
     }
 }
 
-void ECS::MeshRenderSystem::Update()
+void ECS::MeshRenderSystem::UpdatePrePhysics()
 {
 }
 

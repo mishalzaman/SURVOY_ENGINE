@@ -42,9 +42,9 @@ namespace ECS {
             }
         }
 
-        void Update() {
+        void UpdatePrePhysics() {
             for (auto& system : systemList) {
-                system->Update();
+                system->UpdatePrePhysics();
             }
         }
 
@@ -54,9 +54,9 @@ namespace ECS {
             }
         }
 
-        void Renders() {
+        void Render() {
             for (auto& system : systemList) {
-                system->Renders();
+                system->Render();
             }
         }
 

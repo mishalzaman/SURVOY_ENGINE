@@ -27,7 +27,7 @@ void ECS::PhysicsSystem::Load()
 	_createDynamicCapsuleBody();
 }
 
-void ECS::PhysicsSystem::Update()
+void ECS::PhysicsSystem::UpdatePrePhysics()
 {
 }
 
@@ -36,7 +36,7 @@ void ECS::PhysicsSystem::Update(float deltaTime)
 	_physics.Simulate(deltaTime);
 }
 
-void ECS::PhysicsSystem::Renders()
+void ECS::PhysicsSystem::Render()
 {
 	_physics.DrawDebug();
 }

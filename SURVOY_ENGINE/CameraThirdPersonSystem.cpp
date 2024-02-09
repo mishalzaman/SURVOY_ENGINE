@@ -71,7 +71,7 @@ void ECS::CameraThirdPersonSystem::Load()
     }
 }
 
-void ECS::CameraThirdPersonSystem::Update()
+void ECS::CameraThirdPersonSystem::UpdatePrePhysics()
 {
 }
 
@@ -141,7 +141,7 @@ void ECS::CameraThirdPersonSystem::Update(float deltaTime)
     }
 }
 
-void ECS::CameraThirdPersonSystem::Renders()
+void ECS::CameraThirdPersonSystem::Render()
 {
 }
 
