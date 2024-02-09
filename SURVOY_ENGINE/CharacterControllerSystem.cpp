@@ -40,40 +40,50 @@ void ECS::CharacterControllerSystem::Update()
 
 void ECS::CharacterControllerSystem::Update(float deltaTime)
 {
+	float yaw = 0.f;
+	std::vector<int> entitiesCTP = _entityManager.getByTag("Camera Third Person");
+
+	for (int entityId : entitiesCTP) {
+		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
+
+		if (orientation) {
+			yaw = orientation->Yaw;
+		}
+	}
+
+	glm::vec3 newPosition = glm::vec3(0);
 	std::vector<int> entities = _entityManager.getByTag("Player Controller");
 
 	for (int entityId : entities) {
 		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
 		ECS::VelocityComponent* velocity = _entityManager.getComponent<ECS::VelocityComponent>(entityId);
+		ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
 		
 
-		if (orientation && velocity) {
+		if (orientation && velocity && dynamic) {
+			orientation->Forward = BAE::VectorHelpers::ForwardVec3(yaw, 0.f);
+			orientation->Right = BAE::VectorHelpers::RightVec3(orientation->Forward);
+			orientation->Up = BAE::VectorHelpers::UpVec3(orientation->Forward, orientation->Right);
+
 			_move(deltaTime, orientation->Forward, orientation->Right, velocity->Velocity, velocity->Direction);
+
+			// Set the velocity of the physical character
+			dynamic->Body->activate(true);
+			dynamic->Body->setLinearVelocity(btVector3(velocity->Direction.x, velocity->Direction.y, velocity->Direction.z) * velocity->Velocity);
 		}
 	}
 }
 
 void ECS::CharacterControllerSystem::Renders()
 {
-	std::vector<int> entitiesPM = _entityManager.getByTag("Player Mesh");
-
-	btVector3 position;
-
-	for (int entityId : entitiesPM) {
-		ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
-
-		if (transform) {
-			position = btVector3(transform->Position.x, transform->Position.y+1, transform->Position.z);
-
-		}
-	}
-
 	std::vector<int> entities = _entityManager.getByTag("Player Controller");
 
 	for (int entityId : entities) {
 		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
 
 		if (orientation) {
+			btVector3 position = btVector3(orientation->Position.x, orientation->Position.y + 1, orientation->Position.z);
+
 			// Assuming the magnitude of vectors is suitable for visualization; otherwise, scale them as needed
 			btVector3 forwardEnd = position + btVector3(orientation->Forward.x, orientation->Forward.y, orientation->Forward.z) * 2;
 			btVector3 rightEnd = position + btVector3(orientation->Right.x, orientation->Right.y, orientation->Right.z) * 2;
@@ -87,8 +97,7 @@ void ECS::CharacterControllerSystem::Renders()
 			// Drawing the vectors
 			_physics.World().getDebugDrawer()->drawLine(position, forwardEnd, forwardColor);
 			_physics.World().getDebugDrawer()->drawLine(position, rightEnd, rightColor);
-			_physics.World().getDebugDrawer()->drawLine(position, upEnd, upColor);
-			
+			_physics.World().getDebugDrawer()->drawLine(position, upEnd, upColor);	
 		}
 	}
 }

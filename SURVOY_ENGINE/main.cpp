@@ -112,32 +112,12 @@ int main(int argc, char* args[]) {
 
 	// Mesh
 	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
-		if (LevelModel->Meshes()[i].Name() == "PLAYER_START") {
-			{
-				entityId = entityManager->createEntity();
-				entityManager->addComponent<ECS::TransformComponent>(entityId, LevelModel->Meshes()[i].Transformation());
-				entityManager->addComponent<ECS::MeshComponent>(
-					entityId,
-					LevelModel->Meshes()[i].Name(),
-					LevelModel->Meshes()[i].Vertices(),
-					LevelModel->Meshes()[i].Indices()
-				);
-				entityManager->addComponent<ECS::BuffersComponent>(entityId);
-				entityManager->addComponent<ECS::TexturesComponent>(
-					entityId,
-					LevelModel->Meshes()[i].Textures()
-				);
-				entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
-				entityManager->addByTag("Player Mesh", entityId);
-			}
-
-			{
-				entityId = entityManager->createEntity();
-				entityManager->addComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
-				entityManager->addComponent<ECS::VelocityComponent>(entityId);
-				entityManager->addComponent<ECS::OrientationComponent>(entityId, LevelModel->Meshes()[i].Position());
-				entityManager->addByTag("Player Controller", entityId);
-			}
+		if (LevelModel->Meshes()[i].Name() == "PLAYER_START") {			
+			entityId = entityManager->createEntity();
+			entityManager->addComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
+			entityManager->addComponent<ECS::VelocityComponent>(entityId);
+			entityManager->addComponent<ECS::OrientationComponent>(entityId, LevelModel->Meshes()[i].Position());
+			entityManager->addByTag("Player Controller", entityId);
 		}
 		else {
 			entityId = entityManager->createEntity();
@@ -200,9 +180,9 @@ int main(int argc, char* args[]) {
 	auto systemManager = std::make_unique<ECS::SystemManager>();
 
 	//systemManager->AddSystem<ECS::CameraFreeLookSystem>(*entityManager, *physics, *eventManager);
-	systemManager->AddSystem<ECS::CameraThirdPersonSystem>(*entityManager, *physics, *eventManager);
-	systemManager->AddSystem<ECS::PhysicsSystem>(*entityManager, *physics, *eventManager);
 	systemManager->AddSystem<ECS::CharacterControllerSystem>(*entityManager, *physics, *eventManager);
+	systemManager->AddSystem<ECS::PhysicsSystem>(*entityManager, *physics, *eventManager);
+	systemManager->AddSystem<ECS::CameraThirdPersonSystem>(*entityManager, *physics, *eventManager);
 	systemManager->AddSystem<ECS::MeshRenderSystem>(*entityManager, *physics, *eventManager);
 
 	systemManager->Load();
@@ -260,7 +240,7 @@ int main(int argc, char* args[]) {
 
 		systemManager->Renders();
 
-		std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
 
 		Core->EndRender();
 	}

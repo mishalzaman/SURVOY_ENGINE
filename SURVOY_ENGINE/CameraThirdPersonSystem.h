@@ -1,6 +1,8 @@
 #pragma once
 
 #include <utility>
+#include <glm/gtc/quaternion.hpp>       // For glm::quat
+#include <glm/gtx/euler_angles.hpp>    // For glm::eulerAngles
 #include "System.h"
 #include "IObserver.h"
 #include "EntityManager.h"
@@ -16,14 +18,15 @@
 #include "CameraPositionEvent.h"
 #include "TransformComponent.h"
 #include "OrientationComponent.h"
+#include "DynamicCapsulePhysicsBodyComponent.h"
 
 namespace ECS {
 	class CameraThirdPersonSystem : public System, public IObserver
 	{
 	public:
 		const float SPEED = 2.f;
-		const float MOUSE_SENSITIVITY = 10.f;
-		const float ACCELERATION = 2.f;
+		const float MOUSE_SENSITIVITY = 20.f;
+		const float ACCELERATION = 4.f;
 		const float DISTANCE_TO_TARGET = 6.f;
 		const float UPWARD_OFFSET = -4.f;
 
@@ -44,6 +47,6 @@ namespace ECS {
 		Physics& _physics;
 
 		void _orbit(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY, glm::vec3& position, glm::vec3& forward, glm::vec3& right, glm::vec3& up, glm::vec3 target);
-		void _move(float deltaTime, glm::vec3& position, const glm::vec3& forward, const glm::vec3& right);
+		void _move(float& yaw, float& pitch, glm::vec3& position, glm::vec3& forward, glm::vec3& right, glm::vec3& up, glm::vec3 target);
 	};
 }

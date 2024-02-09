@@ -29,18 +29,6 @@ void ECS::PhysicsSystem::Load()
 
 void ECS::PhysicsSystem::Update()
 {
-	std::vector<int> entities = _entityManager.getByTag("Player Mesh");
-
-	for (int entityId : entities) {
-		ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
-		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
-		ECS::VelocityComponent* velocity = _entityManager.getComponent<ECS::VelocityComponent>(entityId);
-
-		if (dynamic && orientation && velocity) {
-			dynamic->Body->activate(true);
-			dynamic->Body->setLinearVelocity(btVector3(velocity->Direction.x, velocity->Direction.y, velocity->Direction.z) * velocity->Velocity);
-		}
-	}
 }
 
 void ECS::PhysicsSystem::Update(float deltaTime)
@@ -115,30 +103,19 @@ void ECS::PhysicsSystem::_createStaticTriangleMeshBody()
 
 void ECS::PhysicsSystem::_createDynamicCapsuleBody()
 {
-	std::vector<int> entitiesPM = _entityManager.getByTag("Player Mesh");
-
-	glm::vec3 position;
-
-	for (int entityId : entitiesPM) {
-		ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
-
-		if (transform) {
-			position = transform->Position;
-		}
-	}
-
 	std::vector<int> entitiesPC = _entityManager.getByTag("Player Controller");
 
 	for (int entityId : entitiesPC) {
 		ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
+		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
 
-		if (dynamic) {
+		if (dynamic && orientation) {
 			btCollisionShape* groundShape = new btCapsuleShape(0.25f, 1.25f);
 			_physics.CollisionShapes().push_back(groundShape);
 
 			btTransform groundTransform;
 			groundTransform.setIdentity();
-			groundTransform.setOrigin(btVector3(position.x, position.y + 1, position.z));
+			groundTransform.setOrigin(btVector3(orientation->Position.x, orientation->Position.y + 1, orientation->Position.z));
 
 			// Create a quaternion from yaw and pitch
 			btQuaternion rotation;

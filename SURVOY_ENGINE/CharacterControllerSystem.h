@@ -10,13 +10,14 @@
 #include "VelocityComponent.h"
 #include "OrientationComponent.h"
 #include "VectorHelpers.h"
+#include "DynamicCapsulePhysicsBodyComponent.h"
 
 namespace ECS {
 	class CharacterControllerSystem : public System, public IObserver
 	{
 	public:
-		const float SPEED = 10.f;
-		const float ACCELERATION = 2.f;
+		const float SPEED = 60.f;
+		const float ACCELERATION = 4.f;
 
 		CharacterControllerSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
 		~CharacterControllerSystem();
