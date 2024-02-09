@@ -54,6 +54,12 @@ namespace ECS {
             }
         }
 
+        void UpdatePostPhysics() {
+            for (auto& system : systemList) {
+                system->UpdatePostPhysics();
+            }
+        }
+
         void Render() {
             for (auto& system : systemList) {
                 system->Render();

@@ -12,6 +12,7 @@ namespace ECS {
         virtual void Load() = 0;
         virtual void UpdatePrePhysics() = 0;
         virtual void Update(float deltaTime) = 0;
+        virtual void UpdatePostPhysics() = 0;
         virtual void Render() = 0;
         virtual void Unload() = 0;
 

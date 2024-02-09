@@ -97,6 +97,10 @@ void ECS::MeshRenderSystem::Update(float deltaTime)
 {
 }
 
+void ECS::MeshRenderSystem::UpdatePostPhysics()
+{
+}
+
 
 void ECS::MeshRenderSystem::_render(
     const TransformComponent& transform,

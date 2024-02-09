@@ -36,6 +36,10 @@ void ECS::PhysicsSystem::Update(float deltaTime)
 	_physics.Simulate(deltaTime);
 }
 
+void ECS::PhysicsSystem::UpdatePostPhysics()
+{
+}
+
 void ECS::PhysicsSystem::Render()
 {
 	_physics.DrawDebug();

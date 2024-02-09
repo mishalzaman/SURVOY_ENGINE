@@ -141,6 +141,10 @@ void ECS::CameraThirdPersonSystem::Update(float deltaTime)
     }
 }
 
+void ECS::CameraThirdPersonSystem::UpdatePostPhysics()
+{
+}
+
 void ECS::CameraThirdPersonSystem::Render()
 {
 }

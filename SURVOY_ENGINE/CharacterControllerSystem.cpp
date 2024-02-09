@@ -74,6 +74,10 @@ void ECS::CharacterControllerSystem::Update(float deltaTime)
 	}
 }
 
+void ECS::CharacterControllerSystem::UpdatePostPhysics()
+{
+}
+
 void ECS::CharacterControllerSystem::Render()
 {
 	std::vector<int> entities = _entityManager.getByTag("Player Controller");

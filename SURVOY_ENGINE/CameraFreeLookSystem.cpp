@@ -105,6 +105,10 @@ void ECS::CameraFreeLookSystem::Update(float deltaTime)
     }
 }
 
+void ECS::CameraFreeLookSystem::UpdatePostPhysics()
+{
+}
+
 void ECS::CameraFreeLookSystem::_updateVectors(
     glm::vec3& forward,
     glm::vec3& up,

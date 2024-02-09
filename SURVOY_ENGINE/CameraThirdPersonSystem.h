@@ -38,6 +38,7 @@ namespace ECS {
 		void Load() override;
 		void UpdatePrePhysics() override;
 		void Update(float deltaTime) override;
+		void UpdatePostPhysics() override;
 		void Render() override;
 		void Unload() override;
 

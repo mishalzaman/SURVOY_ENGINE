@@ -222,6 +222,8 @@ int main(int argc, char* args[]) {
 			}
 		}
 
+		systemManager->UpdatePrePhysics();
+
 		/*=============
 		FIXED UPDATE
 		=============*/
@@ -229,7 +231,7 @@ int main(int argc, char* args[]) {
 			systemManager->Update(deltaTime);
 		}
 
-		systemManager->UpdatePrePhysics();
+		systemManager->UpdatePostPhysics();
 
 		/*=============
 		RENDER
