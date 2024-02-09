@@ -122,10 +122,7 @@ int main(int argc, char* args[]) {
 		else {
 			entityId = entityManager->createEntity();
 
-			entityManager->addComponent<ECS::TransformComponent>(
-				entityId,
-				LevelModel->Meshes()[i].Transformation()  // Transformation matrix (identity matrix as an example)
-			);
+			entityManager->addComponent<ECS::TransformComponent>(entityId, LevelModel->Meshes()[i].Transformation());
 			entityManager->addComponent<ECS::MeshComponent>(
 				entityId,
 				LevelModel->Meshes()[i].Name(),
@@ -133,10 +130,7 @@ int main(int argc, char* args[]) {
 				LevelModel->Meshes()[i].Indices()
 			);
 			entityManager->addComponent<ECS::BuffersComponent>(entityId);
-			entityManager->addComponent<ECS::TexturesComponent>(
-				entityId,
-				LevelModel->Meshes()[i].Textures()
-			);
+			entityManager->addComponent<ECS::TexturesComponent>(entityId, LevelModel->Meshes()[i].Textures());
 			entityManager->addComponent<ECS::StaticPhysicsBodyComponent>(entityId);
 			entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
 
@@ -242,7 +236,7 @@ int main(int argc, char* args[]) {
 
 		systemManager->Render();
 
-		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		std::cout << Core->Timer->DeltaTimeS() << std::endl;
 
 		Core->EndRender();
 	}
