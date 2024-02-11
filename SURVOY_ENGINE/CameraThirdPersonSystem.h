@@ -19,6 +19,7 @@
 #include "TransformComponent.h"
 #include "OrientationComponent.h"
 #include "DynamicCapsulePhysicsBodyComponent.h"
+#include "CameraYawEvent.h"
 
 namespace ECS {
 	class CameraThirdPersonSystem : public System, public IObserver

@@ -11,12 +11,13 @@
 #include "OrientationComponent.h"
 #include "VectorHelpers.h"
 #include "DynamicCapsulePhysicsBodyComponent.h"
+#include "CameraYawEvent.h"
 
 namespace ECS {
 	class CharacterControllerSystem : public System, public IObserver
 	{
 	public:
-		const float SPEED = 60.f;
+		const float SPEED = 48.f;
 		const float ACCELERATION = 4.f;
 
 		CharacterControllerSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
@@ -36,6 +37,9 @@ namespace ECS {
 		EntityManager& _entityManager;
 		Physics& _physics;
 
-		void _move(float deltaTime, const glm::vec3& forward, const glm::vec3& right, float& velocity, glm::vec3& direction);
+		void _updateInput(float deltaTime, const glm::vec3& forward, const glm::vec3& right, float& velocity, glm::vec3& direction);
+		void _updateYaw(float yaw);
+		void _updateVectors(const float yaw, glm::vec3& forward, glm::vec3& right, glm::vec3& up);
+		void _updatePhysics(ECS::DynamicCapsulePhysicsBodyComponent& dynamic, const glm::vec3& direction, const float& velocity);
 	};
 }

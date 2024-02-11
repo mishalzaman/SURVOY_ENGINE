@@ -117,7 +117,7 @@ int main(int argc, char* args[]) {
 			entityManager->addComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
 			entityManager->addComponent<ECS::VelocityComponent>(entityId);
 			entityManager->addComponent<ECS::OrientationComponent>(entityId, LevelModel->Meshes()[i].Position());
-			entityManager->addByTag("Player Controller", entityId);
+			entityManager->addByTag("PlayerController", entityId);
 		}
 		else {
 			entityId = entityManager->createEntity();
@@ -150,7 +150,7 @@ int main(int argc, char* args[]) {
 	//entityManager->addComponent<ECS::CameraMouseComponent>(entityId);
 	//entityManager->addByTag("Camera", entityId);
 
-	// Camera Third Person
+	// CameraThirdPerson
 	entityId = entityManager->createEntity();
 	entityManager->addComponent<ECS::ScreenDimensionsComponent>(
 		entityId,
@@ -160,7 +160,7 @@ int main(int argc, char* args[]) {
 	entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
 	entityManager->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 1, 0));
 	entityManager->addComponent<ECS::CameraMouseComponent>(entityId);
-	entityManager->addByTag("Camera Third Person", entityId);
+	entityManager->addByTag("CameraThirdPerson", entityId);
 
 	// Shader
 	entityManager->addComponent<ECS::ProgramComponent>(entityId, *shader3d);

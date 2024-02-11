@@ -107,7 +107,7 @@ void ECS::PhysicsSystem::_createStaticTriangleMeshBody()
 
 void ECS::PhysicsSystem::_createDynamicCapsuleBody()
 {
-	std::vector<int> entitiesPC = _entityManager.getByTag("Player Controller");
+	std::vector<int> entitiesPC = _entityManager.getByTag("PlayerController");
 
 	for (int entityId : entitiesPC) {
 		ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
@@ -135,6 +135,8 @@ void ECS::PhysicsSystem::_createDynamicCapsuleBody()
 			btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
 			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
 			btRigidBody* body = new btRigidBody(rbInfo);
+
+			// Set angular factor to zero to prevent rotation
 			body->setAngularFactor(btVector3(0, 0, 0));
 
 			dynamic->Body = body;

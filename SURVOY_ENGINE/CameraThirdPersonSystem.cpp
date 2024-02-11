@@ -22,7 +22,7 @@ void ECS::CameraThirdPersonSystem::onNotify(const Event& event)
     const auto* inputEvent = dynamic_cast<const InputMouseRelXYEvent*>(&event);
 
     if (inputEvent) {
-        std::vector<int> entities = _entityManager.getByTag("Camera Third Person");
+        std::vector<int> entities = _entityManager.getByTag("CameraThirdPerson");
 
         for (int entityId : entities) {
             ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);
@@ -38,7 +38,7 @@ void ECS::CameraThirdPersonSystem::onNotify(const Event& event)
 void ECS::CameraThirdPersonSystem::Load()
 {
     float yaw = 0.f;
-    std::vector<int> entitiesPM = _entityManager.getByTag("Player Controller");
+    std::vector<int> entitiesPM = _entityManager.getByTag("PlayerController");
 
     for (int entityId : entitiesPM) {
         ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
@@ -48,7 +48,7 @@ void ECS::CameraThirdPersonSystem::Load()
         }
     }
 
-    std::vector<int> entities = _entityManager.getByTag("Camera Third Person");
+    std::vector<int> entities = _entityManager.getByTag("CameraThirdPerson");
     for (int entityId : entities) {
         ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
         ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
@@ -79,7 +79,7 @@ void ECS::CameraThirdPersonSystem::Update(float deltaTime)
 {
     glm::vec3 target = glm::vec3(0);
     glm::vec3 position = glm::vec3(0);
-    std::vector<int> entitiesPM = _entityManager.getByTag("Player Controller");
+    std::vector<int> entitiesPM = _entityManager.getByTag("PlayerController");
 
     for (int entityId : entitiesPM) {
         ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
@@ -99,7 +99,7 @@ void ECS::CameraThirdPersonSystem::Update(float deltaTime)
         }
     }
 
-    std::vector<int> entities = _entityManager.getByTag("Camera Third Person");
+    std::vector<int> entities = _entityManager.getByTag("CameraThirdPerson");
 
     for (int entityId : entities) {
         ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
@@ -137,8 +137,11 @@ void ECS::CameraThirdPersonSystem::Update(float deltaTime)
 
             _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
             _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
+            _eventManager.notifyAll(CameraYawEvent(orientation->Yaw));
         }
     }
+
+
 }
 
 void ECS::CameraThirdPersonSystem::UpdatePostPhysics()
