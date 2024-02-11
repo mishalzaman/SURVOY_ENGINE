@@ -15,11 +15,13 @@ ECS::CharacterControllerSystem::~CharacterControllerSystem()
 
 void ECS::CharacterControllerSystem::onNotify(const Event& event)
 {
+	const auto* yawEvent = dynamic_cast<const CameraYawEvent*>(&event);
+	if (yawEvent) { _updateYaw(yawEvent->getYaw()); }
 }
 
 void ECS::CharacterControllerSystem::Load()
 {
-	std::vector<int> entities = _entityManager.getByTag("Player Controller");
+	std::vector<int> entities = _entityManager.getByTag("PlayerController");
 
 	for (int entityId : entities) {
 		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
@@ -33,47 +35,54 @@ void ECS::CharacterControllerSystem::Load()
 	}
 }
 
-void ECS::CharacterControllerSystem::Update()
+void ECS::CharacterControllerSystem::UpdatePrePhysics()
 {
 
 }
 
 void ECS::CharacterControllerSystem::Update(float deltaTime)
 {
-	std::vector<int> entities = _entityManager.getByTag("Player Controller");
+	int e = _entityManager.getByTag("PlayerController")[0];
 
-	for (int entityId : entities) {
-		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
-		ECS::VelocityComponent* velocity = _entityManager.getComponent<ECS::VelocityComponent>(entityId);
+	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
+	ECS::VelocityComponent* velocity = _entityManager.getComponent<ECS::VelocityComponent>(e);
+	ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(e);
 		
+	if (orientation && velocity && dynamic) {
+		_updateVectors(orientation->Yaw, orientation->Forward, orientation->Right, orientation->Up);
+		_updateInput(deltaTime, orientation->Forward, orientation->Right, velocity->Velocity, velocity->Direction);
+		_updatePhysics(*dynamic, velocity->Direction, velocity->Velocity);
+	}
+}
 
-		if (orientation && velocity) {
-			_move(deltaTime, orientation->Forward, orientation->Right, velocity->Velocity, velocity->Direction);
+void ECS::CharacterControllerSystem::UpdatePostPhysics()
+{
+	int e = _entityManager.getByTag("PlayerController")[0];
+
+	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
+	ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(e);
+
+
+	if (orientation && dynamic) {
+
+		btTransform trans;
+		if (dynamic->Body->getMotionState()) {
+			dynamic->Body->getMotionState()->getWorldTransform(trans);
+			orientation->Position = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
 		}
 	}
 }
 
-void ECS::CharacterControllerSystem::Renders()
+void ECS::CharacterControllerSystem::Render()
 {
-	std::vector<int> entitiesPM = _entityManager.getByTag("Player Mesh");
-
-	btVector3 position;
-
-	for (int entityId : entitiesPM) {
-		ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
-
-		if (transform) {
-			position = btVector3(transform->Position.x, transform->Position.y+1, transform->Position.z);
-
-		}
-	}
-
-	std::vector<int> entities = _entityManager.getByTag("Player Controller");
+	std::vector<int> entities = _entityManager.getByTag("PlayerController");
 
 	for (int entityId : entities) {
 		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
 
 		if (orientation) {
+			btVector3 position = btVector3(orientation->Position.x, orientation->Position.y + 1, orientation->Position.z);
+
 			// Assuming the magnitude of vectors is suitable for visualization; otherwise, scale them as needed
 			btVector3 forwardEnd = position + btVector3(orientation->Forward.x, orientation->Forward.y, orientation->Forward.z) * 2;
 			btVector3 rightEnd = position + btVector3(orientation->Right.x, orientation->Right.y, orientation->Right.z) * 2;
@@ -87,8 +96,7 @@ void ECS::CharacterControllerSystem::Renders()
 			// Drawing the vectors
 			_physics.World().getDebugDrawer()->drawLine(position, forwardEnd, forwardColor);
 			_physics.World().getDebugDrawer()->drawLine(position, rightEnd, rightColor);
-			_physics.World().getDebugDrawer()->drawLine(position, upEnd, upColor);
-			
+			_physics.World().getDebugDrawer()->drawLine(position, upEnd, upColor);	
 		}
 	}
 }
@@ -97,7 +105,7 @@ void ECS::CharacterControllerSystem::Unload()
 {
 }
 
-void ECS::CharacterControllerSystem::_move(float deltaTime, const glm::vec3& forward, const glm::vec3& right, float& velocity, glm::vec3& direction)
+void ECS::CharacterControllerSystem::_updateInput(float deltaTime, const glm::vec3& forward, const glm::vec3& right, float& velocity, glm::vec3& direction)
 {
 	const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
@@ -119,5 +127,30 @@ void ECS::CharacterControllerSystem::_move(float deltaTime, const glm::vec3& for
 	if (glm::length(direction) > 0) {
 		direction = glm::normalize(direction);
 		velocity = ACCELERATION * SPEED * deltaTime;
+	}
+}
+
+void ECS::CharacterControllerSystem::_updateYaw(float yaw)
+{
+	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
+		_entityManager.getByTag("PlayerController")[0]
+	);
+
+	if (orientation) { orientation->Yaw = yaw; }
+	
+}
+
+void ECS::CharacterControllerSystem::_updateVectors(const float yaw, glm::vec3& forward, glm::vec3& right, glm::vec3& up)
+{
+	forward = BAE::VectorHelpers::ForwardVec3(yaw, 0.f);
+	right = BAE::VectorHelpers::RightVec3(forward);
+	up = BAE::VectorHelpers::UpVec3(forward, right);
+}
+
+void ECS::CharacterControllerSystem::_updatePhysics(ECS::DynamicCapsulePhysicsBodyComponent& dynamic, const glm::vec3& direction, const float& velocity)
+{
+	if (glm::length(direction) > 0) {
+		dynamic.Body->activate(true);
+		dynamic.Body->setLinearVelocity(btVector3(direction.x, direction.y, direction.z) * velocity);
 	}
 }

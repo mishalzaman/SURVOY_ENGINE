@@ -140,6 +140,7 @@
     <ClCompile Include="CameraMatricesComponent.h" />
     <ClCompile Include="CameraFreeLookSystem.cpp" />
     <ClCompile Include="CameraThirdPersonSystem.cpp" />
+    <ClCompile Include="CameraYawEvent.h" />
     <ClCompile Include="CharacterControllerSystem.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Event.cpp" />

@@ -144,6 +144,9 @@
     <ClCompile Include="CharacterControllerSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="CameraYawEvent.h">
+      <Filter>ENGINE\Observer\Events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -298,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="OrientationComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ECSCommon.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

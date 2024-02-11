@@ -22,6 +22,7 @@ namespace ECS {
             glm::vec3 skew;
             glm::vec4 perspective;
             glm::decompose(Transformation, Scale, Rotation, Position, skew, perspective);
+            Rotation = glm::conjugate(Rotation);
         }
 
         void compose() {

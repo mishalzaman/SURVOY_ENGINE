@@ -62,7 +62,7 @@ void ECS::CameraFreeLookSystem::Load()
     }
 }
 
-void ECS::CameraFreeLookSystem::Renders()
+void ECS::CameraFreeLookSystem::Render()
 {
     // N/A
 }
@@ -72,7 +72,7 @@ void ECS::CameraFreeLookSystem::Unload()
     // N/A
 }
 
-void ECS::CameraFreeLookSystem::Update()
+void ECS::CameraFreeLookSystem::UpdatePrePhysics()
 {
     // N/A
 }
@@ -103,6 +103,10 @@ void ECS::CameraFreeLookSystem::Update(float deltaTime)
             _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
         }
     }
+}
+
+void ECS::CameraFreeLookSystem::UpdatePostPhysics()
+{
 }
 
 void ECS::CameraFreeLookSystem::_updateVectors(
