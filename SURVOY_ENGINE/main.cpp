@@ -14,60 +14,29 @@ Exporting:
     - Triangulate faces
     - Set scale to 0.01?
 
-ECS:
-Core ECS Classes:
+Features
+	v 0.1.x
+	=======
+	- Player movement
+	- Collision detection
+	- Fire projectiles
+	- Art direction
 
-	Entity: Represents a unique identifier for game entities.
-	Component: The base class for all components. Specific components inherit from this.
-	System: The base class for all systems. Specific systems inherit from this.
-	EntityManager: Manages entities and their associated components.
-	SystemManager: Manages the update cycle and coordination of systems.
-	ComponentManager: (Optional) Manages storage and retrieval of components.
-	Specific Component Classes:
-
-	TransformComponent: Stores position, rotation, scale.
-	MeshComponent: Contains 3D model data for rendering.
-	RigidBodyComponent: Holds physics properties for dynamics simulation.
-	StaticBodyComponent: Used for static (non-moving) physics objects.
-	CameraComponent: Holds data for camera view, projection.
-	LightComponent: Data for different types of lights.
-	InputComponent: Stores player input state.
-	AIComponent: For AI-controlled entities.
-	HealthComponent: To keep track of health or damage state.
-	AnimationComponent: For animated entities.
-	AudioComponent: For sound effects and music.
-	Specific System Classes:
-
-	RenderSystem: Handles rendering of entities with Mesh and Transform components.
-	PhysicsSystem: Manages physical interactions and updates RigidBody components.
-	InputSystem: Processes player inputs and updates relevant components.
-	AISystem: Controls AI behavior.
-	AnimationSystem: Manages animations for entities.
-	AudioSystem: Handles playback and manipulation of audio.
-	CollisionSystem: Detects and responds to collisions between entities.
-	Utility Classes:
-
-	Vector3, Quaternion, Matrix: For mathematical operations.
-	ResourceManager: Manages loading and accessing resources like textures, models, audio files.
-	SceneGraph: (Optional) Manages hierarchical relationships between entities.
-	EventDispatcher: For handling and dispatching events.
-	Timer: For managing game time and timers.
-	Gameplay-Specific Classes:
-
-	CharacterController: For player character movement logic.
-	EnemyController: For enemy behavior.
-	Weapon: For handling weapon logic.
-	Inventory: For managing player inventory.
-	QuestManager: For quest tracking and updates.
-	Networking (if multiplayer):
-
-	UIManager: Manages UI elements and interactions.
-	Button, Slider, TextField: Specific UI element classes.
-	Debugging and Tools:
-
-	DebugDrawer: For rendering debug information.
-	Profiler: For performance profiling.
-	Editor: (Optional) For in-game level editing or adjustments.
+	Implementations
+	---------------
+	v 0.1.1
+	- [ ] Create Level Base class
+	- [ ] Create Level0 class
+	- [ ] Move all contents from main to Level0 class
+	v 0.1.2
+	- [ ] Create ship movement
+	v 0.1.3
+	- [ ] Create fixed overhead camera
+	v 0.1.4
+	- [ ] Create Projectile Base class
+	- [ ] Create ship projectile class
+	v 0.1.5
+	- [ ] Work on art direction
 */
 
 #include <memory>
