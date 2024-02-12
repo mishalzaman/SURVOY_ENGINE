@@ -19,6 +19,7 @@
 #include "TexturesComponent.h"
 #include "TransformComponent.h"
 #include "VelocityComponent.h"
+#include "TargetComponent.h"
 
 // Systems
 #include "CameraFreeLookSystem.h"

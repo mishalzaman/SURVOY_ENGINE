@@ -69,6 +69,8 @@ void ECS::CharacterControllerSystem::UpdatePostPhysics()
 		if (dynamic->Body->getMotionState()) {
 			dynamic->Body->getMotionState()->getWorldTransform(trans);
 			orientation->Position = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
+
+			_eventManager.notifyAll(CharacterControllerPositionEvent(orientation->Position));
 		}
 	}
 }

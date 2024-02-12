@@ -12,6 +12,7 @@
 #include "VectorHelpers.h"
 #include "DynamicCapsulePhysicsBodyComponent.h"
 #include "CameraYawEvent.h"
+#include "CharacterControllerPositionEvent.h"
 
 namespace ECS {
 	class CharacterControllerSystem : public System, public IObserver

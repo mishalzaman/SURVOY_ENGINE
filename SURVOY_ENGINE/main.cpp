@@ -160,6 +160,7 @@ int main(int argc, char* args[]) {
 	entityManager->addComponent<ECS::CameraMatricesComponent>(entityId);
 	entityManager->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 1, 0));
 	entityManager->addComponent<ECS::CameraMouseComponent>(entityId);
+	entityManager->addComponent<ECS::TargetComponent>(entityId);
 	entityManager->addByTag("CameraThirdPerson", entityId);
 
 	// Shader

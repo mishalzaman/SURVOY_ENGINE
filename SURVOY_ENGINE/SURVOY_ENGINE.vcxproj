@@ -179,6 +179,7 @@
     <ClInclude Include="CameraMouseComponent.h" />
     <ClInclude Include="CameraPositionEvent.h" />
     <ClInclude Include="CameraThirdPersonSystem.h" />
+    <ClInclude Include="CharacterControllerPositionEvent.h" />
     <ClInclude Include="CharacterControllerSystem.h" />
     <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="ECSCommon.h" />
@@ -199,6 +200,7 @@
     <ClInclude Include="StaticPhysicsBodyComponent.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
+    <ClInclude Include="TargetComponent.h" />
     <ClInclude Include="TexturesComponent.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="VectorHelpers.h" />
