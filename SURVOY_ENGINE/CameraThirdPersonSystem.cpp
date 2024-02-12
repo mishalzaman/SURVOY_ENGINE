@@ -22,52 +22,44 @@ void ECS::CameraThirdPersonSystem::onNotify(const Event& event)
     const auto* inputEvent = dynamic_cast<const InputMouseRelXYEvent*>(&event);
 
     if (inputEvent) {
-        std::vector<int> entities = _entityManager.getByTag("CameraThirdPerson");
+        ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(
+            _entityManager.getByTag("CameraThirdPerson")[0]
+        );
+        assert(mouse);
 
-        for (int entityId : entities) {
-            ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);
+        if (mouse) {
+            mouse->MouseRelX = inputEvent->getMouseX();
+            mouse->MouseRelY = inputEvent->getMouseY();
+        }
+    }
 
-            if (mouse) {
-                mouse->MouseRelX = inputEvent->getMouseX();
-                mouse->MouseRelY = inputEvent->getMouseY();
-            }
+    const auto* positionEvent = dynamic_cast<const CharacterControllerPositionEvent*>(&event);
+
+    if (positionEvent) {
+        ECS::TargetComponent* target = _entityManager.getComponent<ECS::TargetComponent>(
+            _entityManager.getByTag("CameraThirdPerson")[0]
+        );
+        assert(target);
+
+        if (target) {
+            target->Target = positionEvent->getPosition();
         }
     }
 }
 
 void ECS::CameraThirdPersonSystem::Load()
 {
-    float yaw = 0.f;
-    std::vector<int> entitiesPM = _entityManager.getByTag("PlayerController");
+    float yaw = _entityManager.getComponent<ECS::OrientationComponent>(
+        _entityManager.getByTag("PlayerController")[0]
+    )->Yaw; assert(yaw);
 
-    for (int entityId : entitiesPM) {
-        ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
+    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
+        _entityManager.getByTag("CameraThirdPerson")[0]
+    ); assert(orientation);
 
-        if (orientation) {
-            yaw = orientation->Yaw;
-        }
-    }
-
-    std::vector<int> entities = _entityManager.getByTag("CameraThirdPerson");
-    for (int entityId : entities) {
-        ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
-        ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
-        ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
-
-        if (screen && matrices && orientation) {
-            matrices->View = BAE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
-            matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
-
-            _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
-            _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
-
-            _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
-            _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
-
-            // Set Yaw/Pitch
-            orientation->Yaw = yaw;
-            orientation->Pitch = -22.f;
-        }
+    if (orientation) {
+        orientation->Yaw = yaw;
+        orientation->Pitch = -22.f;
     }
 }
 
@@ -77,71 +69,44 @@ void ECS::CameraThirdPersonSystem::UpdatePrePhysics()
 
 void ECS::CameraThirdPersonSystem::Update(float deltaTime)
 {
-    glm::vec3 target = glm::vec3(0);
-    glm::vec3 position = glm::vec3(0);
-    std::vector<int> entitiesPM = _entityManager.getByTag("PlayerController");
-
-    for (int entityId : entitiesPM) {
-        ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
-        ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
+    int e = _entityManager.getByTag("CameraThirdPerson")[0];
 
 
-        if (orientation && dynamic) {
+    ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(e);
+    ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(e);
+    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
+    ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(e);
+    ECS::TargetComponent* target = _entityManager.getComponent<ECS::TargetComponent>(e);
 
-            btTransform trans;
-            if (dynamic->Body->getMotionState()) {
-                dynamic->Body->getMotionState()->getWorldTransform(trans);
-                position = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
-            }
+    assert(screen);
+    assert(matrices);
+    assert(orientation);
+    assert(mouse);
+    assert(target);
 
-            orientation->Position = position;
-            target = position;
-        }
+    if (screen && matrices && orientation && mouse && target) {
+        // Process camera movement and orientation based on input and deltaTime
+        _orbit(
+            deltaTime,
+            orientation->Yaw,
+            orientation->Pitch,
+            mouse->MouseRelX,
+            mouse->MouseRelY,
+            orientation->Position,
+            orientation->Forward,
+            orientation->Right,
+            orientation->Up,
+            target->Target
+        );
+
+        // Calculate view and projection matrices
+        matrices->View = BAE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
+        matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
+
+        _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
+        _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
+        _eventManager.notifyAll(CameraYawEvent(orientation->Yaw));
     }
-
-    std::vector<int> entities = _entityManager.getByTag("CameraThirdPerson");
-
-    for (int entityId : entities) {
-        ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
-        ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
-        ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
-        ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);
-
-        if (screen && matrices && orientation && mouse) {
-            // Process camera movement and orientation based on input and deltaTime
-            _orbit(
-                deltaTime,
-                orientation->Yaw,
-                orientation->Pitch,
-                mouse->MouseRelX,
-                mouse->MouseRelY,
-                orientation->Position,
-                orientation->Forward,
-                orientation->Right,
-                orientation->Up,
-                target
-            );
-            _move(
-                orientation->Yaw,
-                orientation->Pitch,
-                orientation->Position,
-                orientation->Forward,
-                orientation->Right,
-                orientation->Up,
-                target
-            );
-
-            // Calculate view and projection matrices
-            matrices->View = BAE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
-            matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
-
-            _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
-            _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
-            _eventManager.notifyAll(CameraYawEvent(orientation->Yaw));
-        }
-    }
-
-
 }
 
 void ECS::CameraThirdPersonSystem::UpdatePostPhysics()
@@ -191,27 +156,4 @@ void ECS::CameraThirdPersonSystem::_orbit(float deltaTime, float& yaw, float& pi
     // Reset mouse offsets
     mouseX = 0;
     mouseY = 0;
-}
-
-void ECS::CameraThirdPersonSystem::_move(float& yaw, float& pitch, glm::vec3& position, glm::vec3& forward, glm::vec3& right, glm::vec3& up, glm::vec3 target)
-{
-    // Convert yaw and pitch to radians
-    float yawRad = glm::radians(yaw);
-    float pitchRad = glm::radians(pitch);
-
-    // Calculate the offset from the target in world space
-    glm::vec3 offset;
-    offset.x = DISTANCE_TO_TARGET * cos(pitchRad) * cos(yawRad);
-    offset.y = DISTANCE_TO_TARGET * sin(pitchRad);
-    offset.z = DISTANCE_TO_TARGET * cos(pitchRad) * sin(yawRad);
-
-    // Set the camera's position
-    position = target - offset;
-
-    // Update the camera's forward vector
-    forward = glm::normalize(target - position);
-
-    // Assuming _Up is already set correctly in Camera3DBase or elsewhere
-    right = glm::normalize(glm::cross(forward, up));
-    up = glm::normalize(glm::cross(right, forward));
 }

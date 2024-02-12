@@ -1,6 +1,8 @@
 #pragma once
 
 #include <utility>
+#define NDEBUG // Disables assertions
+#include <cassert>
 #include <glm/gtc/quaternion.hpp>       // For glm::quat
 #include <glm/gtx/euler_angles.hpp>    // For glm::eulerAngles
 #include "System.h"
@@ -20,6 +22,8 @@
 #include "OrientationComponent.h"
 #include "DynamicCapsulePhysicsBodyComponent.h"
 #include "CameraYawEvent.h"
+#include "TargetComponent.h"
+#include "CharacterControllerPositionEvent.h"
 
 namespace ECS {
 	class CameraThirdPersonSystem : public System, public IObserver
@@ -48,7 +52,17 @@ namespace ECS {
 		EntityManager& _entityManager;
 		Physics& _physics;
 
-		void _orbit(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY, glm::vec3& position, glm::vec3& forward, glm::vec3& right, glm::vec3& up, glm::vec3 target);
-		void _move(float& yaw, float& pitch, glm::vec3& position, glm::vec3& forward, glm::vec3& right, glm::vec3& up, glm::vec3 target);
+		void _orbit(
+			float deltaTime,
+			float& yaw,
+			float& pitch,
+			float& mouseX,
+			float& mouseY,
+			glm::vec3& position,
+			glm::vec3& forward,
+			glm::vec3& right,
+			glm::vec3& up,
+			glm::vec3 target
+		);
 	};
 }
