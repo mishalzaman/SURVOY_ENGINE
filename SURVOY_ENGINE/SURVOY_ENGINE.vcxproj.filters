@@ -63,9 +63,6 @@
     <ClCompile Include="Logger.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="MapLoader.cpp">
-      <Filter>GAME</Filter>
-    </ClCompile>
     <ClCompile Include="RendererTileset2D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
@@ -163,9 +160,6 @@
     </ClInclude>
     <ClInclude Include="Defaults.h">
       <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="MapLoader.h">
-      <Filter>GAME</Filter>
     </ClInclude>
     <ClInclude Include="RendererTileset2D.h">
       <Filter>ENGINE</Filter>
