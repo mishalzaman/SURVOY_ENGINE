@@ -132,6 +132,12 @@
     <ClCompile Include="CameraYawEvent.h">
       <Filter>ENGINE\Observer\Events</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene0.cpp">
+      <Filter>GAME</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -280,6 +286,12 @@
     </ClInclude>
     <ClInclude Include="CharacterControllerPositionEvent.h">
       <Filter>ENGINE\Observer\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene0.h">
+      <Filter>GAME</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
