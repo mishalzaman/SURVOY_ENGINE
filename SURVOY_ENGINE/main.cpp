@@ -26,9 +26,9 @@ Features
 	Implementations
 	---------------
 	v 0.1.1
-	- [ ] Create Scene Base class
-	- [ ] Create Scene0 class
-	- [ ] Move all contents from main to Scene0 class
+	- [x] Create Scene Base class
+	- [x] Create Scene0 class
+	- [x] Move all contents from main to Scene0 class
 	v 0.1.4
 	- [ ] Create ship movement
 	v 0.1.5
