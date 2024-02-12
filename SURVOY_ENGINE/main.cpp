@@ -12,7 +12,7 @@ Exporting:
     - Select all meshes to export
     - Export to FBX
     - Triangulate faces
-    - Set scale to 0.01?
+    - Set scale to 0.01
 
 Features
 	v 0.1.x
@@ -121,8 +121,8 @@ int main(int argc, char* args[]) {
 	/*=============
 	SHUT DOWN
 	=============*/
-	
-	//systemManager->Unload();
+
+	scene0->Unload();
 
 	Core->DestroyDevice();
 	
