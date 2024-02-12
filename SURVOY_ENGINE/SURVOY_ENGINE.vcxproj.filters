@@ -96,18 +96,6 @@
     <ClCompile Include="VectorHelpers.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="Camera3DBase.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraFreeLook.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraFollow.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterController.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
     <ClCompile Include="System.cpp">
       <Filter>ENGINE\ECS</Filter>
     </ClCompile>
@@ -209,18 +197,6 @@
     <ClInclude Include="VectorHelpers.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="Camera3DBase.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraFreeLook.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraFollow.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterController.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
     <ClInclude Include="System.h">
       <Filter>ENGINE\ECS</Filter>
     </ClInclude>
@@ -278,9 +254,6 @@
     <ClInclude Include="ScreenDimensionsComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="MoveDirectionEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ProgramComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
@@ -302,8 +275,17 @@
     <ClInclude Include="OrientationComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
+    <ClInclude Include="TargetComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveDirectionEvent.h">
+      <Filter>ENGINE\Observer\Events</Filter>
+    </ClInclude>
     <ClInclude Include="ECSCommon.h">
-      <Filter>Header Files</Filter>
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterControllerPositionEvent.h">
+      <Filter>ENGINE\Observer\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -340,10 +322,5 @@
     <None Include="lighting_3d_vertex.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Design.txt">
-      <Filter>GAME</Filter>
-    </Text>
   </ItemGroup>
 </Project>
