@@ -40,6 +40,8 @@ Features
 	- [ ] Work on art direction
 	v 0.1.9
 	- [ ] Add sounds
+	v 0.1.9.1
+	- [ ] Refactor
 */
 
 #include <memory>
