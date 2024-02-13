@@ -30,8 +30,9 @@ Features
 	- [x] Create Scene0 class
 	- [x] Move all contents from main to Scene0 class
 	v 0.1.4
-	- [ ] Create ship movement
+	- [ ] Create test level
 	v 0.1.5
+	- [ ] Create ship movement
 	- [ ] Create fixed overhead camera
 	v 0.1.6
 	- [ ] Create Projectile Base class
