@@ -33,15 +33,10 @@ Features
 	- [ ] Create test level
 	v 0.1.5
 	- [ ] Create ship movement
-	- [ ] Create fixed overhead camera
+	- [ ] Create camere spline follow
 	v 0.1.6
-	- [ ] Create Projectile Base class
-	- [ ] Create ship projectile class
-	v 0.1.8
 	- [ ] Work on art direction
-	v 0.1.9
-	- [ ] Add sounds
-	v 0.1.9.1
+	v 0.1.8
 	- [ ] Refactor
 */
 
