@@ -41,16 +41,17 @@ namespace ECS {
             const TransformComponent& transform,
             const MeshComponent& mesh,
             const BuffersComponent& buffers,
-            const TexturesComponent& textures,
-            const CameraMatricesComponent& matrices
+            const TexturesComponent& textures
         );
 
         void _initBuffers(const MeshComponent& mesh, BuffersComponent& buffers);
 
-        glm::vec3 _cameraPosition;
-
         EntityManager& _entityManager;
         Physics& _physics;
         EventManager& _eventManager;
+
+        glm::vec3 _cameraPosition;
+        glm::mat4 _projection;
+        glm::mat4 _view;
     };
 }

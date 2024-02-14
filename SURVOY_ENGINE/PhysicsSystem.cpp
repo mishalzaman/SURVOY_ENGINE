@@ -119,7 +119,7 @@ void ECS::PhysicsSystem::_createDynamicCapsuleBody()
 
 			btTransform groundTransform;
 			groundTransform.setIdentity();
-			groundTransform.setOrigin(btVector3(orientation->Position.x, orientation->Position.y + 1, orientation->Position.z));
+			groundTransform.setOrigin(btVector3(orientation->Position.x, orientation->Position.y, orientation->Position.z));
 
 			// Create a quaternion from yaw and pitch
 			btQuaternion rotation;

@@ -1,7 +1,9 @@
 #include "MeshRenderSystem.h"
 
 ECS::MeshRenderSystem::MeshRenderSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager):
-    _eventManager(eventManager), _entityManager(entityManager), _physics(physics)
+    _eventManager(eventManager),
+    _entityManager(entityManager),
+    _physics(physics)
 {
     _eventManager.subscribe(this);
 }
@@ -17,28 +19,12 @@ void ECS::MeshRenderSystem::onNotify(const Event& event)
     const auto* cameraPositionEvent = dynamic_cast<const CameraPositionEvent*>(&event);
 
     if (cameraEvent) {
-        std::vector<int> entities = _entityManager.getByTags("Mesh");
-
-        for (int entityId : entities) {
-            ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
-
-            if (matrices) {
-                matrices->View = cameraEvent->getViewMatrix();
-                matrices->Projection = cameraEvent->getProjectionMatrix();
-            }
-        }
+        _view = cameraEvent->getViewMatrix();
+        _projection = cameraEvent->getProjectionMatrix();
     }
 
     if (cameraPositionEvent) {
-        std::vector<int> entities = _entityManager.getByTags("Mesh");
-
-        for (int entityId : entities) {
-            ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
-
-            if (transform) {
-                _cameraPosition = transform->Position;
-            }
-        }
+        _cameraPosition = cameraPositionEvent->getPosition();
     }
 }
 
@@ -67,10 +53,9 @@ void ECS::MeshRenderSystem::Render() {
         ECS::MeshComponent* mesh = _entityManager.getComponent<ECS::MeshComponent>(entityId);
         ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(entityId);
         ECS::TexturesComponent* textures = _entityManager.getComponent<ECS::TexturesComponent>(entityId);
-        ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
 
-        if (transform && mesh && buffers && textures && matrices) {
-            _render(*transform, *mesh, *buffers, *textures, *matrices);
+        if (transform && mesh && buffers && textures) {
+            _render(*transform, *mesh, *buffers, *textures);
         }
     }
 }
@@ -106,33 +91,21 @@ void ECS::MeshRenderSystem::_render(
     const TransformComponent& transform,
     const MeshComponent& mesh,
     const BuffersComponent& buffers,
-    const TexturesComponent& textures,
-    const CameraMatricesComponent& matrices
+    const TexturesComponent& textures
 )
 {
-    glm::vec3 viewPosition = glm::vec3(0);
-
-    std::vector<int> entitiesC = _entityManager.getByTag("Camera");
-    for (int entityId : entitiesC) {
-        ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
-
-        if (orientation) {
-            viewPosition = orientation->Position;
-        }
-    }
-
     // get shader
-    std::vector<int> entities = _entityManager.getByTag("Shader 3d");
+    std::vector<int> entities = _entityManager.getByTag("DefaultShader");
 
     for (int entityId : entities) {
         ECS::ProgramComponent* shader = _entityManager.getComponent<ECS::ProgramComponent>(entityId);
         if (shader) {
             shader->Program.use();
             shader->Program.setVec3("lightPos", glm::vec3(2, 20, 6));
-            shader->Program.setVec3("viewPos", viewPosition);
+            shader->Program.setVec3("viewPos", _cameraPosition);
             shader->Program.setVec3("lightColor", glm::vec3(0.7, 0.7, 0.7));
-            shader->Program.setMat4("projection", matrices.Projection);
-            shader->Program.setMat4("view", matrices.View);
+            shader->Program.setMat4("projection", _projection);
+            shader->Program.setMat4("view", _view);
             shader->Program.setInt("texture1", 0);
             shader->Program.setMat4("model", transform.Transformation);
 
@@ -150,8 +123,6 @@ void ECS::MeshRenderSystem::_render(
                     number = std::to_string(specularNr++);
 
                 glBindTexture(GL_TEXTURE_2D, textures.Textures[i].id);
-
-
             }
             glActiveTexture(GL_TEXTURE0);
 
