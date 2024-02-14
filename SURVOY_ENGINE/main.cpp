@@ -32,11 +32,10 @@ Features
 	v 0.1.4
 	- [ ] Create test level
 	v 0.1.5
-	- [ ] Create ship movement
-	- [ ] Create camere spline follow
-	v 0.1.6
 	- [ ] Work on art direction
-	v 0.1.8
+	- [ ] Improve renderer
+	- [ ] Add FBO
+	v 0.1.7
 	- [ ] Refactor
 */
 
