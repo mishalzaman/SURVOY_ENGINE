@@ -142,6 +142,8 @@
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="FBODisabledSystem.cpp" />
+    <ClCompile Include="FBOEnabledSystem.cpp" />
     <ClCompile Include="IObserver.cpp" />
     <ClCompile Include="Renderer3DSystem.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
@@ -177,6 +179,9 @@
     <ClInclude Include="CharacterControllerSystem.h" />
     <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="ECSCommon.h" />
+    <ClInclude Include="FrameBufferColourBufferEvent.h" />
+    <ClInclude Include="FBODisabledSystem.h" />
+    <ClInclude Include="FBOEnabledSystem.h" />
     <ClInclude Include="InputMouseRelXYEvent.h" />
     <ClInclude Include="CameraFreeLookSystem.h" />
     <ClInclude Include="CameraViewProjectionEvent.h" />
@@ -222,6 +227,8 @@
   <ItemGroup>
     <None Include="base_fragment_2d.glsl" />
     <None Include="base_vertex_2d.glsl" />
+    <None Include="framebuffer_fragment.glsl" />
+    <None Include="framebuffer_vertex.glsl" />
     <None Include="lighting_3d_vertex.glsl" />
     <None Include="lighting_3d_fragment.glsl" />
     <None Include="physics_debug_draw_fragment.glsl" />

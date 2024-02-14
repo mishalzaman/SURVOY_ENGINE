@@ -138,6 +138,12 @@
     <ClCompile Include="Scene0.cpp">
       <Filter>GAME</Filter>
     </ClCompile>
+    <ClCompile Include="FBOEnabledSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="FBODisabledSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -293,6 +299,15 @@
     <ClInclude Include="Scene0.h">
       <Filter>GAME</Filter>
     </ClInclude>
+    <ClInclude Include="FBOEnabledSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="FBODisabledSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBufferColourBufferEvent.h">
+      <Filter>ENGINE\Observer\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_2d.glsl">
@@ -326,6 +341,12 @@
       <Filter>ENGINE\Programs</Filter>
     </None>
     <None Include="lighting_3d_vertex.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="framebuffer_vertex.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="framebuffer_fragment.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
   </ItemGroup>

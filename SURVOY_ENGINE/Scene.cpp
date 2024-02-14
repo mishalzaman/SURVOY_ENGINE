@@ -16,10 +16,12 @@ GAME LOOP
 
 void Scene::Load()
 {
+	systemManager_->AddSystem<ECS::FBOEnabledSystem>(*eventManager_);
 	systemManager_->AddSystem<ECS::PhysicsSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::CharacterControllerSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::CameraThirdPersonSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::Renderer3DSystem>(*entityManager_, *physics_, *eventManager_);
+	systemManager_->AddSystem<ECS::FBODisabledSystem>(*eventManager_);
 
 	systemManager_->Load();
 }

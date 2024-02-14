@@ -32,6 +32,8 @@
 #include "characterControllerSystem.h"
 #include "PhysicsSystem.h"
 #include "Renderer3DSystem.h"
+#include "FBOEnabledSystem.h"
+#include "FBODisabledSystem.h"
 
 //  Observer
 #include "Event.h"
