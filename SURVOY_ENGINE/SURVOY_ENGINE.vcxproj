@@ -143,7 +143,7 @@
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="IObserver.cpp" />
-    <ClCompile Include="MeshRenderSystem.cpp" />
+    <ClCompile Include="Renderer3DSystem.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene0.cpp" />
@@ -185,7 +185,7 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="MeshComponent.h" />
-    <ClInclude Include="MeshRenderSystem.h" />
+    <ClInclude Include="Renderer3DSystem.h" />
     <ClInclude Include="MoveDirectionEvent.h" />
     <ClInclude Include="OrientationComponent.h" />
     <ClInclude Include="PhysicsSystem.h" />

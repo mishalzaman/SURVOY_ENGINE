@@ -102,7 +102,7 @@
     <ClCompile Include="SystemManager.cpp">
       <Filter>ENGINE\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="MeshRenderSystem.cpp">
+    <ClCompile Include="Renderer3DSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
     <ClCompile Include="CameraFreeLookSystem.cpp">
@@ -215,7 +215,7 @@
     <ClInclude Include="BuffersComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="MeshRenderSystem.h">
+    <ClInclude Include="Renderer3DSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="TexturesComponent.h">

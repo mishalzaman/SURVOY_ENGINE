@@ -1,6 +1,6 @@
-#include "MeshRenderSystem.h"
+#include "Renderer3DSystem.h"
 
-ECS::MeshRenderSystem::MeshRenderSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager):
+ECS::Renderer3DSystem::Renderer3DSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager):
     _eventManager(eventManager),
     _entityManager(entityManager),
     _physics(physics)
@@ -8,12 +8,12 @@ ECS::MeshRenderSystem::MeshRenderSystem(EntityManager& entityManager, Physics& p
     _eventManager.subscribe(this);
 }
 
-ECS::MeshRenderSystem::~MeshRenderSystem()
+ECS::Renderer3DSystem::~Renderer3DSystem()
 {
     _eventManager.unsubscribe(this);
 }
 
-void ECS::MeshRenderSystem::onNotify(const Event& event)
+void ECS::Renderer3DSystem::onNotify(const Event& event)
 {
     const auto* cameraEvent = dynamic_cast<const CameraViewProjectionEvent*>(&event);
     const auto* cameraPositionEvent = dynamic_cast<const CameraPositionEvent*>(&event);
@@ -28,7 +28,7 @@ void ECS::MeshRenderSystem::onNotify(const Event& event)
     }
 }
 
-void ECS::MeshRenderSystem::Load() {
+void ECS::Renderer3DSystem::Load() {
     // Retrieve entity IDs by tag
     std::vector<int> entities = _entityManager.getByTags("Mesh");
 
@@ -66,7 +66,7 @@ void ECS::MeshRenderSystem::Load() {
     }
 }
 
-void ECS::MeshRenderSystem::Render() {
+void ECS::Renderer3DSystem::Render() {
     std::vector<int> entities = _entityManager.getByTags("Mesh");
 
     for (int entityId : entities) {
@@ -82,7 +82,7 @@ void ECS::MeshRenderSystem::Render() {
     }
 }
 
-void ECS::MeshRenderSystem::Unload() {
+void ECS::Renderer3DSystem::Unload() {
     std::vector<int> entities = _entityManager.getByTags("Mesh");
 
     for (int entityId : entities) {
@@ -96,20 +96,20 @@ void ECS::MeshRenderSystem::Unload() {
     }
 }
 
-void ECS::MeshRenderSystem::UpdatePrePhysics()
+void ECS::Renderer3DSystem::UpdatePrePhysics()
 {
 }
 
-void ECS::MeshRenderSystem::Update(float deltaTime)
+void ECS::Renderer3DSystem::Update(float deltaTime)
 {
 }
 
-void ECS::MeshRenderSystem::UpdatePostPhysics()
+void ECS::Renderer3DSystem::UpdatePostPhysics()
 {
 }
 
 
-void ECS::MeshRenderSystem::_render(
+void ECS::Renderer3DSystem::_render(
     const TransformComponent& transform,
     const MeshComponent& mesh,
     const BuffersComponent& buffers,

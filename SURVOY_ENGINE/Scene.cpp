@@ -19,7 +19,7 @@ void Scene::Load()
 	systemManager_->AddSystem<ECS::PhysicsSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::CharacterControllerSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::CameraThirdPersonSystem>(*entityManager_, *physics_, *eventManager_);
-	systemManager_->AddSystem<ECS::MeshRenderSystem>(*entityManager_, *physics_, *eventManager_);
+	systemManager_->AddSystem<ECS::Renderer3DSystem>(*entityManager_, *physics_, *eventManager_);
 
 	systemManager_->Load();
 }
