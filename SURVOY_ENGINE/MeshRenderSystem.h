@@ -44,14 +44,15 @@ namespace ECS {
             const TexturesComponent& textures
         );
 
-        void _initBuffers(const MeshComponent& mesh, BuffersComponent& buffers);
-
         EntityManager& _entityManager;
         Physics& _physics;
         EventManager& _eventManager;
 
+        // Camera
         glm::vec3 _cameraPosition;
         glm::mat4 _projection;
         glm::mat4 _view;
+
+
     };
 }

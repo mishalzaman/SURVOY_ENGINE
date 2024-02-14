@@ -39,7 +39,29 @@ void ECS::MeshRenderSystem::Load() {
 
         if (mesh && buffers) {
             // Initialize the buffers for the mesh
-            _initBuffers(*mesh, *buffers);
+            glGenVertexArrays(1, &buffers->VAO);
+            glGenBuffers(1, &buffers->VBO);
+            glGenBuffers(1, &buffers->EBO);
+
+            glBindVertexArray(buffers->VAO);
+            glBindBuffer(GL_ARRAY_BUFFER, buffers->VBO);
+
+            glBufferData(GL_ARRAY_BUFFER, mesh->Vertices.size() * sizeof(SVertex), &mesh->Vertices[0], GL_STATIC_DRAW);
+
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers->EBO);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->Indices.size() * sizeof(unsigned int), &mesh->Indices[0], GL_STATIC_DRAW);
+
+            // vertex positions
+            glEnableVertexAttribArray(0);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertex), (void*)0);
+            // vertex normals
+            glEnableVertexAttribArray(1);
+            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertex), (void*)offsetof(SVertex, Normal));
+            // vertex texture coords
+            glEnableVertexAttribArray(2);
+            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(SVertex), (void*)offsetof(SVertex, TexCoords));
+
+            glBindVertexArray(0);
         }
     }
 }
@@ -133,31 +155,4 @@ void ECS::MeshRenderSystem::_render(
 
         }
     }
-}
-
-void ECS::MeshRenderSystem::_initBuffers(const MeshComponent& mesh, BuffersComponent& buffers)
-{
-    glGenVertexArrays(1, &buffers.VAO);
-    glGenBuffers(1, &buffers.VBO);
-    glGenBuffers(1, &buffers.EBO);
-
-    glBindVertexArray(buffers.VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, buffers.VBO);
-
-    glBufferData(GL_ARRAY_BUFFER, mesh.Vertices.size() * sizeof(SVertex), &mesh.Vertices[0], GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers.EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.Indices.size() * sizeof(unsigned int), &mesh.Indices[0], GL_STATIC_DRAW);
-
-    // vertex positions
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(SVertex), (void*)0);
-    // vertex normals
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(SVertex), (void*)offsetof(SVertex, Normal));
-    // vertex texture coords
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(SVertex), (void*)offsetof(SVertex, TexCoords));
-
-    glBindVertexArray(0);
 }
