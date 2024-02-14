@@ -137,7 +137,7 @@ void ECS::PhysicsSystem::_createDynamicCapsuleBody()
 			btRigidBody* body = new btRigidBody(rbInfo);
 
 			// Set angular factor to zero to prevent rotation
-			body->setAngularFactor(btVector3(0, 0, 0));
+			body->setAngularFactor(btVector3(0, 1, 0));
 
 			dynamic->Body = body;
 

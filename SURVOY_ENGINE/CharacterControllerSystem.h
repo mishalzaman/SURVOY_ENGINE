@@ -19,6 +19,7 @@ namespace ECS {
 	{
 	public:
 		const float SPEED = 48.f;
+		const float YAW_SPEED = 64.f;
 		const float ACCELERATION = 4.f;
 
 		CharacterControllerSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
@@ -39,8 +40,9 @@ namespace ECS {
 		Physics& _physics;
 
 		void _updateInput(float deltaTime, const glm::vec3& forward, const glm::vec3& right, float& velocity, glm::vec3& direction);
+		void _updateInput(float deltaTime, const glm::vec3& forward, float& velocity, glm::vec3& direction, float& deltaYaw);
 		void _updateYaw(float yaw);
 		void _updateVectors(const float yaw, glm::vec3& forward, glm::vec3& right, glm::vec3& up);
-		void _updatePhysics(ECS::DynamicCapsulePhysicsBodyComponent& dynamic, const glm::vec3& direction, const float& velocity);
+		void _updatePhysics(ECS::DynamicCapsulePhysicsBodyComponent& dynamic, const glm::vec3& direction, const float& velocity, const float& deltaYaw);
 	};
 }

@@ -15,8 +15,8 @@ ECS::CharacterControllerSystem::~CharacterControllerSystem()
 
 void ECS::CharacterControllerSystem::onNotify(const Event& event)
 {
-	const auto* yawEvent = dynamic_cast<const CameraYawEvent*>(&event);
-	if (yawEvent) { _updateYaw(yawEvent->getYaw()); }
+	//const auto* yawEvent = dynamic_cast<const CameraYawEvent*>(&event);
+	//if (yawEvent) { _updateYaw(yawEvent->getYaw()); }
 }
 
 void ECS::CharacterControllerSystem::Load()
@@ -49,9 +49,12 @@ void ECS::CharacterControllerSystem::Update(float deltaTime)
 	ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(e);
 		
 	if (orientation && velocity && dynamic) {
+		float deltaYaw = 0.f;
+
 		_updateVectors(orientation->Yaw, orientation->Forward, orientation->Right, orientation->Up);
-		_updateInput(deltaTime, orientation->Forward, orientation->Right, velocity->Velocity, velocity->Direction);
-		_updatePhysics(*dynamic, velocity->Direction, velocity->Velocity);
+		//_updateInput(deltaTime, orientation->Forward, orientation->Right, velocity->Velocity, velocity->Direction);
+		_updateInput(deltaTime, orientation->Forward, velocity->Velocity, velocity->Direction, deltaYaw);
+		_updatePhysics(*dynamic, velocity->Direction, velocity->Velocity, deltaYaw);
 	}
 }
 
@@ -61,7 +64,6 @@ void ECS::CharacterControllerSystem::UpdatePostPhysics()
 
 	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
 	ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(e);
-
 
 	if (orientation && dynamic) {
 
@@ -83,12 +85,12 @@ void ECS::CharacterControllerSystem::Render()
 		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
 
 		if (orientation) {
-			btVector3 position = btVector3(orientation->Position.x, orientation->Position.y + 1, orientation->Position.z);
+			btVector3 position = btVector3(orientation->Position.x, orientation->Position.y, orientation->Position.z);
 
 			// Assuming the magnitude of vectors is suitable for visualization; otherwise, scale them as needed
-			btVector3 forwardEnd = position + btVector3(orientation->Forward.x, orientation->Forward.y, orientation->Forward.z) * 2;
-			btVector3 rightEnd = position + btVector3(orientation->Right.x, orientation->Right.y, orientation->Right.z) * 2;
-			btVector3 upEnd = position + btVector3(orientation->Up.x, orientation->Up.y, orientation->Up.z) * 2;
+			btVector3 forwardEnd = position + btVector3(orientation->Forward.x, orientation->Forward.y, orientation->Forward.z);
+			btVector3 rightEnd = position + btVector3(orientation->Right.x, orientation->Right.y, orientation->Right.z);
+			btVector3 upEnd = position + btVector3(orientation->Up.x, orientation->Up.y, orientation->Up.z);
 
 			// Colors for each vector
 			btVector3 forwardColor(1, 0, 0); // Red for Forward
@@ -132,6 +134,32 @@ void ECS::CharacterControllerSystem::_updateInput(float deltaTime, const glm::ve
 	}
 }
 
+void ECS::CharacterControllerSystem::_updateInput(float deltaTime, const glm::vec3& forward, float& velocity, glm::vec3& direction, float& deltaYaw)
+{
+	const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
+	direction = glm::vec3(0);
+	deltaYaw = 0.0f; // Reset deltaYaw each frame
+
+	if (keystate[SDL_SCANCODE_W]) {
+		direction += forward;
+	}
+	if (keystate[SDL_SCANCODE_S]) {
+		direction -= forward;
+	}
+	if (keystate[SDL_SCANCODE_A]) {
+		deltaYaw -= YAW_SPEED * deltaTime;
+	}
+	if (keystate[SDL_SCANCODE_D]) {
+		deltaYaw += YAW_SPEED * deltaTime;
+	}
+
+	if (glm::length(direction) > 0) {
+		direction = glm::normalize(direction);
+		velocity = ACCELERATION * SPEED * deltaTime;
+	}
+}
+
 void ECS::CharacterControllerSystem::_updateYaw(float yaw)
 {
 	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
@@ -149,10 +177,13 @@ void ECS::CharacterControllerSystem::_updateVectors(const float yaw, glm::vec3& 
 	up = BAE::VectorHelpers::UpVec3(forward, right);
 }
 
-void ECS::CharacterControllerSystem::_updatePhysics(ECS::DynamicCapsulePhysicsBodyComponent& dynamic, const glm::vec3& direction, const float& velocity)
+void ECS::CharacterControllerSystem::_updatePhysics(ECS::DynamicCapsulePhysicsBodyComponent& dynamic, const glm::vec3& direction, const float& velocity, const float& deltaYaw)
 {
 	if (glm::length(direction) > 0) {
 		dynamic.Body->activate(true);
 		dynamic.Body->setLinearVelocity(btVector3(direction.x, direction.y, direction.z) * velocity);
 	}
+
+	// Apply angular velocity based on deltaYaw. deltaYaw is in radians per second here.
+	dynamic.Body->setAngularVelocity(btVector3(0, deltaYaw, 0));
 }
