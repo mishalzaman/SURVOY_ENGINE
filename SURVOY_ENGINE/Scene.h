@@ -31,7 +31,9 @@
 #include "CameraThirdPersonSystem.h"
 #include "characterControllerSystem.h"
 #include "PhysicsSystem.h"
-#include "MeshRenderSystem.h"
+#include "RendererStatic3DSystem.h"
+#include "FBOBeginSystem.h"
+#include "FBORendererSystem.h"
 
 //  Observer
 #include "Event.h"

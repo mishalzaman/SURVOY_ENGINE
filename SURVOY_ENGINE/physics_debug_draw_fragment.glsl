@@ -1,4 +1,4 @@
-#version 330 core
+#version 440 core
 in vec3 fColor;
 out vec4 color;
 

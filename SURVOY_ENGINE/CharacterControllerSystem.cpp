@@ -83,7 +83,7 @@ void ECS::CharacterControllerSystem::Render()
 		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
 
 		if (orientation) {
-			btVector3 position = btVector3(orientation->Position.x, orientation->Position.y + 1, orientation->Position.z);
+			btVector3 position = btVector3(orientation->Position.x, orientation->Position.y, orientation->Position.z);
 
 			// Assuming the magnitude of vectors is suitable for visualization; otherwise, scale them as needed
 			btVector3 forwardEnd = position + btVector3(orientation->Forward.x, orientation->Forward.y, orientation->Forward.z) * 2;

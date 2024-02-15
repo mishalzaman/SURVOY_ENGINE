@@ -142,8 +142,10 @@
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="FBORendererSystem.cpp" />
+    <ClCompile Include="FBOBeginSystem.cpp" />
     <ClCompile Include="IObserver.cpp" />
-    <ClCompile Include="MeshRenderSystem.cpp" />
+    <ClCompile Include="RendererStatic3DSystem.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene0.cpp" />
@@ -177,6 +179,9 @@
     <ClInclude Include="CharacterControllerSystem.h" />
     <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="ECSCommon.h" />
+    <ClInclude Include="FrameBufferColourBufferEvent.h" />
+    <ClInclude Include="FBORendererSystem.h" />
+    <ClInclude Include="FBOBeginSystem.h" />
     <ClInclude Include="InputMouseRelXYEvent.h" />
     <ClInclude Include="CameraFreeLookSystem.h" />
     <ClInclude Include="CameraViewProjectionEvent.h" />
@@ -185,7 +190,7 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="MeshComponent.h" />
-    <ClInclude Include="MeshRenderSystem.h" />
+    <ClInclude Include="RendererStatic3DSystem.h" />
     <ClInclude Include="MoveDirectionEvent.h" />
     <ClInclude Include="OrientationComponent.h" />
     <ClInclude Include="PhysicsSystem.h" />
@@ -222,6 +227,8 @@
   <ItemGroup>
     <None Include="base_fragment_2d.glsl" />
     <None Include="base_vertex_2d.glsl" />
+    <None Include="framebuffer_fragment.glsl" />
+    <None Include="framebuffer_vertex.glsl" />
     <None Include="lighting_3d_vertex.glsl" />
     <None Include="lighting_3d_fragment.glsl" />
     <None Include="physics_debug_draw_fragment.glsl" />

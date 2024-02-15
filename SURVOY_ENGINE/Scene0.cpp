@@ -54,7 +54,7 @@ void Scene0::Load()
 	
 	// Shader
 	entityManager_->addComponent<ECS::ProgramComponent>(entityId, *defaultShader_);
-	entityManager_->addByTag("Shader 3d", entityId);
+	entityManager_->addByTag("DefaultShader", entityId);
 
 	Scene::Load();
 }

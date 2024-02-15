@@ -22,10 +22,10 @@
 #include "OrientationComponent.h"
 
 namespace ECS {
-    class MeshRenderSystem : public System, public IObserver {
+    class RendererStatic3DSystem : public System, public IObserver {
     public:
-        MeshRenderSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
-        ~MeshRenderSystem();
+        RendererStatic3DSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
+        ~RendererStatic3DSystem();
 
         void onNotify(const Event& event) override;
 
@@ -41,16 +41,18 @@ namespace ECS {
             const TransformComponent& transform,
             const MeshComponent& mesh,
             const BuffersComponent& buffers,
-            const TexturesComponent& textures,
-            const CameraMatricesComponent& matrices
+            const TexturesComponent& textures
         );
-
-        void _initBuffers(const MeshComponent& mesh, BuffersComponent& buffers);
-
-        glm::vec3 _cameraPosition;
 
         EntityManager& _entityManager;
         Physics& _physics;
         EventManager& _eventManager;
+
+        // Camera
+        glm::vec3 _cameraPosition;
+        glm::mat4 _projection;
+        glm::mat4 _view;
+
+
     };
 }

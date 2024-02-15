@@ -102,7 +102,7 @@
     <ClCompile Include="SystemManager.cpp">
       <Filter>ENGINE\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="MeshRenderSystem.cpp">
+    <ClCompile Include="RendererStatic3DSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
     <ClCompile Include="CameraFreeLookSystem.cpp">
@@ -137,6 +137,12 @@
     </ClCompile>
     <ClCompile Include="Scene0.cpp">
       <Filter>GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="FBOBeginSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="FBORendererSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +221,7 @@
     <ClInclude Include="BuffersComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="MeshRenderSystem.h">
+    <ClInclude Include="RendererStatic3DSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="TexturesComponent.h">
@@ -293,6 +299,15 @@
     <ClInclude Include="Scene0.h">
       <Filter>GAME</Filter>
     </ClInclude>
+    <ClInclude Include="FBOBeginSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="FBORendererSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBufferColourBufferEvent.h">
+      <Filter>ENGINE\Observer\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_2d.glsl">
@@ -326,6 +341,12 @@
       <Filter>ENGINE\Programs</Filter>
     </None>
     <None Include="lighting_3d_vertex.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="framebuffer_vertex.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="framebuffer_fragment.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
   </ItemGroup>
