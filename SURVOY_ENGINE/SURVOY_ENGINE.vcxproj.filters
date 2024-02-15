@@ -361,6 +361,8 @@
     <None Include="skybox_vertex.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
-    <None Include="skybox_fragment.glsl" />
+    <None Include="skybox_fragment.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
   </ItemGroup>
 </Project>
