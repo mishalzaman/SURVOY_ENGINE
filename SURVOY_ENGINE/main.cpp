@@ -1,6 +1,6 @@
 
 /*
-VERSION 0.1.5
+VERSION 0.1.5.2
 
 DEVELOPMENT NOTES
 =================
@@ -14,14 +14,12 @@ Exporting:
     - Triangulate faces
     - Set scale to 0.01
 
-Features
+Implementations
 	v 0.1.x
 	=======
-	- Player movement
-	- Collision detection
-	- Fire projectiles
+	- Main theme of this iteration is to create a general sense
+	  of the art direction
 	- Art direction
-	- Player sounds
 
 	Implementations
 	---------------
@@ -30,13 +28,19 @@ Features
 	- [x] Create Scene0 class
 	- [x] Move all contents from main to Scene0 class
 	v 0.1.4
-	- [ ] Create test level
+	- [x] Create test level
 	v 0.1.5
-	- [ ] Work on art direction
-	- [ ] Improve renderer
-	- [ ] Add FBO
+	- [x] Add framebuffer
+	- [ ] Add cubemap
+	v 0.1.6
+	- [ ] Add back free look camera
 	v 0.1.7
-	- [ ] Refactor
+	- [ ] Improve buffer data
+	v 0.1.8
+	- [ ] Fix lighting (gamma, hdr, ssao, blur)
+	v 0.1.9
+	- [ ] Add shadows
+
 */
 
 #include <memory>
