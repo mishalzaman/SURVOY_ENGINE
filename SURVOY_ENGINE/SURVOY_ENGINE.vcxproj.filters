@@ -144,6 +144,9 @@
     <ClCompile Include="FBORendererSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="SkyBoxSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -308,6 +311,12 @@
     <ClInclude Include="FrameBufferColourBufferEvent.h">
       <Filter>ENGINE\Observer\Events</Filter>
     </ClInclude>
+    <ClInclude Include="SkyBoxSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBoxComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_2d.glsl">
@@ -349,5 +358,9 @@
     <None Include="framebuffer_fragment.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
+    <None Include="skybox_vertex.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="skybox_fragment.glsl" />
   </ItemGroup>
 </Project>

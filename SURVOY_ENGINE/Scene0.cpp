@@ -53,8 +53,27 @@ void Scene0::Load()
 	entityManager_->addByTag("CameraThirdPerson", entityId);
 	
 	// Shader
+	entityId = entityManager_->createEntity();
 	entityManager_->addComponent<ECS::ProgramComponent>(entityId, *defaultShader_);
 	entityManager_->addByTag("DefaultShader", entityId);
+
+	// Skybox
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::SkyBoxComponent>(
+		entityId,
+		"assets/skybox/intersteller/right.png",
+		"assets/skybox/intersteller/left.png",
+		"assets/skybox/intersteller/top.png",
+		"assets/skybox/intersteller/bottom.png",
+		"assets/skybox/intersteller/front.png",
+		"assets/skybox/intersteller/back.png"
+	);
+	entityManager_->addByTag("SkyBox", entityId);
+
+	// Skybox Shader
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::ProgramComponent>(entityId, *skyboxShader_);
+	entityManager_->addByTag("SkyBoxShader", entityId);
 
 	Scene::Load();
 }

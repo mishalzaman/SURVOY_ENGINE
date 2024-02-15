@@ -25,6 +25,7 @@
 #include "TransformComponent.h"
 #include "VelocityComponent.h"
 #include "TargetComponent.h"
+#include "SkyBoxComponent.h"
 
 // ECS - Systems
 #include "CameraFreeLookSystem.h"
@@ -34,6 +35,7 @@
 #include "RendererStatic3DSystem.h"
 #include "FBOBeginSystem.h"
 #include "FBORendererSystem.h"
+#include "SkyBoxSystem.h"
 
 //  Observer
 #include "Event.h"
@@ -62,6 +64,7 @@ private:
 
 protected:
     std::unique_ptr<BAE::Shader> defaultShader_;
+    std::unique_ptr<BAE::Shader> skyboxShader_;
     std::unique_ptr<BAE::Physics> physics_;
 
     std::unique_ptr<ECS::SystemManager> systemManager_;
