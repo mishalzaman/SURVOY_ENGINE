@@ -1,6 +1,6 @@
-#include "Renderer3DSystem.h"
+#include "RendererStatic3DSystem.h"
 
-ECS::Renderer3DSystem::Renderer3DSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager):
+ECS::RendererStatic3DSystem::RendererStatic3DSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager):
     _eventManager(eventManager),
     _entityManager(entityManager),
     _physics(physics)
@@ -8,12 +8,12 @@ ECS::Renderer3DSystem::Renderer3DSystem(EntityManager& entityManager, Physics& p
     _eventManager.subscribe(this);
 }
 
-ECS::Renderer3DSystem::~Renderer3DSystem()
+ECS::RendererStatic3DSystem::~RendererStatic3DSystem()
 {
     _eventManager.unsubscribe(this);
 }
 
-void ECS::Renderer3DSystem::onNotify(const Event& event)
+void ECS::RendererStatic3DSystem::onNotify(const Event& event)
 {
     const auto* cameraEvent = dynamic_cast<const CameraViewProjectionEvent*>(&event);
     const auto* cameraPositionEvent = dynamic_cast<const CameraPositionEvent*>(&event);
@@ -28,7 +28,7 @@ void ECS::Renderer3DSystem::onNotify(const Event& event)
     }
 }
 
-void ECS::Renderer3DSystem::Load() {
+void ECS::RendererStatic3DSystem::Load() {
     // Retrieve entity IDs by tag
     std::vector<int> entities = _entityManager.getByTags("Mesh");
 
@@ -66,7 +66,7 @@ void ECS::Renderer3DSystem::Load() {
     }
 }
 
-void ECS::Renderer3DSystem::Render() {
+void ECS::RendererStatic3DSystem::Render() {
     std::vector<int> entities = _entityManager.getByTags("Mesh");
 
     for (int entityId : entities) {
@@ -82,7 +82,7 @@ void ECS::Renderer3DSystem::Render() {
     }
 }
 
-void ECS::Renderer3DSystem::Unload() {
+void ECS::RendererStatic3DSystem::Unload() {
     std::vector<int> entities = _entityManager.getByTags("Mesh");
 
     for (int entityId : entities) {
@@ -96,20 +96,20 @@ void ECS::Renderer3DSystem::Unload() {
     }
 }
 
-void ECS::Renderer3DSystem::UpdatePrePhysics()
+void ECS::RendererStatic3DSystem::UpdatePrePhysics()
 {
 }
 
-void ECS::Renderer3DSystem::Update(float deltaTime)
+void ECS::RendererStatic3DSystem::Update(float deltaTime)
 {
 }
 
-void ECS::Renderer3DSystem::UpdatePostPhysics()
+void ECS::RendererStatic3DSystem::UpdatePostPhysics()
 {
 }
 
 
-void ECS::Renderer3DSystem::_render(
+void ECS::RendererStatic3DSystem::_render(
     const TransformComponent& transform,
     const MeshComponent& mesh,
     const BuffersComponent& buffers,

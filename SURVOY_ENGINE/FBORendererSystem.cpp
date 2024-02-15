@@ -1,6 +1,6 @@
-#include "FBODisabledSystem.h"
+#include "FBORendererSystem.h"
 
-ECS::FBODisabledSystem::FBODisabledSystem(EventManager& eventManager) : _quadVertices{
+ECS::FBORendererSystem::FBORendererSystem(EventManager& eventManager) : _quadVertices{
         // positions   // texCoords
         -1.0f,  1.0f,  0.0f, 1.0f,
         -1.0f, -1.0f,  0.0f, 0.0f,
@@ -20,12 +20,12 @@ ECS::FBODisabledSystem::FBODisabledSystem(EventManager& eventManager) : _quadVer
     _eventManager.subscribe(this);
 }
 
-ECS::FBODisabledSystem::~FBODisabledSystem()
+ECS::FBORendererSystem::~FBORendererSystem()
 {
     _eventManager.unsubscribe(this);
 }
 
-void ECS::FBODisabledSystem::onNotify(const Event& event)
+void ECS::FBORendererSystem::onNotify(const Event& event)
 {
     const auto* colourBufferEvent = dynamic_cast<const FrameBufferColourBufferEvent*>(&event);
     if (colourBufferEvent) {
@@ -33,7 +33,7 @@ void ECS::FBODisabledSystem::onNotify(const Event& event)
     }
 }
 
-void ECS::FBODisabledSystem::Load()
+void ECS::FBORendererSystem::Load()
 {
     glGenVertexArrays(1, &_VAO);
     glGenBuffers(1, &_VBO);
@@ -46,19 +46,19 @@ void ECS::FBODisabledSystem::Load()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 }
 
-void ECS::FBODisabledSystem::UpdatePrePhysics()
+void ECS::FBORendererSystem::UpdatePrePhysics()
 {
 }
 
-void ECS::FBODisabledSystem::Update(float deltaTime)
+void ECS::FBORendererSystem::Update(float deltaTime)
 {
 }
 
-void ECS::FBODisabledSystem::UpdatePostPhysics()
+void ECS::FBORendererSystem::UpdatePostPhysics()
 {
 }
 
-void ECS::FBODisabledSystem::Render()
+void ECS::FBORendererSystem::Render()
 {
     // now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -73,6 +73,6 @@ void ECS::FBODisabledSystem::Render()
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void ECS::FBODisabledSystem::Unload()
+void ECS::FBORendererSystem::Unload()
 {
 }

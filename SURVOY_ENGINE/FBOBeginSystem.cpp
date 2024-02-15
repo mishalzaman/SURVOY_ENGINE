@@ -1,6 +1,6 @@
-#include "FBOEnabledSystem.h"
+#include "FBOBeginSystem.h"
 
-ECS::FBOEnabledSystem::FBOEnabledSystem(EventManager& eventManager):
+ECS::FBOBeginSystem::FBOBeginSystem(EventManager& eventManager):
     _FBO(0),
     _RBO(0),
     _textureColorbuffer(0),
@@ -9,16 +9,16 @@ ECS::FBOEnabledSystem::FBOEnabledSystem(EventManager& eventManager):
     _eventManager.subscribe(this);
 }
 
-ECS::FBOEnabledSystem::~FBOEnabledSystem()
+ECS::FBOBeginSystem::~FBOBeginSystem()
 {
     _eventManager.unsubscribe(this);
 }
 
-void ECS::FBOEnabledSystem::onNotify(const Event& event)
+void ECS::FBOBeginSystem::onNotify(const Event& event)
 {
 }
 
-void ECS::FBOEnabledSystem::Load()
+void ECS::FBOBeginSystem::Load()
 {
     /*==========================
     1. Create Framebuffer Object
@@ -58,20 +58,20 @@ void ECS::FBOEnabledSystem::Load()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void ECS::FBOEnabledSystem::UpdatePrePhysics()
+void ECS::FBOBeginSystem::UpdatePrePhysics()
 {
 }
 
-void ECS::FBOEnabledSystem::Update(float deltaTime)
+void ECS::FBOBeginSystem::Update(float deltaTime)
 {
 
 }
 
-void ECS::FBOEnabledSystem::UpdatePostPhysics()
+void ECS::FBOBeginSystem::UpdatePostPhysics()
 {
 }
 
-void ECS::FBOEnabledSystem::Render()
+void ECS::FBOBeginSystem::Render()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, _FBO);
     glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
@@ -81,7 +81,7 @@ void ECS::FBOEnabledSystem::Render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void ECS::FBOEnabledSystem::Unload()
+void ECS::FBOBeginSystem::Unload()
 {
     glDeleteRenderbuffers(1, &_RBO);
     glDeleteFramebuffers(1, &_FBO);

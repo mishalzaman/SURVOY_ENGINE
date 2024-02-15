@@ -1,19 +1,21 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <vector>
 #include <iostream>
-#include "Defaults.h"
 #include "System.h"
+#include "Shader.h"
 #include "IObserver.h"
 #include "EventManager.h"
 #include "FrameBufferColourBufferEvent.h"
+#include "Defaults.h"
 
 namespace ECS {
-	class FBOEnabledSystem : public System, IObserver
+	class FBORendererSystem : public System, IObserver
 	{
     public:
-        FBOEnabledSystem(EventManager& eventManager);
-        ~FBOEnabledSystem();
+        FBORendererSystem(EventManager& eventManager);
+        ~FBORendererSystem();
 
         void onNotify(const Event& event) override;
 
@@ -25,10 +27,13 @@ namespace ECS {
         void Unload() override;
 
     private:
-        EventManager& _eventManager;
+        std::vector<float> _quadVertices;
+        unsigned int _VAO;
+        unsigned int _VBO;
+        unsigned int _colourBuffer;
 
-        unsigned int _FBO;
-        unsigned int _RBO;
-        unsigned int _textureColorbuffer;
+        std::unique_ptr<BAE::Shader> _shader;
+
+        EventManager& _eventManager;
 	};
 }

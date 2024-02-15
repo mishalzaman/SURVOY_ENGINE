@@ -142,10 +142,10 @@
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
-    <ClCompile Include="FBODisabledSystem.cpp" />
-    <ClCompile Include="FBOEnabledSystem.cpp" />
+    <ClCompile Include="FBORendererSystem.cpp" />
+    <ClCompile Include="FBOBeginSystem.cpp" />
     <ClCompile Include="IObserver.cpp" />
-    <ClCompile Include="Renderer3DSystem.cpp" />
+    <ClCompile Include="RendererStatic3DSystem.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene0.cpp" />
@@ -180,8 +180,8 @@
     <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="ECSCommon.h" />
     <ClInclude Include="FrameBufferColourBufferEvent.h" />
-    <ClInclude Include="FBODisabledSystem.h" />
-    <ClInclude Include="FBOEnabledSystem.h" />
+    <ClInclude Include="FBORendererSystem.h" />
+    <ClInclude Include="FBOBeginSystem.h" />
     <ClInclude Include="InputMouseRelXYEvent.h" />
     <ClInclude Include="CameraFreeLookSystem.h" />
     <ClInclude Include="CameraViewProjectionEvent.h" />
@@ -190,7 +190,7 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="MeshComponent.h" />
-    <ClInclude Include="Renderer3DSystem.h" />
+    <ClInclude Include="RendererStatic3DSystem.h" />
     <ClInclude Include="MoveDirectionEvent.h" />
     <ClInclude Include="OrientationComponent.h" />
     <ClInclude Include="PhysicsSystem.h" />

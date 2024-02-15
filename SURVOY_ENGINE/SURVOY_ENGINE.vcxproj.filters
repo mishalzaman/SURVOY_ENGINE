@@ -102,7 +102,7 @@
     <ClCompile Include="SystemManager.cpp">
       <Filter>ENGINE\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer3DSystem.cpp">
+    <ClCompile Include="RendererStatic3DSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
     <ClCompile Include="CameraFreeLookSystem.cpp">
@@ -138,10 +138,10 @@
     <ClCompile Include="Scene0.cpp">
       <Filter>GAME</Filter>
     </ClCompile>
-    <ClCompile Include="FBOEnabledSystem.cpp">
+    <ClCompile Include="FBOBeginSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="FBODisabledSystem.cpp">
+    <ClCompile Include="FBORendererSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -221,7 +221,7 @@
     <ClInclude Include="BuffersComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer3DSystem.h">
+    <ClInclude Include="RendererStatic3DSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="TexturesComponent.h">
@@ -299,10 +299,10 @@
     <ClInclude Include="Scene0.h">
       <Filter>GAME</Filter>
     </ClInclude>
-    <ClInclude Include="FBOEnabledSystem.h">
+    <ClInclude Include="FBOBeginSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="FBODisabledSystem.h">
+    <ClInclude Include="FBORendererSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="FrameBufferColourBufferEvent.h">

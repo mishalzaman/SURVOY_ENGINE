@@ -22,10 +22,10 @@
 #include "OrientationComponent.h"
 
 namespace ECS {
-    class Renderer3DSystem : public System, public IObserver {
+    class RendererStatic3DSystem : public System, public IObserver {
     public:
-        Renderer3DSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
-        ~Renderer3DSystem();
+        RendererStatic3DSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
+        ~RendererStatic3DSystem();
 
         void onNotify(const Event& event) override;
 

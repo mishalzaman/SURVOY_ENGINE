@@ -1,4 +1,4 @@
-#version 330 core
+#version 440 core
 layout (location = 0) in vec4 vertex; // <x, y, z, w> coordinates
 
 out vec2 TexCoords;
