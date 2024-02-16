@@ -3,6 +3,7 @@
 Scene::Scene()
 {
 	defaultShader_ = std::make_unique<Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
+	skyboxShader_ = std::make_unique<Shader>("skybox_vertex.glsl", "skybox_fragment.glsl");
 	physics_ = std::make_unique<BAE::Physics>();
 
 	systemManager_ = std::make_unique<ECS::SystemManager>();
@@ -21,6 +22,7 @@ void Scene::Load()
 	systemManager_->AddSystem<ECS::CharacterControllerSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::CameraThirdPersonSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::RendererStatic3DSystem>(*entityManager_, *physics_, *eventManager_);
+	systemManager_->AddSystem<ECS::SkyBoxSystem>(*entityManager_, *eventManager_);
 	systemManager_->AddSystem<ECS::FBORendererSystem>(*eventManager_);
 
 	systemManager_->Load();
