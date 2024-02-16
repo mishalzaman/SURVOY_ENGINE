@@ -1,9 +1,11 @@
 
 /*
-VERSION 0.1.6
+		  *--------------------------*
+		     Current version: 0.1.8 
+		  *--------------------------*
 
 DEVELOPMENT NOTES
-=================
+==================================================
 
 BLENDER -> OpenGL
 -----------------
@@ -14,14 +16,16 @@ Exporting:
     - Triangulate faces
     - Set scale to 0.01
 
-Implementations
-	v 0.1.7
-	=======
-	- Main theme of this iteration is to create a general sense
-	  of the art direction
-	- Art direction
+DEVELOPMENT
+===================================================
+  0.1 Implementations
+	The main goals of 0.1 is as follows:
+	- to establish a stable system that can load FBX/OBJ model files
+	  without errors
+	- Consistent architecture
+	- Establish the art direction
 
-	Implementations
+	Change Log
 	---------------
 	v 0.1.1
 	- [x] Create Scene Base class
@@ -35,20 +39,23 @@ Implementations
 	v 0.1.6
 	- [x] Add back free look camera
 	v 0.1.7
-	- [ ] Fix lighting (gamma, hdr, ssao, blur)
+	- [x] Update lighting (gamma, hdr, ssao, blur)
 	v 0.1.8
-	- [ ] Add shadows
-	v 0.1.9
 	- [ ] Refactor
+			- Fix model loading
+				- Allow models with no textures, but materials
+				- Fix issue with imports loading incorrect models
+				- Improve the mesh class
+			- Clean up header includes
+			- Clean up the Core class
+			- Remove BAE namespace
+			- Add profiler
 
 */
 
 #include <memory>
 #include "Core.h"
 #include "Scene0.h"
-
-const float SCREEN_WIDTH = BAE::Defaults::BASE_SCREEN_WIDTH;
-const float SCREEN_HEIGHT = BAE::Defaults::BASE_SCREEN_HEIGHT;
 
 int main(int argc, char* args[]) {
 	auto Core = std::make_unique<BAE::Core>();
@@ -110,7 +117,7 @@ int main(int argc, char* args[]) {
 		=============*/
 		Core->BeginRender();
 			
-		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+		glViewport(0, 0, BAE::Defaults::BASE_SCREEN_WIDTH, BAE::Defaults::BASE_SCREEN_HEIGHT);
 	
 		scene0->Render();
 	
