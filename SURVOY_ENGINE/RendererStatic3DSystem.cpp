@@ -123,9 +123,9 @@ void ECS::RendererStatic3DSystem::_render(
         ECS::ProgramComponent* shader = _entityManager.getComponent<ECS::ProgramComponent>(entityId);
         if (shader) {
             shader->Program.use();
-            shader->Program.setVec3("lightPos", glm::vec3(2, 20, 6));
+            shader->Program.setVec3("lightPos", glm::vec3(0, 10, 10));
             shader->Program.setVec3("viewPos", _cameraPosition);
-            shader->Program.setVec3("lightColor", glm::vec3(0.7, 0.7, 0.7));
+            shader->Program.setVec3("lightColor", glm::vec3(0.9, 0.9, 0.9));
             shader->Program.setMat4("projection", _projection);
             shader->Program.setMat4("view", _view);
             shader->Program.setInt("texture1", 0);
