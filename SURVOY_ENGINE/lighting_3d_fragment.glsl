@@ -4,7 +4,7 @@ out vec4 FragColor;
 in vec3 Normal;  
 in vec3 FragPos;  
 in vec2 TexCoord;
-  
+
 uniform vec3 lightPos; 
 uniform vec3 viewPos; 
 uniform vec3 lightColor;
@@ -21,7 +21,7 @@ void main()
     vec3 lightDir = normalize(lightPos - FragPos);
     vec3 normal = normalize(Normal);
     float diff = max(dot(lightDir, normal), 0.0);
-    vec3 diffuse = diff * color;
+    vec3 diffuse = diff * color * lightColor;
 
     // specular
     vec3 viewDir = normalize(viewPos - FragPos);
@@ -30,8 +30,8 @@ void main()
 
     // blinn
     vec3 halfwayDir = normalize(lightDir + viewDir);  
-    spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
+    spec = pow(max(dot(normal, halfwayDir), 0.0), 2.0);
 
-    vec3 specular = vec3(0.2) * spec; // assuming bright white light color
+    vec3 specular = vec3(0.2) * spec * lightColor; // modulating specular with light color
     FragColor = vec4(ambient + diffuse + specular, 1.0);
 }
