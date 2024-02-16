@@ -15,7 +15,7 @@ Exporting:
     - Set scale to 0.01
 
 Implementations
-	v 0.1.x
+	v 0.1.7
 	=======
 	- Main theme of this iteration is to create a general sense
 	  of the art direction
@@ -33,7 +33,7 @@ Implementations
 	- [x] Add framebuffer
 	- [x] Add cubemap
 	v 0.1.6
-	- [ ] Add back free look camera
+	- [x] Add back free look camera
 	v 0.1.7
 	- [ ] Fix lighting (gamma, hdr, ssao, blur)
 	v 0.1.8
