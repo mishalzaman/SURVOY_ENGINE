@@ -1,7 +1,7 @@
 #include "Physics.h"
 #include "Logger.h"
 
-BAE::Physics::Physics()
+ENGINE::Physics::Physics()
 {
 	// create the collision configuration
 	_collisionConfiguration = std::make_unique<btDefaultCollisionConfiguration>();
@@ -26,7 +26,7 @@ BAE::Physics::Physics()
 	}
 }
 
-BAE::Physics::~Physics()
+ENGINE::Physics::~Physics()
 {
 	for (int i = _world->getNumCollisionObjects() - 1; i >= 0; i--)
 	{
@@ -49,7 +49,7 @@ BAE::Physics::~Physics()
 	}
 }
 
-void BAE::Physics::DrawDebug()
+void ENGINE::Physics::DrawDebug()
 {
 	_physicsDebugDraw.SetMatrices(_view, _projection);
 	_physicsDebugDraw.setDebugMode(btIDebugDraw::DBG_DrawWireframe);
@@ -57,12 +57,12 @@ void BAE::Physics::DrawDebug()
 	_world->debugDrawWorld();
 }
 
-void BAE::Physics::Simulate(float deltaTime)
+void ENGINE::Physics::Simulate(float deltaTime)
 {
 	_world->stepSimulation(deltaTime);
 }
 
-void BAE::Physics::StaticTriangleMesh(const std::vector<SVertex>& vertices, glm::mat4 tranformation)
+void ENGINE::Physics::StaticTriangleMesh(const std::vector<SVertex>& vertices, glm::mat4 tranformation)
 {
 	btTriangleMesh* meshInterface = new btTriangleMesh;
 	
@@ -106,7 +106,7 @@ void BAE::Physics::StaticTriangleMesh(const std::vector<SVertex>& vertices, glm:
 	_world->addRigidBody(body);
 }
 
-btDiscreteDynamicsWorld& BAE::Physics::World()
+btDiscreteDynamicsWorld& ENGINE::Physics::World()
 {
 	if (!_world) {
 		// Handle the error according to your application's needs

@@ -7,7 +7,7 @@
 const float NEAR = 0.1f;
 const float FAR = 1000.0f;
 
-namespace BAE {
+namespace ENGINE {
 	class VectorHelpers
 	{
 	public:

@@ -5,7 +5,7 @@
 CORE
 ==============================================*/
 
-BAE::Core::Core() :
+ENGINE::Core::Core() :
     _window(nullptr),
     _context(NULL),
     _error(1),
@@ -15,7 +15,7 @@ BAE::Core::Core() :
 
 }
 
-BAE::Core::~Core() {
+ENGINE::Core::~Core() {
     if (_window != nullptr) {
         //LOG_INFO("Destroy _window");
         SDL_DestroyWindow(_window);
@@ -29,7 +29,7 @@ BAE::Core::~Core() {
 }
 
 
-bool BAE::Core::CreateDevice(
+bool ENGINE::Core::CreateDevice(
     const char* title
 )
 {
@@ -51,11 +51,11 @@ bool BAE::Core::CreateDevice(
     return true;
 }
 
-void BAE::Core::DestroyDevice()
+void ENGINE::Core::DestroyDevice()
 {
 }
 
-void BAE::Core::BeginRender()
+void ENGINE::Core::BeginRender()
 {
     // Clear the screen
     glClearColor(0.5f, 0.5f, 0.8f, 1.0f);
@@ -63,7 +63,7 @@ void BAE::Core::BeginRender()
     glClear(GL_DEPTH_BUFFER_BIT);
 }
 
-void BAE::Core::EndRender()
+void ENGINE::Core::EndRender()
 {
     // Swap buffers
     if (_window) {
@@ -74,7 +74,7 @@ void BAE::Core::EndRender()
     throw std::runtime_error("Window was not found during game loop");
 }
 
-void BAE::Core::BeginShutdown()
+void ENGINE::Core::BeginShutdown()
 {
     std::cout << "beginning shutdown" << std::endl;
     _quit = true;
@@ -84,7 +84,7 @@ void BAE::Core::BeginShutdown()
 WINDOW
 ==============================================*/
 
-void BAE::Core::_resizeViewport(const int nWidth, const int nHeight)
+void ENGINE::Core::_resizeViewport(const int nWidth, const int nHeight)
 {
     int setNewW = 0;
     int setNewH = 0;
@@ -110,7 +110,7 @@ void BAE::Core::_resizeViewport(const int nWidth, const int nHeight)
 INITIALIZATIONS
 ==============================================*/
 
-bool BAE::Core::_initSDL()
+bool ENGINE::Core::_initSDL()
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         _error = Code::CORE_SDL;
@@ -120,7 +120,7 @@ bool BAE::Core::_initSDL()
     return true;
 }
 
-bool BAE::Core::_initOpengGL()
+bool ENGINE::Core::_initOpengGL()
 {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
@@ -129,7 +129,7 @@ bool BAE::Core::_initOpengGL()
     return true;
 }
 
-bool BAE::Core::_createWindow()
+bool ENGINE::Core::_createWindow()
 {
     _window = SDL_CreateWindow(_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, Defaults::BASE_SCREEN_WIDTH, Defaults::BASE_SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
     if (!_window) {
@@ -141,7 +141,7 @@ bool BAE::Core::_createWindow()
     return true;
 }
 
-bool BAE::Core::_createContext()
+bool ENGINE::Core::_createContext()
 {
     _context = SDL_GL_CreateContext(_window);
     if (!_context) {
@@ -154,7 +154,7 @@ bool BAE::Core::_createContext()
     return true;
 }
 
-bool BAE::Core::_initGlew()
+bool ENGINE::Core::_initGlew()
 {
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK) {
@@ -167,7 +167,7 @@ bool BAE::Core::_initGlew()
     return true;
 }
 
-void BAE::Core::_openGLSettings()
+void ENGINE::Core::_openGLSettings()
 {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -180,7 +180,7 @@ void BAE::Core::_openGLSettings()
     glFrontFace(GL_CCW);
 }
 
-void BAE::Core::_initializeSubSystems()
+void ENGINE::Core::_initializeSubSystems()
 {
-    Timer = std::make_unique<BAE::Timer>(16.6667);
+    Timer = std::make_unique<ENGINE::Timer>(16.6667);
 }

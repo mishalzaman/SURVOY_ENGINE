@@ -1,6 +1,6 @@
 #include "RendererText2D.h"
 
-void BAE::RendererText2D::Render(
+void ENGINE::RendererText2D::Render(
 	GLuint shaderProgram,
 	GLuint textureID,
 	const std::string& text,

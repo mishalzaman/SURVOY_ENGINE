@@ -9,7 +9,7 @@
 #include "Code.h"
 #include "Timer.h"
 
-namespace BAE {
+namespace ENGINE {
 	class Core
 	{
 	/*==============================================

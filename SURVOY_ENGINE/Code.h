@@ -1,6 +1,6 @@
 #pragma once
 
-namespace BAE {
+namespace ENGINE {
 	enum Code {
 		CORE_SUCCESS = 1,
 		CORE_SDL = 100,

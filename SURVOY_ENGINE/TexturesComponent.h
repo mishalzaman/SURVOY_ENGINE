@@ -3,7 +3,7 @@
 #include <vector>
 #include "STexture.h"
 
-using namespace BAE;
+using namespace ENGINE;
 
 namespace ECS {
 	struct TexturesComponent

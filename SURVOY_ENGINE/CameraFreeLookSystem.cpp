@@ -53,8 +53,8 @@ void ECS::CameraFreeLookSystem::Load()
                 orientation->Pitch
             );
 
-            matrices->View = BAE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
-            matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
+            matrices->View = ENGINE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
+            matrices->Projection = ENGINE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
 
             _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
             _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
@@ -96,8 +96,8 @@ void ECS::CameraFreeLookSystem::Update(float deltaTime)
             _updateVectors(orientation->Forward, orientation->Up, orientation->Right, orientation->Yaw, orientation->Pitch);
 
             // Calculate view and projection matrices
-            matrices->View = BAE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
-            matrices->Projection = BAE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
+            matrices->View = ENGINE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
+            matrices->Projection = ENGINE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
 
             _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
             _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
@@ -124,9 +124,9 @@ void ECS::CameraFreeLookSystem::_updateVectors(
 
     forward = glm::normalize(front);
 
-    right = BAE::VectorHelpers::RightVec3(forward);
+    right = ENGINE::VectorHelpers::RightVec3(forward);
 
-    up = BAE::VectorHelpers::UpVec3(forward, right);
+    up = ENGINE::VectorHelpers::UpVec3(forward, right);
 }
 
 void ECS::CameraFreeLookSystem::_mouseLook(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY)

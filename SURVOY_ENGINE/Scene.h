@@ -63,9 +63,9 @@ private:
 
 
 protected:
-    std::unique_ptr<BAE::Shader> defaultShader_;
-    std::unique_ptr<BAE::Shader> skyboxShader_;
-    std::unique_ptr<BAE::Physics> physics_;
+    std::unique_ptr<ENGINE::Shader> defaultShader_;
+    std::unique_ptr<ENGINE::Shader> skyboxShader_;
+    std::unique_ptr<ENGINE::Physics> physics_;
 
     std::unique_ptr<ECS::SystemManager> systemManager_;
     std::unique_ptr<ECS::EntityManager> entityManager_;

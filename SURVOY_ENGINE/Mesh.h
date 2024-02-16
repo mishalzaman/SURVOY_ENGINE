@@ -9,7 +9,7 @@
 #include "SVertex.h"
 #include "STexture.h"
 
-namespace BAE {
+namespace ENGINE {
 	class Mesh
 	{
 	public:

@@ -9,7 +9,7 @@
 #include "STexture.h"
 #include "SVertex2D.h"
 
-namespace BAE {
+namespace ENGINE {
 	class RendererQuad2D
 	{
 	public:

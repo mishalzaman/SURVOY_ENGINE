@@ -1,24 +1,24 @@
 //#include "Logger.h"
 //
-//BAE::Logger::Logger(const std::string& fileName) : _logFile(fileName, std::ios::app), _exitFlag(false) {
+//ENGINE::Logger::Logger(const std::string& fileName) : _logFile(fileName, std::ios::app), _exitFlag(false) {
 //    _writerThread = std::thread(&Logger::ProcessLogs, this);
 //}
 //
-//BAE::Logger::~Logger()
+//ENGINE::Logger::~Logger()
 //{
 //    _exitFlag = true;
 //    _condVar.notify_one();
 //    _writerThread.join();
 //}
 //
-//void BAE::Logger::Log(const std::string& message, LogLevel level)
+//void ENGINE::Logger::Log(const std::string& message, LogLevel level)
 //{
 //    std::unique_lock<std::mutex> lock(_queueMutex);
 //    _logQueue.push("[" + LogLevelToString(level) + "] " + message);
 //    _condVar.notify_one();
 //}
 //
-//void BAE::Logger::ProcessLogs()
+//void ENGINE::Logger::ProcessLogs()
 //{
 //    while (true) {
 //        std::unique_lock<std::mutex> lock(_queueMutex);
@@ -33,7 +33,7 @@
 //    }
 //}
 //
-//std::string BAE::Logger::LogLevelToString(LogLevel level)
+//std::string ENGINE::Logger::LogLevelToString(LogLevel level)
 //{
 //    switch (level) {
 //    case LogLevel::DEBUG: return "DEBUG";
@@ -47,7 +47,7 @@
 #include "Logger.h"
 #include <iostream>
 
-using namespace BAE;
+using namespace ENGINE;
 
 std::mutex Logger::_mutex;
 

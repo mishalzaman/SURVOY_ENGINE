@@ -1,6 +1,6 @@
 #pragma once
 
-namespace BAE {
+namespace ENGINE {
 	class Defaults {
 	public:
 		const static int BASE_SCREEN_WIDTH = 1024;

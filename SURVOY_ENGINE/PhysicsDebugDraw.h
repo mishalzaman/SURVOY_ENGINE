@@ -20,7 +20,7 @@
 
 // https://gamedev.stackexchange.com/questions/172789/bullet-physics-debugdraw-unexpected-results
 
-using namespace BAE;
+using namespace ENGINE;
 
 class PhysicsDebugDraw : public btIDebugDraw {
 public:

@@ -10,7 +10,7 @@
 #include <iostream>
 #include "SVertex.h"
 
-namespace BAE {
+namespace ENGINE {
 	class Physics
 	{
 	public:

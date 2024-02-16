@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 
-namespace BAE {
+namespace ENGINE {
 	class RendererTileset2D
 	{
 	public:

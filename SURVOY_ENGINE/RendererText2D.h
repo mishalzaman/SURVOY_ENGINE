@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 
-namespace BAE {
+namespace ENGINE {
 	class RendererText2D
 	{
 	public:

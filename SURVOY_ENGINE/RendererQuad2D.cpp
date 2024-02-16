@@ -1,7 +1,7 @@
 #include "RendererQuad2D.h"
 #include <chrono>
 
-BAE::RendererQuad2D::RendererQuad2D(STexture& texture, GLuint shaderID, int positionX, int positionY, float scale):
+ENGINE::RendererQuad2D::RendererQuad2D(STexture& texture, GLuint shaderID, int positionX, int positionY, float scale):
     _vao(0),
     _vbo(0),
     _textureWidth(texture.width),
@@ -16,7 +16,7 @@ BAE::RendererQuad2D::RendererQuad2D(STexture& texture, GLuint shaderID, int posi
     _initBuffers();
 }
 
-void BAE::RendererQuad2D::Render() {
+void ENGINE::RendererQuad2D::Render() {
     // Activate shader program
     glUseProgram(_shaderID);
 
@@ -38,7 +38,7 @@ void BAE::RendererQuad2D::Render() {
 }
 
 
-void BAE::RendererQuad2D::_initBuffers() {
+void ENGINE::RendererQuad2D::_initBuffers() {
     glGenVertexArrays(1, &_vao);
     glGenBuffers(1, &_vbo);
 
@@ -59,7 +59,7 @@ void BAE::RendererQuad2D::_initBuffers() {
 }
 
 
-void BAE::RendererQuad2D::_initVertices()
+void ENGINE::RendererQuad2D::_initVertices()
 {
     GLfloat xpos = _positionX;
     GLfloat ypos = _positionY;

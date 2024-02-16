@@ -3,7 +3,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stbi_image.h"
 
-void BAE::FileLoader::Texture(GLuint& textureID, const std::string& path, int& width, int& height, int& channels)
+void ENGINE::FileLoader::Texture(GLuint& textureID, const std::string& path, int& width, int& height, int& channels)
 {
     std::string pathStr(path);
     size_t dotPosition = pathStr.find_last_of(".");
@@ -50,7 +50,7 @@ void BAE::FileLoader::Texture(GLuint& textureID, const std::string& path, int& w
     }
 }
 
-void BAE::FileLoader::Texture(STexture& texture)
+void ENGINE::FileLoader::Texture(STexture& texture)
 {
     std::string pathStr(texture.path);
     size_t dotPosition = pathStr.find_last_of(".");
@@ -99,7 +99,7 @@ void BAE::FileLoader::Texture(STexture& texture)
     }
 }
 
-void BAE::FileLoader::TextureSkyBox(STexture& texture, const std::vector<std::string>& faces)
+void ENGINE::FileLoader::TextureSkyBox(STexture& texture, const std::vector<std::string>& faces)
 {
     unsigned int textureID;
     glGenTextures(1, &textureID);

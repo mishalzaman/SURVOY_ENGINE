@@ -6,7 +6,7 @@
 #include <vector>
 #include "Shader.h"
 
-namespace BAE {
+namespace ENGINE {
 	class Grid
 	{
 	public:
@@ -17,6 +17,6 @@ namespace BAE {
 		int _numLines;
 		GLuint _vao;
 		void _setupAxis();
-		std::unique_ptr<BAE::Shader> _shader;
+		std::unique_ptr<ENGINE::Shader> _shader;
 	};
 }

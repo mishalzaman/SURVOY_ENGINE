@@ -42,7 +42,7 @@ void ECS::PhysicsSystem::UpdatePostPhysics()
 
 void ECS::PhysicsSystem::Render()
 {
-	//_physics.DrawDebug();
+	_physics.DrawDebug();
 }
 
 void ECS::PhysicsSystem::Unload()

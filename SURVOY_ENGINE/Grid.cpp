@@ -1,15 +1,15 @@
 #include "Grid.h"
 
-BAE::Grid::Grid():
+ENGINE::Grid::Grid():
 	_gridSize(100),
 	_numLines(0),
 	_vao(0)
 {
-	_shader = std::make_unique<BAE::Shader>("grid_vertex.glsl", "grid_fragment.glsl");
+	_shader = std::make_unique<ENGINE::Shader>("grid_vertex.glsl", "grid_fragment.glsl");
 	_setupAxis();
 }
 
-void BAE::Grid::render(glm::mat4 projection, glm::mat4 view, glm::vec3 viewPos)
+void ENGINE::Grid::render(glm::mat4 projection, glm::mat4 view, glm::vec3 viewPos)
 {
 	_shader->use();
 	_shader->setMat4("projection", projection);
@@ -22,7 +22,7 @@ void BAE::Grid::render(glm::mat4 projection, glm::mat4 view, glm::vec3 viewPos)
 	glBindVertexArray(0);
 }
 
-void BAE::Grid::_setupAxis()
+void ENGINE::Grid::_setupAxis()
 {
 	GLuint VBO;
 

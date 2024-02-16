@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace BAE {
+namespace ENGINE {
 	struct STexture {
 		unsigned int id;
 		std::string type;

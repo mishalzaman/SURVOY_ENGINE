@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include "Shader.h"
 
-using namespace BAE;
+using namespace ENGINE;
 
 namespace ECS {
 	struct ProgramComponent

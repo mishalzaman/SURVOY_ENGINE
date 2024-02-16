@@ -8,7 +8,7 @@
 #include "EntityManager.h"
 #include "Physics.h"
 
-using namespace BAE;
+using namespace ENGINE;
 
 namespace ECS {
     class SystemManager {

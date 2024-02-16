@@ -92,7 +92,7 @@ void ECS::SkyBoxSystem::Load()
         };
 
         STexture texture;
-        BAE::FileLoader::TextureSkyBox(texture, faces);
+        ENGINE::FileLoader::TextureSkyBox(texture, faces);
         _texture = texture.id;
     }
     

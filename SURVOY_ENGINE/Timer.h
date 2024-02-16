@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-namespace BAE {
+namespace ENGINE {
 	class Timer
 	{
 	public:

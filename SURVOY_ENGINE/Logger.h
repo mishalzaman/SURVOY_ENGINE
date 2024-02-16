@@ -8,7 +8,7 @@
 //#include <condition_variable>
 //#include <atomic>
 //
-//namespace BAE {
+//namespace ENGINE {
 //
 //    enum class LogLevel {
 //        DEBUG, INFO, WARNING, ERROR
@@ -35,7 +35,7 @@
 //        std::string LogLevelToString(LogLevel level);
 //    };
 //
-//} // namespace BAE
+//} // namespace ENGINE
 
 #include <fstream>
 #include <string>
@@ -45,7 +45,7 @@
 #include <condition_variable>
 #include <atomic>
 
-namespace BAE {
+namespace ENGINE {
     // Verbosity Levels
     enum class LogLevel {
         Debug,

@@ -7,7 +7,7 @@ Scene0::Scene0()
 
 void Scene0::Load()
 {
-	auto LevelModel = std::make_unique<BAE::Model>("assets/Level_0/level.fbx");
+	auto LevelModel = std::make_unique<ENGINE::Model>("assets/Level_0/level.fbx");
 
 	int entityId = 0;
 	

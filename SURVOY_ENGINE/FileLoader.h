@@ -6,7 +6,7 @@
 #include <vector>
 #include "STexture.h"
 
-namespace BAE {
+namespace ENGINE {
 	class FileLoader
 	{
 	public:

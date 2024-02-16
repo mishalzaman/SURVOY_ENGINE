@@ -11,21 +11,21 @@ IMPORTANT NOTES
   - Creating Parent-Child relationship. Select the child, select the parent. Then press ctrl-p and select "Object (Keep transforms)"
 */
 
-using namespace BAE;
+using namespace ENGINE;
 
-BAE::Model::Model(std::string const& path)
+ENGINE::Model::Model(std::string const& path)
 {
     _loadModel(path);
 }
 
-void BAE::Model::Draw(Shader& shader)
+void ENGINE::Model::Draw(Shader& shader)
 {
     for (unsigned int i = 0; i < _meshes.size(); i++) {
         _meshes[i].Draw(shader);
     }
 }
 
-int BAE::Model::NumVertices()
+int ENGINE::Model::NumVertices()
 {
     int count = 0;
 
@@ -35,7 +35,7 @@ int BAE::Model::NumVertices()
     return count;
 }
 
-void BAE::Model::_loadModel(std::string const& path)
+void ENGINE::Model::_loadModel(std::string const& path)
 {
     Assimp::Importer import;
     const aiScene * scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -50,7 +50,7 @@ void BAE::Model::_loadModel(std::string const& path)
     _processNode(scene->mRootNode, scene, glm::mat4(1.0f));
 }
 
-void BAE::Model::_processNode(aiNode* node, const aiScene* scene, glm::mat4 parentTransform)
+void ENGINE::Model::_processNode(aiNode* node, const aiScene* scene, glm::mat4 parentTransform)
 {
     // apply rotation of -45 if FBX file. Otherwise comment this out for a OBJ file.
     //parentTransform = glm::rotate(parentTransform, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -76,7 +76,7 @@ void BAE::Model::_processNode(aiNode* node, const aiScene* scene, glm::mat4 pare
     }
 }
 
-Mesh BAE::Model::_processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 transformation, aiString name)
+Mesh ENGINE::Model::_processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 transformation, aiString name)
 {
     // data to fill
     std::vector<SVertex> vertices;
@@ -162,7 +162,7 @@ Mesh BAE::Model::_processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 tran
     return Mesh(vertices, indices, textures, transformation, name.C_Str());
 }
 
-std::vector<STexture> BAE::Model::loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName)
+std::vector<STexture> ENGINE::Model::loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName)
 {
     std::vector<STexture> textures;
     for (unsigned int i = 0; i < material->GetTextureCount(type); i++)
@@ -186,7 +186,7 @@ std::vector<STexture> BAE::Model::loadMaterialTextures(aiMaterial* material, aiT
             STexture texture;
             texture.path = fullPath;
             
-            BAE::FileLoader::Texture(texture);
+            ENGINE::FileLoader::Texture(texture);
 
             textures.push_back(texture);
 
@@ -196,7 +196,7 @@ std::vector<STexture> BAE::Model::loadMaterialTextures(aiMaterial* material, aiT
     return textures;
 }
 
-glm::mat4 BAE::Model::_convertToGLMMat4(const aiMatrix4x4& from)
+glm::mat4 ENGINE::Model::_convertToGLMMat4(const aiMatrix4x4& from)
 {
     glm::mat4 to;
 

@@ -28,9 +28,9 @@ void ECS::CharacterControllerSystem::Load()
 
 
 		if (orientation) {
-			orientation->Forward = BAE::VectorHelpers::ForwardVec3(orientation->Yaw, orientation->Pitch);
-			orientation->Right = BAE::VectorHelpers::RightVec3(orientation->Forward);
-			orientation->Up = BAE::VectorHelpers::UpVec3(orientation->Forward, orientation->Right);
+			orientation->Forward = ENGINE::VectorHelpers::ForwardVec3(orientation->Yaw, orientation->Pitch);
+			orientation->Right = ENGINE::VectorHelpers::RightVec3(orientation->Forward);
+			orientation->Up = ENGINE::VectorHelpers::UpVec3(orientation->Forward, orientation->Right);
 		}
 	}
 }
@@ -144,9 +144,9 @@ void ECS::CharacterControllerSystem::_updateYaw(float yaw)
 
 void ECS::CharacterControllerSystem::_updateVectors(const float yaw, glm::vec3& forward, glm::vec3& right, glm::vec3& up)
 {
-	forward = BAE::VectorHelpers::ForwardVec3(yaw, 0.f);
-	right = BAE::VectorHelpers::RightVec3(forward);
-	up = BAE::VectorHelpers::UpVec3(forward, right);
+	forward = ENGINE::VectorHelpers::ForwardVec3(yaw, 0.f);
+	right = ENGINE::VectorHelpers::RightVec3(forward);
+	up = ENGINE::VectorHelpers::UpVec3(forward, right);
 }
 
 void ECS::CharacterControllerSystem::_updatePhysics(ECS::DynamicCapsulePhysicsBodyComponent& dynamic, const glm::vec3& direction, const float& velocity)

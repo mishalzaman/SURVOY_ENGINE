@@ -42,14 +42,14 @@ DEVELOPMENT
 	- [x] Update lighting (gamma, hdr, ssao, blur)
 	v 0.1.8
 	- [ ] Refactor
-			- Fix model loading
-				- Allow models with no textures, but materials
-				- Fix issue with imports loading incorrect models
-				- Improve the mesh class
-			- Clean up header includes
-			- Clean up the Core class
-			- Remove BAE namespace
-			- Add profiler
+		 [ ] - Fix model loading
+			[ ] - Allow models with no textures, but materials
+			[ ] - Fix issue with imports loading incorrect models
+			[ ] - Improve the mesh class
+		 [ ] - Clean up header includes
+		 [ ] - Clean up the Core class
+		 [x] - Remove BAE namespace
+		 [ ] - Add profiler
 
 */
 
@@ -58,7 +58,7 @@ DEVELOPMENT
 #include "Scene0.h"
 
 int main(int argc, char* args[]) {
-	auto Core = std::make_unique<BAE::Core>();
+	auto Core = std::make_unique<ENGINE::Core>();
 	if (!Core->CreateDevice("Automata 0.2.0")) { return Core->GetError(); }
 
 	auto scene0 = std::make_unique<Scene0>();
@@ -117,7 +117,7 @@ int main(int argc, char* args[]) {
 		=============*/
 		Core->BeginRender();
 			
-		glViewport(0, 0, BAE::Defaults::BASE_SCREEN_WIDTH, BAE::Defaults::BASE_SCREEN_HEIGHT);
+		glViewport(0, 0, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT);
 	
 		scene0->Render();
 	

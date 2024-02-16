@@ -1,13 +1,13 @@
 #include "Timer.h"
 
-BAE::Timer::Timer(double updateInterval):
+ENGINE::Timer::Timer(double updateInterval):
     _updateInterval(updateInterval),
     _lastTime(SDL_GetPerformanceCounter()),
     _accumulator(0.0)
 {
 }
 
-void BAE::Timer::BeginFrame()
+void ENGINE::Timer::BeginFrame()
 {
     Uint64 now = SDL_GetPerformanceCounter();
 
@@ -17,7 +17,7 @@ void BAE::Timer::BeginFrame()
     _accumulator += _deltaTimeMS;
 }
 
-bool BAE::Timer::PhysicsUpdate()
+bool ENGINE::Timer::PhysicsUpdate()
 {
     if (_accumulator >= _updateInterval) {
         _accumulator -= _updateInterval;

@@ -1,12 +1,12 @@
 #include "Camera2D.h"
 
-BAE::Camera2D::Camera2D(const float width, const float height):
+ENGINE::Camera2D::Camera2D(const float width, const float height):
 	_fScreenWidth(width),
 	_fScreenHeight(height)
 {
 }
 
-glm::mat4 BAE::Camera2D::Mat4Projection()
+glm::mat4 ENGINE::Camera2D::Mat4Projection()
 {
 	return glm::ortho(
 		0.0f,

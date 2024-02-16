@@ -1,7 +1,7 @@
 #include "Mesh.h"
 #include <iostream>
 
-BAE::Mesh::Mesh(
+ENGINE::Mesh::Mesh(
 	std::vector<SVertex> vertices,
 	std::vector<unsigned int> indices,
 	std::vector<STexture> textures,
@@ -21,7 +21,7 @@ BAE::Mesh::Mesh(
 	_setupMesh();
 }
 
-void BAE::Mesh::Draw(Shader& shader)
+void ENGINE::Mesh::Draw(Shader& shader)
 {
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
@@ -49,7 +49,7 @@ void BAE::Mesh::Draw(Shader& shader)
 	glBindVertexArray(0);
 }
 
-glm::vec3 BAE::Mesh::Position()
+glm::vec3 ENGINE::Mesh::Position()
 {
 	glm::vec3 position;
 	position.x = _transformation[3].x;
@@ -59,7 +59,7 @@ glm::vec3 BAE::Mesh::Position()
 	return position;
 }
 
-void BAE::Mesh::_setupMesh()
+void ENGINE::Mesh::_setupMesh()
 {
 	glGenVertexArrays(1, &_vao);
 	glGenBuffers(1, &_vbo);

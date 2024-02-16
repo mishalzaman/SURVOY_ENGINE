@@ -32,7 +32,7 @@ namespace ECS {
         unsigned int _VBO;
         unsigned int _colourBuffer;
 
-        std::unique_ptr<BAE::Shader> _shader;
+        std::unique_ptr<ENGINE::Shader> _shader;
 
         EventManager& _eventManager;
 	};

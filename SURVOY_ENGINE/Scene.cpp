@@ -4,7 +4,7 @@ Scene::Scene()
 {
 	defaultShader_ = std::make_unique<Shader>("lighting_3d_vertex.glsl", "lighting_3d_fragment.glsl");
 	skyboxShader_ = std::make_unique<Shader>("skybox_vertex.glsl", "skybox_fragment.glsl");
-	physics_ = std::make_unique<BAE::Physics>();
+	physics_ = std::make_unique<ENGINE::Physics>();
 
 	systemManager_ = std::make_unique<ECS::SystemManager>();
 	entityManager_ = std::make_unique<ECS::EntityManager>();

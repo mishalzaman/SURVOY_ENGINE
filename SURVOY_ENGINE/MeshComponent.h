@@ -4,7 +4,7 @@
 #include <string>
 #include "SVertex.h"
 
-using namespace BAE;
+using namespace ENGINE;
 
 namespace ECS {
 	struct MeshComponent

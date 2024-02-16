@@ -10,7 +10,7 @@
 #include "Mesh.h"
 #include "FileLoader.h"
 
-namespace BAE {
+namespace ENGINE {
 	class Model
 	{
 	public:
