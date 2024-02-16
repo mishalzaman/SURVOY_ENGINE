@@ -22,7 +22,7 @@ void ECS::CameraFreeLookSystem::onNotify(const Event& event)
     const auto* inputEvent = dynamic_cast<const InputMouseRelXYEvent*>(&event);
 
     if (inputEvent) {
-        std::vector<int> entities = _entityManager.getByTag("Camera");
+        std::vector<int> entities = _entityManager.getByTag("CameraFreeLook");
 
         for (int entityId : entities) {
             ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);
@@ -37,7 +37,7 @@ void ECS::CameraFreeLookSystem::onNotify(const Event& event)
 
 void ECS::CameraFreeLookSystem::Load()
 {
-    std::vector<int> entities = _entityManager.getByTag("Camera");
+    std::vector<int> entities = _entityManager.getByTag("CameraFreeLook");
 
     for (int entityId : entities) {
         ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
@@ -79,7 +79,7 @@ void ECS::CameraFreeLookSystem::UpdatePrePhysics()
 
 void ECS::CameraFreeLookSystem::Update(float deltaTime)
 {
-    std::vector<int> entities = _entityManager.getByTag("Camera");
+    std::vector<int> entities = _entityManager.getByTag("CameraFreeLook");
 
     for (int entityId : entities) {
         ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);

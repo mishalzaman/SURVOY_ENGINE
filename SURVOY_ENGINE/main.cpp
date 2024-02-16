@@ -1,6 +1,6 @@
 
 /*
-VERSION 0.1.5.2
+VERSION 0.1.6
 
 DEVELOPMENT NOTES
 =================
@@ -31,15 +31,15 @@ Implementations
 	- [x] Create test level
 	v 0.1.5
 	- [x] Add framebuffer
-	- [ ] Add cubemap
+	- [x] Add cubemap
 	v 0.1.6
 	- [ ] Add back free look camera
 	v 0.1.7
-	- [ ] Improve buffer data
-	v 0.1.8
 	- [ ] Fix lighting (gamma, hdr, ssao, blur)
-	v 0.1.9
+	v 0.1.8
 	- [ ] Add shadows
+	v 0.1.9
+	- [ ] Refactor
 
 */
 

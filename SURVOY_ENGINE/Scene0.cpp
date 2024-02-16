@@ -47,10 +47,10 @@ void Scene0::Load()
 		768.f
 	);
 	entityManager_->addComponent<ECS::CameraMatricesComponent>(entityId);
-	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 1, 0));
+	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 16, 0));
 	entityManager_->addComponent<ECS::CameraMouseComponent>(entityId);
 	entityManager_->addComponent<ECS::TargetComponent>(entityId);
-	entityManager_->addByTag("CameraThirdPerson", entityId);
+	entityManager_->addByTag("CameraFreeLook", entityId);
 	
 	// Shader
 	entityId = entityManager_->createEntity();
