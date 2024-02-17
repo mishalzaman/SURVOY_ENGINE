@@ -88,7 +88,7 @@ void ECS::RendererStatic3DSystem::Render() {
 
     if (shader) {
         shader->Program.use();
-        shader->Program.setVec3("lightPos", glm::vec3(0, 10, 10));
+        shader->Program.setVec3("lightPos", glm::vec3(0, 8, 0));
         shader->Program.setVec3("viewPos", _cameraPosition);
         shader->Program.setVec3("lightColor", glm::vec3(0.9, 0.9, 0.9));
         shader->Program.setMat4("projection", _projection);
