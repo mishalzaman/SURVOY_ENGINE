@@ -1,30 +1,5 @@
 #include "RendererStatic3DSystem.h"
 
-// Macro to automatically include file and line information
-#define GL_CHECK(stmt) do { \
-        stmt; \
-        CheckGLError(#stmt, __FILE__, __LINE__); \
-    } while (0)
-
-void CheckGLError(const char* statement, const char* file, int line) {
-    GLenum error = glGetError();
-    while (error != GL_NO_ERROR) {
-        const char* errorString = "UNKNOWN_ERROR";
-        switch (error) {
-        case GL_INVALID_ENUM:                  errorString = "GL_INVALID_ENUM"; break;
-        case GL_INVALID_VALUE:                 errorString = "GL_INVALID_VALUE"; break;
-        case GL_INVALID_OPERATION:             errorString = "GL_INVALID_OPERATION"; break;
-        case GL_STACK_OVERFLOW:                errorString = "GL_STACK_OVERFLOW"; break;
-        case GL_STACK_UNDERFLOW:               errorString = "GL_STACK_UNDERFLOW"; break;
-        case GL_OUT_OF_MEMORY:                 errorString = "GL_OUT_OF_MEMORY"; break;
-        case GL_INVALID_FRAMEBUFFER_OPERATION: errorString = "GL_INVALID_FRAMEBUFFER_OPERATION"; break;
-            // Add more cases as needed
-        }
-        std::cerr << "OpenGL error " << error << " (" << errorString << ") in " << file << " at line " << line << ": " << statement << std::endl;
-        error = glGetError(); // Check for subsequent errors
-    }
-}
-
 ECS::RendererStatic3DSystem::RendererStatic3DSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager):
     _eventManager(eventManager),
     _entityManager(entityManager),
@@ -64,9 +39,9 @@ void ECS::RendererStatic3DSystem::Load() {
 
         if (mesh && buffers) {
             // Initialize the buffers for the mesh
-            GL_CHECK(glGenVertexArrays(1, &buffers->VAO));
-            GL_CHECK(glGenBuffers(1, &buffers->VBO));
-            GL_CHECK(glGenBuffers(1, &buffers->EBO));
+            glGenVertexArrays(1, &buffers->VAO);
+            glGenBuffers(1, &buffers->VBO);
+            glGenBuffers(1, &buffers->EBO);
 
             glBindVertexArray(buffers->VAO);
             glBindBuffer(GL_ARRAY_BUFFER, buffers->VBO);
