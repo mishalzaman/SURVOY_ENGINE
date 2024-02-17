@@ -20,7 +20,7 @@ void main()
     // Light attenuation factors
     float constant = 1.0;
     float linear = 0.09;
-    float quadratic = 0.032;
+    float quadratic = 0.016;
     float distance    = length(lightPos - FragPos);
     float attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));
     ambient *= attenuation;
@@ -44,10 +44,6 @@ void main()
     spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0); // Increase the shininess factor for tighter highlights
     vec3 specular = vec3(0.1) * spec * lightColor; // Adjust specular intensity
     specular *= attenuation;
-
-    // Combine components with gamma correction
-    vec3 finalColor = ambient + diffuse + specular;
-    finalColor = pow(finalColor, vec3(1.0/2.2)); // Gamma correction
 
     vec3 gammaCorrectedColor = pow(ambient + diffuse + specular, vec3(1.0/2.2)); // Gamma correction
     FragColor = vec4(gammaCorrectedColor, 1.0);

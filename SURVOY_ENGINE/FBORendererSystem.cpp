@@ -60,6 +60,9 @@ void ECS::FBORendererSystem::UpdatePostPhysics()
 
 void ECS::FBORendererSystem::Render()
 {
+    _shader->use();
+    _shader->setFloat("time", SDL_GetTicks());
+
     // now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.

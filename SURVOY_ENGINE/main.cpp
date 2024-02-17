@@ -122,7 +122,7 @@ int main(int argc, char* args[]) {
 	
 		scene0->Render();
 	
-		std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
 	
 		Core->EndRender();
 	}
