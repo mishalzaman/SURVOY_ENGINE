@@ -131,7 +131,15 @@ bool ENGINE::Core::_initOpengGL()
 
 bool ENGINE::Core::_createWindow()
 {
-    _window = SDL_CreateWindow(_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, Defaults::BASE_SCREEN_WIDTH, Defaults::BASE_SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+    _window = SDL_CreateWindow(
+        _title,
+        SDL_WINDOWPOS_UNDEFINED,
+        SDL_WINDOWPOS_UNDEFINED,
+        Defaults::BASE_SCREEN_WIDTH,
+        Defaults::BASE_SCREEN_HEIGHT,
+        SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
+    );
+
     if (!_window) {
         SDL_Quit();
         _error = Code::CORE_WINDOW;

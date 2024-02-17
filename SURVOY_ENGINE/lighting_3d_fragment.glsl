@@ -15,12 +15,12 @@ void main()
     vec3 color = texture(texture1, TexCoord).rgb;
 
     // Increased ambient light
-    vec3 ambient = 1.2 * color; // Increase ambient light for softer shadows
+    vec3 ambient = 0.8 * color; // Increase ambient light for softer shadows
 
     // Light attenuation factors
     float constant = 1.0;
     float linear = 0.09;
-    float quadratic = 0.016;
+    float quadratic = 0.002;
     float distance    = length(lightPos - FragPos);
     float attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));
     ambient *= attenuation;
