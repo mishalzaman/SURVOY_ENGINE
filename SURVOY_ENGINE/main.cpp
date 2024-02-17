@@ -1,7 +1,7 @@
 
 /*
 		  *--------------------------*
-		     Current version: 0.1.14
+		     Current version: 0.1.15
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -42,7 +42,6 @@ DEVELOPMENT
 	- [x] Update lighting (gamma, hdr, ssao, blur)
 	v 0.1.8+
 	- [ ] Refactor
-	     [ ] - Add shadows
 		 [x] - Fix model loading
 			[-] - Allow models with no textures, but materials
 			[x] - Fix issue with imports loading incorrect models
@@ -61,7 +60,7 @@ DEVELOPMENT
 
 int main(int argc, char* args[]) {
 	auto Core = std::make_unique<ENGINE::Core>();
-	if (!Core->CreateDevice("Automata 0.1.14")) { return Core->GetError(); }
+	if (!Core->CreateDevice("Automata 0.1.15")) { return Core->GetError(); }
 
 	auto scene0 = std::make_unique<Scene0>();
 
