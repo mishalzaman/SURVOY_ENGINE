@@ -1,7 +1,7 @@
 
 /*
 		  *--------------------------*
-		     Current version: 0.1.8 
+		     Current version: 0.1.14
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -40,12 +40,12 @@ DEVELOPMENT
 	- [x] Add back free look camera
 	v 0.1.7
 	- [x] Update lighting (gamma, hdr, ssao, blur)
-	v 0.1.8
+	v 0.1.8+
 	- [ ] Refactor
-		 [ ] - Fix model loading
-			[ ] - Allow models with no textures, but materials
-			[ ] - Fix issue with imports loading incorrect models
-			[ ] - Improve the mesh class
+		 [x] - Fix model loading
+			[-] - Allow models with no textures, but materials
+			[x] - Fix issue with imports loading incorrect models
+			[x] - Improve the mesh class
 		 [ ] - Clean up header includes
 		 [ ] - Clean up the Core class
 		 [x] - Remove BAE namespace
@@ -54,12 +54,13 @@ DEVELOPMENT
 */
 
 #include <memory>
+#include <string>
 #include "Core.h"
 #include "Scene0.h"
 
 int main(int argc, char* args[]) {
 	auto Core = std::make_unique<ENGINE::Core>();
-	if (!Core->CreateDevice("Automata 0.2.0")) { return Core->GetError(); }
+	if (!Core->CreateDevice("Automata 0.1.14")) { return Core->GetError(); }
 
 	auto scene0 = std::make_unique<Scene0>();
 
@@ -121,7 +122,7 @@ int main(int argc, char* args[]) {
 	
 		scene0->Render();
 	
-		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		std::cout << Core->Timer->DeltaTimeS() << std::endl;
 	
 		Core->EndRender();
 	}

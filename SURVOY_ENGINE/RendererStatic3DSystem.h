@@ -20,6 +20,7 @@
 #include "CameraMatricesComponent.h"
 #include "CameraPositionEvent.h"
 #include "OrientationComponent.h"
+#include "SVertex.h"
 
 namespace ECS {
     class RendererStatic3DSystem : public System, public IObserver {

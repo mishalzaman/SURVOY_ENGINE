@@ -7,18 +7,18 @@ Scene0::Scene0()
 
 void Scene0::Load()
 {
-	auto LevelModel = std::make_unique<ENGINE::Model>("assets/Level_0/level.fbx");
+	auto LevelModel = std::make_unique<ENGINE::Model>("assets/Scene_0/scene.fbx");
 
 	int entityId = 0;
 	
 	// Mesh
 	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
 		if (LevelModel->Meshes()[i].Name() == "PLAYER_START") {			
-			entityId = entityManager_->createEntity();
-			entityManager_->addComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
-			entityManager_->addComponent<ECS::VelocityComponent>(entityId);
-			entityManager_->addComponent<ECS::OrientationComponent>(entityId, LevelModel->Meshes()[i].Position());
-			entityManager_->addByTag("PlayerController", entityId);
+			//entityId = entityManager_->createEntity();
+			//entityManager_->addComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
+			//entityManager_->addComponent<ECS::VelocityComponent>(entityId);
+			//entityManager_->addComponent<ECS::OrientationComponent>(entityId, LevelModel->Meshes()[i].Position());
+			//entityManager_->addByTag("PlayerController", entityId);
 		}
 		else {
 			entityId = entityManager_->createEntity();
@@ -47,7 +47,7 @@ void Scene0::Load()
 		768.f
 	);
 	entityManager_->addComponent<ECS::CameraMatricesComponent>(entityId);
-	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 16, 0));
+	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 2, 6));
 	entityManager_->addComponent<ECS::CameraMouseComponent>(entityId);
 	entityManager_->addComponent<ECS::TargetComponent>(entityId);
 	entityManager_->addByTag("CameraFreeLook", entityId);

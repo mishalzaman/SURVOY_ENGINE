@@ -18,13 +18,6 @@ ENGINE::Model::Model(std::string const& path)
     _loadModel(path);
 }
 
-void ENGINE::Model::Draw(Shader& shader)
-{
-    for (unsigned int i = 0; i < _meshes.size(); i++) {
-        _meshes[i].Draw(shader);
-    }
-}
-
 int ENGINE::Model::NumVertices()
 {
     int count = 0;
@@ -144,16 +137,16 @@ Mesh ENGINE::Model::_processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 t
     // normal: texture_normalN
 
     // 1. diffuse maps
-    std::vector<STexture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+    std::vector<STexture> diffuseMaps = _loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     // 2. specular maps
-    std::vector<STexture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+    std::vector<STexture> specularMaps = _loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     // 3. normal maps
-    std::vector<STexture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+    std::vector<STexture> normalMaps = _loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
     textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
     // 4. height maps
-    std::vector<STexture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+    std::vector<STexture> heightMaps = _loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     //glm::mat4 scaledTransformation = glm::scale(transformation, glm::vec3(0.2f, 0.2f, 0.2f));
@@ -162,7 +155,7 @@ Mesh ENGINE::Model::_processMesh(aiMesh* mesh, const aiScene* scene, glm::mat4 t
     return Mesh(vertices, indices, textures, transformation, name.C_Str());
 }
 
-std::vector<STexture> ENGINE::Model::loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName)
+std::vector<STexture> ENGINE::Model::_loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName)
 {
     std::vector<STexture> textures;
     for (unsigned int i = 0; i < material->GetTextureCount(type); i++)

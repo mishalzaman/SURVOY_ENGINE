@@ -70,7 +70,7 @@ void ECS::SkyBoxSystem::Load()
     glGenVertexArrays(1, &_VAO);
     glGenBuffers(1, &_VBO);
     glBindVertexArray(_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, _VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, _VBO);
     glBufferData(GL_ARRAY_BUFFER, _cube.size() * sizeof(float), _cube.data(), GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
