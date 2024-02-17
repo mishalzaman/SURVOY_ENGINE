@@ -42,7 +42,7 @@ DEVELOPMENT
 	- [x] Update lighting (gamma, hdr, ssao, blur)
 	v 0.1.8+
 	- [ ] Refactor
-	     [ ] - Improve lighting
+	     [ ] - Add shadows
 		 [x] - Fix model loading
 			[-] - Allow models with no textures, but materials
 			[x] - Fix issue with imports loading incorrect models
