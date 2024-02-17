@@ -1,7 +1,7 @@
 
 /*
 		  *--------------------------*
-		     Current version: 0.1.15
+		     Current version: 0.1.16
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -47,9 +47,12 @@ DEVELOPMENT
 			[x] - Fix issue with imports loading incorrect models
 			[x] - Improve the mesh class
 		 [ ] - Clean up header includes
-		 [ ] - Clean up the Core class
+		 [x] - Clean up the Core class
 		 [x] - Remove BAE namespace
 		 [ ] - Add profiler
+		 [ ] - Add shadow map
+		 [ ] - Add SSAO
+
 
 */
 

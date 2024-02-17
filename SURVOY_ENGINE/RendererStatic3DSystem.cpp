@@ -8,9 +8,20 @@
 
 void CheckGLError(const char* statement, const char* file, int line) {
     GLenum error = glGetError();
-    if (error != GL_NO_ERROR) {
-        std::cerr << "OpenGL error " << error << " in " << file << " at line " << line << ": " << statement << std::endl;
-        // Depending on your application, you might want to throw an exception or exit here.
+    while (error != GL_NO_ERROR) {
+        const char* errorString = "UNKNOWN_ERROR";
+        switch (error) {
+        case GL_INVALID_ENUM:                  errorString = "GL_INVALID_ENUM"; break;
+        case GL_INVALID_VALUE:                 errorString = "GL_INVALID_VALUE"; break;
+        case GL_INVALID_OPERATION:             errorString = "GL_INVALID_OPERATION"; break;
+        case GL_STACK_OVERFLOW:                errorString = "GL_STACK_OVERFLOW"; break;
+        case GL_STACK_UNDERFLOW:               errorString = "GL_STACK_UNDERFLOW"; break;
+        case GL_OUT_OF_MEMORY:                 errorString = "GL_OUT_OF_MEMORY"; break;
+        case GL_INVALID_FRAMEBUFFER_OPERATION: errorString = "GL_INVALID_FRAMEBUFFER_OPERATION"; break;
+            // Add more cases as needed
+        }
+        std::cerr << "OpenGL error " << error << " (" << errorString << ") in " << file << " at line " << line << ": " << statement << std::endl;
+        error = glGetError(); // Check for subsequent errors
     }
 }
 
