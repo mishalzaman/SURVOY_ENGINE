@@ -1,7 +1,14 @@
 
+#include <memory>
+#include <string>
+#include "Core.h"
+#include "Scene0.h"
+
+std::string version = "Basic Add Engine 0.1.17";
+
 /*
 		  *--------------------------*
-		     Current version: 0.1.16
+		     Current version: 0.1.17
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -46,24 +53,19 @@ DEVELOPMENT
 			[-] - Allow models with no textures, but materials
 			[x] - Fix issue with imports loading incorrect models
 			[x] - Improve the mesh class
-		 [ ] - Clean up header includes
 		 [x] - Clean up the Core class
 		 [x] - Remove BAE namespace
-		 [ ] - Add profiler
+		 [ ] - Add profiler, better error handling
+		 [ ] - Clean up header includes
 		 [ ] - Add shadow map
 		 [ ] - Add SSAO
 
 
 */
 
-#include <memory>
-#include <string>
-#include "Core.h"
-#include "Scene0.h"
-
 int main(int argc, char* args[]) {
 	auto Core = std::make_unique<ENGINE::Core>();
-	if (!Core->CreateDevice("Automata 0.1.15")) { return Core->GetError(); }
+	if (!Core->CreateDevice(version.c_str())) { return Core->GetError(); }
 
 	auto scene0 = std::make_unique<Scene0>();
 
