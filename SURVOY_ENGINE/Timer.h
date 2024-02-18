@@ -9,7 +9,7 @@ namespace ENGINE {
 	public:
 		Timer(double updateInterval);
 		void BeginFrame();
-		bool PhysicsUpdate();
+		bool FixedUpdate();
 
 		double DeltaTimeS() { return _deltaTimeS; }
 		double DeltaTimeMS() { return _deltaTimeMS; }

@@ -54,16 +54,10 @@
     <ClCompile Include="RendererQuad2D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="RendererText2D.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="Logger.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="RendererTileset2D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
@@ -132,9 +126,6 @@
     <ClCompile Include="CameraYawEvent.h">
       <Filter>ENGINE\Observer\Events</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>GAME</Filter>
-    </ClCompile>
     <ClCompile Include="Scene0.cpp">
       <Filter>GAME</Filter>
     </ClCompile>
@@ -150,6 +141,9 @@
     <ClCompile Include="System.cpp">
       <Filter>ENGINE\ECS</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -164,9 +158,6 @@
     <ClInclude Include="RendererQuad2D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="RendererText2D.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
@@ -177,9 +168,6 @@
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Defaults.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererTileset2D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
@@ -299,9 +287,6 @@
     <ClInclude Include="CharacterControllerPositionEvent.h">
       <Filter>ENGINE\Observer\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>GAME</Filter>
-    </ClInclude>
     <ClInclude Include="Scene0.h">
       <Filter>GAME</Filter>
     </ClInclude>
@@ -322,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="System.h">
       <Filter>ENGINE\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>ENGINE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

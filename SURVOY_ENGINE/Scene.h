@@ -51,9 +51,8 @@ public:
     virtual ~Scene() = default;
 
     virtual void Load();
-    virtual void UpdatePrePhysics();
-    virtual void UpdatePhysics(float deltaTime);
-    virtual void UpdatePostPhysics();
+    virtual void UpdateOnFixedTimestep(float deltaTime);
+    virtual void UpdateOnVariableTimestep();
     virtual void Render();
     virtual void Unload();
 

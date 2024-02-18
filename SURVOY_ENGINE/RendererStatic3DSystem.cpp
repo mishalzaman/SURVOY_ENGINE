@@ -115,19 +115,6 @@ void ECS::RendererStatic3DSystem::Unload() {
     }
 }
 
-void ECS::RendererStatic3DSystem::UpdatePrePhysics()
-{
-}
-
-void ECS::RendererStatic3DSystem::Update(float deltaTime)
-{
-}
-
-void ECS::RendererStatic3DSystem::UpdatePostPhysics()
-{
-}
-
-
 void ECS::RendererStatic3DSystem::_render(
     const TransformComponent& transform,
     const MeshComponent& mesh,

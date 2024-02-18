@@ -62,7 +62,7 @@ void ECS::CameraFreeLookSystem::Load()
     }
 }
 
-void ECS::CameraFreeLookSystem::Update(float deltaTime)
+void ECS::CameraFreeLookSystem::UpdateOnFixedTimestep(float deltaTime)
 {
     std::vector<int> entities = _entityManager.getByTag("CameraFreeLook");
 

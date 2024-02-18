@@ -63,7 +63,7 @@ void ECS::CameraThirdPersonSystem::Load()
     }
 }
 
-void ECS::CameraThirdPersonSystem::Update(float deltaTime)
+void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
 {
     int e = _entityManager.getByTag("CameraThirdPerson")[0];
 

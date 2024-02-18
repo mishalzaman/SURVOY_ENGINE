@@ -42,21 +42,15 @@ namespace ECS {
             }
         }
 
-        void UpdatePrePhysics() {
+        void UpdateOnFixedTimestep(float deltaTime) {
             for (auto& system : systemList) {
-                system->UpdatePrePhysics();
+                system->UpdateOnFixedTimestep(deltaTime);
             }
         }
 
-        void Update(float deltaTime) {
+        void UpdateOnVariableTimestep() {
             for (auto& system : systemList) {
-                system->Update(deltaTime);
-            }
-        }
-
-        void UpdatePostPhysics() {
-            for (auto& system : systemList) {
-                system->UpdatePostPhysics();
+                system->UpdateOnVariableTimestep();
             }
         }
 

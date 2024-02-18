@@ -171,8 +171,6 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="RendererQuad2D.cpp" />
-    <ClCompile Include="RendererText2D.cpp" />
-    <ClCompile Include="RendererTileset2D.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SVertex2D.h" />
     <ClCompile Include="Timer.cpp" />
@@ -227,8 +225,6 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="RendererQuad2D.h" />
-    <ClInclude Include="RendererText2D.h" />
-    <ClInclude Include="RendererTileset2D.h" />
     <ClInclude Include="STexture.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stbi_image.h" />

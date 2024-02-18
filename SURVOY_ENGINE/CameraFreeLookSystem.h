@@ -32,7 +32,7 @@ namespace ECS {
 		void onNotify(const Event& event) override;
 
 		void Load() override;
-		void Update(float deltaTime) override;
+		void UpdateOnFixedTimestep(float deltaTime) override;
 
 	private:
 		EventManager& _eventManager;

@@ -29,19 +29,14 @@ void Scene::Load()
 	systemManager_->Load();
 }
 
-void Scene::UpdatePrePhysics()
+void Scene::UpdateOnFixedTimestep(float deltaTime)
 {
-	systemManager_->UpdatePrePhysics();
+	systemManager_->UpdateOnFixedTimestep(deltaTime);
 }
 
-void Scene::UpdatePhysics(float deltaTime)
+void Scene::UpdateOnVariableTimestep()
 {
-	systemManager_->Update(deltaTime);
-}
-
-void Scene::UpdatePostPhysics()
-{
-	systemManager_->UpdatePostPhysics();
+	systemManager_->UpdateOnVariableTimestep();
 }
 
 void Scene::Render()

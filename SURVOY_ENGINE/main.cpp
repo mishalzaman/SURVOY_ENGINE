@@ -4,11 +4,11 @@
 #include "Core.h"
 #include "Scene0.h"
 
-std::string version = "Basic Add Engine 0.1.19";
+std::string version = "Basic Add Engine 0.1.20";
 
 /*
 		  *--------------------------*
-		     Current version: 0.1.19
+		     Current version: 0.1.20
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -59,6 +59,7 @@ DEVELOPMENT
 		 [ ] - Update graphics pipeline
 				- Updated System abstract class to ISystem with derived System
 				- Updated System classes and removed redundant methods
+				- Updated the update methods naming
 		 [ ] - Add shadow map
 		 [ ] - Add SSAO
 
@@ -109,16 +110,14 @@ int main(int argc, char* args[]) {
 			}
 		}
 	
-		scene0->UpdatePrePhysics();
-	
 		/*=============
 		FIXED UPDATE
 		=============*/
-		while (Core->Timer->PhysicsUpdate()) {
-			scene0->UpdatePhysics(deltaTime);
+		while (Core->Timer->FixedUpdate()) {
+			scene0->UpdateOnFixedTimestep(deltaTime);
 		}
 	
-		scene0->UpdatePostPhysics();
+		scene0->UpdateOnVariableTimestep();
 	
 		/*=============
 		RENDER
