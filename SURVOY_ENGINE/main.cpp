@@ -4,11 +4,11 @@
 #include "Core.h"
 #include "Scene0.h"
 
-std::string version = "Basic Add Engine 0.1.17";
+std::string version = "Basic Add Engine 0.1.18";
 
 /*
 		  *--------------------------*
-		     Current version: 0.1.17
+		     Current version: 0.1.18
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -55,7 +55,7 @@ DEVELOPMENT
 			[x] - Improve the mesh class
 		 [x] - Clean up the Core class
 		 [x] - Remove BAE namespace
-		 [ ] - Add profiler, better error handling
+		 [x] - Add profiler, better error handling
 		 [ ] - Clean up header includes
 		 [ ] - Add shadow map
 		 [ ] - Add SSAO
