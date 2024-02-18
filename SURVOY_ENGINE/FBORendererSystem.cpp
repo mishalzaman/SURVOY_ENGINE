@@ -46,18 +46,6 @@ void ECS::FBORendererSystem::Load()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 }
 
-void ECS::FBORendererSystem::UpdatePrePhysics()
-{
-}
-
-void ECS::FBORendererSystem::Update(float deltaTime)
-{
-}
-
-void ECS::FBORendererSystem::UpdatePostPhysics()
-{
-}
-
 void ECS::FBORendererSystem::Render()
 {
     _shader->use();
@@ -74,8 +62,4 @@ void ECS::FBORendererSystem::Render()
     glBindVertexArray(_VAO);
     glBindTexture(GL_TEXTURE_2D, _colourBuffer);	// use the color attachment texture as the texture of the quad plane
     glDrawArrays(GL_TRIANGLES, 0, 6);
-}
-
-void ECS::FBORendererSystem::Unload()
-{
 }

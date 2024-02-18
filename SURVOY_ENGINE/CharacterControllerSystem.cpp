@@ -35,11 +35,6 @@ void ECS::CharacterControllerSystem::Load()
 	}
 }
 
-void ECS::CharacterControllerSystem::UpdatePrePhysics()
-{
-
-}
-
 void ECS::CharacterControllerSystem::Update(float deltaTime)
 {
 	int e = _entityManager.getByTag("PlayerController")[0];
@@ -101,10 +96,6 @@ void ECS::CharacterControllerSystem::Render()
 			_physics.World().getDebugDrawer()->drawLine(position, upEnd, upColor);	
 		}
 	}
-}
-
-void ECS::CharacterControllerSystem::Unload()
-{
 }
 
 void ECS::CharacterControllerSystem::_updateInput(float deltaTime, const glm::vec3& forward, const glm::vec3& right, float& velocity, glm::vec3& direction)

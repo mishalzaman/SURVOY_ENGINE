@@ -27,26 +27,14 @@ void ECS::PhysicsSystem::Load()
 	_createDynamicCapsuleBody();
 }
 
-void ECS::PhysicsSystem::UpdatePrePhysics()
-{
-}
-
 void ECS::PhysicsSystem::Update(float deltaTime)
 {
 	_physics.Simulate(deltaTime);
 }
 
-void ECS::PhysicsSystem::UpdatePostPhysics()
-{
-}
-
 void ECS::PhysicsSystem::Render()
 {
 	_physics.DrawDebug();
-}
-
-void ECS::PhysicsSystem::Unload()
-{
 }
 
 void ECS::PhysicsSystem::_createStaticTriangleMeshBody()

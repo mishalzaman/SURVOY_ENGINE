@@ -58,6 +58,7 @@ DEVELOPMENT
 		 [x] - Add profiler, better error handling
 		 [ ] - Update graphics pipeline
 				- Updated System abstract class to ISystem with derived System
+				- Updated System classes and removed redundant methods
 		 [ ] - Add shadow map
 		 [ ] - Add SSAO
 
