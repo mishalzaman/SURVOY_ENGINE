@@ -5,7 +5,7 @@
 
 // Engine
 #include "EntityManager.h"
-#include "System.h"
+#include "ISystem.h"
 #include "SystemManager.h"
 #include "Shader.h"
 #include "Physics.h"

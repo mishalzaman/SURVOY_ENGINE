@@ -157,6 +157,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene0.cpp" />
     <ClCompile Include="SkyBoxSystem.cpp" />
+    <ClCompile Include="ISystem.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="VectorHelpers.cpp" />
@@ -209,6 +210,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="SkyBoxComponent.h" />
     <ClInclude Include="SkyBoxSystem.h" />
     <ClInclude Include="StaticPhysicsBodyComponent.h" />
+    <ClInclude Include="ISystem.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="TargetComponent.h" />
