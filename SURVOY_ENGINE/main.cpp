@@ -56,7 +56,6 @@ DEVELOPMENT
 		 [x] - Clean up the Core class
 		 [x] - Remove BAE namespace
 		 [x] - Add profiler, better error handling
-		 [ ] - Clean up header includes
 		 [ ] - Add shadow map
 		 [ ] - Add SSAO
 
