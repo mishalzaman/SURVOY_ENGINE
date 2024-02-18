@@ -152,8 +152,9 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="FBORendererSystem.cpp" />
     <ClCompile Include="FBOBeginSystem.cpp" />
     <ClCompile Include="IObserver.cpp" />
-    <ClCompile Include="RendererStatic3DSystem.cpp" />
+    <ClCompile Include="RenderStatic3DSystem.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
+    <ClCompile Include="RenderPhysicsDebugSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene0.cpp" />
     <ClCompile Include="SkyBoxSystem.cpp" />
@@ -196,11 +197,13 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="IObserver.h" />
+    <ClInclude Include="KeyPressEvent.h" />
     <ClInclude Include="MeshComponent.h" />
-    <ClInclude Include="RendererStatic3DSystem.h" />
+    <ClInclude Include="RenderStatic3DSystem.h" />
     <ClInclude Include="MoveDirectionEvent.h" />
     <ClInclude Include="OrientationComponent.h" />
     <ClInclude Include="PhysicsSystem.h" />
+    <ClInclude Include="RenderPhysicsDebugSystem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene0.h" />
     <ClInclude Include="ScreenDimensionsComponent.h" />

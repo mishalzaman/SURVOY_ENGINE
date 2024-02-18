@@ -24,8 +24,6 @@ namespace ECS {
 
         void Load() override;
         void UpdateOnFixedTimestep(float deltaTime) override;
-        void Render() override;
-
 
     private:
         EntityManager& _entityManager;

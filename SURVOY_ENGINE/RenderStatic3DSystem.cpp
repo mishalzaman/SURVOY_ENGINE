@@ -1,6 +1,6 @@
-#include "RendererStatic3DSystem.h"
+#include "RenderStatic3DSystem.h"
 
-ECS::RendererStatic3DSystem::RendererStatic3DSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager):
+ECS::RenderStatic3DSystem::RenderStatic3DSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager):
     _eventManager(eventManager),
     _entityManager(entityManager),
     _physics(physics)
@@ -8,12 +8,12 @@ ECS::RendererStatic3DSystem::RendererStatic3DSystem(EntityManager& entityManager
     _eventManager.subscribe(this);
 }
 
-ECS::RendererStatic3DSystem::~RendererStatic3DSystem()
+ECS::RenderStatic3DSystem::~RenderStatic3DSystem()
 {
     _eventManager.unsubscribe(this);
 }
 
-void ECS::RendererStatic3DSystem::onNotify(const Event& event)
+void ECS::RenderStatic3DSystem::onNotify(const Event& event)
 {
     const auto* cameraEvent = dynamic_cast<const CameraViewProjectionEvent*>(&event);
     const auto* cameraPositionEvent = dynamic_cast<const CameraPositionEvent*>(&event);
@@ -28,7 +28,7 @@ void ECS::RendererStatic3DSystem::onNotify(const Event& event)
     }
 }
 
-void ECS::RendererStatic3DSystem::Load() {
+void ECS::RenderStatic3DSystem::Load() {
     // Retrieve entity IDs by tag
     std::vector<int> entities = _entityManager.getByTags("Mesh");
 
@@ -66,7 +66,7 @@ void ECS::RendererStatic3DSystem::Load() {
     }
 }
 
-void ECS::RendererStatic3DSystem::Render() {
+void ECS::RenderStatic3DSystem::Render() {
     std::vector<int> entities = _entityManager.getByTags("Mesh");
 
     int e = _entityManager.getByTag("DefaultShader")[0];
@@ -101,7 +101,7 @@ void ECS::RendererStatic3DSystem::Render() {
     }
 }
 
-void ECS::RendererStatic3DSystem::Unload() {
+void ECS::RenderStatic3DSystem::Unload() {
     std::vector<int> entities = _entityManager.getByTags("Mesh");
 
     for (int entityId : entities) {
@@ -115,7 +115,7 @@ void ECS::RendererStatic3DSystem::Unload() {
     }
 }
 
-void ECS::RendererStatic3DSystem::_render(
+void ECS::RenderStatic3DSystem::_render(
     const TransformComponent& transform,
     const MeshComponent& mesh,
     const BuffersComponent& buffers,

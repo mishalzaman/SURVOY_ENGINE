@@ -32,11 +32,6 @@ void ECS::PhysicsSystem::UpdateOnFixedTimestep(float deltaTime)
 	_physics.Simulate(deltaTime);
 }
 
-void ECS::PhysicsSystem::Render()
-{
-	_physics.DrawDebug();
-}
-
 void ECS::PhysicsSystem::_createStaticTriangleMeshBody()
 {
 	std::vector<int> entities = _entityManager.getByTag("Mesh");

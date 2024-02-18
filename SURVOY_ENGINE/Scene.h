@@ -32,10 +32,11 @@
 #include "CameraThirdPersonSystem.h"
 #include "characterControllerSystem.h"
 #include "PhysicsSystem.h"
-#include "RendererStatic3DSystem.h"
+#include "RenderStatic3DSystem.h"
 #include "FBOBeginSystem.h"
 #include "FBORendererSystem.h"
 #include "SkyBoxSystem.h"
+#include "RenderPhysicsDebugSystem.h"
 
 //  Observer
 #include "Event.h"

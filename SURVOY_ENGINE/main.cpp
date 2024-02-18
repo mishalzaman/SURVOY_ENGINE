@@ -3,12 +3,13 @@
 #include <string>
 #include "Core.h"
 #include "Scene0.h"
+#include "KeyPressEvent.h"
 
-std::string version = "Basic Add Engine 0.1.20";
+std::string version = "Basic Add Engine 0.1.21";
 
 /*
 		  *--------------------------*
-		     Current version: 0.1.20
+		     Current version: 0.1.21
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -60,6 +61,7 @@ DEVELOPMENT
 				- Updated System abstract class to ISystem with derived System
 				- Updated System classes and removed redundant methods
 				- Updated the update methods naming
+				- Added phyics debug draw system and key input toggle
 		 [ ] - Add shadow map
 		 [ ] - Add SSAO
 
@@ -101,6 +103,10 @@ int main(int argc, char* args[]) {
 					if (e.key.keysym.sym == SDLK_ESCAPE) {
 						Core->BeginShutdown();
 					}
+					if (e.key.keysym.sym == SDLK_z) {
+						scene0->GetEventManager().notifyAll(KeyPressEvent(SDL_KeyCode::SDLK_z));
+					}
+
 					break;
 				case SDL_MOUSEMOTION:
 					scene0->GetEventManager().notifyAll(InputMouseRelXYEvent(e.motion.xrel, e.motion.yrel));
@@ -128,7 +134,7 @@ int main(int argc, char* args[]) {
 	
 		scene0->Render();
 	
-		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		std::cout << Core->Timer->DeltaTimeS() << std::endl;
 	
 		Core->EndRender();
 	}
