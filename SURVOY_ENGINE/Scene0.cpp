@@ -10,7 +10,7 @@ void Scene0::Load()
 	auto LevelModel = std::make_unique<ENGINE::Model>("assets/Scene_0/scene.fbx");
 
 	int entityId = 0;
-	
+
 	// Mesh
 	for (int i = 0; i < LevelModel->Meshes().size(); i++) {
 		if (LevelModel->Meshes()[i].Name() == "PLAYER_START") {			

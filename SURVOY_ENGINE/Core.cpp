@@ -1,5 +1,54 @@
 #include "Core.h"
 
+void GLAPIENTRY MessageCallback(GLenum source,
+    GLenum type,
+    GLuint id,
+    GLenum severity,
+    GLsizei length,
+    const GLchar* message,
+    const void* userParam)
+{
+    // Prefix message to clarify source
+    const char* severityStr = "";
+
+    switch (severity) {
+    case GL_DEBUG_SEVERITY_HIGH:
+        severityStr = "HIGH SEVERITY";
+        fprintf(stderr, "GL CALLBACK: ** HIGH SEVERITY ERROR ** %s type = 0x%x, message = %s\n",
+            (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+            type, message);
+        break;
+    case GL_DEBUG_SEVERITY_MEDIUM:
+        severityStr = "MEDIUM SEVERITY";
+        fprintf(stderr, "GL CALLBACK: ** MEDIUM SEVERITY ** %s type = 0x%x, message = %s\n",
+            (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+            type, message);
+        break;
+    case GL_DEBUG_SEVERITY_LOW:
+        severityStr = "LOW SEVERITY";
+        fprintf(stderr, "GL CALLBACK: ** LOW SEVERITY ** %s type = 0x%x, message = %s\n",
+            (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+            type, message);
+        break;
+    case GL_DEBUG_SEVERITY_NOTIFICATION:
+        // Optionally handle notifications differently or ignore them
+        // For example, you might not want to log notifications to keep logs cleaner
+        severityStr = "NOTIFICATION";
+        break;
+    default:
+        //severityStr = "UNKNOWN SEVERITY";
+        //fprintf(stderr, "GL CALLBACK: ** UNKNOWN SEVERITY ** %s type = 0x%x, message = %s\n",
+        //    (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+        //    type, message);
+        break;
+    }
+
+    // Use severityStr if you want to prefix all messages with the severity, for example:
+    // fprintf(stderr, "GL CALLBACK: %s %s type = 0x%x, severity = 0x%x, message = %s\n",
+    //         severityStr, (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+    //         type, severity, message);
+}
+
 
 /*==============================================
 CORE
@@ -186,6 +235,9 @@ void ENGINE::Core::_openGLSettings()
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
+
+    glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(MessageCallback, 0);
 }
 
 void ENGINE::Core::_initializeSubSystems()
