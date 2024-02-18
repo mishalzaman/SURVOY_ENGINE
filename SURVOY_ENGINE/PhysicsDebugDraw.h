@@ -31,9 +31,6 @@ public:
 		this->shader.use();
 		this->shader.setMat4("projection", pProjectionMatrix);
 		this->shader.setMat4("view", pViewMatrix);
-
-		////glUniformMatrix4fv(glGetUniformLocation(lineShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(pProjectionMatrix));
-		////glUniformMatrix4fv(glGetUniformLocation(lineShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(pViewMatrix));
 	}
 
 	virtual void drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
