@@ -49,7 +49,6 @@ void ECS::FBORendererSystem::Load()
 void ECS::FBORendererSystem::Render()
 {
     _shader->use();
-    _shader->setFloat("time", SDL_GetTicks());
 
     // now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
