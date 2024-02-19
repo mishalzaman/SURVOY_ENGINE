@@ -5,11 +5,11 @@
 #include "Scene0.h"
 #include "KeyPressEvent.h"
 
-std::string version = "Basic Add Engine 0.1.22";
+std::string version = "Basic Add Engine 0.1.32";
 
 /*
 		  *--------------------------*
-		     Current version: 0.1.22
+		     Current version: 0.1.32
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -62,7 +62,8 @@ DEVELOPMENT
 				- Updated System classes and removed redundant methods
 				- Updated the update methods naming
 				- Added phyics debug draw system and key input toggle
-		 [ ] - Add shadow map
+		 [x] - Add shadow map
+		 [ ] - Refactor shadow map
 		 [ ] - Add SSAO
 
 
