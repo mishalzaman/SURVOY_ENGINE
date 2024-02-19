@@ -77,9 +77,6 @@ void ECS::RenderPassDepthMapSystem::Render()
     ECS::ProgramComponent* depthShader = _entityManager.getComponent<ECS::ProgramComponent>(
         _entityManager.getByTags("DepthShader")[0]
     );
-    ECS::ProgramComponent* debugDepthQuadShader = _entityManager.getComponent<ECS::ProgramComponent>(
-        _entityManager.getByTags("DebugDepthQuadShader")[0]
-    );
     ECS::LightSpaceMatrixComponent* lsm = _entityManager.getComponent<ECS::LightSpaceMatrixComponent>(
         _entityManager.getByTags("LightSpaceMatrix")[0]
     );
@@ -87,8 +84,6 @@ void ECS::RenderPassDepthMapSystem::Render()
         _entityManager.getByTags("CameraFreeLook")[0]
     );
     
-
-
     lightView = glm::lookAt(directionalLight->Position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
     lsm->LightSpaceMatrix = lightProjection * lightView;
 

@@ -108,7 +108,7 @@ void Scene0::Load()
 	 LIGHTING
 	-----------*/
 	entityId = entityManager_->createEntity();
-	entityManager_->addComponent<ECS::DirectionalLightComponent>(entityId, glm::vec3(20,20,20));
+	entityManager_->addComponent<ECS::DirectionalLightComponent>(entityId, glm::vec3(22,20,22));
 	entityManager_->addByTag("DirectionalLight", entityId);
 
 	Scene::Load();
