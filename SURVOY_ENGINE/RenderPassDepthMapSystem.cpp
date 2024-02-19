@@ -126,7 +126,7 @@ void ECS::RenderPassDepthMapSystem::Render()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     //// reset viewport
-    //glViewport(0, 0, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT);
+    glViewport(0, 0, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT);
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //// render debug quad

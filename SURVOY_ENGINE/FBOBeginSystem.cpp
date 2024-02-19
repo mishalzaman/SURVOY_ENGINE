@@ -62,6 +62,7 @@ void ECS::FBOBeginSystem::Render()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, _FBO);
     glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
+    glDepthFunc(GL_LEQUAL);
 
     // make sure we clear the framebuffer's content
     glClearColor(0.5f, 0.5f, 1.0f, 1.0f);
