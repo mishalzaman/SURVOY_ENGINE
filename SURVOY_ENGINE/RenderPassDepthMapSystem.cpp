@@ -18,6 +18,13 @@ ECS::RenderPassDepthMapSystem::RenderPassDepthMapSystem(EntityManager& entityMan
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+
+    ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(
+        _entityManager.getByTags("DepthQuadBuffers")[0]
+    );
+
+    buffers->VAO = _quadVAO;
+    buffers->VBO = _quadVBO;
 }
 
 void ECS::RenderPassDepthMapSystem::Load()
@@ -40,8 +47,10 @@ void ECS::RenderPassDepthMapSystem::Load()
             SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+        GLfloat borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
         texture->Texture.id = depthMap;
         std::cout << "RenderPassDepthMapSystem::Load texture id: " << texture->Texture.id << std::endl;
 
@@ -57,12 +66,15 @@ void ECS::RenderPassDepthMapSystem::Render()
 {
     glm::mat4 lightProjection, lightView;
 
-    float near_plane = 1.0f, far_plane = 7.5f;
-    lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+    float near_plane = 0.1f, far_plane = 64.f;
+    lightProjection = glm::ortho(-30.0f, 30.0f, -30.0f, 30.0f, near_plane, far_plane);
 
     ECS::DirectionalLightComponent* directionalLight = _entityManager.getComponent<ECS::DirectionalLightComponent>(
         _entityManager.getByTags("DirectionalLight")[0]
     );
+
+    //directionalLight->Position.x += 0.01;
+
 
     ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(
         _entityManager.getByTags("DepthFBO")[0]
@@ -113,20 +125,20 @@ void ECS::RenderPassDepthMapSystem::Render()
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    // reset viewport
-    glViewport(0, 0, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //// reset viewport
+    //glViewport(0, 0, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT);
+    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // render debug quad
-    debugDepthQuadShader->Program.use();
-    debugDepthQuadShader->Program.setFloat("near_plane", near_plane);
-    debugDepthQuadShader->Program.setFloat("far_plane", far_plane);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, depthTexture->Texture.id);
+    //// render debug quad
+    //debugDepthQuadShader->Program.use();
+    //debugDepthQuadShader->Program.setFloat("near_plane", near_plane);
+    //debugDepthQuadShader->Program.setFloat("far_plane", far_plane);
+    //glActiveTexture(GL_TEXTURE0);
+    //glBindTexture(GL_TEXTURE_2D, depthTexture->Texture.id);
 
-    glBindVertexArray(_quadVAO);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    glBindVertexArray(0);
+    //glBindVertexArray(_quadVAO);
+    //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    //glBindVertexArray(0);
 }
 
 void ECS::RenderPassDepthMapSystem::Unload()

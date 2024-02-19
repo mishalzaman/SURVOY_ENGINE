@@ -22,6 +22,8 @@
 #include "OrientationComponent.h"
 #include "SVertex.h"
 #include "DirectionalLightComponent.h"
+#include "TextureComponent.h"
+#include "LightSpaceMatrixComponent.h"
 
 namespace ECS {
     class RenderStatic3DSystem : public System, public IObserver {

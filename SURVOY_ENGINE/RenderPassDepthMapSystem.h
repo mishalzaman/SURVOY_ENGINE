@@ -41,5 +41,7 @@ namespace ECS {
 			const BuffersComponent& buffers,
 			const TexturesComponent& textures
 		);
+
+		glm::vec3 _startPos;
 	};
 }

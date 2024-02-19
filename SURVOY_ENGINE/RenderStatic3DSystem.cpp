@@ -35,21 +35,32 @@ void ECS::RenderStatic3DSystem::Load() {
 void ECS::RenderStatic3DSystem::Render() {
     std::vector<int> entities = _entityManager.getByTags("Mesh");
 
-    int e = _entityManager.getByTag("DefaultShader")[0];
+    int e = _entityManager.getByTag("ShadowMapColourShader")[0];
     ECS::ProgramComponent* shader = _entityManager.getComponent<ECS::ProgramComponent>(e);
 
     ECS::DirectionalLightComponent* directionalLight = _entityManager.getComponent<ECS::DirectionalLightComponent>(
         _entityManager.getByTags("DirectionalLight")[0]
+    );
+    ECS::TextureComponent* depthTexture = _entityManager.getComponent<ECS::TextureComponent>(
+        _entityManager.getByTags("DepthTexture")[0]
+    );
+    ECS::LightSpaceMatrixComponent* lsm = _entityManager.getComponent<ECS::LightSpaceMatrixComponent>(
+        _entityManager.getByTags("LightSpaceMatrix")[0]
     );
 
     if (shader) {
         shader->Program.use();
         shader->Program.setVec3("lightPos", directionalLight->Position);
         shader->Program.setVec3("viewPos", _cameraPosition);
-        shader->Program.setVec3("lightColor", glm::vec3(0.9, 0.9, 0.9));
+        shader->Program.setVec3("lightColor", glm::vec3(1, 1, 1));
         shader->Program.setMat4("projection", _projection);
         shader->Program.setMat4("view", _view);
-        shader->Program.setInt("texture1", 0);
+        shader->Program.setInt("diffuseTexture", 0);
+        shader->Program.setInt("shadowMap", 1);
+        shader->Program.setMat4("lightSpaceMatrix", lsm->LightSpaceMatrix);
+
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, depthTexture->Texture.id);
     }
     else {
         std::cout << "could not load shader" << std::endl;

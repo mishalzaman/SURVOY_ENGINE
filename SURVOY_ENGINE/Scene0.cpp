@@ -100,11 +100,15 @@ void Scene0::Load()
 	entityManager_->addComponent<ECS::LightSpaceMatrixComponent>(entityId);
 	entityManager_->addByTag("LightSpaceMatrix", entityId);
 
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::BuffersComponent>(entityId);
+	entityManager_->addByTag("DepthQuadBuffers", entityId);
+
 	/*----------
 	 LIGHTING
 	-----------*/
 	entityId = entityManager_->createEntity();
-	entityManager_->addComponent<ECS::DirectionalLightComponent>(entityId, glm::vec3(4,10,4));
+	entityManager_->addComponent<ECS::DirectionalLightComponent>(entityId, glm::vec3(20,20,20));
 	entityManager_->addByTag("DirectionalLight", entityId);
 
 	Scene::Load();
