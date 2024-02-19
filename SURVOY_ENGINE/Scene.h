@@ -28,6 +28,7 @@
 #include "SkyBoxComponent.h"
 #include "TextureComponent.h"
 #include "DirectionalLightComponent.h"
+#include "LightSpaceMatrixComponent.h"
 
 // ECS - Systems
 #include "CameraFreeLookSystem.h"
@@ -71,6 +72,7 @@ protected:
     std::unique_ptr<ENGINE::Shader> skyboxShader_;
     std::unique_ptr<ENGINE::Shader> debugDepthQuadShader_;
     std::unique_ptr<ENGINE::Shader> depthShader_;
+    std::unique_ptr<ENGINE::Shader> shadowMappedColourShader_;
     std::unique_ptr<ENGINE::Physics> physics_;
 
     std::unique_ptr<ECS::SystemManager> systemManager_;

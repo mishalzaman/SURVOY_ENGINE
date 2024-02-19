@@ -201,6 +201,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="KeyPressEvent.h" />
+    <ClInclude Include="LightSpaceMatrixComponent.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="MeshStaticBuffersSystem.h" />
     <ClInclude Include="RenderPassDepthMapSystem.h" />
@@ -213,6 +214,8 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="Scene0.h" />
     <ClInclude Include="ScreenDimensionsComponent.h" />
     <ClInclude Include="ProgramComponent.h" />
+    <ClInclude Include="shadow_mapped_colour_fragment.glsl" />
+    <ClInclude Include="shadow_mapped_colour_vertex.glsl" />
     <ClInclude Include="SkyBoxComponent.h" />
     <ClInclude Include="SkyBoxSystem.h" />
     <ClInclude Include="StaticPhysicsBodyComponent.h" />

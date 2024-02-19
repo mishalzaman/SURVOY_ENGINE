@@ -151,7 +151,7 @@
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
     <ClCompile Include="RenderPassDepthMapSystem.cpp">
-      <Filter>ENGINE\Programs</Filter>
+      <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +337,15 @@
     </ClInclude>
     <ClInclude Include="DirectionalLightComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LightSpaceMatrixComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow_mapped_colour_vertex.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow_mapped_colour_fragment.glsl">
+      <Filter>ENGINE\Programs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

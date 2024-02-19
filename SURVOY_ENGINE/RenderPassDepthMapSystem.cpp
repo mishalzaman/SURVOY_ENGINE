@@ -56,7 +56,6 @@ void ECS::RenderPassDepthMapSystem::Load()
 void ECS::RenderPassDepthMapSystem::Render()
 {
     glm::mat4 lightProjection, lightView;
-    glm::mat4 lightSpaceMatrix;
 
     float near_plane = 1.0f, far_plane = 7.5f;
     lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
@@ -77,14 +76,17 @@ void ECS::RenderPassDepthMapSystem::Render()
     ECS::ProgramComponent* debugDepthQuadShader = _entityManager.getComponent<ECS::ProgramComponent>(
         _entityManager.getByTags("DebugDepthQuadShader")[0]
     );
+    ECS::LightSpaceMatrixComponent* lsm = _entityManager.getComponent<ECS::LightSpaceMatrixComponent>(
+        _entityManager.getByTags("LightSpaceMatrix")[0]
+    );
 
     lightView = glm::lookAt(directionalLight->Position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
-    lightSpaceMatrix = lightProjection * lightView;
+    lsm->LightSpaceMatrix = lightProjection * lightView;
 
     // Render
 
     depthShader->Program.use();
-    depthShader->Program.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+    depthShader->Program.setMat4("lightSpaceMatrix", lsm->LightSpaceMatrix);
 
     glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
     glBindFramebuffer(GL_FRAMEBUFFER, buffers->DepthFBO);

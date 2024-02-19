@@ -66,6 +66,10 @@ void Scene0::Load()
 	entityManager_->addComponent<ECS::ProgramComponent>(entityId, *depthShader_);
 	entityManager_->addByTag("DepthShader", entityId);
 
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::ProgramComponent>(entityId, *shadowMappedColourShader_);
+	entityManager_->addByTag("ShadowMapColourShader", entityId);
+
 	/*----------
 	 SKY BOX
 	-----------*/
@@ -91,6 +95,10 @@ void Scene0::Load()
 	entityId = entityManager_->createEntity();
 	entityManager_->addComponent<ECS::TextureComponent>(entityId);
 	entityManager_->addByTag("DepthTexture", entityId);
+
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::LightSpaceMatrixComponent>(entityId);
+	entityManager_->addByTag("LightSpaceMatrix", entityId);
 
 	/*----------
 	 LIGHTING

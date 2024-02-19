@@ -16,6 +16,7 @@
 #include "BuffersComponent.h"
 #include "TexturesComponent.h"
 #include "Defaults.h"
+#include "LightSpaceMatrixComponent.h"
 
 namespace ECS {
 	class RenderPassDepthMapSystem : public System

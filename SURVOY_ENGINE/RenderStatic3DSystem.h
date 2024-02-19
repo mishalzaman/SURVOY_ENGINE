@@ -21,6 +21,7 @@
 #include "CameraPositionEvent.h"
 #include "OrientationComponent.h"
 #include "SVertex.h"
+#include "DirectionalLightComponent.h"
 
 namespace ECS {
     class RenderStatic3DSystem : public System, public IObserver {
