@@ -152,6 +152,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="FBORendererSystem.cpp" />
     <ClCompile Include="FBOBeginSystem.cpp" />
     <ClCompile Include="IObserver.cpp" />
+    <ClCompile Include="MeshStaticBuffersSystem.cpp" />
     <ClCompile Include="RenderPassDepthMapSystem.cpp" />
     <ClCompile Include="RenderStatic3DSystem.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
@@ -201,6 +202,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="KeyPressEvent.h" />
     <ClInclude Include="MeshComponent.h" />
+    <ClInclude Include="MeshStaticBuffersSystem.h" />
     <ClInclude Include="RenderPassDepthMapSystem.h" />
     <ClInclude Include="RenderStatic3DSystem.h" />
     <ClInclude Include="MoveDirectionEvent.h" />

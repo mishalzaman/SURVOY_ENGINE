@@ -40,6 +40,7 @@
 #include "SkyBoxSystem.h"
 #include "RenderPhysicsDebugSystem.h"
 #include "RenderPassDepthMapSystem.h"
+#include "MeshStaticBuffersSystem.h"
 
 //  Observer
 #include "Event.h"
