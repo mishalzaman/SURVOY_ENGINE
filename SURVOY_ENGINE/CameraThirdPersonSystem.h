@@ -41,11 +41,7 @@ namespace ECS {
 		void onNotify(const Event& event) override;
 
 		void Load() override;
-		void UpdatePrePhysics() override;
-		void Update(float deltaTime) override;
-		void UpdatePostPhysics() override;
-		void Render() override;
-		void Unload() override;
+		void UpdateOnFixedTimestep(float deltaTime) override;
 
 	private:
 		EventManager& _eventManager;

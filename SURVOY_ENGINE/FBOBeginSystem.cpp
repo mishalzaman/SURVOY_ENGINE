@@ -58,19 +58,6 @@ void ECS::FBOBeginSystem::Load()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void ECS::FBOBeginSystem::UpdatePrePhysics()
-{
-}
-
-void ECS::FBOBeginSystem::Update(float deltaTime)
-{
-
-}
-
-void ECS::FBOBeginSystem::UpdatePostPhysics()
-{
-}
-
 void ECS::FBOBeginSystem::Render()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, _FBO);

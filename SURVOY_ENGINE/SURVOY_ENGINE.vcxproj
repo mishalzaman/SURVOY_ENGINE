@@ -152,11 +152,13 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="FBORendererSystem.cpp" />
     <ClCompile Include="FBOBeginSystem.cpp" />
     <ClCompile Include="IObserver.cpp" />
-    <ClCompile Include="RendererStatic3DSystem.cpp" />
+    <ClCompile Include="RenderStatic3DSystem.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
+    <ClCompile Include="RenderPhysicsDebugSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene0.cpp" />
     <ClCompile Include="SkyBoxSystem.cpp" />
+    <ClCompile Include="ISystem.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="VectorHelpers.cpp" />
@@ -170,8 +172,6 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="RendererQuad2D.cpp" />
-    <ClCompile Include="RendererText2D.cpp" />
-    <ClCompile Include="RendererTileset2D.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SVertex2D.h" />
     <ClCompile Include="Timer.cpp" />
@@ -197,11 +197,13 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="IObserver.h" />
+    <ClInclude Include="KeyPressEvent.h" />
     <ClInclude Include="MeshComponent.h" />
-    <ClInclude Include="RendererStatic3DSystem.h" />
+    <ClInclude Include="RenderStatic3DSystem.h" />
     <ClInclude Include="MoveDirectionEvent.h" />
     <ClInclude Include="OrientationComponent.h" />
     <ClInclude Include="PhysicsSystem.h" />
+    <ClInclude Include="RenderPhysicsDebugSystem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene0.h" />
     <ClInclude Include="ScreenDimensionsComponent.h" />
@@ -209,6 +211,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="SkyBoxComponent.h" />
     <ClInclude Include="SkyBoxSystem.h" />
     <ClInclude Include="StaticPhysicsBodyComponent.h" />
+    <ClInclude Include="ISystem.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="TargetComponent.h" />
@@ -225,8 +228,6 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="RendererQuad2D.h" />
-    <ClInclude Include="RendererText2D.h" />
-    <ClInclude Include="RendererTileset2D.h" />
     <ClInclude Include="STexture.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stbi_image.h" />

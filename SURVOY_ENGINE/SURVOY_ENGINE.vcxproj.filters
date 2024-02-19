@@ -54,16 +54,10 @@
     <ClCompile Include="RendererQuad2D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="RendererText2D.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="Logger.cpp">
-      <Filter>ENGINE</Filter>
-    </ClCompile>
-    <ClCompile Include="RendererTileset2D.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
@@ -93,7 +87,7 @@
     <ClCompile Include="VectorHelpers.cpp">
       <Filter>ENGINE</Filter>
     </ClCompile>
-    <ClCompile Include="System.cpp">
+    <ClCompile Include="ISystem.cpp">
       <Filter>ENGINE\ECS</Filter>
     </ClCompile>
     <ClCompile Include="EntityManager.cpp">
@@ -102,7 +96,7 @@
     <ClCompile Include="SystemManager.cpp">
       <Filter>ENGINE\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="RendererStatic3DSystem.cpp">
+    <ClCompile Include="RenderStatic3DSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
     <ClCompile Include="CameraFreeLookSystem.cpp">
@@ -132,9 +126,6 @@
     <ClCompile Include="CameraYawEvent.h">
       <Filter>ENGINE\Observer\Events</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>GAME</Filter>
-    </ClCompile>
     <ClCompile Include="Scene0.cpp">
       <Filter>GAME</Filter>
     </ClCompile>
@@ -145,6 +136,15 @@
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
     <ClCompile Include="SkyBoxSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>ENGINE\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>ENGINE</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPhysicsDebugSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,9 +161,6 @@
     <ClInclude Include="RendererQuad2D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="RendererText2D.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
@@ -174,9 +171,6 @@
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Defaults.h">
-      <Filter>ENGINE</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererTileset2D.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
@@ -206,7 +200,7 @@
     <ClInclude Include="VectorHelpers.h">
       <Filter>ENGINE</Filter>
     </ClInclude>
-    <ClInclude Include="System.h">
+    <ClInclude Include="ISystem.h">
       <Filter>ENGINE\ECS</Filter>
     </ClInclude>
     <ClInclude Include="EntityManager.h">
@@ -224,7 +218,7 @@
     <ClInclude Include="BuffersComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="RendererStatic3DSystem.h">
+    <ClInclude Include="RenderStatic3DSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="TexturesComponent.h">
@@ -296,9 +290,6 @@
     <ClInclude Include="CharacterControllerPositionEvent.h">
       <Filter>ENGINE\Observer\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>GAME</Filter>
-    </ClInclude>
     <ClInclude Include="Scene0.h">
       <Filter>GAME</Filter>
     </ClInclude>
@@ -316,6 +307,18 @@
     </ClInclude>
     <ClInclude Include="SkyBoxComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>ENGINE\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPhysicsDebugSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyPressEvent.h">
+      <Filter>ENGINE\Observer\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

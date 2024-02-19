@@ -5,7 +5,7 @@
 
 // Engine
 #include "EntityManager.h"
-#include "System.h"
+#include "ISystem.h"
 #include "SystemManager.h"
 #include "Shader.h"
 #include "Physics.h"
@@ -32,10 +32,11 @@
 #include "CameraThirdPersonSystem.h"
 #include "characterControllerSystem.h"
 #include "PhysicsSystem.h"
-#include "RendererStatic3DSystem.h"
+#include "RenderStatic3DSystem.h"
 #include "FBOBeginSystem.h"
 #include "FBORendererSystem.h"
 #include "SkyBoxSystem.h"
+#include "RenderPhysicsDebugSystem.h"
 
 //  Observer
 #include "Event.h"
@@ -51,9 +52,8 @@ public:
     virtual ~Scene() = default;
 
     virtual void Load();
-    virtual void UpdatePrePhysics();
-    virtual void UpdatePhysics(float deltaTime);
-    virtual void UpdatePostPhysics();
+    virtual void UpdateOnFixedTimestep(float deltaTime);
+    virtual void UpdateOnVariableTimestep();
     virtual void Render();
     virtual void Unload();
 

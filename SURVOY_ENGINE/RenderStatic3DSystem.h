@@ -23,17 +23,14 @@
 #include "SVertex.h"
 
 namespace ECS {
-    class RendererStatic3DSystem : public System, public IObserver {
+    class RenderStatic3DSystem : public System, public IObserver {
     public:
-        RendererStatic3DSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
-        ~RendererStatic3DSystem();
+        RenderStatic3DSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
+        ~RenderStatic3DSystem();
 
         void onNotify(const Event& event) override;
 
         void Load() override;
-        void UpdatePrePhysics() override;
-        void Update(float deltaTime) override;
-        void UpdatePostPhysics() override;
         void Render() override;
         void Unload() override;
 

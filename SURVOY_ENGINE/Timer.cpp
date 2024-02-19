@@ -17,7 +17,7 @@ void ENGINE::Timer::BeginFrame()
     _accumulator += _deltaTimeMS;
 }
 
-bool ENGINE::Timer::PhysicsUpdate()
+bool ENGINE::Timer::FixedUpdate()
 {
     if (_accumulator >= _updateInterval) {
         _accumulator -= _updateInterval;

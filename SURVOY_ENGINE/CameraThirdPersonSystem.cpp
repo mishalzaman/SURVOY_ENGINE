@@ -63,11 +63,7 @@ void ECS::CameraThirdPersonSystem::Load()
     }
 }
 
-void ECS::CameraThirdPersonSystem::UpdatePrePhysics()
-{
-}
-
-void ECS::CameraThirdPersonSystem::Update(float deltaTime)
+void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
 {
     int e = _entityManager.getByTag("CameraThirdPerson")[0];
 
@@ -107,19 +103,6 @@ void ECS::CameraThirdPersonSystem::Update(float deltaTime)
         _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
         _eventManager.notifyAll(CameraYawEvent(orientation->Yaw));
     }
-}
-
-void ECS::CameraThirdPersonSystem::UpdatePostPhysics()
-{
-}
-
-void ECS::CameraThirdPersonSystem::Render()
-{
-}
-
-
-void ECS::CameraThirdPersonSystem::Unload()
-{
 }
 
 void ECS::CameraThirdPersonSystem::_orbit(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY, glm::vec3& position, glm::vec3& forward, glm::vec3& right, glm::vec3& up, glm::vec3 target)

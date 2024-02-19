@@ -107,18 +107,6 @@ void ECS::SkyBoxSystem::Load()
     }
 }
 
-void ECS::SkyBoxSystem::UpdatePrePhysics()
-{
-}
-
-void ECS::SkyBoxSystem::Update(float deltaTime)
-{
-}
-
-void ECS::SkyBoxSystem::UpdatePostPhysics()
-{
-}
-
 void ECS::SkyBoxSystem::Render()
 {
     int e = _entityManager.getByTags("SkyBoxShader")[0];

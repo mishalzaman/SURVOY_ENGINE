@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <memory>
 #include <typeindex>
-#include "System.h"
+#include "ISystem.h"
 #include "EntityManager.h"
 #include "Physics.h"
 
@@ -13,8 +13,8 @@ using namespace ENGINE;
 namespace ECS {
     class SystemManager {
     private:
-        std::unordered_map<std::type_index, std::shared_ptr<System>> systemMap;
-        std::vector<std::shared_ptr<System>> systemList;
+        std::unordered_map<std::type_index, std::shared_ptr<ISystem>> systemMap;
+        std::vector<std::shared_ptr<ISystem>> systemList;
 
     public:
         SystemManager() {}
@@ -42,21 +42,15 @@ namespace ECS {
             }
         }
 
-        void UpdatePrePhysics() {
+        void UpdateOnFixedTimestep(float deltaTime) {
             for (auto& system : systemList) {
-                system->UpdatePrePhysics();
+                system->UpdateOnFixedTimestep(deltaTime);
             }
         }
 
-        void Update(float deltaTime) {
+        void UpdateOnVariableTimestep() {
             for (auto& system : systemList) {
-                system->Update(deltaTime);
-            }
-        }
-
-        void UpdatePostPhysics() {
-            for (auto& system : systemList) {
-                system->UpdatePostPhysics();
+                system->UpdateOnVariableTimestep();
             }
         }
 
