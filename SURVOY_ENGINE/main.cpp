@@ -57,7 +57,7 @@ DEVELOPMENT
 		 [x] - Clean up the Core class
 		 [x] - Remove BAE namespace
 		 [x] - Add profiler, better error handling
-		 [ ] - Update graphics pipeline
+		 [x] - Update graphics pipeline
 				- Updated System abstract class to ISystem with derived System
 				- Updated System classes and removed redundant methods
 				- Updated the update methods naming
