@@ -5,11 +5,11 @@
 #include "Scene0.h"
 #include "KeyPressEvent.h"
 
-std::string version = "Basic Add Engine 0.1.21";
+std::string version = "Basic Add Engine 0.1.22";
 
 /*
 		  *--------------------------*
-		     Current version: 0.1.21
+		     Current version: 0.1.22
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -134,7 +134,7 @@ int main(int argc, char* args[]) {
 	
 		scene0->Render();
 	
-		std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
 	
 		Core->EndRender();
 	}

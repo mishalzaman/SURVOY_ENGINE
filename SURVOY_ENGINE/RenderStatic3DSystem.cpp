@@ -67,38 +67,38 @@ void ECS::RenderStatic3DSystem::Load() {
 }
 
 void ECS::RenderStatic3DSystem::Render() {
-    std::vector<int> entities = _entityManager.getByTags("Mesh");
+    //std::vector<int> entities = _entityManager.getByTags("Mesh");
 
-    int e = _entityManager.getByTag("DefaultShader")[0];
-    ECS::ProgramComponent* shader = _entityManager.getComponent<ECS::ProgramComponent>(e);
+    //int e = _entityManager.getByTag("DefaultShader")[0];
+    //ECS::ProgramComponent* shader = _entityManager.getComponent<ECS::ProgramComponent>(e);
 
-    if (shader) {
-        shader->Program.use();
-        shader->Program.setVec3("lightPos", glm::vec3(0, 16, 0));
-        shader->Program.setVec3("viewPos", _cameraPosition);
-        shader->Program.setVec3("lightColor", glm::vec3(0.9, 0.9, 0.9));
-        shader->Program.setMat4("projection", _projection);
-        shader->Program.setMat4("view", _view);
-        shader->Program.setInt("texture1", 0);
-    }
-    else {
-        std::cout << "could not load shader" << std::endl;
-    }
+    //if (shader) {
+    //    shader->Program.use();
+    //    shader->Program.setVec3("lightPos", glm::vec3(0, 16, 0));
+    //    shader->Program.setVec3("viewPos", _cameraPosition);
+    //    shader->Program.setVec3("lightColor", glm::vec3(0.9, 0.9, 0.9));
+    //    shader->Program.setMat4("projection", _projection);
+    //    shader->Program.setMat4("view", _view);
+    //    shader->Program.setInt("texture1", 0);
+    //}
+    //else {
+    //    std::cout << "could not load shader" << std::endl;
+    //}
 
-    for (int entityId : entities) {
-        // Retrieve the components required for rendering
-        ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
-        ECS::MeshComponent* mesh = _entityManager.getComponent<ECS::MeshComponent>(entityId);
-        ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(entityId);
-        ECS::TexturesComponent* textures = _entityManager.getComponent<ECS::TexturesComponent>(entityId);
+    //for (int entityId : entities) {
+    //    // Retrieve the components required for rendering
+    //    ECS::TransformComponent* transform = _entityManager.getComponent<ECS::TransformComponent>(entityId);
+    //    ECS::MeshComponent* mesh = _entityManager.getComponent<ECS::MeshComponent>(entityId);
+    //    ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(entityId);
+    //    ECS::TexturesComponent* textures = _entityManager.getComponent<ECS::TexturesComponent>(entityId);
 
 
 
-        if (transform && mesh && buffers && textures && shader) {
-            shader->Program.setMat4("model", transform->Transformation);
-            _render(*transform, *mesh, *buffers, *textures);
-        }
-    }
+    //    if (transform && mesh && buffers && textures && shader) {
+    //        shader->Program.setMat4("model", transform->Transformation);
+    //        _render(*transform, *mesh, *buffers, *textures);
+    //    }
+    //}
 }
 
 void ECS::RenderStatic3DSystem::Unload() {

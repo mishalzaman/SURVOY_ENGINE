@@ -152,6 +152,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="FBORendererSystem.cpp" />
     <ClCompile Include="FBOBeginSystem.cpp" />
     <ClCompile Include="IObserver.cpp" />
+    <ClCompile Include="RenderPassDepthMapSystem.cpp" />
     <ClCompile Include="RenderStatic3DSystem.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="RenderPhysicsDebugSystem.cpp" />
@@ -185,6 +186,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="CameraThirdPersonSystem.h" />
     <ClInclude Include="CharacterControllerPositionEvent.h" />
     <ClInclude Include="CharacterControllerSystem.h" />
+    <ClInclude Include="DirectionalLightComponent.h" />
     <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="ECSCommon.h" />
     <ClInclude Include="FrameBufferColourBufferEvent.h" />
@@ -199,6 +201,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="KeyPressEvent.h" />
     <ClInclude Include="MeshComponent.h" />
+    <ClInclude Include="RenderPassDepthMapSystem.h" />
     <ClInclude Include="RenderStatic3DSystem.h" />
     <ClInclude Include="MoveDirectionEvent.h" />
     <ClInclude Include="OrientationComponent.h" />
@@ -215,6 +218,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="TargetComponent.h" />
+    <ClInclude Include="TextureComponent.h" />
     <ClInclude Include="TexturesComponent.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="VectorHelpers.h" />
@@ -238,6 +242,10 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
   <ItemGroup>
     <None Include="base_fragment_2d.glsl" />
     <None Include="base_vertex_2d.glsl" />
+    <None Include="debug_depth_quad_fragment.glsl" />
+    <None Include="debug_depth_quad_vertex.glsl" />
+    <None Include="depth_fragment.glsl" />
+    <None Include="depth_vertex.glsl" />
     <None Include="framebuffer_fragment.glsl" />
     <None Include="framebuffer_vertex.glsl" />
     <None Include="lighting_3d_vertex.glsl" />

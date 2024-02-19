@@ -26,6 +26,8 @@
 #include "VelocityComponent.h"
 #include "TargetComponent.h"
 #include "SkyBoxComponent.h"
+#include "TextureComponent.h"
+#include "DirectionalLightComponent.h"
 
 // ECS - Systems
 #include "CameraFreeLookSystem.h"
@@ -37,6 +39,7 @@
 #include "FBORendererSystem.h"
 #include "SkyBoxSystem.h"
 #include "RenderPhysicsDebugSystem.h"
+#include "RenderPassDepthMapSystem.h"
 
 //  Observer
 #include "Event.h"
@@ -65,6 +68,8 @@ private:
 protected:
     std::unique_ptr<ENGINE::Shader> defaultShader_;
     std::unique_ptr<ENGINE::Shader> skyboxShader_;
+    std::unique_ptr<ENGINE::Shader> debugDepthQuadShader_;
+    std::unique_ptr<ENGINE::Shader> depthShader_;
     std::unique_ptr<ENGINE::Physics> physics_;
 
     std::unique_ptr<ECS::SystemManager> systemManager_;
