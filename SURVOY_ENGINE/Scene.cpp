@@ -22,7 +22,7 @@ GAME LOOP
 void Scene::Load()
 {
 	//systemManager_->AddSystem<ECS::PhysicsSystem>(*entityManager_, *physics_, *eventManager_);
-	//systemManager_->AddSystem<ECS::FBOBeginSystem>(*eventManager_);
+	//systemManager_->AddSystem<ECS::FBOBeginSystem>(*eventManager_); 
 	//systemManager_->AddSystem<ECS::CharacterControllerSystem>(*entityManager_, *physics_, *eventManager_);
 	//systemManager_->AddSystem<ECS::CameraThirdPersonSystem>(*entityManager_, *physics_, *eventManager_);
 	//systemManager_->AddSystem<ECS::CameraFreeLookSystem>(*entityManager_, *physics_, *eventManager_);
@@ -35,9 +35,9 @@ void Scene::Load()
 	systemManager_->AddSystem<ECS::CameraFreeLookSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::MeshStaticBuffersSystem>(*entityManager_);
 	systemManager_->AddSystem<ECS::RenderPassDepthMapSystem>(*entityManager_);
-	//systemManager_->AddSystem<ECS::FBOBeginSystem>(*eventManager_);
+	systemManager_->AddSystem<ECS::FBOBeginSystem>(*eventManager_);
 	systemManager_->AddSystem<ECS::RenderStatic3DSystem>(*entityManager_, *physics_, *eventManager_);
-	//systemManager_->AddSystem<ECS::FBORendererSystem>(*eventManager_);
+	systemManager_->AddSystem<ECS::FBORendererSystem>(*eventManager_);
 
 	systemManager_->Load();
 }
