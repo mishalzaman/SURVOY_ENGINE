@@ -11,11 +11,11 @@
 #include "Defaults.h"
 
 namespace ECS {
-	class FBORendererSystem : public System, IObserver
+	class RenderScreenSystem : public System, IObserver
 	{
     public:
-        FBORendererSystem(EventManager& eventManager);
-        ~FBORendererSystem();
+        RenderScreenSystem(EventManager& eventManager);
+        ~RenderScreenSystem();
 
         void onNotify(const Event& event) override;
 

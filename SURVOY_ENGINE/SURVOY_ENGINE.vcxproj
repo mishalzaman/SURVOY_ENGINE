@@ -149,8 +149,8 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
-    <ClCompile Include="FBORendererSystem.cpp" />
-    <ClCompile Include="FBOBeginSystem.cpp" />
+    <ClCompile Include="RenderScreenSystem.cpp" />
+    <ClCompile Include="RenderPassColourMapSystem.cpp" />
     <ClCompile Include="IObserver.cpp" />
     <ClCompile Include="MeshStaticBuffersSystem.cpp" />
     <ClCompile Include="RenderOutputSystem.cpp" />
@@ -192,8 +192,8 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="ECSCommon.h" />
     <ClInclude Include="FrameBufferColourBufferEvent.h" />
-    <ClInclude Include="FBORendererSystem.h" />
-    <ClInclude Include="FBOBeginSystem.h" />
+    <ClInclude Include="RenderScreenSystem.h" />
+    <ClInclude Include="RenderPassColourMapSystem.h" />
     <ClInclude Include="InputMouseRelXYEvent.h" />
     <ClInclude Include="CameraFreeLookSystem.h" />
     <ClInclude Include="CameraViewProjectionEvent.h" />
