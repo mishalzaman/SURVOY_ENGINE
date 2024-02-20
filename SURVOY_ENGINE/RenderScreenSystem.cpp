@@ -16,6 +16,7 @@ ECS::RenderScreenSystem::RenderScreenSystem(EventManager& eventManager) : _quadV
     _shader = std::make_unique<Shader>("framebuffer_vertex.glsl", "framebuffer_fragment.glsl");
     _shader->use();
     _shader->setInt("screenTexture", 0);
+    _shader->setFloat("time", SDL_GetTicks());
 
     _eventManager.subscribe(this);
 }
