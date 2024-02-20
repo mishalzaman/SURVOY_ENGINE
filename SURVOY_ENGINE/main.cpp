@@ -64,7 +64,7 @@ DEVELOPMENT
 				- Added phyics debug draw system and key input toggle
 		 [x] - Add shadow map
 		 [x] - Refactor shadow map
-		 [ ] - Clean up graphics pipelin
+		 [ ] - Clean up graphics pipeline
 		 [ ] - Add HDR
 		 [ ] - Add deffered rendering
 		 [ ] - Add SSAO
