@@ -9,11 +9,11 @@
 #include "FrameBufferColourBufferEvent.h"
 
 namespace ECS {
-	class FBOBeginSystem : public System, IObserver
+	class RenderPassColourMapSystem : public System, IObserver
 	{
     public:
-        FBOBeginSystem(EventManager& eventManager);
-        ~FBOBeginSystem();
+        RenderPassColourMapSystem(EventManager& eventManager);
+        ~RenderPassColourMapSystem();
 
         void onNotify(const Event& event) override;
 

@@ -17,12 +17,13 @@
 #include "TexturesComponent.h"
 #include "Defaults.h"
 #include "LightSpaceMatrixComponent.h"
+#include "CameraMatricesComponent.h"
 
 namespace ECS {
 	class RenderPassDepthMapSystem : public System
 	{
 	public:
-		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+		const unsigned int SHADOW_WIDTH = 1024*2, SHADOW_HEIGHT = 1024*2;
 
 		RenderPassDepthMapSystem(EntityManager& entityManager);
 
@@ -30,10 +31,11 @@ namespace ECS {
 		void Render() override;
 		void Unload() override;
 	private:
+		float _nearPlane;
+		float _farPlane;
+
 		EntityManager& _entityManager;
 		std::vector<float> _quadVertices;
-
-		unsigned int _quadVAO, _quadVBO;
 
 		void _renderMeshes(
 			const TransformComponent& transform,
@@ -42,6 +44,6 @@ namespace ECS {
 			const TexturesComponent& textures
 		);
 
-		glm::vec3 _startPos;
+		void _renderDepthDebugQuad();
 	};
 }

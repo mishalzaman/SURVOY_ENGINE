@@ -1,6 +1,6 @@
-#include "FBOBeginSystem.h"
+#include "RenderPassColourMapSystem.h"
 
-ECS::FBOBeginSystem::FBOBeginSystem(EventManager& eventManager):
+ECS::RenderPassColourMapSystem::RenderPassColourMapSystem(EventManager& eventManager):
     _FBO(0),
     _RBO(0),
     _textureColorbuffer(0),
@@ -9,16 +9,16 @@ ECS::FBOBeginSystem::FBOBeginSystem(EventManager& eventManager):
     _eventManager.subscribe(this);
 }
 
-ECS::FBOBeginSystem::~FBOBeginSystem()
+ECS::RenderPassColourMapSystem::~RenderPassColourMapSystem()
 {
     _eventManager.unsubscribe(this);
 }
 
-void ECS::FBOBeginSystem::onNotify(const Event& event)
+void ECS::RenderPassColourMapSystem::onNotify(const Event& event)
 {
 }
 
-void ECS::FBOBeginSystem::Load()
+void ECS::RenderPassColourMapSystem::Load()
 {
     /*==========================
     1. Create Framebuffer Object
@@ -58,7 +58,7 @@ void ECS::FBOBeginSystem::Load()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void ECS::FBOBeginSystem::Render()
+void ECS::RenderPassColourMapSystem::Render()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, _FBO);
     glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
@@ -69,7 +69,7 @@ void ECS::FBOBeginSystem::Render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void ECS::FBOBeginSystem::Unload()
+void ECS::RenderPassColourMapSystem::Unload()
 {
     glDeleteRenderbuffers(1, &_RBO);
     glDeleteFramebuffers(1, &_FBO);

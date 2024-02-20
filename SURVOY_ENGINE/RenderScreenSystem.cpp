@@ -1,6 +1,6 @@
-#include "FBORendererSystem.h"
+#include "RenderScreenSystem.h"
 
-ECS::FBORendererSystem::FBORendererSystem(EventManager& eventManager) : _quadVertices{
+ECS::RenderScreenSystem::RenderScreenSystem(EventManager& eventManager) : _quadVertices{
         // positions   // texCoords
         -1.0f,  1.0f,  0.0f, 1.0f,
         -1.0f, -1.0f,  0.0f, 0.0f,
@@ -20,12 +20,12 @@ ECS::FBORendererSystem::FBORendererSystem(EventManager& eventManager) : _quadVer
     _eventManager.subscribe(this);
 }
 
-ECS::FBORendererSystem::~FBORendererSystem()
+ECS::RenderScreenSystem::~RenderScreenSystem()
 {
     _eventManager.unsubscribe(this);
 }
 
-void ECS::FBORendererSystem::onNotify(const Event& event)
+void ECS::RenderScreenSystem::onNotify(const Event& event)
 {
     const auto* colourBufferEvent = dynamic_cast<const FrameBufferColourBufferEvent*>(&event);
     if (colourBufferEvent) {
@@ -33,7 +33,7 @@ void ECS::FBORendererSystem::onNotify(const Event& event)
     }
 }
 
-void ECS::FBORendererSystem::Load()
+void ECS::RenderScreenSystem::Load()
 {
     glGenVertexArrays(1, &_VAO);
     glGenBuffers(1, &_VBO);
@@ -46,7 +46,7 @@ void ECS::FBORendererSystem::Load()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 }
 
-void ECS::FBORendererSystem::Render()
+void ECS::RenderScreenSystem::Render()
 {
     _shader->use();
 
