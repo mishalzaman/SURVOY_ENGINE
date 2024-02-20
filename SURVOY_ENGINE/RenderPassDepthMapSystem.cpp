@@ -116,6 +116,8 @@ void ECS::RenderPassDepthMapSystem::Render()
     // render meshes end
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     _renderDepthDebugQuad();
 }
@@ -166,9 +168,6 @@ void ECS::RenderPassDepthMapSystem::_renderDepthDebugQuad()
     ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(
         _entityManager.getByTags("DepthQuadBuffers")[0]
     );
-
-    glViewport(0, 0, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // render debug quad
     debugDepthQuadShader->Program.use();
