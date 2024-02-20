@@ -23,7 +23,7 @@ void ECS::CameraThirdPersonSystem::onNotify(const Event& event)
 
     if (inputEvent) {
         ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(
-            _entityManager.getByTag("CameraThirdPerson")[0]
+            _entityManager.getIdByTag("CameraThirdPerson")
         );
         assert(mouse);
 
@@ -37,7 +37,7 @@ void ECS::CameraThirdPersonSystem::onNotify(const Event& event)
 
     if (positionEvent) {
         ECS::TargetComponent* target = _entityManager.getComponent<ECS::TargetComponent>(
-            _entityManager.getByTag("CameraThirdPerson")[0]
+            _entityManager.getIdByTag("CameraThirdPerson")
         );
         assert(target);
 
@@ -50,11 +50,11 @@ void ECS::CameraThirdPersonSystem::onNotify(const Event& event)
 void ECS::CameraThirdPersonSystem::Load()
 {
     float yaw = _entityManager.getComponent<ECS::OrientationComponent>(
-        _entityManager.getByTag("PlayerController")[0]
+        _entityManager.getIdByTag("PlayerController")
     )->Yaw; assert(yaw);
 
     ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
-        _entityManager.getByTag("CameraThirdPerson")[0]
+        _entityManager.getIdByTag("CameraThirdPerson")
     ); assert(orientation);
 
     if (orientation) {
@@ -65,7 +65,7 @@ void ECS::CameraThirdPersonSystem::Load()
 
 void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
 {
-    int e = _entityManager.getByTag("CameraThirdPerson")[0];
+    int e = _entityManager.getIdByTag("CameraThirdPerson");
 
 
     ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(e);

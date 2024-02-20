@@ -165,6 +165,15 @@ namespace ECS {
             return entitiesWithTag;
         }
 
+        int getIdByTag(const std::string& tag) {
+            auto it = tagToEntities.find(tag);
+            if (it != tagToEntities.end() && !it->second.empty()) {
+                // Returns the ID of any entity associated with the tag
+                return *it->second.begin();
+            }
+            return -1; // Or any other indication of "not found"
+        }
+
         std::vector<int> getByTags(const std::string& tags) {
             std::vector<int> combinedEntities;
             std::stringstream tagStream(tags);

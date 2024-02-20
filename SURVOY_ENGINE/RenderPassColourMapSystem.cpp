@@ -22,10 +22,10 @@ void ECS::RenderPassColourMapSystem::onNotify(const Event& event)
 void ECS::RenderPassColourMapSystem::Load()
 {
     ECS::BuffersComponent* buffer = _entityManager.getComponent<ECS::BuffersComponent>(
-        _entityManager.getByTags("ColourFBO")[0]
+        _entityManager.getIdByTag("ColourFBO")
     );
     ECS::TextureComponent* texture = _entityManager.getComponent<ECS::TextureComponent>(
-        _entityManager.getByTags("ColourTexture")[0]
+        _entityManager.getIdByTag("ColourTexture")
     );
 
     /*==========================
