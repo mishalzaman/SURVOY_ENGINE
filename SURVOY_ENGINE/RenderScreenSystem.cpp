@@ -1,6 +1,6 @@
 #include "RenderScreenSystem.h"
 
-ECS::RenderScreenSystem::RenderScreenSystem(EventManager& eventManager) : _quadVertices{
+ECS::RenderScreenSystem::RenderScreenSystem(EntityManager& entityManager, EventManager& eventManager) : _quadVertices{
         // positions   // texCoords
         -1.0f,  1.0f,  0.0f, 1.0f,
         -1.0f, -1.0f,  0.0f, 0.0f,
@@ -11,6 +11,7 @@ ECS::RenderScreenSystem::RenderScreenSystem(EventManager& eventManager) : _quadV
          1.0f,  1.0f,  1.0f, 1.0f
     },
     _eventManager(eventManager),
+    _entityManager(entityManager),
     _colourBuffer(0)
 {
     _shader = std::make_unique<Shader>("framebuffer_vertex.glsl", "framebuffer_fragment.glsl");
@@ -28,10 +29,6 @@ ECS::RenderScreenSystem::~RenderScreenSystem()
 
 void ECS::RenderScreenSystem::onNotify(const Event& event)
 {
-    const auto* colourBufferEvent = dynamic_cast<const FrameBufferColourBufferEvent*>(&event);
-    if (colourBufferEvent) {
-        _colourBuffer = colourBufferEvent->getColourBuffer();
-    }
 }
 
 void ECS::RenderScreenSystem::Load()
@@ -49,6 +46,10 @@ void ECS::RenderScreenSystem::Load()
 
 void ECS::RenderScreenSystem::Render()
 {
+    ECS::TextureComponent* texture = _entityManager.getComponent<ECS::TextureComponent>(
+        _entityManager.getByTags("ColourTexture")[0]
+    );
+
     _shader->use();
 
     // now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
@@ -60,6 +61,6 @@ void ECS::RenderScreenSystem::Render()
 
     _shader->use();
     glBindVertexArray(_VAO);
-    glBindTexture(GL_TEXTURE_2D, _colourBuffer);	// use the color attachment texture as the texture of the quad plane
+    glBindTexture(GL_TEXTURE_2D, texture->Texture.id);	// use the color attachment texture as the texture of the quad plane
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }

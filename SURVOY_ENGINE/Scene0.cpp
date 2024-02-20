@@ -111,6 +111,10 @@ void Scene0::Load()
 	entityManager_->addComponent<ECS::BuffersComponent>(entityId);
 	entityManager_->addByTag("ColourFBO", entityId);
 
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::TextureComponent>(entityId);
+	entityManager_->addByTag("ColourTexture", entityId);
+
 	/*----------
 	 LIGHTING
 	-----------*/

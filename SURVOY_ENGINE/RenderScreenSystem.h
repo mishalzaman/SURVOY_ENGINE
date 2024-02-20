@@ -9,12 +9,14 @@
 #include "EventManager.h"
 #include "FrameBufferColourBufferEvent.h"
 #include "Defaults.h"
+#include "TextureComponent.h"
+#include "EntityManager.h"
 
 namespace ECS {
 	class RenderScreenSystem : public System, IObserver
 	{
     public:
-        RenderScreenSystem(EventManager& eventManager);
+        RenderScreenSystem(EntityManager& entityManager, EventManager& eventManager);
         ~RenderScreenSystem();
 
         void onNotify(const Event& event) override;
@@ -31,5 +33,6 @@ namespace ECS {
         std::unique_ptr<ENGINE::Shader> _shader;
 
         EventManager& _eventManager;
+        EntityManager& _entityManager;
 	};
 }

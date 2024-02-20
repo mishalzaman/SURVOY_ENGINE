@@ -30,7 +30,7 @@ void Scene::Load()
 	systemManager_->AddSystem<ECS::RenderOutputSystem>(*entityManager_);
 	systemManager_->AddSystem<ECS::RenderPhysicsDebugSystem>(*physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::SkyBoxSystem>(*entityManager_, *eventManager_);
-	systemManager_->AddSystem<ECS::RenderScreenSystem>(*eventManager_);
+	systemManager_->AddSystem<ECS::RenderScreenSystem>(*entityManager_, *eventManager_);
 
 	systemManager_->Load();
 }

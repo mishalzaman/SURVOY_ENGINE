@@ -10,6 +10,7 @@
 #include "EntityManager.h"
 #include "RenderPassComponent.h"
 #include "BuffersComponent.h"
+#include "TextureComponent.h"
 
 namespace ECS {
 	class RenderPassColourMapSystem : public System, IObserver

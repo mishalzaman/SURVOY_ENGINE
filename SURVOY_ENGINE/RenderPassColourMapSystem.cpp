@@ -24,6 +24,9 @@ void ECS::RenderPassColourMapSystem::Load()
     ECS::BuffersComponent* buffer = _entityManager.getComponent<ECS::BuffersComponent>(
         _entityManager.getByTags("ColourFBO")[0]
     );
+    ECS::TextureComponent* texture = _entityManager.getComponent<ECS::TextureComponent>(
+        _entityManager.getByTags("ColourTexture")[0]
+    );
 
     /*==========================
     1. Create Framebuffer Object
@@ -34,17 +37,12 @@ void ECS::RenderPassColourMapSystem::Load()
     /*==========================
     2. Create colour texture
     ==========================*/
-    glGenTextures(1, &_textureColorbuffer);
-    glBindTexture(GL_TEXTURE_2D, _textureColorbuffer);
+    glGenTextures(1, &texture->Texture.id);
+    glBindTexture(GL_TEXTURE_2D, texture->Texture.id);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _textureColorbuffer, 0);
-
-    /*==========================
-    3. Notify colour texture
-    ==========================*/
-    _eventManager.notifyAll(FrameBufferColourBufferEvent(_textureColorbuffer));
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture->Texture.id, 0);
 
     /*==============================================================
     4. Create a renderbuffer object for depth and stencil attachment
