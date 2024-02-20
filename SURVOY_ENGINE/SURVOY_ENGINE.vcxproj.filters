@@ -153,6 +153,9 @@
     <ClCompile Include="RenderPassDepthMapSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="RenderOutputSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -346,6 +349,12 @@
     </ClInclude>
     <ClInclude Include="shadow_mapped_colour_fragment.glsl">
       <Filter>ENGINE\Programs</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPassComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderOutputSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
