@@ -105,12 +105,22 @@ void Scene0::Load()
 	entityManager_->addByTag("DepthQuadBuffers", entityId);
 
 	/*----------
+	COLOUR MAP
+	-----------*/
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::BuffersComponent>(entityId);
+	entityManager_->addByTag("ColourFBO", entityId);
+
+	/*----------
 	 LIGHTING
 	-----------*/
 	entityId = entityManager_->createEntity();
 	entityManager_->addComponent<ECS::DirectionalLightComponent>(entityId, glm::vec3(22,20,22));
 	entityManager_->addByTag("DirectionalLight", entityId);
 
+	/*----------------
+	 GRAPHICS PIPELINE
+	-----------------*/
 	entityId = entityManager_->createEntity();
 	entityManager_->addComponent<ECS::RenderPassComponent>(entityId, ECS::RenderPassComponent::SHADOW_MAP);
 	entityManager_->addByTag("RenderPipeline", entityId);

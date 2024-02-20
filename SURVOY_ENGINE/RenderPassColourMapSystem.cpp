@@ -1,10 +1,11 @@
 #include "RenderPassColourMapSystem.h"
 
-ECS::RenderPassColourMapSystem::RenderPassColourMapSystem(EventManager& eventManager):
+ECS::RenderPassColourMapSystem::RenderPassColourMapSystem(EntityManager& entityManager, EventManager& eventManager) :
     _FBO(0),
     _RBO(0),
     _textureColorbuffer(0),
-    _eventManager(eventManager)
+    _eventManager(eventManager),
+    _entityManager(entityManager)
 {
     _eventManager.subscribe(this);
 }
@@ -20,11 +21,15 @@ void ECS::RenderPassColourMapSystem::onNotify(const Event& event)
 
 void ECS::RenderPassColourMapSystem::Load()
 {
+    ECS::BuffersComponent* buffer = _entityManager.getComponent<ECS::BuffersComponent>(
+        _entityManager.getByTags("ColourFBO")[0]
+    );
+
     /*==========================
     1. Create Framebuffer Object
     ==========================*/
-    glGenFramebuffers(1, &_FBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, _FBO);
+    glGenFramebuffers(1, &buffer->VBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, buffer->VBO);
 
     /*==========================
     2. Create colour texture
@@ -60,13 +65,11 @@ void ECS::RenderPassColourMapSystem::Load()
 
 void ECS::RenderPassColourMapSystem::Render()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, _FBO);
-    glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
-    glDepthFunc(GL_LEQUAL);
+    ECS::RenderPassComponent* renderPipeline = _entityManager.getComponent<ECS::RenderPassComponent>(
+        _entityManager.getByTags("RenderPipeline")[0]
+    );
 
-    // make sure we clear the framebuffer's content
-    glClearColor(0.5f, 0.5f, 1.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    renderPipeline->State = ECS::RenderPassComponent::COLOUR_MAP;
 }
 
 void ECS::RenderPassColourMapSystem::Unload()

@@ -7,12 +7,15 @@
 #include "IObserver.h"
 #include "EventManager.h"
 #include "FrameBufferColourBufferEvent.h"
+#include "EntityManager.h"
+#include "RenderPassComponent.h"
+#include "BuffersComponent.h"
 
 namespace ECS {
 	class RenderPassColourMapSystem : public System, IObserver
 	{
     public:
-        RenderPassColourMapSystem(EventManager& eventManager);
+        RenderPassColourMapSystem(EntityManager& entityManager, EventManager& eventManager);
         ~RenderPassColourMapSystem();
 
         void onNotify(const Event& event) override;
@@ -23,6 +26,7 @@ namespace ECS {
 
     private:
         EventManager& _eventManager;
+        EntityManager& _entityManager;
 
         unsigned int _FBO;
         unsigned int _RBO;

@@ -101,12 +101,22 @@ void ECS::RenderOutputSystem::_renderForDepthMap()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	renderPipeline->State = ECS::RenderPassComponent::COLOUR_MAP;
 }
 
 void ECS::RenderOutputSystem::_renderForColourMap()
 {
+	ECS::BuffersComponent* buffer = _entityManager.getComponent<ECS::BuffersComponent>(
+		_entityManager.getByTags("ColourFBO")[0]
+	);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, buffer->VBO);
+	glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
+	glDepthFunc(GL_LEQUAL);
+
+	// make sure we clear the framebuffer's content
+	glClearColor(0.5f, 0.5f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	std::vector<int> entities = _entityManager.getByTags("Mesh");
 
 	int e = _entityManager.getByTag("ShadowMapColourShader")[0];
