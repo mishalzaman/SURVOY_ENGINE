@@ -18,12 +18,13 @@
 #include "Defaults.h"
 #include "LightSpaceMatrixComponent.h"
 #include "CameraMatricesComponent.h"
+#include "RenderPassComponent.h"
 
 namespace ECS {
 	class RenderPassDepthMapSystem : public System
 	{
 	public:
-		const unsigned int SHADOW_WIDTH = 1024*2, SHADOW_HEIGHT = 1024*2;
+		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
 
 		RenderPassDepthMapSystem(EntityManager& entityManager);
 

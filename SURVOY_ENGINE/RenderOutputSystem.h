@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "System.h"
 #include "EntityManager.h"
 #include "RenderPassComponent.h"
@@ -19,6 +20,10 @@ namespace ECS {
     class RenderOutputSystem : public System
     {
     public:
+        const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+        float _nearPlane;
+        float _farPlane;
+
         RenderOutputSystem(EntityManager& entityManager);
 
         void Render() override;
