@@ -111,5 +111,10 @@ void Scene0::Load()
 	entityManager_->addComponent<ECS::DirectionalLightComponent>(entityId, glm::vec3(22,20,22));
 	entityManager_->addByTag("DirectionalLight", entityId);
 
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::RenderPassComponent>(entityId, ECS::RenderPassComponent::SHADOW_MAP);
+	entityManager_->addByTag("RenderPipeline", entityId);
+
+
 	Scene::Load();
 }

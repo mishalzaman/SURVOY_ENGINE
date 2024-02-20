@@ -1,7 +1,7 @@
 #include "RenderOutputSystem.h"
 
 ECS::RenderOutputSystem::RenderOutputSystem(EntityManager& entityManager):
-	_entityManager(entityManager)
+	_entityManager(entityManager), _nearPlane(0.1f), _farPlane(64.f)
 {
 }
 
@@ -23,8 +23,42 @@ void ECS::RenderOutputSystem::Render()
 
 void ECS::RenderOutputSystem::_renderForDepthMap()
 {
+	glm::mat4 lightProjection, lightView;
+
+	lightProjection = glm::ortho(-30.0f, 30.0f, -30.0f, 30.0f, _nearPlane, _farPlane);
+
+	ECS::DirectionalLightComponent* directionalLight = _entityManager.getComponent<ECS::DirectionalLightComponent>(
+		_entityManager.getByTags("DirectionalLight")[0]
+	);
+	ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(
+		_entityManager.getByTags("DepthFBO")[0]
+	);
+	ECS::TextureComponent* depthTexture = _entityManager.getComponent<ECS::TextureComponent>(
+		_entityManager.getByTags("DepthTexture")[0]
+	);
 	ECS::ProgramComponent* depthShader = _entityManager.getComponent<ECS::ProgramComponent>(
 		_entityManager.getByTags("DepthShader")[0]
+	);
+	ECS::LightSpaceMatrixComponent* lsm = _entityManager.getComponent<ECS::LightSpaceMatrixComponent>(
+		_entityManager.getByTags("LightSpaceMatrix")[0]
+	);
+	ECS::CameraMatricesComponent* cameraMatrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(
+		_entityManager.getByTags("CameraFreeLook")[0]
+	);
+
+	lightView = glm::lookAt(directionalLight->Position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+	lsm->LightSpaceMatrix = lightProjection * lightView;
+
+	depthShader->Program.use();
+	depthShader->Program.setMat4("lightSpaceMatrix", lsm->LightSpaceMatrix);
+
+	glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+	glBindFramebuffer(GL_FRAMEBUFFER, buffers->DepthFBO);
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glActiveTexture(GL_TEXTURE0);
+
+	ECS::RenderPassComponent* renderPipeline = _entityManager.getComponent<ECS::RenderPassComponent>(
+		_entityManager.getByTags("RenderPipeline")[0]
 	);
 
 	std::vector<int> entities = _entityManager.getByTags("Mesh");
@@ -66,11 +100,7 @@ void ECS::RenderOutputSystem::_renderForDepthMap()
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	ECS::RenderPassComponent* renderPipeline = _entityManager.getComponent<ECS::RenderPassComponent>(
-		_entityManager.getByTags("RenderPipeline")[0]
-	);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	renderPipeline->State = ECS::RenderPassComponent::COLOUR_MAP;
 }

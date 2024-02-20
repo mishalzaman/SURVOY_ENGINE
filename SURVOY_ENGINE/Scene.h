@@ -42,6 +42,7 @@
 #include "RenderPhysicsDebugSystem.h"
 #include "RenderPassDepthMapSystem.h"
 #include "MeshStaticBuffersSystem.h"
+#include "RenderOutputSystem.h"
 
 //  Observer
 #include "Event.h"

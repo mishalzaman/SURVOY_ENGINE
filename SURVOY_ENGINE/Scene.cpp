@@ -24,7 +24,8 @@ void Scene::Load()
 	systemManager_->AddSystem<ECS::PhysicsSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::CameraFreeLookSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::MeshStaticBuffersSystem>(*entityManager_);
-	systemManager_->AddSystem<ECS::RenderPassDepthMapSystem>(*entityManager_);	
+	systemManager_->AddSystem<ECS::RenderPassDepthMapSystem>(*entityManager_);
+	systemManager_->AddSystem<ECS::RenderOutputSystem>(*entityManager_);
 	systemManager_->AddSystem<ECS::RenderPassColourMapSystem>(*eventManager_);		
 	systemManager_->AddSystem<ECS::RenderStatic3DSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::RenderPhysicsDebugSystem>(*physics_, *eventManager_);
