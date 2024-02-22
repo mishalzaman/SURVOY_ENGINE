@@ -29,6 +29,8 @@
 #include "DirectionalLightComponent.h"
 #include "LightSpaceMatrixComponent.h"
 #include "CameraFOVComponent.h"
+#include "NearFarPlanesComponent.h"
+#include "ShadowResolutionComponent.h"
 
 // ECS - Systems
 #include "CameraFreeLookSystem.h"
@@ -43,6 +45,7 @@
 #include "RenderPassDepthMapSystem.h"
 #include "MeshStaticBuffersSystem.h"
 #include "RenderOutputSystem.h"
+#include "RenderDebugShadowMapSystem.h"
 
 //  Observer
 #include "Event.h"

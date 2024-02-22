@@ -5,11 +5,11 @@
 #include "Scene0.h"
 #include "KeyPressEvent.h"
 
-std::string version = "Basic Add Engine 0.1.49";
+std::string version = "Basic Add Engine 0.1.50";
 
 /*
 		  *--------------------------*
-		     Current version: 0.1.49
+		     Current version: 0.1.50
 		  *--------------------------*
 
 DEVELOPMENT NOTES

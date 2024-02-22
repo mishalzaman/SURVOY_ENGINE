@@ -19,32 +19,20 @@
 #include "LightSpaceMatrixComponent.h"
 #include "CameraMatricesComponent.h"
 #include "RenderPassComponent.h"
+#include "NearFarPlanesComponent.h"
+#include "ShadowResolutionComponent.h"
 
 namespace ECS {
 	class RenderPassDepthMapSystem : public System
 	{
 	public:
-		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
-
 		RenderPassDepthMapSystem(EntityManager& entityManager);
 
 		void Load() override;
 		void Render() override;
 		void Unload() override;
 	private:
-		float _nearPlane;
-		float _farPlane;
-
 		EntityManager& _entityManager;
 		std::vector<float> _quadVertices;
-
-		void _renderMeshes(
-			const TransformComponent& transform,
-			const MeshComponent& mesh,
-			const BuffersComponent& buffers,
-			const TexturesComponent& textures
-		);
-
-		void _renderDepthDebugQuad();
 	};
 }

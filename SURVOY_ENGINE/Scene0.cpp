@@ -95,6 +95,8 @@ void Scene0::Load()
 
 	entityId = entityManager_->createEntity();
 	entityManager_->addComponent<ECS::TextureComponent>(entityId);
+	entityManager_->addComponent<ECS::NearFarPlanesComponent>(entityId, 0.1f, 64.f);
+	entityManager_->addComponent<ECS::ShadowResolutionComponent>(entityId, 1024.f, 1024.f);
 	entityManager_->addByTag("DepthTexture", entityId);
 
 	entityId = entityManager_->createEntity();
@@ -127,7 +129,7 @@ void Scene0::Load()
 	 GRAPHICS PIPELINE
 	-----------------*/
 	entityId = entityManager_->createEntity();
-	entityManager_->addComponent<ECS::RenderPassComponent>(entityId, ECS::RenderPassComponent::SHADOW_MAP);
+	entityManager_->addComponent<ECS::RenderPassComponent>(entityId, ECS::RenderPassComponent::NULL_MAP);
 	entityManager_->addByTag("RenderPipeline", entityId);
 
 

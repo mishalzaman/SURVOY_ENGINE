@@ -7,10 +7,10 @@ ECS::RenderPassDepthMapSystem::RenderPassDepthMapSystem(EntityManager& entityMan
         -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
          1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
          1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-    }, _nearPlane(0.1f), _farPlane(64.f)
+    }
 {
     ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(
-        _entityManager.getByTags("DepthQuadBuffers")[0]
+        _entityManager.getIdByTag("DepthQuadBuffers")
     );
 
     glGenVertexArrays(1, &buffers->VAO);
@@ -27,13 +27,16 @@ ECS::RenderPassDepthMapSystem::RenderPassDepthMapSystem(EntityManager& entityMan
 void ECS::RenderPassDepthMapSystem::Load()
 {
     ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(
-        _entityManager.getByTags("DepthFBO")[0]
+        _entityManager.getIdByTag("DepthFBO")
     );
     ECS::TextureComponent* texture = _entityManager.getComponent<ECS::TextureComponent>(
-        _entityManager.getByTags("DepthTexture")[0]
+        _entityManager.getIdByTag("DepthTexture")
+    );
+    ECS::ShadowResolutionComponent* shadowResolution = _entityManager.getComponent<ECS::ShadowResolutionComponent>(
+        _entityManager.getIdByTag("DepthTexture")
     );
 
-    if (buffers && texture) {
+    if (buffers && texture && shadowResolution) {
         glGenFramebuffers(1, &buffers->DepthFBO);
         std::cout << "RenderPassDepthMapSystem::Load DepthFBO: " << buffers->DepthFBO << std::endl;
 
@@ -41,7 +44,7 @@ void ECS::RenderPassDepthMapSystem::Load()
         glGenTextures(1, &depthMap);
         glBindTexture(GL_TEXTURE_2D, depthMap);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
-            SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+            shadowResolution->Width, shadowResolution->Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -62,7 +65,7 @@ void ECS::RenderPassDepthMapSystem::Load()
 void ECS::RenderPassDepthMapSystem::Render()
 {
     ECS::RenderPassComponent* renderPipeline = _entityManager.getComponent<ECS::RenderPassComponent>(
-        _entityManager.getByTags("RenderPipeline")[0]
+        _entityManager.getIdByTag("RenderPipeline")
     );
 
     renderPipeline->State = ECS::RenderPassComponent::SHADOW_MAP;
@@ -71,58 +74,9 @@ void ECS::RenderPassDepthMapSystem::Render()
 void ECS::RenderPassDepthMapSystem::Unload()
 {
     ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(
-        _entityManager.getByTags("DepthQuadBuffers")[0]
+        _entityManager.getIdByTag("DepthQuadBuffers")
     );
 
     glDeleteVertexArrays(1, &buffers->VAO);
     glDeleteBuffers(1, &buffers->VBO);
-}
-
-void ECS::RenderPassDepthMapSystem::_renderMeshes(const TransformComponent& transform, const MeshComponent& mesh, const BuffersComponent& buffers, const TexturesComponent& textures)
-{
-    unsigned int diffuseNr = 1;
-    unsigned int specularNr = 1;
-    for (unsigned int i = 0; i < textures.Textures.size(); i++)
-    {
-        glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
-        // retrieve texture number (the N in diffuse_textureN)
-        std::string number;
-        std::string name = textures.Textures[i].type;
-        if (name == "texture_diffuse")
-            number = std::to_string(diffuseNr++);
-        else if (name == "texture_specular")
-            number = std::to_string(specularNr++);
-
-        glBindTexture(GL_TEXTURE_2D, textures.Textures[i].id);
-    }
-    glActiveTexture(GL_TEXTURE0);
-
-    // draw mesh
-    glBindVertexArray(buffers.VAO);
-    glDrawElements(GL_TRIANGLES, mesh.Indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
-}
-
-void ECS::RenderPassDepthMapSystem::_renderDepthDebugQuad()
-{
-    ECS::ProgramComponent* debugDepthQuadShader = _entityManager.getComponent<ECS::ProgramComponent>(
-        _entityManager.getByTags("DebugDepthQuadShader")[0]
-    );
-    ECS::TextureComponent* depthTexture = _entityManager.getComponent<ECS::TextureComponent>(
-        _entityManager.getByTags("DepthTexture")[0]
-    );
-    ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(
-        _entityManager.getByTags("DepthQuadBuffers")[0]
-    );
-
-    // render debug quad
-    debugDepthQuadShader->Program.use();
-    debugDepthQuadShader->Program.setFloat("near_plane", _nearPlane);
-    debugDepthQuadShader->Program.setFloat("far_plane", _farPlane);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, depthTexture->Texture.id);
-
-    glBindVertexArray(buffers->VAO);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    glBindVertexArray(0);
 }

@@ -3,6 +3,7 @@
 namespace ECS {
     struct RenderPassComponent {
         enum Pipeline {
+            NULL_MAP,
             SHADOW_MAP,
             COLOUR_MAP,
             FINAL

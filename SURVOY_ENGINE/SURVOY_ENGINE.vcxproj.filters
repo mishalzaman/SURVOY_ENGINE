@@ -156,6 +156,9 @@
     <ClCompile Include="RenderOutputSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="RenderDebugShadowMapSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -354,6 +357,15 @@
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="CameraFOVComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDebugShadowMapSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="NearFarPlanesComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowResolutionComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>

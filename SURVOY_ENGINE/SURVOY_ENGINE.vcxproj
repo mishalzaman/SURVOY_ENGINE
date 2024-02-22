@@ -149,6 +149,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="RenderDebugShadowMapSystem.cpp" />
     <ClCompile Include="RenderScreenSystem.cpp" />
     <ClCompile Include="RenderPassColourMapSystem.cpp" />
     <ClCompile Include="IObserver.cpp" />
@@ -192,6 +193,8 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="ECSCommon.h" />
     <ClInclude Include="FrameBufferColourBufferEvent.h" />
+    <ClInclude Include="NearFarPlanesComponent.h" />
+    <ClInclude Include="RenderDebugShadowMapSystem.h" />
     <ClInclude Include="RenderScreenSystem.h" />
     <ClInclude Include="RenderPassColourMapSystem.h" />
     <ClInclude Include="InputMouseRelXYEvent.h" />
@@ -217,6 +220,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="Scene0.h" />
     <ClInclude Include="ScreenDimensionsComponent.h" />
     <ClInclude Include="ProgramComponent.h" />
+    <ClInclude Include="ShadowResolutionComponent.h" />
     <ClInclude Include="shadow_mapped_colour_fragment.glsl" />
     <ClInclude Include="shadow_mapped_colour_vertex.glsl" />
     <ClInclude Include="SkyBoxComponent.h" />

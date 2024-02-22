@@ -29,7 +29,7 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     vec3 normal = normalize(fs_in.Normal);
     vec3 lightDir = normalize(lightPos - fs_in.FragPos);
     float lightDistance = length(lightPos - fs_in.FragPos);
-    float bias = max(0.00001 * (1.0 - dot(normal, lightDir)), 0.0005) + (lightDistance * 0.00002f);
+    float bias = max(0.00002 * (1.0 - dot(normal, lightDir)), 0.0005) + (lightDistance * 0.00006f);
 
     // PCF
     float shadow = 0.0;
