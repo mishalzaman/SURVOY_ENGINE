@@ -8,7 +8,7 @@ ECS::RenderOutputSystem::RenderOutputSystem(EntityManager& entityManager):
 void ECS::RenderOutputSystem::Render()
 {
 	ECS::RenderPassComponent* renderPipeline = _entityManager.getComponent<ECS::RenderPassComponent>(
-		_entityManager.getByTags("RenderPipeline")[0]
+		_entityManager.getIdByTag("RenderPipeline")
 	);
 
 	switch (renderPipeline->State) {
@@ -28,22 +28,22 @@ void ECS::RenderOutputSystem::_renderForDepthMap()
 	lightProjection = glm::ortho(-30.0f, 30.0f, -30.0f, 30.0f, _nearPlane, _farPlane);
 
 	ECS::DirectionalLightComponent* directionalLight = _entityManager.getComponent<ECS::DirectionalLightComponent>(
-		_entityManager.getByTags("DirectionalLight")[0]
+		_entityManager.getIdByTag("DirectionalLight")
 	);
 	ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(
-		_entityManager.getByTags("DepthFBO")[0]
+		_entityManager.getIdByTag("DepthFBO")
 	);
 	ECS::TextureComponent* depthTexture = _entityManager.getComponent<ECS::TextureComponent>(
-		_entityManager.getByTags("DepthTexture")[0]
+		_entityManager.getIdByTag("DepthTexture")
 	);
 	ECS::ProgramComponent* depthShader = _entityManager.getComponent<ECS::ProgramComponent>(
-		_entityManager.getByTags("DepthShader")[0]
+		_entityManager.getIdByTag("DepthShader")
 	);
 	ECS::LightSpaceMatrixComponent* lsm = _entityManager.getComponent<ECS::LightSpaceMatrixComponent>(
-		_entityManager.getByTags("LightSpaceMatrix")[0]
+		_entityManager.getIdByTag("LightSpaceMatrix")
 	);
 	ECS::CameraMatricesComponent* cameraMatrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(
-		_entityManager.getByTags("CameraFreeLook")[0]
+		_entityManager.getIdByTag("CameraFreeLook")
 	);
 
 	lightView = glm::lookAt(directionalLight->Position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
@@ -58,7 +58,7 @@ void ECS::RenderOutputSystem::_renderForDepthMap()
 	glActiveTexture(GL_TEXTURE0);
 
 	ECS::RenderPassComponent* renderPipeline = _entityManager.getComponent<ECS::RenderPassComponent>(
-		_entityManager.getByTags("RenderPipeline")[0]
+		_entityManager.getIdByTag("RenderPipeline")
 	);
 
 	std::vector<int> entities = _entityManager.getByTags("Mesh");
@@ -106,7 +106,7 @@ void ECS::RenderOutputSystem::_renderForDepthMap()
 void ECS::RenderOutputSystem::_renderForColourMap()
 {
 	ECS::BuffersComponent* buffer = _entityManager.getComponent<ECS::BuffersComponent>(
-		_entityManager.getByTags("ColourFBO")[0]
+		_entityManager.getIdByTag("ColourFBO")
 	);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, buffer->VBO);
@@ -119,23 +119,23 @@ void ECS::RenderOutputSystem::_renderForColourMap()
 
 	std::vector<int> entities = _entityManager.getByTags("Mesh");
 
-	int e = _entityManager.getByTag("ShadowMapColourShader")[0];
+	int e = _entityManager.getIdByTag("ShadowMapColourShader");
 	ECS::ProgramComponent* shader = _entityManager.getComponent<ECS::ProgramComponent>(e);
 
 	ECS::DirectionalLightComponent* directionalLight = _entityManager.getComponent<ECS::DirectionalLightComponent>(
-		_entityManager.getByTags("DirectionalLight")[0]
+		_entityManager.getIdByTag("DirectionalLight")
 	);
 	ECS::TextureComponent* depthTexture = _entityManager.getComponent<ECS::TextureComponent>(
-		_entityManager.getByTags("DepthTexture")[0]
+		_entityManager.getIdByTag("DepthTexture")
 	);
 	ECS::LightSpaceMatrixComponent* lsm = _entityManager.getComponent<ECS::LightSpaceMatrixComponent>(
-		_entityManager.getByTags("LightSpaceMatrix")[0]
+		_entityManager.getIdByTag("LightSpaceMatrix")
 	);
 	ECS::CameraMatricesComponent* cameraMatrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(
-		_entityManager.getByTags("CameraFreeLook")[0]
+		_entityManager.getIdByTag("CameraFreeLook")
 	);
 	ECS::OrientationComponent* cameraOrientation = _entityManager.getComponent<ECS::OrientationComponent>(
-		_entityManager.getByTags("CameraFreeLook")[0]
+		_entityManager.getIdByTag("CameraFreeLook")
 	);
 
 	if (shader) {
