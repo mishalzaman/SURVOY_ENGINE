@@ -16,6 +16,7 @@
 #include "CameraMouseComponent.h"
 #include "CameraPositionEvent.h"
 #include "OrientationComponent.h"
+#include "CameraFOVComponent.h"
 
 namespace ECS {
 	class CameraFreeLookSystem : public System, public IObserver

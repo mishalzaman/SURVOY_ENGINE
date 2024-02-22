@@ -353,6 +353,9 @@
     <ClInclude Include="RenderOutputSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="CameraFOVComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_2d.glsl">

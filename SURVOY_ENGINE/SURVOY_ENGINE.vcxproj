@@ -182,6 +182,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
   <ItemGroup>
     <ClInclude Include="BuffersComponent.h" />
     <ClInclude Include="Camera2D.h" />
+    <ClInclude Include="CameraFOVComponent.h" />
     <ClInclude Include="CameraMouseComponent.h" />
     <ClInclude Include="CameraPositionEvent.h" />
     <ClInclude Include="CameraThirdPersonSystem.h" />

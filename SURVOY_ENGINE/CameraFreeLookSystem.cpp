@@ -43,6 +43,8 @@ void ECS::CameraFreeLookSystem::Load()
         ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
         ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
         ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
+        ECS::CameraFOVComponent* fov = _entityManager.getComponent<ECS::CameraFOVComponent>(entityId);
+        
 
         if (screen && matrices && orientation) {
             _updateVectors(
@@ -54,7 +56,7 @@ void ECS::CameraFreeLookSystem::Load()
             );
 
             matrices->View = ENGINE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
-            matrices->Projection = ENGINE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
+            matrices->Projection = ENGINE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, fov->FOV);
 
             _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
             _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
@@ -71,6 +73,7 @@ void ECS::CameraFreeLookSystem::UpdateOnFixedTimestep(float deltaTime)
         ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
         ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
         ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);
+        ECS::CameraFOVComponent* fov = _entityManager.getComponent<ECS::CameraFOVComponent>(entityId);
 
         if (screen && matrices && orientation && mouse) {
             // Process camera movement and orientation based on input and deltaTime
@@ -82,7 +85,7 @@ void ECS::CameraFreeLookSystem::UpdateOnFixedTimestep(float deltaTime)
 
             // Calculate view and projection matrices
             matrices->View = ENGINE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
-            matrices->Projection = ENGINE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, 60.0f);
+            matrices->Projection = ENGINE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, fov->FOV);
 
             _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
             _eventManager.notifyAll(CameraPositionEvent(orientation->Position));

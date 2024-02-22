@@ -45,6 +45,7 @@ void Scene0::Load()
 	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 2, 16));
 	entityManager_->addComponent<ECS::CameraMouseComponent>(entityId);
 	entityManager_->addComponent<ECS::TargetComponent>(entityId);
+	entityManager_->addComponent<ECS::CameraFOVComponent>(entityId, 60.f);
 	entityManager_->addByTag("CameraFreeLook", entityId);
 	
 	/*----------

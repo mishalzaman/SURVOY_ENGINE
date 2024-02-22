@@ -28,6 +28,7 @@
 #include "TextureComponent.h"
 #include "DirectionalLightComponent.h"
 #include "LightSpaceMatrixComponent.h"
+#include "CameraFOVComponent.h"
 
 // ECS - Systems
 #include "CameraFreeLookSystem.h"
