@@ -10,7 +10,6 @@
 #include "MeshComponent.h"
 #include "BuffersComponent.h"
 #include "TexturesComponent.h"
-#include "CameraComponent.h"
 #include "Shader.h"
 #include "Physics.h"
 #include "IObserver.h"

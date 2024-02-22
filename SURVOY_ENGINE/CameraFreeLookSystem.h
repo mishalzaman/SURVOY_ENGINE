@@ -5,7 +5,6 @@
 #include <iostream>
 #include "System.h"
 #include "EntityManager.h"
-#include "CameraComponent.h"
 #include "VectorHelpers.h"
 #include "Physics.h"
 #include "EventManager.h"

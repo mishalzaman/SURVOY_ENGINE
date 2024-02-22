@@ -233,9 +233,6 @@
     <ClInclude Include="TexturesComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="CameraComponent.h">
-      <Filter>ENGINE\ECS\Components</Filter>
-    </ClInclude>
     <ClInclude Include="CameraFreeLookSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>

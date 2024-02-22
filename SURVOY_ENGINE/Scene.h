@@ -12,7 +12,6 @@
 
 // ECS - Components
 #include "BuffersComponent.h"
-#include "CameraComponent.h"
 #include "CameraMatricesComponent.h"
 #include "CameraMouseComponent.h"
 #include "DynamicCapsulePhysicsBodyComponent.h"
