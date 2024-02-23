@@ -95,7 +95,7 @@ void Scene0::Load()
 
 	entityId = entityManager_->createEntity();
 	entityManager_->addComponent<ECS::TextureComponent>(entityId);
-	entityManager_->addComponent<ECS::NearFarPlanesComponent>(entityId, 0.1f, 64.f);
+	entityManager_->addComponent<ECS::NearFarPlanesComponent>(entityId, 0.1f, 100.f);
 	entityManager_->addComponent<ECS::ShadowResolutionComponent>(entityId, 1024.f, 1024.f);
 	entityManager_->addByTag("DepthTexture", entityId);
 

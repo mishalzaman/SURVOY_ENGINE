@@ -45,6 +45,9 @@ void ECS::RenderOutputSystem::_renderForDepthMap()
 	ECS::CameraMatricesComponent* cameraMatrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(
 		_entityManager.getIdByTag("CameraFreeLook")
 	);
+	ECS::OrientationComponent* cameraOrientation = _entityManager.getComponent<ECS::OrientationComponent>(
+		_entityManager.getIdByTag("CameraFreeLook")
+	);
 
 	lightView = glm::lookAt(directionalLight->Position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 	lsm->LightSpaceMatrix = lightProjection * lightView;
