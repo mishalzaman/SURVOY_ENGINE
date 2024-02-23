@@ -16,7 +16,6 @@ private:
     GLuint VBO, VAO;
     Shader shader;
     std::vector<GLfloat> lineVertices;
-    int maxLines = 40000; // Adjust based on your needs
 
 public:
     PhysicsDebugDraw()
@@ -26,13 +25,16 @@ public:
         glGenVertexArrays(1, &VAO);
         glBindVertexArray(VAO);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, maxLines * 6 * sizeof(GLfloat) * 2, nullptr, GL_DYNAMIC_DRAW); // Allocate memory
+
+        // No initial data allocation. Buffer data will be allocated in the render method.
+
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
         glBindVertexArray(0);
     }
+
 
     ~PhysicsDebugDraw()
     {
@@ -49,8 +51,6 @@ public:
 
     virtual void drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
     {
-        if (lineVertices.size() >= maxLines * 6 * 2) return; // Prevent buffer overflow
-
         lineVertices.insert(lineVertices.end(), { from.x(), from.y(), from.z(), color.x(), color.y(), color.z() });
         lineVertices.insert(lineVertices.end(), { to.x(), to.y(), to.z(), color.x(), color.y(), color.z() });
     }
@@ -59,7 +59,6 @@ public:
     {
         if (lineVertices.empty()) return; // No need to update or draw if there are no vertices
 
-        std::cout << lineVertices.size() << std::endl;
         shader.use();
 
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
