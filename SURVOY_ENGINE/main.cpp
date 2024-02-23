@@ -5,11 +5,11 @@
 #include "Scene0.h"
 #include "KeyPressEvent.h"
 
-std::string version = "Basic Ass Engine 0.2.54";
+std::string version = "Basic Ass Engine 0.2.64";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.54
+		     Current version: 0.2.64
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -142,7 +142,7 @@ int main(int argc, char* args[]) {
 	
 		scene0->Render();
 	
-		std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
 	
 		Core->EndRender();
 	}

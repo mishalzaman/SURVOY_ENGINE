@@ -53,8 +53,8 @@ void ENGINE::Physics::DrawDebug()
 {
 	_physicsDebugDraw.SetMatrices(_view, _projection);
 	_physicsDebugDraw.setDebugMode(btIDebugDraw::DBG_DrawWireframe);
-	
 	_world->debugDrawWorld();
+	_physicsDebugDraw.render();
 }
 
 void ENGINE::Physics::Simulate(float deltaTime)
