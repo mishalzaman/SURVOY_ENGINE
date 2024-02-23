@@ -5,11 +5,11 @@
 #include "Scene0.h"
 #include "KeyPressEvent.h"
 
-std::string version = "Basic Ass Engine 0.1.53";
+std::string version = "Basic Ass Engine 0.2.54";
 
 /*
 		  *--------------------------*
-		     Current version: 0.1.53
+		     Current version: 0.2.54
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -26,16 +26,11 @@ Exporting:
 
 DEVELOPMENT
 ===================================================
-  0.1 Implementations
-	The main goals of 0.1 is as follows:
-	- to establish a stable system that can load FBX/OBJ model files
-	  without errors
-	- Consistent architecture
-	- Establish the art direction
 
 	Change Log
-	---------------
-	v 0.1.1
+	----------
+	v 0.1.x : Test level and graphics pipeline
+	==========================================
 	- [x] Create Scene Base class
 	- [x] Create Scene0 class
 	- [x] Move all contents from main to Scene0 class
@@ -49,7 +44,7 @@ DEVELOPMENT
 	v 0.1.7
 	- [x] Update lighting (gamma, hdr, ssao, blur)
 	v 0.1.8+
-	- [ ] Refactor
+	- [x] Refactor
 		 [x] - Fix model loading
 			[-] - Allow models with no textures, but materials
 			[x] - Fix issue with imports loading incorrect models
@@ -64,12 +59,21 @@ DEVELOPMENT
 				- Added phyics debug draw system and key input toggle
 		 [x] - Add shadow map
 		 [x] - Refactor shadow map
-		 [ ] - Clean up graphics pipeline
-		 [ ] - Add HDR
-		 [ ] - Add deffered rendering
-		 [ ] - Add SSAO
-
-
+		 [x] - Clean up graphics pipeline
+	v 0.2.x : Text rendering and the player character
+	=================================================
+		- [ ] Add text rendering
+		- [ ] Update character controller
+		- [ ] Update third person camera
+		- [ ] Switch third person and first person cameras
+		- [ ] Add character mesh that follows the capsule
+		- [ ] Create character mesh
+		- [ ] Rig character
+		- [ ] Animate character
+		- [ ] Add animator class
+		- [ ] Add animation blending
+		- [ ] Add animations for idle, walking, running and jumping
+		- [ ] Update controls to use control pad
 */
 
 int main(int argc, char* args[]) {
