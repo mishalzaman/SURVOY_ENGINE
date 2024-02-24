@@ -31,6 +31,7 @@
 #include "CameraFOVComponent.h"
 #include "NearFarPlanesComponent.h"
 #include "ShadowResolutionComponent.h"
+#include "FontCharactersComponent.h"
 
 // ECS - Systems
 #include "CameraFreeLookSystem.h"
@@ -46,6 +47,7 @@
 #include "MeshStaticBuffersSystem.h"
 #include "RenderOutputSystem.h"
 #include "RenderDebugShadowMapSystem.h"
+#include "TextSystem.h"
 
 //  Observer
 #include "Event.h"
@@ -77,6 +79,7 @@ protected:
     std::unique_ptr<ENGINE::Shader> debugDepthQuadShader_;
     std::unique_ptr<ENGINE::Shader> depthShader_;
     std::unique_ptr<ENGINE::Shader> shadowMappedColourShader_;
+    std::unique_ptr<ENGINE::Shader> fontShader_;
     std::unique_ptr<ENGINE::Physics> physics_;
 
     std::unique_ptr<ECS::SystemManager> systemManager_;

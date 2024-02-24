@@ -71,6 +71,10 @@ void Scene0::Load()
 	entityManager_->addComponent<ECS::ProgramComponent>(entityId, *shadowMappedColourShader_);
 	entityManager_->addByTag("ShadowMapColourShader", entityId);
 
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::ProgramComponent>(entityId, *fontShader_);
+	entityManager_->addByTag("FontShader", entityId);
+
 	/*----------
 	 SKY BOX
 	-----------*/
@@ -132,6 +136,13 @@ void Scene0::Load()
 	entityManager_->addComponent<ECS::RenderPassComponent>(entityId, ECS::RenderPassComponent::NULL_MAP);
 	entityManager_->addByTag("RenderPipeline", entityId);
 
+	/*----------------
+	 FONT
+	-----------------*/
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::FontCharactersComponent>(entityId);
+	entityManager_->addComponent<ECS::BuffersComponent>(entityId);
+	entityManager_->addByTag("Font", entityId);
 
 	Scene::Load();
 }

@@ -6,7 +6,11 @@ Scene::Scene()
 	skyboxShader_ = std::make_unique<Shader>("skybox_vertex.glsl", "skybox_fragment.glsl");
 	debugDepthQuadShader_ = std::make_unique<Shader>("debug_depth_quad_vertex.glsl", "debug_depth_quad_fragment.glsl");
 	depthShader_ = std::make_unique<Shader>("depth_vertex.glsl", "depth_fragment.glsl");
-	shadowMappedColourShader_ = std::make_unique<Shader>("shadow_mapped_colour_vertex.glsl", "shadow_mapped_colour_fragment.glsl");
+	shadowMappedColourShader_ = std::make_unique<Shader>(
+		"shadow_mapped_colour_vertex.glsl",
+		"shadow_mapped_colour_fragment.glsl"
+	);
+	fontShader_ = std::make_unique<Shader>("font_vertex.glsl", "font_fragment.glsl");
 
 	physics_ = std::make_unique<ENGINE::Physics>();
 
@@ -31,10 +35,11 @@ void Scene::Load()
 	systemManager_->AddSystem<ECS::RenderPassColourMapSystem>(*entityManager_, *eventManager_);
 	systemManager_->AddSystem<ECS::RenderOutputSystem>(*entityManager_);
 	systemManager_->AddSystem<ECS::RenderPhysicsDebugSystem>(*physics_, *eventManager_);
-	systemManager_->AddSystem<ECS::SkyBoxSystem>(*entityManager_, *eventManager_);;
+	systemManager_->AddSystem<ECS::SkyBoxSystem>(*entityManager_, *eventManager_);
 	
 	// Final render
 	systemManager_->AddSystem<ECS::RenderScreenSystem>(*entityManager_, *eventManager_);
+	systemManager_->AddSystem<ECS::TextSystem>(*entityManager_, *eventManager_);
 	systemManager_->AddSystem<ECS::RenderDebugShadowMapSystem>(*entityManager_);
 
 	systemManager_->Load();

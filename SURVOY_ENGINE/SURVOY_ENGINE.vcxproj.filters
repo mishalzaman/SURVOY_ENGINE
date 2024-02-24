@@ -135,9 +135,6 @@
     <ClCompile Include="RenderScreenSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="SkyBoxSystem.cpp">
-      <Filter>ENGINE\ECS\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="System.cpp">
       <Filter>ENGINE\ECS</Filter>
     </ClCompile>
@@ -157,6 +154,12 @@
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
     <ClCompile Include="RenderDebugShadowMapSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBoxSystem.cpp">
+      <Filter>ENGINE\Programs</Filter>
+    </ClCompile>
+    <ClCompile Include="TextSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -368,6 +371,12 @@
     <ClInclude Include="ShadowResolutionComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
+    <ClInclude Include="FontCharactersComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TextSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_2d.glsl">
@@ -425,6 +434,12 @@
       <Filter>ENGINE\Programs</Filter>
     </None>
     <None Include="depth_vertex.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="font_fragment.glsl">
+      <Filter>ENGINE\Programs</Filter>
+    </None>
+    <None Include="font_vertex.glsl">
       <Filter>ENGINE\Programs</Filter>
     </None>
   </ItemGroup>
