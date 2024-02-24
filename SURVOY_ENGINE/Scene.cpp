@@ -24,12 +24,16 @@ void Scene::Load()
 	systemManager_->AddSystem<ECS::PhysicsSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::CameraFreeLookSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::MeshStaticBuffersSystem>(*entityManager_);
+	
+	// Graphics pipeline
 	systemManager_->AddSystem<ECS::RenderPassDepthMapSystem>(*entityManager_);
 	systemManager_->AddSystem<ECS::RenderOutputSystem>(*entityManager_);
 	systemManager_->AddSystem<ECS::RenderPassColourMapSystem>(*entityManager_, *eventManager_);
 	systemManager_->AddSystem<ECS::RenderOutputSystem>(*entityManager_);
 	systemManager_->AddSystem<ECS::RenderPhysicsDebugSystem>(*physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::SkyBoxSystem>(*entityManager_, *eventManager_);;
+	
+	// Final render
 	systemManager_->AddSystem<ECS::RenderScreenSystem>(*entityManager_, *eventManager_);
 	systemManager_->AddSystem<ECS::RenderDebugShadowMapSystem>(*entityManager_);
 
