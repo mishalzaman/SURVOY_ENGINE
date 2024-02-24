@@ -113,7 +113,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;assimp-vc143-mt.lib;minizip.lib;Bullet3Common_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletInverseDynamics_Debug.lib;BulletSoftBody_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;assimp-vc143-mt.lib;minizip.lib;Bullet3Common_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletInverseDynamics_Debug.lib;BulletSoftBody_Debug.lib;LinearMath_Debug.lib;freetyped.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /Y /D /E "*.dll" "$(OutDir)"
@@ -165,6 +165,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="ISystem.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="SystemManager.cpp" />
+    <ClCompile Include="TextSystem.cpp" />
     <ClCompile Include="VectorHelpers.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="FileLoader.cpp" />
@@ -192,6 +193,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="DirectionalLightComponent.h" />
     <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="ECSCommon.h" />
+    <ClInclude Include="FontCharactersComponent.h" />
     <ClInclude Include="FrameBufferColourBufferEvent.h" />
     <ClInclude Include="NearFarPlanesComponent.h" />
     <ClInclude Include="RenderDebugShadowMapSystem.h" />
@@ -230,6 +232,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="TargetComponent.h" />
+    <ClInclude Include="TextSystem.h" />
     <ClInclude Include="TextureComponent.h" />
     <ClInclude Include="TexturesComponent.h" />
     <ClInclude Include="TransformComponent.h" />
@@ -258,6 +261,8 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <None Include="debug_depth_quad_vertex.glsl" />
     <None Include="depth_fragment.glsl" />
     <None Include="depth_vertex.glsl" />
+    <None Include="font_fragment.glsl" />
+    <None Include="font_vertex.glsl" />
     <None Include="framebuffer_fragment.glsl" />
     <None Include="framebuffer_vertex.glsl" />
     <None Include="lighting_3d_vertex.glsl" />
