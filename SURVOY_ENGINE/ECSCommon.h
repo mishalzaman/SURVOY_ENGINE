@@ -14,7 +14,7 @@
 #include "MeshComponent.h"
 #include "OrientationComponent.h"
 #include "ProgramComponent.h"
-#include "ScreenDimensionsComponent.h"
+#include "RenderTargetDimensionsComponent.h"
 #include "StaticPhysicsBodyComponent.h"
 #include "TexturesComponent.h"
 #include "TransformComponent.h"

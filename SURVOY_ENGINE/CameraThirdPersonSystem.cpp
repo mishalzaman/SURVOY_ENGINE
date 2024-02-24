@@ -68,7 +68,7 @@ void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
     int e = _entityManager.getIdByTag("CameraThirdPerson");
 
 
-    ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(e);
+    ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(e);
     ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(e);
     ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
     ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(e);

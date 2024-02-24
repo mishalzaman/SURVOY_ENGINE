@@ -218,7 +218,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="RenderPhysicsDebugSystem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene0.h" />
-    <ClInclude Include="ScreenDimensionsComponent.h" />
+    <ClInclude Include="RenderTargetDimensionsComponent.h" />
     <ClInclude Include="ProgramComponent.h" />
     <ClInclude Include="ShadowResolutionComponent.h" />
     <ClInclude Include="shadow_mapped_colour_fragment.glsl" />

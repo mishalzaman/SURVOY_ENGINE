@@ -11,7 +11,7 @@
 #include "CameraViewProjectionEvent.h"
 #include "IObserver.h"
 #include "InputMouseRelXYEvent.h"
-#include "ScreenDimensionsComponent.h"
+#include "RenderTargetDimensionsComponent.h"
 #include "CameraMatricesComponent.h"
 #include "CameraMouseComponent.h"
 #include "CameraPositionEvent.h"

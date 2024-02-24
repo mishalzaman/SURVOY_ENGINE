@@ -40,7 +40,7 @@ void ECS::CameraFreeLookSystem::Load()
     std::vector<int> entities = _entityManager.getByTag("CameraFreeLook");
 
     for (int entityId : entities) {
-        ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
+        ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(entityId);
         ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
         ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
         ECS::CameraFOVComponent* fov = _entityManager.getComponent<ECS::CameraFOVComponent>(entityId);
@@ -69,7 +69,7 @@ void ECS::CameraFreeLookSystem::UpdateOnFixedTimestep(float deltaTime)
     std::vector<int> entities = _entityManager.getByTag("CameraFreeLook");
 
     for (int entityId : entities) {
-        ECS::ScreenDimensionsComponent* screen = _entityManager.getComponent<ECS::ScreenDimensionsComponent>(entityId);
+        ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(entityId);
         ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
         ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
         ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);

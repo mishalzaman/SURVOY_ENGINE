@@ -263,7 +263,7 @@
     <ClInclude Include="CameraMouseComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenDimensionsComponent.h">
+    <ClInclude Include="RenderTargetDimensionsComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="ProgramComponent.h">

@@ -36,7 +36,7 @@ void Scene0::Load()
 	 CAMERA
 	-----------*/
 	entityId = entityManager_->createEntity();
-	entityManager_->addComponent<ECS::ScreenDimensionsComponent>(
+	entityManager_->addComponent<ECS::RenderTargetDimensionsComponent>(
 		entityId,
 		1024.f,
 		768.f

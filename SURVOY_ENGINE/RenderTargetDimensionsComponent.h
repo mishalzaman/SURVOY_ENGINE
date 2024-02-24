@@ -1,11 +1,11 @@
 #pragma once
 
 namespace ECS {
-    struct ScreenDimensionsComponent {
+    struct RenderTargetDimensionsComponent {
         float ScreenWidth, ScreenHeight;
 
         // You can still have constructors in a struct.
-        ScreenDimensionsComponent(float screenWidth, float screenHeight) : ScreenWidth(screenWidth), ScreenHeight(screenHeight) {}
+        RenderTargetDimensionsComponent(float screenWidth, float screenHeight) : ScreenWidth(screenWidth), ScreenHeight(screenHeight) {}
         // Add other constructors or methods as needed.
     };
 }

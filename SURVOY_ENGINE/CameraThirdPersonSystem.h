@@ -13,7 +13,7 @@
 #include "InputMouseRelXYEvent.h"
 #include "VectorHelpers.h"
 #include "CameraMouseComponent.h"
-#include "ScreenDimensionsComponent.h"
+#include "RenderTargetDimensionsComponent.h"
 #include "CameraMatricesComponent.h"
 #include "CameraPositionEvent.h"
 #include "CameraViewProjectionEvent.h"
