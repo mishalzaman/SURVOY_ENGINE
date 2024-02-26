@@ -5,11 +5,11 @@
 #include "Scene0.h"
 #include "KeyPressEvent.h"
 
-std::string version = "Basic Ass Engine 0.2.74";
+std::string version = "Basic Ass Engine 0.2.75";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.74
+		     Current version: 0.2.75
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -66,7 +66,7 @@ DEVELOPMENT
 	=================================================
 		- [x] Add text rendering
 		- [x] Refactor text rendering
-		- [ ] Update character controller
+		- [x] Update character controller
 		- [ ] Update third person camera
 		- [ ] Update movement based on camera and character controller
 		- [ ] Switch third person and first person cameras
