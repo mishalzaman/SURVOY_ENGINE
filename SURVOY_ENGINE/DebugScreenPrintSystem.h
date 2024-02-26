@@ -13,6 +13,8 @@
 #include "FontCharactersComponent.h"
 #include "BuffersComponent.h"
 #include "ProgramComponent.h"
+#include "DebugPrintComponent.h"
+#include "RenderTargetDimensionsComponent.h"
 
 namespace ECS {
 	class DebugScreenPrintSystem : public System, public IObserver
@@ -33,6 +35,9 @@ namespace ECS {
 
 		float _dt;
 
-		void _renderLine(std::string text, float x, float y, float scale = 1);
+		void _renderLine(std::string text, float x, float y, glm::vec3 colour, float scale = 1);
+
+		float _fontSize;
+		float _lineHeight;
 	};
 }

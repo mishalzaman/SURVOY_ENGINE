@@ -1,7 +1,7 @@
 #include "DebugScreenPrintSystem.h"
 
 ECS::DebugScreenPrintSystem::DebugScreenPrintSystem(EntityManager& entityManager, EventManager& eventManager):
-    _entityManager(entityManager), _eventManager(eventManager)
+    _entityManager(entityManager), _eventManager(eventManager), _fontSize(12), _lineHeight(1.5)
 {
 }
 
@@ -24,7 +24,7 @@ void ECS::DebugScreenPrintSystem::Load()
     }
     else {
         // set size to load glyphs as
-        FT_Set_Pixel_Sizes(face, 0, 12);
+        FT_Set_Pixel_Sizes(face, 0, _fontSize);
 
         // disable byte-alignment restriction
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -100,16 +100,33 @@ void ECS::DebugScreenPrintSystem::Load()
 
 void ECS::DebugScreenPrintSystem::Render()
 {
-    std::string text = "FPS: " + std::to_string(_dt);
-    float x = 24;
-    float y = 768-24;
+    ECS::DebugPrintComponent* debugPrint = _entityManager.getComponent<ECS::DebugPrintComponent>(
+        _entityManager.getIdByTag("DebugPrint")
+    );
 
-    _renderLine("FPS: " + std::to_string(_dt), x, y);
+    float x = _fontSize;
+    float y = 768 - _fontSize * _lineHeight;
+
+    for (auto& text : debugPrint->PrintTexts) {
+        _renderLine(text.Text, x, y, text.Colour, 1.2);
+
+        y = y - (_fontSize * _lineHeight);
+    }
+
+    debugPrint->PrintTexts.clear();
 }
 
 void ECS::DebugScreenPrintSystem::UpdateOnFixedTimestep(float deltaTime)
 {
-    _dt = deltaTime;
+    ECS::DebugPrintComponent* debugPrint = _entityManager.getComponent<ECS::DebugPrintComponent>(
+        _entityManager.getIdByTag("DebugPrint")
+    );
+
+    if (debugPrint) {
+        PrintText text;
+        text.Text = "FPS: " + std::to_string(deltaTime);
+        debugPrint->PrintTexts.push_back(text);
+    }
 }
 
 void ECS::DebugScreenPrintSystem::Unload()
@@ -124,7 +141,7 @@ void ECS::DebugScreenPrintSystem::Unload()
     }
 }
 
-void ECS::DebugScreenPrintSystem::_renderLine(std::string text, float x, float y, float scale)
+void ECS::DebugScreenPrintSystem::_renderLine(std::string text, float x, float y, glm::vec3 colour, float scale)
 {
     ECS::ProgramComponent* shader = _entityManager.getComponent<ECS::ProgramComponent>(
         _entityManager.getIdByTag("FontShader")
@@ -135,11 +152,14 @@ void ECS::DebugScreenPrintSystem::_renderLine(std::string text, float x, float y
     ECS::FontCharactersComponent* chars = _entityManager.getComponent<ECS::FontCharactersComponent>(
         _entityManager.getIdByTag("Font")
     );
+    ECS::RenderTargetDimensionsComponent* renderTarget = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(
+        _entityManager.getIdByTag("RenderPipeline")
+    );
 
-    if (shader && buffers) {
+    if (shader && buffers && renderTarget) {
         shader->Program.use();
-        shader->Program.setVec3("textColor", glm::vec3(1, 1, 1));
-        glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(1024), 0.0f, static_cast<float>(768));
+        shader->Program.setVec3("textColor", colour);
+        glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(renderTarget->ScreenWidth), 0.0f, static_cast<float>(renderTarget->ScreenHeight));
         shader->Program.setMat4("projection", projection);
         glActiveTexture(GL_TEXTURE0);
         glBindVertexArray(buffers->VAO);

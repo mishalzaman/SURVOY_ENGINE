@@ -377,6 +377,9 @@
     <ClInclude Include="DebugScreenPrintSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="DebugPrintComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_2d.glsl">
