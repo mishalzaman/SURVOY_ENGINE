@@ -5,6 +5,8 @@ in vec3 vPos;
 uniform vec3 colour;
 uniform vec3 viewPos;
 
+out vec4 fragColor; // Define an output variable for the fragment shader
+
 float alpha = 1.0f;
 
 // using 20 units of space
@@ -25,7 +27,7 @@ void main()
             c = abs((a-20)/20);
         }
 
-        gl_FragColor = vec4(vec3(c,0,0), 1.0f);
+        fragColor = vec4(vec3(c,0,0), 1.0f); // Use the user-defined output variable
     }
     // Y
     else if (vPos.x == 0 && vPos.z == 0) {
@@ -35,7 +37,7 @@ void main()
             c = abs((a-20)/20);
         }
 
-        gl_FragColor = vec4(vec3(0,c,0), 1.0f);
+        fragColor = vec4(vec3(0,c,0), 1.0f); // Use the user-defined output variable
     }
     // Z
     else if (vPos.x == 0 && vPos.y == 0) {
@@ -45,10 +47,10 @@ void main()
             c = abs((a-20)/20);
         }
 
-        gl_FragColor = vec4(vec3(0,0,c), 1.0f);
+        fragColor = vec4(vec3(0,0,c), 1.0f); // Use the user-defined output variable
     }
     else
     {
-        gl_FragColor = vec4(colour, 1.0f);
+        fragColor = vec4(colour, 1.0f); // Use the user-defined output variable
     }
 }

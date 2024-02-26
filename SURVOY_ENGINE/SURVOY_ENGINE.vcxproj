@@ -146,6 +146,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="CameraThirdPersonSystem.cpp" />
     <ClCompile Include="CameraYawEvent.h" />
     <ClCompile Include="CharacterControllerSystem.cpp" />
+    <ClCompile Include="DebugGridSystem.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -190,6 +191,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="CameraThirdPersonSystem.h" />
     <ClInclude Include="CharacterControllerPositionEvent.h" />
     <ClInclude Include="CharacterControllerSystem.h" />
+    <ClInclude Include="DebugGridSystem.h" />
     <ClInclude Include="DebugPrintComponent.h" />
     <ClInclude Include="DirectionalLightComponent.h" />
     <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h" />

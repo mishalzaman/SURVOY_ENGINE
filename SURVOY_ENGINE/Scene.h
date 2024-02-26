@@ -49,6 +49,7 @@
 #include "RenderOutputSystem.h"
 #include "RenderDebugShadowMapSystem.h"
 #include "DebugScreenPrintSystem.h"
+#include "DebugGridSystem.h"
 
 //  Observer
 #include "Event.h"
