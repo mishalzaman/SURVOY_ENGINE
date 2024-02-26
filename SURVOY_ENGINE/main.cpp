@@ -29,6 +29,7 @@ DEVELOPMENT
 
 	Change Log
 	----------
+
 	v 0.1.x : Test level and graphics pipeline
 	==========================================
 	- [x] Create Scene Base class
@@ -60,6 +61,7 @@ DEVELOPMENT
 		 [x] - Add shadow map
 		 [x] - Refactor shadow map
 		 [x] - Clean up graphics pipeline
+
 	v 0.2.x : Text rendering and the player character
 	=================================================
 		- [x] Add text rendering
@@ -75,6 +77,15 @@ DEVELOPMENT
 		- [ ] Add animation blending
 		- [ ] Add animations for idle, walking, running and jumping
 		- [ ] Update controls to use control pad
+
+	v 0.3.x : Cascade shadow map, set up recast/detour
+	==================================================
+		- [ ] Add Cascade shadow map
+		- [ ] Add HDR
+		- [ ] Add SSAO
+		- [ ] Install recast / detour
+		- [ ] Create EnemyController
+		- [ ] Create move to random position ai
 */
 
 int main(int argc, char* args[]) {
