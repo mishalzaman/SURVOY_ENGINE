@@ -47,7 +47,7 @@
 #include "MeshStaticBuffersSystem.h"
 #include "RenderOutputSystem.h"
 #include "RenderDebugShadowMapSystem.h"
-#include "TextSystem.h"
+#include "DebugScreenPrintSystem.h"
 
 //  Observer
 #include "Event.h"

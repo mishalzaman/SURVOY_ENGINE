@@ -1,15 +1,15 @@
-#include "TextSystem.h"
+#include "DebugScreenPrintSystem.h"
 
-ECS::TextSystem::TextSystem(EntityManager& entityManager, EventManager& eventManager):
+ECS::DebugScreenPrintSystem::DebugScreenPrintSystem(EntityManager& entityManager, EventManager& eventManager):
     _entityManager(entityManager), _eventManager(eventManager)
 {
 }
 
-void ECS::TextSystem::onNotify(const Event& event)
+void ECS::DebugScreenPrintSystem::onNotify(const Event& event)
 {
 }
 
-void ECS::TextSystem::Load()
+void ECS::DebugScreenPrintSystem::Load()
 {
     FT_Library ft;
     if (FT_Init_FreeType(&ft))
@@ -98,7 +98,7 @@ void ECS::TextSystem::Load()
     }
 }
 
-void ECS::TextSystem::Render()
+void ECS::DebugScreenPrintSystem::Render()
 {
     std::string text = "FPS: " + std::to_string(_dt);
     float x = 24;
@@ -107,12 +107,12 @@ void ECS::TextSystem::Render()
     _renderLine("FPS: " + std::to_string(_dt), x, y);
 }
 
-void ECS::TextSystem::UpdateOnFixedTimestep(float deltaTime)
+void ECS::DebugScreenPrintSystem::UpdateOnFixedTimestep(float deltaTime)
 {
     _dt = deltaTime;
 }
 
-void ECS::TextSystem::Unload()
+void ECS::DebugScreenPrintSystem::Unload()
 {
     ECS::BuffersComponent* buffers = _entityManager.getComponent<ECS::BuffersComponent>(
         _entityManager.getIdByTag("Font")
@@ -124,7 +124,7 @@ void ECS::TextSystem::Unload()
     }
 }
 
-void ECS::TextSystem::_renderLine(std::string text, float x, float y, float scale)
+void ECS::DebugScreenPrintSystem::_renderLine(std::string text, float x, float y, float scale)
 {
     ECS::ProgramComponent* shader = _entityManager.getComponent<ECS::ProgramComponent>(
         _entityManager.getIdByTag("FontShader")

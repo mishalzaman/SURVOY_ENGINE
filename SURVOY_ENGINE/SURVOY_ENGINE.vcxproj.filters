@@ -159,7 +159,7 @@
     <ClCompile Include="SkyBoxSystem.cpp">
       <Filter>ENGINE\Programs</Filter>
     </ClCompile>
-    <ClCompile Include="TextSystem.cpp">
+    <ClCompile Include="DebugScreenPrintSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -374,7 +374,7 @@
     <ClInclude Include="FontCharactersComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="TextSystem.h">
+    <ClInclude Include="DebugScreenPrintSystem.h">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>

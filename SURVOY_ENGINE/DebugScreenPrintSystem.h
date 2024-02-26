@@ -15,10 +15,10 @@
 #include "ProgramComponent.h"
 
 namespace ECS {
-	class TextSystem : public System, public IObserver
+	class DebugScreenPrintSystem : public System, public IObserver
 	{
 	public:
-		TextSystem(EntityManager& entityManager, EventManager& eventManager);
+		DebugScreenPrintSystem(EntityManager& entityManager, EventManager& eventManager);
 
 		void onNotify(const Event& event) override;
 

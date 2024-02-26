@@ -39,7 +39,7 @@ void Scene::Load()
 	
 	// Final render
 	systemManager_->AddSystem<ECS::RenderScreenSystem>(*entityManager_, *eventManager_);
-	systemManager_->AddSystem<ECS::TextSystem>(*entityManager_, *eventManager_);
+	systemManager_->AddSystem<ECS::DebugScreenPrintSystem>(*entityManager_, *eventManager_);
 	systemManager_->AddSystem<ECS::RenderDebugShadowMapSystem>(*entityManager_);
 
 	systemManager_->Load();
