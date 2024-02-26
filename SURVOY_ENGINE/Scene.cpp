@@ -44,7 +44,7 @@ void Scene::Load()
 
 	// Post custom frame buffer renders
 	systemManager_->AddSystem<ECS::RenderDebugShadowMapSystem>(*entityManager_);
-	systemManager_->AddSystem<ECS::DebugScreenPrintSystem>(*entityManager_, *eventManager_);
+	//systemManager_->AddSystem<ECS::DebugScreenPrintSystem>(*entityManager_, *eventManager_);
 
 	systemManager_->Load();
 }
