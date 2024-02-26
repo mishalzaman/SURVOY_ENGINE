@@ -159,16 +159,16 @@ void ECS::CameraFreeLookSystem::_move(float deltaTime, glm::vec3& position, cons
 
     float velocity = ACCELERATION * SPEED * deltaTime;
 
-    if (keystate[SDL_SCANCODE_W]) {
+    if (keystate[SDL_SCANCODE_UP]) {
         position += forward * velocity;
     }
-    if (keystate[SDL_SCANCODE_S]) {
+    if (keystate[SDL_SCANCODE_DOWN]) {
         position -= forward * velocity;
     }
-    if (keystate[SDL_SCANCODE_A]) {
+    if (keystate[SDL_SCANCODE_LEFT]) {
         position -= right * velocity;
     }
-    if (keystate[SDL_SCANCODE_D]) {
+    if (keystate[SDL_SCANCODE_RIGHT]) {
         position += right * velocity;
     }
 }

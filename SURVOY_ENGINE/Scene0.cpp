@@ -32,6 +32,16 @@ void Scene0::Load()
 		entityManager_->addByTag("Mesh", entityId);
 	}
 
+	/*-------------------
+	 CHARACTER CONTROLLER
+	--------------------*/
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 1, 0));
+	entityManager_->addComponent<ECS::VelocityComponent>(entityId);
+	entityManager_->addComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);
+	entityManager_->addByTag("CharacterController", entityId);
+
+
 	/*----------
 	 CAMERA
 	-----------*/
