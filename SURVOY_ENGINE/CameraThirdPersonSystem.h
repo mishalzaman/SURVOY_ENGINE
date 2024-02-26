@@ -5,6 +5,8 @@
 #include <cassert>
 #include <glm/gtc/quaternion.hpp>       // For glm::quat
 #include <glm/gtx/euler_angles.hpp>    // For glm::eulerAngles
+#include <glm/gtx/rotate_vector.hpp>
+
 #include "System.h"
 #include "IObserver.h"
 #include "EntityManager.h"
@@ -32,7 +34,7 @@ namespace ECS {
 		const float SPEED = 2.f;
 		const float MOUSE_SENSITIVITY = 20.f;
 		const float ACCELERATION = 4.f;
-		const float DISTANCE_TO_TARGET = 6.f;
+		const float DISTANCE_TO_TARGET = 3.f;
 		const float UPWARD_OFFSET = -4.f;
 
 		CameraThirdPersonSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
@@ -42,13 +44,14 @@ namespace ECS {
 
 		void Load() override;
 		void UpdateOnFixedTimestep(float deltaTime) override;
+		void UpdateOnVariableTimestep() override;
 
 	private:
 		EventManager& _eventManager;
 		EntityManager& _entityManager;
 		Physics& _physics;
 
-		void _orbit(
+		void _follow(
 			float deltaTime,
 			float& yaw,
 			float& pitch,

@@ -1,6 +1,6 @@
 #include "CameraFreeLookSystem.h"
 
-ECS::CameraFreeLookSystem::CameraFreeLookSystem(
+ECS::CameraSystem::CameraSystem(
     EntityManager& entityManager,
     Physics& physics,
     EventManager& eventManager
@@ -12,17 +12,17 @@ ECS::CameraFreeLookSystem::CameraFreeLookSystem(
     _eventManager.subscribe(this);
 }
 
-ECS::CameraFreeLookSystem::~CameraFreeLookSystem()
+ECS::CameraSystem::~CameraSystem()
 {
     _eventManager.unsubscribe(this);
 }
 
-void ECS::CameraFreeLookSystem::onNotify(const Event& event)
+void ECS::CameraSystem::onNotify(const Event& event)
 {
     const auto* inputEvent = dynamic_cast<const InputMouseRelXYEvent*>(&event);
 
     if (inputEvent) {
-        std::vector<int> entities = _entityManager.getByTag("CameraFreeLook");
+        std::vector<int> entities = _entityManager.getByTag("Camera");
 
         for (int entityId : entities) {
             ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);
@@ -35,9 +35,9 @@ void ECS::CameraFreeLookSystem::onNotify(const Event& event)
     }
 }
 
-void ECS::CameraFreeLookSystem::Load()
+void ECS::CameraSystem::Load()
 {
-    std::vector<int> entities = _entityManager.getByTag("CameraFreeLook");
+    std::vector<int> entities = _entityManager.getByTag("Camera");
 
     for (int entityId : entities) {
         ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(entityId);
@@ -64,9 +64,9 @@ void ECS::CameraFreeLookSystem::Load()
     }
 }
 
-void ECS::CameraFreeLookSystem::UpdateOnFixedTimestep(float deltaTime)
+void ECS::CameraSystem::UpdateOnFixedTimestep(float deltaTime)
 {
-    int e = _entityManager.getIdByTag("CameraFreeLook");
+    int e = _entityManager.getIdByTag("Camera");
 
     ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(e);
     ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(e);
@@ -112,7 +112,7 @@ void ECS::CameraFreeLookSystem::UpdateOnFixedTimestep(float deltaTime)
     }
 }
 
-void ECS::CameraFreeLookSystem::_updateVectors(
+void ECS::CameraSystem::_updateVectors(
     glm::vec3& forward,
     glm::vec3& up,
     glm::vec3& right,
@@ -132,7 +132,7 @@ void ECS::CameraFreeLookSystem::_updateVectors(
     up = ENGINE::VectorHelpers::UpVec3(forward, right);
 }
 
-void ECS::CameraFreeLookSystem::_mouseLook(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY)
+void ECS::CameraSystem::_mouseLook(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY)
 {
     float xOffset = mouseX;
     float yOffset = mouseY;
@@ -153,7 +153,7 @@ void ECS::CameraFreeLookSystem::_mouseLook(float deltaTime, float& yaw, float& p
     mouseY = 0;
 }
 
-void ECS::CameraFreeLookSystem::_move(float deltaTime, glm::vec3& position, const glm::vec3& forward, const glm::vec3& right)
+void ECS::CameraSystem::_move(float deltaTime, glm::vec3& position, const glm::vec3& forward, const glm::vec3& right)
 {
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
 

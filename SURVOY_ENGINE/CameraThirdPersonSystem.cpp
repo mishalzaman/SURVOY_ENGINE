@@ -23,7 +23,7 @@ void ECS::CameraThirdPersonSystem::onNotify(const Event& event)
 
     if (inputEvent) {
         ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(
-            _entityManager.getIdByTag("CameraThirdPerson")
+            _entityManager.getIdByTag("Camera")
         );
         assert(mouse);
 
@@ -37,7 +37,7 @@ void ECS::CameraThirdPersonSystem::onNotify(const Event& event)
 
     if (positionEvent) {
         ECS::TargetComponent* target = _entityManager.getComponent<ECS::TargetComponent>(
-            _entityManager.getIdByTag("CameraThirdPerson")
+            _entityManager.getIdByTag("Camera")
         );
         assert(target);
 
@@ -54,18 +54,18 @@ void ECS::CameraThirdPersonSystem::Load()
     )->Yaw; assert(yaw);
 
     ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
-        _entityManager.getIdByTag("CameraThirdPerson")
+        _entityManager.getIdByTag("Camera")
     ); assert(orientation);
 
     if (orientation) {
         orientation->Yaw = yaw;
-        orientation->Pitch = -22.f;
+        orientation->Pitch = 0.f;
     }
 }
 
 void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
 {
-    int e = _entityManager.getIdByTag("CameraThirdPerson");
+    int e = _entityManager.getIdByTag("Camera");
 
 
     ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(e);
@@ -82,7 +82,7 @@ void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
 
     if (screen && matrices && orientation && mouse && target) {
         // Process camera movement and orientation based on input and deltaTime
-        _orbit(
+        _follow(
             deltaTime,
             orientation->Yaw,
             orientation->Pitch,
@@ -105,18 +105,23 @@ void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
     }
 }
 
-void ECS::CameraThirdPersonSystem::_orbit(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY, glm::vec3& position, glm::vec3& forward, glm::vec3& right, glm::vec3& up, glm::vec3 target)
+void ECS::CameraThirdPersonSystem::UpdateOnVariableTimestep()
 {
-    // Sensitivity scaling
-    float sensitivity = MOUSE_SENSITIVITY * deltaTime;
+    float yaw = _entityManager.getComponent<ECS::OrientationComponent>(
+        _entityManager.getIdByTag("CharacterController")
+    )->Yaw; assert(yaw);
 
-    // Adjust yaw and pitch based on mouse movement
-    yaw += mouseX * sensitivity;
-    pitch += mouseY * sensitivity;
+    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
+        _entityManager.getIdByTag("Camera")
+    ); assert(orientation);
 
-    // Clamp the pitch
-    pitch = std::max(std::min(pitch, 89.0f), -89.0f);
+    if (orientation) {
+        orientation->Yaw = yaw;
+    }
+}
 
+void ECS::CameraThirdPersonSystem::_follow(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY, glm::vec3& position, glm::vec3& forward, glm::vec3& right, glm::vec3& up, glm::vec3 target)
+{
     // Convert yaw and pitch to radians
     float yawRad = glm::radians(yaw);
     float pitchRad = glm::radians(pitch);
@@ -135,8 +140,4 @@ void ECS::CameraThirdPersonSystem::_orbit(float deltaTime, float& yaw, float& pi
     // Recalculate right and up vector
     right = glm::normalize(glm::cross(forward, glm::vec3(0.0f, 1.0f, 0.0f)));
     up = glm::normalize(glm::cross(right, forward));
-
-    // Reset mouse offsets
-    mouseX = 0;
-    mouseY = 0;
 }

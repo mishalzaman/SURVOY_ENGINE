@@ -13,10 +13,10 @@ void ECS::DebugGridSystem::Load()
 void ECS::DebugGridSystem::Render()
 {
 	ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(
-		_entityManager.getIdByTag("CameraFreeLook")
+		_entityManager.getIdByTag("Camera")
 	);
 	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
-		_entityManager.getIdByTag("CameraFreeLook")
+		_entityManager.getIdByTag("Camera")
 	);
 
 	if (matrices && orientation) {
