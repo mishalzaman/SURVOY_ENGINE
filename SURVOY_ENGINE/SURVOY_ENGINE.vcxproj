@@ -190,6 +190,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="CameraThirdPersonSystem.h" />
     <ClInclude Include="CharacterControllerPositionEvent.h" />
     <ClInclude Include="CharacterControllerSystem.h" />
+    <ClInclude Include="DebugPrintComponent.h" />
     <ClInclude Include="DirectionalLightComponent.h" />
     <ClInclude Include="DynamicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="ECSCommon.h" />

@@ -32,6 +32,7 @@
 #include "NearFarPlanesComponent.h"
 #include "ShadowResolutionComponent.h"
 #include "FontCharactersComponent.h"
+#include "DebugPrintComponent.h"
 
 // ECS - Systems
 #include "CameraFreeLookSystem.h"

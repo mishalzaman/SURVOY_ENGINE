@@ -134,6 +134,11 @@ void Scene0::Load()
 	-----------------*/
 	entityId = entityManager_->createEntity();
 	entityManager_->addComponent<ECS::RenderPassComponent>(entityId, ECS::RenderPassComponent::NULL_MAP);
+	entityManager_->addComponent<ECS::RenderTargetDimensionsComponent>(
+		entityId,
+		1024.f,
+		768.f
+	);
 	entityManager_->addByTag("RenderPipeline", entityId);
 
 	/*----------------
@@ -143,6 +148,13 @@ void Scene0::Load()
 	entityManager_->addComponent<ECS::FontCharactersComponent>(entityId);
 	entityManager_->addComponent<ECS::BuffersComponent>(entityId);
 	entityManager_->addByTag("Font", entityId);
+
+	/*----------------
+	 DEBUG PRINT
+	-----------------*/
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::DebugPrintComponent>(entityId);
+	entityManager_->addByTag("DebugPrint", entityId);
 
 	Scene::Load();
 }

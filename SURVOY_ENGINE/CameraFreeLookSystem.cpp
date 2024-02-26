@@ -66,30 +66,49 @@ void ECS::CameraFreeLookSystem::Load()
 
 void ECS::CameraFreeLookSystem::UpdateOnFixedTimestep(float deltaTime)
 {
-    std::vector<int> entities = _entityManager.getByTag("CameraFreeLook");
+    int e = _entityManager.getIdByTag("CameraFreeLook");
 
-    for (int entityId : entities) {
-        ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(entityId);
-        ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(entityId);
-        ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
-        ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);
-        ECS::CameraFOVComponent* fov = _entityManager.getComponent<ECS::CameraFOVComponent>(entityId);
+    ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(e);
+    ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(e);
+    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
+    ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(e);
+    ECS::CameraFOVComponent* fov = _entityManager.getComponent<ECS::CameraFOVComponent>(e);
 
-        if (screen && matrices && orientation && mouse) {
-            // Process camera movement and orientation based on input and deltaTime
-            _mouseLook(deltaTime, orientation->Yaw, orientation->Pitch, mouse->MouseRelX, mouse->MouseRelY);
-            _move(deltaTime, orientation->Position, orientation->Forward, orientation->Right);
+    if (screen && matrices && orientation && mouse) {
+        // Process camera movement and orientation based on input and deltaTime
+        _mouseLook(deltaTime, orientation->Yaw, orientation->Pitch, mouse->MouseRelX, mouse->MouseRelY);
+        _move(deltaTime, orientation->Position, orientation->Forward, orientation->Right);
 
-            // Update the camera vectors and matrices
-            _updateVectors(orientation->Forward, orientation->Up, orientation->Right, orientation->Yaw, orientation->Pitch);
+        // Update the camera vectors and matrices
+        _updateVectors(orientation->Forward, orientation->Up, orientation->Right, orientation->Yaw, orientation->Pitch);
 
-            // Calculate view and projection matrices
-            matrices->View = ENGINE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
-            matrices->Projection = ENGINE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, fov->FOV);
+        // Calculate view and projection matrices
+        matrices->View = ENGINE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
+        matrices->Projection = ENGINE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, fov->FOV);
 
-            _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
-            _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
-        }
+        _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
+        _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
+    }
+    
+
+    ECS::DebugPrintComponent* debugPrint = _entityManager.getComponent<ECS::DebugPrintComponent>(
+        _entityManager.getIdByTag("DebugPrint")
+    );
+
+    if (debugPrint) {
+        PrintText text1;
+        text1.Text = "Camera Position X: " + std::to_string(orientation->Position.x) + " " +
+            "Camera Y: " + std::to_string(orientation->Position.y) + " " +
+            "Camera Z: " + std::to_string(orientation->Position.z);
+        text1.Colour = glm::vec3(0, 1, 0);
+
+        PrintText text2;
+        text2.Text = "Camera Pitch: " + std::to_string(orientation->Pitch) + " " +
+            "Camera Yaw: " + std::to_string(orientation->Yaw);
+        text2.Colour = glm::vec3(0, 1, 0);
+        
+        debugPrint->PrintTexts.push_back(text1);
+        debugPrint->PrintTexts.push_back(text2);
     }
 }
 
