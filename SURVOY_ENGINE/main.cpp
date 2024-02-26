@@ -5,11 +5,11 @@
 #include "Scene0.h"
 #include "KeyPressEvent.h"
 
-std::string version = "Basic Ass Engine 0.2.73";
+std::string version = "Basic Ass Engine 0.2.74";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.73
+		     Current version: 0.2.74
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -68,18 +68,20 @@ DEVELOPMENT
 		- [x] Refactor text rendering
 		- [ ] Update character controller
 		- [ ] Update third person camera
+		- [ ] Update movement based on camera and character controller
 		- [ ] Switch third person and first person cameras
 		- [ ] Create character mesh
 		- [ ] Add character mesh that follows the capsule
 		- [ ] Rig character
 		- [ ] Animate character
 		- [ ] Add animator class
+		- [ ] Add animations for idle and walk
 		- [ ] Add animation blending
-		- [ ] Add animations for idle, walking, running and jumping
 		- [ ] Update controls to use control pad
 
 	v 0.3.x : Cascade shadow map, set up recast/detour
 	==================================================
+		- [ ] Fix text rendering
 		- [ ] Add Cascade shadow map
 		- [ ] Add HDR
 		- [ ] Add SSAO

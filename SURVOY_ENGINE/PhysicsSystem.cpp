@@ -90,7 +90,7 @@ void ECS::PhysicsSystem::_createStaticTriangleMeshBody()
 
 void ECS::PhysicsSystem::_createDynamicCapsuleBody()
 {
-	std::vector<int> entitiesPC = _entityManager.getByTag("PlayerController");
+	std::vector<int> entitiesPC = _entityManager.getByTag("CharacterController");
 
 	for (int entityId : entitiesPC) {
 		ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(entityId);

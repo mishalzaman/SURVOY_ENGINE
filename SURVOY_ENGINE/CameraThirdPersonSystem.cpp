@@ -50,7 +50,7 @@ void ECS::CameraThirdPersonSystem::onNotify(const Event& event)
 void ECS::CameraThirdPersonSystem::Load()
 {
     float yaw = _entityManager.getComponent<ECS::OrientationComponent>(
-        _entityManager.getIdByTag("PlayerController")
+        _entityManager.getIdByTag("CharacterController")
     )->Yaw; assert(yaw);
 
     ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(

@@ -21,7 +21,7 @@ void ECS::CharacterControllerSystem::onNotify(const Event& event)
 
 void ECS::CharacterControllerSystem::Load()
 {
-	std::vector<int> entities = _entityManager.getByTag("PlayerController");
+	std::vector<int> entities = _entityManager.getByTag("CharacterController");
 
 	for (int entityId : entities) {
 		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
@@ -37,7 +37,7 @@ void ECS::CharacterControllerSystem::Load()
 
 void ECS::CharacterControllerSystem::UpdateOnFixedTimestep(float deltaTime)
 {
-	int e = _entityManager.getByTag("PlayerController")[0];
+	int e = _entityManager.getByTag("CharacterController")[0];
 
 	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
 	ECS::VelocityComponent* velocity = _entityManager.getComponent<ECS::VelocityComponent>(e);
@@ -52,7 +52,7 @@ void ECS::CharacterControllerSystem::UpdateOnFixedTimestep(float deltaTime)
 
 void ECS::CharacterControllerSystem::UpdateOnVariableTimestep()
 {
-	int e = _entityManager.getByTag("PlayerController")[0];
+	int e = _entityManager.getByTag("CharacterController")[0];
 
 	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
 	ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(e);
@@ -72,7 +72,7 @@ void ECS::CharacterControllerSystem::UpdateOnVariableTimestep()
 
 void ECS::CharacterControllerSystem::Render()
 {
-	std::vector<int> entities = _entityManager.getByTag("PlayerController");
+	std::vector<int> entities = _entityManager.getByTag("CharacterController");
 
 	for (int entityId : entities) {
 		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
@@ -126,7 +126,7 @@ void ECS::CharacterControllerSystem::_updateInput(float deltaTime, const glm::ve
 void ECS::CharacterControllerSystem::_updateYaw(float yaw)
 {
 	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
-		_entityManager.getByTag("PlayerController")[0]
+		_entityManager.getByTag("CharacterController")[0]
 	);
 
 	if (orientation) { orientation->Yaw = yaw; }
