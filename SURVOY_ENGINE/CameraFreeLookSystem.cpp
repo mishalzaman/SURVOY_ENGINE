@@ -157,18 +157,23 @@ void ECS::CameraFreeLookSystem::_move(float deltaTime, glm::vec3& position, cons
 {
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
+    // Check if SHIFT key is being held down
+    bool shiftPressed = keystate[SDL_SCANCODE_LSHIFT] || keystate[SDL_SCANCODE_RSHIFT];
+
     float velocity = ACCELERATION * SPEED * deltaTime;
 
-    if (keystate[SDL_SCANCODE_UP]) {
-        position += forward * velocity;
-    }
-    if (keystate[SDL_SCANCODE_DOWN]) {
-        position -= forward * velocity;
-    }
-    if (keystate[SDL_SCANCODE_LEFT]) {
-        position -= right * velocity;
-    }
-    if (keystate[SDL_SCANCODE_RIGHT]) {
-        position += right * velocity;
+    if (shiftPressed) {
+        if (keystate[SDL_SCANCODE_W]) {
+            position += forward * velocity;
+        }
+        if (keystate[SDL_SCANCODE_S]) {
+            position -= forward * velocity;
+        }
+        if (keystate[SDL_SCANCODE_A]) {
+            position -= right * velocity;
+        }
+        if (keystate[SDL_SCANCODE_D]) {
+            position += right * velocity;
+        }
     }
 }
