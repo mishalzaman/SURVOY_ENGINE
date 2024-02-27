@@ -34,6 +34,8 @@
 #include "FontCharactersComponent.h"
 #include "DebugPrintComponent.h"
 #include "KinematicCapsulePhysicsBodyComponent.h"
+#include "ActiveCameraComponent.h"
+
 
 // ECS - Systems
 #include "CameraFreeLookSystem.h"
@@ -52,6 +54,7 @@
 #include "DebugScreenPrintSystem.h"
 #include "DebugGridSystem.h"
 #include "KinematicCharacterControllerSystem.h"
+#include "CameraSwitcherSystem.h"
 
 //  Observer
 #include "Event.h"

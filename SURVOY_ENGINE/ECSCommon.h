@@ -22,11 +22,9 @@
 #include "TargetComponent.h"
 
 // Systems
-#include "CameraSystem.h"
 #include "CameraThirdPersonSystem.h"
 #include "characterControllerSystem.h"
 #include "PhysicsSystem.h"
-#include "MeshRenderSystem.h"
 
 // Events
 #include "CameraPositionEvent.h"

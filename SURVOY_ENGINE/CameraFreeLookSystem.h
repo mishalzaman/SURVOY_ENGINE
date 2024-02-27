@@ -8,7 +8,6 @@
 #include "VectorHelpers.h"
 #include "Physics.h"
 #include "EventManager.h"
-#include "CameraViewProjectionEvent.h"
 #include "IObserver.h"
 #include "InputMouseRelXYEvent.h"
 #include "RenderTargetDimensionsComponent.h"
@@ -18,17 +17,18 @@
 #include "OrientationComponent.h"
 #include "CameraFOVComponent.h"
 #include "DebugPrintComponent.h"
+#include "ActiveCameraComponent.h"
 
 namespace ECS {
-	class CameraSystem : public System, public IObserver
+	class CameraFreeLookSystem : public System, public IObserver
 	{	
 	public:
 		const float SPEED = 2.f;
 		const float MOUSE_SENSITIVITY = 10.f;
 		const float ACCELERATION = 2.f;
 
-		CameraSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
-		~CameraSystem();
+		CameraFreeLookSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
+		~CameraFreeLookSystem();
 
 		void onNotify(const Event& event) override;
 

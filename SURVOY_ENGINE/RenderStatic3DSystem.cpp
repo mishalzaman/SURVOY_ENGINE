@@ -15,17 +15,6 @@ ECS::RenderStatic3DSystem::~RenderStatic3DSystem()
 
 void ECS::RenderStatic3DSystem::onNotify(const Event& event)
 {
-    const auto* cameraEvent = dynamic_cast<const CameraViewProjectionEvent*>(&event);
-    const auto* cameraPositionEvent = dynamic_cast<const CameraPositionEvent*>(&event);
-
-    if (cameraEvent) {
-        _view = cameraEvent->getViewMatrix();
-        _projection = cameraEvent->getProjectionMatrix();
-    }
-
-    if (cameraPositionEvent) {
-        _cameraPosition = cameraPositionEvent->getPosition();
-    }
 }
 
 void ECS::RenderStatic3DSystem::Load() {

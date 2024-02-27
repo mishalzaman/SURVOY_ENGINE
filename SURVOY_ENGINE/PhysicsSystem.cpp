@@ -13,12 +13,6 @@ ECS::PhysicsSystem::~PhysicsSystem()
 
 void ECS::PhysicsSystem::onNotify(const Event& event)
 {
-	const auto* cameraEvent = dynamic_cast<const CameraViewProjectionEvent*>(&event);
-
-	if (cameraEvent) {
-		_physics.View(cameraEvent->getViewMatrix());
-		_physics.Projection(cameraEvent->getProjectionMatrix());
-	}
 }
 
 void ECS::PhysicsSystem::Load()
@@ -29,6 +23,16 @@ void ECS::PhysicsSystem::Load()
 
 void ECS::PhysicsSystem::UpdateOnFixedTimestep(float deltaTime)
 {
+	std::string cameraString = _entityManager.getComponent<ECS::ActiveCameraComponent>(
+		_entityManager.getIdByTag("ActiveCamera")
+	)->CameraTag;
+
+	CameraMatricesComponent* camera = _entityManager.getComponent<ECS::CameraMatricesComponent>(
+		_entityManager.getIdByTag(cameraString)
+	);
+
+	_physics.View(camera->View);
+	_physics.Projection(camera->Projection);
 	_physics.Simulate(deltaTime);
 }
 

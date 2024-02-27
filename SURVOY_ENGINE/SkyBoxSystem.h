@@ -6,6 +6,7 @@
 #include <typeindex>
 #include <glm/glm.hpp>
 #include <vector>
+#include <string>
 #include "System.h"
 #include "IObserver.h"
 #include "EventManager.h"
@@ -14,7 +15,8 @@
 #include "STexture.h"
 #include "FileLoader.h"
 #include "ProgramComponent.h"
-#include "CameraViewProjectionEvent.h"
+#include "ActiveCameraComponent.h"
+#include "CameraMatricesComponent.h"
 
 namespace ECS {
 	class SkyBoxSystem :public System, IObserver

@@ -7,12 +7,12 @@
 #include "TransformComponent.h"
 #include "EventManager.h"
 #include "IObserver.h"
-#include "CameraViewProjectionEvent.h"
 #include "CameraMatricesComponent.h"
 #include "DynamicCapsulePhysicsBodyComponent.h"
 #include "OrientationComponent.h"
 #include "VelocityComponent.h"
 #include "KinematicCapsulePhysicsBodyComponent.h"
+#include "ActiveCameraComponent.h"
 
 namespace ECS {
     class PhysicsSystem : public System, public IObserver

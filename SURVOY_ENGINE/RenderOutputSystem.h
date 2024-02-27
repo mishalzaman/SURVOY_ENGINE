@@ -16,6 +16,7 @@
 #include "LightSpaceMatrixComponent.h"
 #include "CameraMatricesComponent.h"
 #include "OrientationComponent.h"
+#include "ActiveCameraComponent.h"
 
 namespace ECS {
     class RenderOutputSystem : public System
