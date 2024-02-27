@@ -132,12 +132,10 @@ void ECS::CameraThirdPersonSystem::_follow(float deltaTime, float& yaw, float& p
     offset.y = DISTANCE_TO_TARGET * sin(pitchRad);
     offset.z = DISTANCE_TO_TARGET * cos(pitchRad) * sin(yawRad);
 
+    // set position based on character position
     position = target - offset;
 
-    // Update the camera's forward vector
     forward = glm::normalize(target - position);
-
-    // Recalculate right and up vector
     right = glm::normalize(glm::cross(forward, glm::vec3(0.0f, 1.0f, 0.0f)));
     up = glm::normalize(glm::cross(right, forward));
 

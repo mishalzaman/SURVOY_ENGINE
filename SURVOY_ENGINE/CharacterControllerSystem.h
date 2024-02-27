@@ -20,7 +20,7 @@ namespace ECS {
 	public:
 		const float SPEED = 48.f;
 		const float ACCELERATION = 4.f;
-		const float ROTATION_RATE = 20.f;
+		const float ROTATION_RATE = 30.f;
 
 		CharacterControllerSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
 		~CharacterControllerSystem();
