@@ -19,32 +19,6 @@ ECS::CameraThirdPersonSystem::~CameraThirdPersonSystem()
 
 void ECS::CameraThirdPersonSystem::onNotify(const Event& event)
 {
-    const auto* inputEvent = dynamic_cast<const InputMouseRelXYEvent*>(&event);
-
-    if (inputEvent) {
-        ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(
-            _entityManager.getIdByTag("Camera")
-        );
-        assert(mouse);
-
-        if (mouse) {
-            mouse->MouseRelX = inputEvent->getMouseX();
-            mouse->MouseRelY = inputEvent->getMouseY();
-        }
-    }
-
-    const auto* positionEvent = dynamic_cast<const CharacterControllerPositionEvent*>(&event);
-
-    if (positionEvent) {
-        ECS::TargetComponent* target = _entityManager.getComponent<ECS::TargetComponent>(
-            _entityManager.getIdByTag("Camera")
-        );
-        assert(target);
-
-        if (target) {
-            target->Target = positionEvent->getPosition();
-        }
-    }
 }
 
 void ECS::CameraThirdPersonSystem::Load()
@@ -65,8 +39,11 @@ void ECS::CameraThirdPersonSystem::Load()
 
 void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
 {
-    int e = _entityManager.getIdByTag("Camera");
+    ECS::OrientationComponent* characterOrientation = _entityManager.getComponent<ECS::OrientationComponent>(
+        _entityManager.getIdByTag("CharacterController")
+    );
 
+    int e = _entityManager.getIdByTag("Camera");
 
     ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(e);
     ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(e);
@@ -81,6 +58,8 @@ void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
     assert(target);
 
     if (screen && matrices && orientation && mouse && target) {
+        orientation->Yaw = characterOrientation->Yaw;
+
         // Process camera movement and orientation based on input and deltaTime
         _follow(
             deltaTime,
@@ -92,7 +71,7 @@ void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
             orientation->Forward,
             orientation->Right,
             orientation->Up,
-            target->Target
+            characterOrientation->Position
         );
 
         // Calculate view and projection matrices
@@ -107,17 +86,6 @@ void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
 
 void ECS::CameraThirdPersonSystem::UpdateOnVariableTimestep()
 {
-    float yaw = _entityManager.getComponent<ECS::OrientationComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    )->Yaw; assert(yaw);
-
-    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
-        _entityManager.getIdByTag("Camera")
-    ); assert(orientation);
-
-    if (orientation) {
-        orientation->Yaw = yaw;
-    }
 }
 
 void ECS::CameraThirdPersonSystem::_follow(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY, glm::vec3& position, glm::vec3& forward, glm::vec3& right, glm::vec3& up, glm::vec3 target)

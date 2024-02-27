@@ -45,27 +45,17 @@ void ECS::CharacterControllerSystem::UpdateOnFixedTimestep(float deltaTime)
 		_updateVectors(orientation->Yaw, orientation->Forward, orientation->Right, orientation->Up);
 		_updateInput(deltaTime, orientation->Forward, orientation->Right, velocity->Velocity, velocity->Direction, orientation->Yaw);
 		_updatePhysics(*dynamic, velocity->Direction, velocity->Velocity);
-	}
-}
-
-void ECS::CharacterControllerSystem::UpdateOnVariableTimestep()
-{
-	int e = _entityManager.getByTag("CharacterController")[0];
-
-	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
-	ECS::DynamicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::DynamicCapsulePhysicsBodyComponent>(e);
-
-
-	if (orientation && dynamic) {
 
 		btTransform trans;
 		if (dynamic->Body->getMotionState()) {
 			dynamic->Body->getMotionState()->getWorldTransform(trans);
 			orientation->Position = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
-
-			_eventManager.notifyAll(CharacterControllerPositionEvent(orientation->Position));
 		}
 	}
+}
+
+void ECS::CharacterControllerSystem::UpdateOnVariableTimestep()
+{
 }
 
 void ECS::CharacterControllerSystem::Render()
