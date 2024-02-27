@@ -162,6 +162,12 @@
     <ClCompile Include="DebugScreenPrintSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="KinematicCharacterControllerSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugGridSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -378,6 +384,15 @@
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="DebugPrintComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="KinematicCharacterControllerSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugGridSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="KinematicCapsulePhysicsBodyComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>

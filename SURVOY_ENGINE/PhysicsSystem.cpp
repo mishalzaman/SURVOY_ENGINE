@@ -24,7 +24,7 @@ void ECS::PhysicsSystem::onNotify(const Event& event)
 void ECS::PhysicsSystem::Load()
 {
 	_createStaticTriangleMeshBody();
-	_createDynamicCapsuleBody();
+	_createKinematiceCapsuleBody();
 }
 
 void ECS::PhysicsSystem::UpdateOnFixedTimestep(float deltaTime)
@@ -121,6 +121,48 @@ void ECS::PhysicsSystem::_createDynamicCapsuleBody()
 
 			// Set angular factor to zero to prevent rotation
 			body->setAngularFactor(btVector3(0, 0, 0));
+
+			dynamic->Body = body;
+
+			_physics.World().addRigidBody(body);
+		}
+	}
+}
+
+void ECS::PhysicsSystem::_createKinematiceCapsuleBody()
+{
+	std::vector<int> entitiesPC = _entityManager.getByTag("CharacterController");
+
+	for (int entityId : entitiesPC) {
+		ECS::KinematicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(entityId);
+		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
+
+		if (dynamic && orientation) {
+			btCollisionShape* groundShape = new btCapsuleShape(0.25f, 1.25f);
+			_physics.CollisionShapes().push_back(groundShape);
+
+			btTransform groundTransform;
+			groundTransform.setIdentity();
+			groundTransform.setOrigin(btVector3(orientation->Position.x, orientation->Position.y, orientation->Position.z));
+
+			btQuaternion rotation;
+			rotation.setEuler(-90.f, 0.f, 0.f); // Assuming roll is zero
+			groundTransform.setRotation(rotation);
+
+			btScalar mass(0.f); // Mass is 0 for kinematic bodies
+			btVector3 localInertia(0, 0, 0);
+			// No need to calculate inertia for kinematic bodies
+
+			btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
+			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+			btRigidBody* body = new btRigidBody(rbInfo);
+
+			// Set the body to be kinematic
+			body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+			body->setActivationState(DISABLE_DEACTIVATION); // Prevent the body from being deactivated
+
+			// Kinematic bodies don't need to set angular factor for preventing rotation, but you can still zero it if needed
+			// body->setAngularFactor(btVector3(0, 0, 0));
 
 			dynamic->Body = body;
 

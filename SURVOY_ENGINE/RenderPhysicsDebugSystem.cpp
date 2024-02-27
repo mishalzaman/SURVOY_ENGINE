@@ -1,7 +1,7 @@
 #include "RenderPhysicsDebugSystem.h"
 
 ECS::RenderPhysicsDebugSystem::RenderPhysicsDebugSystem(Physics& physics, EventManager& eventManager):
-	_phyiscs(physics), _eventManager(eventManager), _show(false)
+	_phyiscs(physics), _eventManager(eventManager), _show(true)
 {
 	_eventManager.subscribe(this);
 }

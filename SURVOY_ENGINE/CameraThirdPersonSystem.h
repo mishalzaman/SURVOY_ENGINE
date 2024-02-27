@@ -34,7 +34,7 @@ namespace ECS {
 		const float SPEED = 2.f;
 		const float MOUSE_SENSITIVITY = 20.f;
 		const float ACCELERATION = 4.f;
-		const float DISTANCE_TO_TARGET = 3.f;
+		const float DISTANCE_TO_TARGET = 5.f;
 		const float UP_OFFSET = 0.8f;
 		const float RIGHT_OFFSET = 0.4f;
 

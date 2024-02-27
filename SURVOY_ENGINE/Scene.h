@@ -33,6 +33,7 @@
 #include "ShadowResolutionComponent.h"
 #include "FontCharactersComponent.h"
 #include "DebugPrintComponent.h"
+#include "KinematicCapsulePhysicsBodyComponent.h"
 
 // ECS - Systems
 #include "CameraFreeLookSystem.h"
@@ -50,6 +51,7 @@
 #include "RenderDebugShadowMapSystem.h"
 #include "DebugScreenPrintSystem.h"
 #include "DebugGridSystem.h"
+#include "KinematicCharacterControllerSystem.h"
 
 //  Observer
 #include "Event.h"
