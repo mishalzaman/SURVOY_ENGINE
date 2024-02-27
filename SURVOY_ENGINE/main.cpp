@@ -70,7 +70,7 @@ DEVELOPMENT
 		- [x] Update character controller
 		- [x] Update third person camera
 		- [x] Update movement based on camera and character controller
-		- [ ] Switch third person and first person cameras
+		- [x] Switch third person and first person cameras
 		- [ ] Create KinematicCharacterControllerSystem
 		- [ ] Create character mesh
 		- [ ] Add character mesh that follows the capsule
