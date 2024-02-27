@@ -1,6 +1,6 @@
 #include "CameraFreeLookSystem.h"
 
-ECS::CameraSystem::CameraSystem(
+ECS::CameraFreeLookSystem::CameraFreeLookSystem(
     EntityManager& entityManager,
     Physics& physics,
     EventManager& eventManager
@@ -12,17 +12,17 @@ ECS::CameraSystem::CameraSystem(
     _eventManager.subscribe(this);
 }
 
-ECS::CameraSystem::~CameraSystem()
+ECS::CameraFreeLookSystem::~CameraFreeLookSystem()
 {
     _eventManager.unsubscribe(this);
 }
 
-void ECS::CameraSystem::onNotify(const Event& event)
+void ECS::CameraFreeLookSystem::onNotify(const Event& event)
 {
     const auto* inputEvent = dynamic_cast<const InputMouseRelXYEvent*>(&event);
 
     if (inputEvent) {
-        std::vector<int> entities = _entityManager.getByTag("Camera");
+        std::vector<int> entities = _entityManager.getByTag("CameraFirstPerson");
 
         for (int entityId : entities) {
             ECS::CameraMouseComponent* mouse = _entityManager.getComponent<ECS::CameraMouseComponent>(entityId);
@@ -35,9 +35,9 @@ void ECS::CameraSystem::onNotify(const Event& event)
     }
 }
 
-void ECS::CameraSystem::Load()
+void ECS::CameraFreeLookSystem::Load()
 {
-    std::vector<int> entities = _entityManager.getByTag("Camera");
+    std::vector<int> entities = _entityManager.getByTag("CameraFirstPerson");
 
     for (int entityId : entities) {
         ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(entityId);
@@ -64,9 +64,15 @@ void ECS::CameraSystem::Load()
     }
 }
 
-void ECS::CameraSystem::UpdateOnFixedTimestep(float deltaTime)
+void ECS::CameraFreeLookSystem::UpdateOnFixedTimestep(float deltaTime)
 {
-    int e = _entityManager.getIdByTag("Camera");
+    if (_entityManager.getComponent<ECS::ActiveCameraComponent>(
+        _entityManager.getIdByTag("ActiveCamera")
+    )->CameraTag != "CameraFirstPerson") {
+        return;
+    }
+
+    int e = _entityManager.getIdByTag("CameraFirstPerson");
 
     ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(e);
     ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(e);
@@ -112,7 +118,7 @@ void ECS::CameraSystem::UpdateOnFixedTimestep(float deltaTime)
     }
 }
 
-void ECS::CameraSystem::_updateVectors(
+void ECS::CameraFreeLookSystem::_updateVectors(
     glm::vec3& forward,
     glm::vec3& up,
     glm::vec3& right,
@@ -132,7 +138,7 @@ void ECS::CameraSystem::_updateVectors(
     up = ENGINE::VectorHelpers::UpVec3(forward, right);
 }
 
-void ECS::CameraSystem::_mouseLook(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY)
+void ECS::CameraFreeLookSystem::_mouseLook(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY)
 {
     float xOffset = mouseX;
     float yOffset = mouseY;
@@ -153,7 +159,7 @@ void ECS::CameraSystem::_mouseLook(float deltaTime, float& yaw, float& pitch, fl
     mouseY = 0;
 }
 
-void ECS::CameraSystem::_move(float deltaTime, glm::vec3& position, const glm::vec3& forward, const glm::vec3& right)
+void ECS::CameraFreeLookSystem::_move(float deltaTime, glm::vec3& position, const glm::vec3& forward, const glm::vec3& right)
 {
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
 

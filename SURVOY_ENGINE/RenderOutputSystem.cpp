@@ -23,6 +23,10 @@ void ECS::RenderOutputSystem::Render()
 
 void ECS::RenderOutputSystem::_renderForDepthMap()
 {
+	std::string camera = _entityManager.getComponent<ECS::ActiveCameraComponent>(
+		_entityManager.getIdByTag("ActiveCamera")
+	)->CameraTag;
+
 	glm::mat4 lightProjection, lightView;
 
 	lightProjection = glm::ortho(-30.0f, 30.0f, -30.0f, 30.0f, _nearPlane, _farPlane);
@@ -43,10 +47,10 @@ void ECS::RenderOutputSystem::_renderForDepthMap()
 		_entityManager.getIdByTag("LightSpaceMatrix")
 	);
 	ECS::CameraMatricesComponent* cameraMatrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(
-		_entityManager.getIdByTag("Camera")
+		_entityManager.getIdByTag(camera)
 	);
 	ECS::OrientationComponent* cameraOrientation = _entityManager.getComponent<ECS::OrientationComponent>(
-		_entityManager.getIdByTag("Camera")
+		_entityManager.getIdByTag(camera)
 	);
 
 	lightView = glm::lookAt(directionalLight->Position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
@@ -108,6 +112,10 @@ void ECS::RenderOutputSystem::_renderForDepthMap()
 
 void ECS::RenderOutputSystem::_renderForColourMap()
 {
+	std::string camera = _entityManager.getComponent<ECS::ActiveCameraComponent>(
+		_entityManager.getIdByTag("ActiveCamera")
+	)->CameraTag;
+
 	ECS::BuffersComponent* buffer = _entityManager.getComponent<ECS::BuffersComponent>(
 		_entityManager.getIdByTag("ColourFBO")
 	);
@@ -135,10 +143,10 @@ void ECS::RenderOutputSystem::_renderForColourMap()
 		_entityManager.getIdByTag("LightSpaceMatrix")
 	);
 	ECS::CameraMatricesComponent* cameraMatrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(
-		_entityManager.getIdByTag("Camera")
+		_entityManager.getIdByTag(camera)
 	);
 	ECS::OrientationComponent* cameraOrientation = _entityManager.getComponent<ECS::OrientationComponent>(
-		_entityManager.getIdByTag("Camera")
+		_entityManager.getIdByTag(camera)
 	);
 
 	if (shader) {

@@ -28,7 +28,7 @@ void ECS::CameraThirdPersonSystem::Load()
     )->Yaw; assert(yaw);
 
     ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
-        _entityManager.getIdByTag("Camera")
+        _entityManager.getIdByTag("CameraThirdPerson")
     ); assert(orientation);
 
     if (orientation) {
@@ -39,11 +39,17 @@ void ECS::CameraThirdPersonSystem::Load()
 
 void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
 {
+    if (_entityManager.getComponent<ECS::ActiveCameraComponent>(
+        _entityManager.getIdByTag("ActiveCamera")
+    )->CameraTag != "CameraThirdPerson") {
+        return;
+    }
+
     ECS::OrientationComponent* characterOrientation = _entityManager.getComponent<ECS::OrientationComponent>(
         _entityManager.getIdByTag("CharacterController")
     );
 
-    int e = _entityManager.getIdByTag("Camera");
+    int e = _entityManager.getIdByTag("CameraThirdPerson");
 
     ECS::RenderTargetDimensionsComponent* screen = _entityManager.getComponent<ECS::RenderTargetDimensionsComponent>(e);
     ECS::CameraMatricesComponent* matrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(e);

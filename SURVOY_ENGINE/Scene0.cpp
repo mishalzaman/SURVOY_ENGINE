@@ -46,19 +46,19 @@ void Scene0::Load()
 	 CAMERAS
 	-----------*/
 
-	//// First person
-	//entityId = entityManager_->createEntity();
-	//entityManager_->addComponent<ECS::RenderTargetDimensionsComponent>(
-	//	entityId,
-	//	1024.f,
-	//	768.f
-	//);
-	//entityManager_->addComponent<ECS::CameraMatricesComponent>(entityId);
-	//entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 2, 16));
-	//entityManager_->addComponent<ECS::CameraMouseComponent>(entityId);
-	//entityManager_->addComponent<ECS::TargetComponent>(entityId);
-	//entityManager_->addComponent<ECS::CameraFOVComponent>(entityId, 60.f);
-	//entityManager_->addByTag("Camera", entityId);
+	// First person
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::RenderTargetDimensionsComponent>(
+		entityId,
+		1024.f,
+		768.f
+	);
+	entityManager_->addComponent<ECS::CameraMatricesComponent>(entityId);
+	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 2, 16));
+	entityManager_->addComponent<ECS::CameraMouseComponent>(entityId);
+	entityManager_->addComponent<ECS::TargetComponent>(entityId);
+	entityManager_->addComponent<ECS::CameraFOVComponent>(entityId, 60.f);
+	entityManager_->addByTag("CameraFirstPerson", entityId);
 
 	// Third person
 	entityId = entityManager_->createEntity();
@@ -72,7 +72,11 @@ void Scene0::Load()
 	entityManager_->addComponent<ECS::CameraMouseComponent>(entityId);
 	entityManager_->addComponent<ECS::TargetComponent>(entityId);
 	entityManager_->addComponent<ECS::CameraFOVComponent>(entityId, 60.f);
-	entityManager_->addByTag("Camera", entityId);
+	entityManager_->addByTag("CameraThirdPerson", entityId);
+
+	entityId = entityManager_->createEntity();
+	entityManager_->addComponent<ECS::ActiveCameraComponent>(entityId, "CameraThirdPerson");
+	entityManager_->addByTag("ActiveCamera", entityId);
 	
 	/*----------
 	 SHADERS

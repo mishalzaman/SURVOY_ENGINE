@@ -4,12 +4,13 @@
 #include "Core.h"
 #include "Scene0.h"
 #include "KeyPressEvent.h"
+#include "SwitchCameraEvent.h"
 
-std::string version = "Basic Ass Engine 0.2.78";
+std::string version = "Basic Ass Engine 0.2.80";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.78
+		     Current version: 0.2.80
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -128,6 +129,9 @@ int main(int argc, char* args[]) {
 					}
 					if (e.key.keysym.sym == SDLK_z) {
 						scene0->GetEventManager().notifyAll(KeyPressEvent(SDL_KeyCode::SDLK_z));
+					}
+					if (e.key.keysym.sym == SDLK_x) {
+						scene0->GetEventManager().notifyAll(SwitchCameraEvent());
 					}
 
 					break;

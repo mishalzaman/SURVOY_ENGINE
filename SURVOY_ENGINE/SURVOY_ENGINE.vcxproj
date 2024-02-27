@@ -143,6 +143,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="CameraMatricesComponent.h" />
     <ClCompile Include="CameraFreeLookSystem.cpp" />
+    <ClCompile Include="CameraSwitcherSystem.cpp" />
     <ClCompile Include="CameraThirdPersonSystem.cpp" />
     <ClCompile Include="CameraYawEvent.h" />
     <ClCompile Include="CharacterControllerSystem.cpp" />
@@ -184,11 +185,13 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActiveCameraComponent.h" />
     <ClInclude Include="BuffersComponent.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="CameraFOVComponent.h" />
     <ClInclude Include="CameraMouseComponent.h" />
     <ClInclude Include="CameraPositionEvent.h" />
+    <ClInclude Include="CameraSwitcherSystem.h" />
     <ClInclude Include="CameraThirdPersonSystem.h" />
     <ClInclude Include="CharacterControllerPositionEvent.h" />
     <ClInclude Include="CharacterControllerSystem.h" />
@@ -235,6 +238,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="SkyBoxSystem.h" />
     <ClInclude Include="StaticPhysicsBodyComponent.h" />
     <ClInclude Include="ISystem.h" />
+    <ClInclude Include="SwitchCameraEvent.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="TargetComponent.h" />

@@ -26,6 +26,7 @@
 #include "CameraYawEvent.h"
 #include "TargetComponent.h"
 #include "CharacterControllerPositionEvent.h"
+#include "ActiveCameraComponent.h"
 
 namespace ECS {
 	class CameraThirdPersonSystem : public System, public IObserver
