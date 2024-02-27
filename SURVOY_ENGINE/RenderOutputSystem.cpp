@@ -43,10 +43,10 @@ void ECS::RenderOutputSystem::_renderForDepthMap()
 		_entityManager.getIdByTag("LightSpaceMatrix")
 	);
 	ECS::CameraMatricesComponent* cameraMatrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(
-		_entityManager.getIdByTag("CameraFreeLook")
+		_entityManager.getIdByTag("Camera")
 	);
 	ECS::OrientationComponent* cameraOrientation = _entityManager.getComponent<ECS::OrientationComponent>(
-		_entityManager.getIdByTag("CameraFreeLook")
+		_entityManager.getIdByTag("Camera")
 	);
 
 	lightView = glm::lookAt(directionalLight->Position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
@@ -135,10 +135,10 @@ void ECS::RenderOutputSystem::_renderForColourMap()
 		_entityManager.getIdByTag("LightSpaceMatrix")
 	);
 	ECS::CameraMatricesComponent* cameraMatrices = _entityManager.getComponent<ECS::CameraMatricesComponent>(
-		_entityManager.getIdByTag("CameraFreeLook")
+		_entityManager.getIdByTag("Camera")
 	);
 	ECS::OrientationComponent* cameraOrientation = _entityManager.getComponent<ECS::OrientationComponent>(
-		_entityManager.getIdByTag("CameraFreeLook")
+		_entityManager.getIdByTag("Camera")
 	);
 
 	if (shader) {

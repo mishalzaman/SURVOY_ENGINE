@@ -22,7 +22,7 @@
 #include "TargetComponent.h"
 
 // Systems
-#include "CameraFreeLookSystem.h"
+#include "CameraSystem.h"
 #include "CameraThirdPersonSystem.h"
 #include "characterControllerSystem.h"
 #include "PhysicsSystem.h"

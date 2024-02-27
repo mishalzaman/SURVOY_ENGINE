@@ -20,15 +20,15 @@
 #include "DebugPrintComponent.h"
 
 namespace ECS {
-	class CameraFreeLookSystem : public System, public IObserver
+	class CameraSystem : public System, public IObserver
 	{	
 	public:
 		const float SPEED = 2.f;
 		const float MOUSE_SENSITIVITY = 10.f;
 		const float ACCELERATION = 2.f;
 
-		CameraFreeLookSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
-		~CameraFreeLookSystem();
+		CameraSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
+		~CameraSystem();
 
 		void onNotify(const Event& event) override;
 

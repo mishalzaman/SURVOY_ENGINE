@@ -15,8 +15,6 @@ ECS::CharacterControllerSystem::~CharacterControllerSystem()
 
 void ECS::CharacterControllerSystem::onNotify(const Event& event)
 {
-	const auto* yawEvent = dynamic_cast<const CameraYawEvent*>(&event);
-	if (yawEvent) { _updateYaw(yawEvent->getYaw()); }
 }
 
 void ECS::CharacterControllerSystem::Load()
@@ -45,7 +43,7 @@ void ECS::CharacterControllerSystem::UpdateOnFixedTimestep(float deltaTime)
 		
 	if (orientation && velocity && dynamic) {
 		_updateVectors(orientation->Yaw, orientation->Forward, orientation->Right, orientation->Up);
-		_updateInput(deltaTime, orientation->Forward, orientation->Right, velocity->Velocity, velocity->Direction);
+		_updateInput(deltaTime, orientation->Forward, orientation->Right, velocity->Velocity, velocity->Direction, orientation->Yaw);
 		_updatePhysics(*dynamic, velocity->Direction, velocity->Velocity);
 	}
 }
@@ -98,7 +96,7 @@ void ECS::CharacterControllerSystem::Render()
 	}
 }
 
-void ECS::CharacterControllerSystem::_updateInput(float deltaTime, const glm::vec3& forward, const glm::vec3& right, float& velocity, glm::vec3& direction)
+void ECS::CharacterControllerSystem::_updateInput(float deltaTime, const glm::vec3& forward, const glm::vec3& right, float& velocity, glm::vec3& direction, float& yaw)
 {
 	const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
@@ -111,26 +109,16 @@ void ECS::CharacterControllerSystem::_updateInput(float deltaTime, const glm::ve
 		direction -= forward;
 	}
 	if (keystate[SDL_SCANCODE_A]) {
-		direction -= right;
+		yaw -= ROTATION_RATE * deltaTime;
 	}
 	if (keystate[SDL_SCANCODE_D]) {
-		direction += right;
+		yaw += ROTATION_RATE * deltaTime;
 	}
 
 	if (glm::length(direction) > 0) {
 		direction = glm::normalize(direction);
 		velocity = ACCELERATION * SPEED * deltaTime;
 	}
-}
-
-void ECS::CharacterControllerSystem::_updateYaw(float yaw)
-{
-	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
-		_entityManager.getByTag("CharacterController")[0]
-	);
-
-	if (orientation) { orientation->Yaw = yaw; }
-	
 }
 
 void ECS::CharacterControllerSystem::_updateVectors(const float yaw, glm::vec3& forward, glm::vec3& right, glm::vec3& up)
