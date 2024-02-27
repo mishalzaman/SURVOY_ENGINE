@@ -140,4 +140,13 @@ void ECS::CameraThirdPersonSystem::_follow(float deltaTime, float& yaw, float& p
     // Recalculate right and up vector
     right = glm::normalize(glm::cross(forward, glm::vec3(0.0f, 1.0f, 0.0f)));
     up = glm::normalize(glm::cross(right, forward));
+
+    // move camera right by offset
+    glm::vec3 newTarget = target + right * RIGHT_OFFSET;
+    position = (newTarget - offset);
+
+    forward = glm::normalize(newTarget - position);
+
+    // Move camera up by offset
+    position += up * UP_OFFSET;
 }

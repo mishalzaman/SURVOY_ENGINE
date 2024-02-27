@@ -34,8 +34,9 @@ namespace ECS {
 		const float SPEED = 2.f;
 		const float MOUSE_SENSITIVITY = 20.f;
 		const float ACCELERATION = 4.f;
-		const float DISTANCE_TO_TARGET = 3.f;
-		const float UPWARD_OFFSET = -4.f;
+		const float DISTANCE_TO_TARGET = 2.f;
+		const float UP_OFFSET = 1.f;
+		const float RIGHT_OFFSET = 0.4f;
 
 		CameraThirdPersonSystem(EntityManager& entityManager, Physics& physics, EventManager& eventManager);
 		~CameraThirdPersonSystem();
