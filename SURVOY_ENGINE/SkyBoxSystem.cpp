@@ -56,12 +56,6 @@ ECS::SkyBoxSystem::~SkyBoxSystem()
 
 void ECS::SkyBoxSystem::onNotify(const Event& event)
 {
-    const auto* cameraEvent = dynamic_cast<const CameraViewProjectionEvent*>(&event);
-
-    if (cameraEvent) {
-        _view = cameraEvent->getViewMatrix();
-        _projection = cameraEvent->getProjectionMatrix();
-    }
 }
 
 void ECS::SkyBoxSystem::Load()
@@ -109,6 +103,14 @@ void ECS::SkyBoxSystem::Load()
 
 void ECS::SkyBoxSystem::Render()
 {
+    std::string cameraString = _entityManager.getComponent<ECS::ActiveCameraComponent>(
+        _entityManager.getIdByTag("ActiveCamera")
+    )->CameraTag;
+
+    CameraMatricesComponent* camera = _entityManager.getComponent<ECS::CameraMatricesComponent>(
+        _entityManager.getIdByTag(cameraString)
+    );
+
     int e = _entityManager.getByTags("SkyBoxShader")[0];
 
     ECS::ProgramComponent* program = _entityManager.getComponent<ECS::ProgramComponent>(e);
@@ -118,9 +120,9 @@ void ECS::SkyBoxSystem::Render()
         glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
         program->Program.use();
         glm::mat4 view = glm::mat4(1);
-        view = glm::mat4(glm::mat3(_view));
+        view = glm::mat4(glm::mat3(camera->View));
         program->Program.setMat4("view", view);
-        program->Program.setMat4("projection", _projection);
+        program->Program.setMat4("projection", camera->Projection);
         // skybox cube
         glBindVertexArray(_VAO);
         glActiveTexture(GL_TEXTURE0);

@@ -8,7 +8,6 @@
 #include "VectorHelpers.h"
 #include "Physics.h"
 #include "EventManager.h"
-#include "CameraViewProjectionEvent.h"
 #include "IObserver.h"
 #include "InputMouseRelXYEvent.h"
 #include "RenderTargetDimensionsComponent.h"

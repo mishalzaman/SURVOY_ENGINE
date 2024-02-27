@@ -14,7 +14,6 @@
 #include "Physics.h"
 #include "IObserver.h"
 #include "EventManager.h"
-#include "CameraViewProjectionEvent.h"
 #include "ProgramComponent.h"
 #include "CameraMatricesComponent.h"
 #include "CameraPositionEvent.h"

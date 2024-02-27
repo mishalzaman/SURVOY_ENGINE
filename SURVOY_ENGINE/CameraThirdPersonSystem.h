@@ -18,7 +18,6 @@
 #include "RenderTargetDimensionsComponent.h"
 #include "CameraMatricesComponent.h"
 #include "CameraPositionEvent.h"
-#include "CameraViewProjectionEvent.h"
 #include "CameraPositionEvent.h"
 #include "TransformComponent.h"
 #include "OrientationComponent.h"

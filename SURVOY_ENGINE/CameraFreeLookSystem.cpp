@@ -57,9 +57,6 @@ void ECS::CameraFreeLookSystem::Load()
 
             matrices->View = ENGINE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
             matrices->Projection = ENGINE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, fov->FOV);
-
-            _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
-            _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
         }
     }
 }
@@ -91,9 +88,6 @@ void ECS::CameraFreeLookSystem::UpdateOnFixedTimestep(float deltaTime)
         // Calculate view and projection matrices
         matrices->View = ENGINE::VectorHelpers::ViewMat4(orientation->Position, orientation->Forward, orientation->Up);
         matrices->Projection = ENGINE::VectorHelpers::ProjectionMat4(screen->ScreenWidth, screen->ScreenHeight, fov->FOV);
-
-        _eventManager.notifyAll(CameraViewProjectionEvent(matrices->View, matrices->Projection));
-        _eventManager.notifyAll(CameraPositionEvent(orientation->Position));
     }
     
 
