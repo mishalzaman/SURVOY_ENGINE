@@ -25,9 +25,9 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
 	);
 	assert(kinematic);
 
-	//std::cout << _isOnGround() << std::endl;
+	std::cout << _isOnGround(*kinematic) << std::endl;
 	if (!_isOnGround(*kinematic)) {
-		//_handleGravity(*kinematic, deltaTime);
+		_handleGravity(*kinematic, deltaTime);
 	}
 }
 

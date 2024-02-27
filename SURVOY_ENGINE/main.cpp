@@ -72,6 +72,10 @@ DEVELOPMENT
 		- [x] Update movement based on camera and character controller
 		- [x] Switch third person and first person cameras
 		- [ ] Create KinematicCharacterControllerSystem
+			- [ ] Ground test
+			- [ ] Movement
+			- [ ] Jumping
+			- [ ] Slope movement
 		- [ ] Create character mesh
 		- [ ] Add character mesh that follows the capsule
 		- [ ] Rig character
@@ -80,6 +84,7 @@ DEVELOPMENT
 		- [ ] Add animations for idle and walk
 		- [ ] Add animation blending
 		- [ ] Update controls to use control pad
+		- [ ] Refactor
 
 	v 0.3.x : Cascade shadow map, set up recast/detour
 	==================================================
