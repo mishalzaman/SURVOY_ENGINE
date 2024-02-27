@@ -27,7 +27,8 @@ void Scene::Load()
 {
 	systemManager_->AddSystem<ECS::PhysicsSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::MeshStaticBuffersSystem>(*entityManager_);
-	systemManager_->AddSystem<ECS::CharacterControllerSystem>(*entityManager_, *physics_, *eventManager_);
+	//systemManager_->AddSystem<ECS::CharacterControllerSystem>(*entityManager_, *physics_, *eventManager_);
+	systemManager_->AddSystem<ECS::KinematicCharacterControllerSystem>(*entityManager_, *physics_);
 	systemManager_->AddSystem<ECS::CameraThirdPersonSystem>(*entityManager_, *physics_, *eventManager_);
 
 	// Graphics pipeline
@@ -37,7 +38,7 @@ void Scene::Load()
 	systemManager_->AddSystem<ECS::RenderOutputSystem>(*entityManager_);
 	systemManager_->AddSystem<ECS::RenderPhysicsDebugSystem>(*physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::SkyBoxSystem>(*entityManager_, *eventManager_);
-	systemManager_->AddSystem<ECS::DebugGridSystem>(*entityManager_);
+	//systemManager_->AddSystem<ECS::DebugGridSystem>(*entityManager_);
 
 	// Frame buffer render
 	systemManager_->AddSystem<ECS::RenderScreenSystem>(*entityManager_, *eventManager_);

@@ -150,6 +150,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="KinematicCharacterControllerSystem.cpp" />
     <ClCompile Include="RenderDebugShadowMapSystem.cpp" />
     <ClCompile Include="RenderScreenSystem.cpp" />
     <ClCompile Include="RenderPassColourMapSystem.cpp" />
@@ -198,6 +199,8 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="ECSCommon.h" />
     <ClInclude Include="FontCharactersComponent.h" />
     <ClInclude Include="FrameBufferColourBufferEvent.h" />
+    <ClInclude Include="KinematicCapsulePhysicsBodyComponent.h" />
+    <ClInclude Include="KinematicCharacterControllerSystem.h" />
     <ClInclude Include="NearFarPlanesComponent.h" />
     <ClInclude Include="RenderDebugShadowMapSystem.h" />
     <ClInclude Include="RenderScreenSystem.h" />
