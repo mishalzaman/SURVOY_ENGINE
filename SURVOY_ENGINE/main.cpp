@@ -5,11 +5,11 @@
 #include "Scene0.h"
 #include "KeyPressEvent.h"
 
-std::string version = "Basic Ass Engine 0.2.77";
+std::string version = "Basic Ass Engine 0.2.78";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.77
+		     Current version: 0.2.78
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -69,8 +69,8 @@ DEVELOPMENT
 		- [x] Update character controller
 		- [x] Update third person camera
 		- [x] Update movement based on camera and character controller
-		- [ ] Create KinematicCharacterControllerSystem
 		- [ ] Switch third person and first person cameras
+		- [ ] Create KinematicCharacterControllerSystem
 		- [ ] Create character mesh
 		- [ ] Add character mesh that follows the capsule
 		- [ ] Rig character
