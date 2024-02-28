@@ -63,7 +63,7 @@ DEVELOPMENT
 		 [x] - Refactor shadow map
 		 [x] - Clean up graphics pipeline
 
-	v 0.2.x : Text rendering and the player character
+	v 0.2.x : Text rendering and character controller
 	=================================================
 		- [x] Add text rendering
 		- [x] Refactor text rendering
@@ -78,23 +78,51 @@ DEVELOPMENT
 			- [ ] Slope movement
 		- [ ] Create character mesh
 		- [ ] Add character mesh that follows the capsule
+
+	v 0.3.x : Text rendering and the player character
+	=================================================
+		- [ ] Update Text rendering and remove flickering
 		- [ ] Rig character
 		- [ ] Animate character
-		- [ ] Add animator class
+			- [ ] Idle
+			- [ ] Walk
+		- [ ] Create Animator class
 		- [ ] Add animations for idle and walk
 		- [ ] Add animation blending
 		- [ ] Update controls to use control pad
 		- [ ] Refactor
 
-	v 0.3.x : Cascade shadow map, set up recast/detour
+	v 0.4.x : Cascade shadow map, set up recast/detour
 	==================================================
-		- [ ] Fix text rendering
 		- [ ] Add Cascade shadow map
 		- [ ] Add HDR
 		- [ ] Add SSAO
+		- [ ] Finalize art direction
+
+	v 0.5.x : Enemy AI and behaviours
+	==================================================
 		- [ ] Install recast / detour
 		- [ ] Create EnemyController
-		- [ ] Create move to random position ai
+		- [ ] Look in to blackboard AI
+
+	v 0.6.x : Player and enemy weapons
+	==================================================
+
+	v 0.7.x : Test level with begin and end goal
+	==================================================
+		- [ ] Create gameplay design document
+
+	v 0.8.x : GUI
+	==================================================
+		- [ ] GUI System
+		- [ ] Main Menu
+		- [ ] Pause Screen
+		- [ ] Status Screen
+		- [ ] Game Menu
+
+	v 0.9.x : Create the game levels
+	==================================================
+
 */
 
 int main(int argc, char* args[]) {

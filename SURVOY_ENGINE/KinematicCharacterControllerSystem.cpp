@@ -59,8 +59,6 @@ bool ECS::KinematicCharacterControllerSystem::_isOnGround(KinematicCapsulePhysic
 		if (debugDrawer) {
 			debugDrawer->drawLine(start, end, btVector3(1, 1, 1));
 		}
-
-		return rayCallback.hasHit();
 	}
 
 	return false;
