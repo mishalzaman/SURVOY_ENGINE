@@ -6,11 +6,11 @@
 #include "KeyPressEvent.h"
 #include "SwitchCameraEvent.h"
 
-std::string version = "Basic Ass Engine 0.2.83";
+std::string version = "Basic Ass Engine 0.2.85";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.83
+		     Current version: 0.2.85
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -63,8 +63,8 @@ DEVELOPMENT
 		 [x] - Refactor shadow map
 		 [x] - Clean up graphics pipeline
 
-	v 0.2.x : Text rendering and the player character
-	=================================================
+	v 0.2.x : CHARACTER CONTROLLER - Text rendering and character controller
+	=========================================================================
 		- [x] Add text rendering
 		- [x] Refactor text rendering
 		- [x] Update character controller
@@ -74,27 +74,58 @@ DEVELOPMENT
 		- [ ] Create KinematicCharacterControllerSystem
 			- [ ] Ground test
 			- [ ] Movement
-			- [ ] Jumping
 			- [ ] Slope movement
 		- [ ] Create character mesh
 		- [ ] Add character mesh that follows the capsule
+
+	v 0.3.x : PLAYER ANIMATIONS - Text rendering and the player character
+	=====================================================================
+		- [ ] Fix text rendering
 		- [ ] Rig character
 		- [ ] Animate character
-		- [ ] Add animator class
+			- [ ] Idle
+			- [ ] Walk
+		- [ ] Create Animator class
 		- [ ] Add animations for idle and walk
 		- [ ] Add animation blending
 		- [ ] Update controls to use control pad
-		- [ ] Refactor
 
-	v 0.3.x : Cascade shadow map, set up recast/detour
-	==================================================
-		- [ ] Fix text rendering
+	v 0.4.x : ART DIRECTION - Cascade shadow map, set up recast/detour
+	==================================================================
 		- [ ] Add Cascade shadow map
 		- [ ] Add HDR
 		- [ ] Add SSAO
+		- [ ] Finalize art direction
+
+	v 0.5.x : AI - Enemy AI and behaviours
+	======================================
 		- [ ] Install recast / detour
 		- [ ] Create EnemyController
-		- [ ] Create move to random position ai
+		- [ ] Look in to blackboard AI
+
+	v 0.6.x : GAMEPLAY - Player and enemy weapons, enemy types, items and interactions
+	==================================================================================
+		- [ ] Create ideas for main gameplay loop
+
+	v 0.7.x : PROTOTYPE - Test level with begin and end goal
+	==================================================
+		- [ ] Create gameplay design document
+
+	v 0.8.x : GUI
+	==================================================
+		- [ ] GUI System
+		- [ ] Main Menu
+		- [ ] Pause Screen
+		- [ ] Status Screen
+		- [ ] Game Menu
+
+	v 0.9.x : GAME DEVELOPMENT - Create the game levels
+	==================================================
+
+	v 1.0.x : TESTING - Create the game levels
+	==================================================
+		- [ ] Release!
+
 */
 
 int main(int argc, char* args[]) {

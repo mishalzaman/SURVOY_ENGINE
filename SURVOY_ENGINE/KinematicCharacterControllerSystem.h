@@ -17,7 +17,7 @@
 namespace ECS {
 	class KinematicCharacterControllerSystem : public System
 	{
-	const float GRAVITY = -9.8f;
+	const float GRAVITY = -0.98f;
 
 	public:
 		KinematicCharacterControllerSystem(EntityManager& entityManager, Physics& physics);
