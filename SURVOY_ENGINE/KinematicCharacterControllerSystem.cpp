@@ -25,7 +25,6 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
 	);
 	assert(kinematic);
 
-	std::cout << _isOnGround(*kinematic) << std::endl;
 	if (!_isOnGround(*kinematic)) {
 		_handleGravity(*kinematic, deltaTime);
 	}
@@ -81,8 +80,6 @@ void ECS::KinematicCharacterControllerSystem::_handleGravity(KinematicCapsulePhy
 
 	// Update the position to simulate gravity
 	btVector3 newPosition = currentPosition + btVector3(0, displacement, 0);
-
-	std::cout << transform.getOrigin().y() << std::endl;
 
 	// Apply the new position
 	transform.setOrigin(newPosition);
