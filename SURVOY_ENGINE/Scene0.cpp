@@ -75,7 +75,7 @@ void Scene0::Load()
 	entityManager_->addByTag("CameraThirdPerson", entityId);
 
 	entityId = entityManager_->createEntity();
-	entityManager_->addComponent<ECS::ActiveCameraComponent>(entityId, "CameraFirstPerson");
+	entityManager_->addComponent<ECS::ActiveCameraComponent>(entityId, "CameraThirdPerson");
 	entityManager_->addByTag("ActiveCamera", entityId);
 	
 	/*----------
