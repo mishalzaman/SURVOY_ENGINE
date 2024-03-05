@@ -1,7 +1,7 @@
 #include "KinematicCharacterControllerSystem.h"
 
 ECS::KinematicCharacterControllerSystem::KinematicCharacterControllerSystem(EntityManager& entityManager, Physics& physics):
-	_entityManager(entityManager), _physics(physics), _velocity(glm::vec3(0)), _acceleration(1)
+	_entityManager(entityManager), _physics(physics), _velocity(glm::vec3(0)), _acceleration(1), _verticalVelocity(glm::vec3(0))
 {
 }
 
@@ -43,6 +43,7 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
     btTransform transform;
     kinematic->Body->getMotionState()->getWorldTransform(transform);
     btVector3 currentPosition = transform.getOrigin();
+
     orientation->Position = glm::vec3(currentPosition.x(), currentPosition.y(), currentPosition.z());
 
     _ghostObject->setWorldTransform(transform);
@@ -51,7 +52,8 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
         _handleGravity(*kinematic, deltaTime);
     }
     else {
-        std::cout <<  "on ground" << std::endl;
+        _verticalVelocity = glm::vec3(0);
+        _move(deltaTime);
     }
 }
 
@@ -60,6 +62,87 @@ void ECS::KinematicCharacterControllerSystem::Unload()
     _physics.World().removeCollisionObject(_ghostObject);
     delete _ghostObject;
 }
+
+void ECS::KinematicCharacterControllerSystem::_move(float deltaTime)
+{
+    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
+        _entityManager.getIdByTag("CharacterController")
+    );
+    assert(orientation);
+
+    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(
+        _entityManager.getIdByTag("CharacterController")
+    );
+    assert(kinematic);
+
+    const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
+    // Assuming orientation->dir is a forward vector and orientation->up is an up vector
+    glm::vec3 forwardDir = orientation->Forward;
+    glm::vec3 upDir = orientation->Up;
+
+    // Modify horizontal velocity based on input
+    glm::vec3 horizontalVelocity = glm::vec3(_velocity.x, 0, _velocity.z);
+    bool isMovingForward = keystate[SDL_SCANCODE_W];
+    bool isMovingBackward = keystate[SDL_SCANCODE_S];
+
+    if (isMovingForward) {
+        horizontalVelocity += forwardDir * _acceleration * deltaTime;
+    }
+    else if (isMovingBackward) {
+        horizontalVelocity -= forwardDir * _acceleration * deltaTime;
+    }
+    else {
+        // Apply deceleration if not moving forward or backward
+        float currentSpeed = glm::length(horizontalVelocity);
+        if (currentSpeed != 0) {
+            // Calculate deceleration amount
+            float decel = glm::min(currentSpeed, DECELERATION * deltaTime);
+            horizontalVelocity -= decel * glm::normalize(horizontalVelocity);
+        }
+    }
+
+    // Clamp horizontal velocity
+    float horizontalSpeed = glm::length(horizontalVelocity);
+    if (horizontalSpeed > SPEED) {
+        horizontalVelocity = glm::normalize(horizontalVelocity) * SPEED;
+    }
+
+    // Update the full velocity vector, maintaining the vertical component
+    _velocity.x = horizontalVelocity.x;
+    _velocity.z = horizontalVelocity.z;
+
+    // Combine with vertical velocity for displacement
+    _velocity = _velocity + _verticalVelocity * deltaTime;
+
+    // Clamp velocity to the maximum speed
+    if (_velocity.length() > SPEED) {
+        glm::normalize(_velocity);
+        _velocity *= SPEED;
+    }
+
+    const float rotationSpeed = 40.f; // Adjust as needed for how fast you want the character to rotate
+
+    if (keystate[SDL_SCANCODE_A]) {
+        // Rotate left
+        orientation->Yaw -= rotationSpeed * deltaTime;
+    }
+    if (keystate[SDL_SCANCODE_D]) {
+        // Rotate right
+        orientation->Yaw += rotationSpeed * deltaTime;
+    }
+
+    orientation->Forward = ENGINE::VectorHelpers::ForwardVec3(orientation->Yaw, orientation->Pitch);
+    orientation->Right = ENGINE::VectorHelpers::RightVec3(orientation->Forward);
+    orientation->Up = ENGINE::VectorHelpers::UpVec3(orientation->Forward, orientation->Right);
+
+    // update position
+
+    glm::vec3 displacement = _velocity;
+
+    _updateKinematicPosition(displacement);
+}
+
 
 bool ECS::KinematicCharacterControllerSystem::_isOnGround()
 {
@@ -77,6 +160,19 @@ bool ECS::KinematicCharacterControllerSystem::_isOnGround()
         btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
         debugDrawer->drawCapsule(kinematic->Radius * GHOST_OBJECT_SCALE, kinematic->Height * GHOST_OBJECT_SCALE * 0.5, 1, _ghostObject->getWorldTransform(), btVector3(0, 1, 0));
 
+        // Optionally, add a raycast from the bottom of the capsule to further improve ground detection
+        btVector3 rayStart = _ghostObject->getWorldTransform().getOrigin();
+        btVector3 rayEnd = rayStart - btVector3(0, 1, 0) * (kinematic->Height * 0.5 + kinematic->Radius + GROUND_TEST_OFFSET);
+        debugDrawer->drawLine(rayStart, rayEnd, btVector3(1, 1, 0));
+        btCollisionWorld::ClosestRayResultCallback rayCallback(rayStart, rayEnd);
+        _physics.World().rayTest(rayStart, rayEnd, rayCallback);
+        if (rayCallback.hasHit()) {
+            debugDrawer->drawSphere(rayCallback.m_hitPointWorld, 0.2f, btVector3(0, 0, 1));
+            return true; // Raycast hit the ground, character is on ground
+        }
+
+        return false; // No contact is found, character is not on ground
+
         // Check for overlaps
         btManifoldArray manifoldArray;
         btBroadphasePairArray& pairArray = _ghostObject->getOverlappingPairCache()->getOverlappingPairArray();
@@ -90,7 +186,7 @@ bool ECS::KinematicCharacterControllerSystem::_isOnGround()
             // Unless we manually perform collision detection on this pair, the contacts are not generated
             btBroadphasePair* collisionPair = _physics.World().getPairCache()->findPair(pair.m_pProxy0, pair.m_pProxy1);
             if (!collisionPair) continue;
-
+            
             if (collisionPair->m_algorithm) {
                 collisionPair->m_algorithm->getAllContactManifolds(manifoldArray);
             }
@@ -124,15 +220,43 @@ void ECS::KinematicCharacterControllerSystem::_handleGravity(KinematicCapsulePhy
     // Update the vertical velocity of the kinematic object due to gravity
     // Since _acceleration is scalar, and assuming you want to use it as gravity's magnitude,
     // you should directly use GRAVITY or set _acceleration to GRAVITY's value
-    _velocity += GRAVITY * deltaTime; // Gravity affects the y-component of velocity
+    _verticalVelocity += GRAVITY * deltaTime; // Gravity affects the y-component of velocity
 
     // Calculate the displacement using the updated velocity
     // Displacement is velocity * time
-    glm::vec3 displacement = _velocity * deltaTime;
+    glm::vec3 displacement = _verticalVelocity * deltaTime;
+
+    //// Get the current position of the body
+    //btTransform transform;
+    //kinematic.Body->getMotionState()->getWorldTransform(transform);
+    //btVector3 currentPosition = transform.getOrigin();
+
+    //// Convert displacement from glm::vec3 to btVector3 and update the position
+    //btVector3 newPosition = currentPosition + btVector3(displacement.x, displacement.y, displacement.z);
+
+    //// Apply the new position
+    //transform.setOrigin(newPosition);
+    //kinematic.Body->getMotionState()->setWorldTransform(transform);
+    //kinematic.Body->setWorldTransform(transform);
+
+    _updateKinematicPosition(displacement);
+}
+
+void ECS::KinematicCharacterControllerSystem::_resetVelocity()
+{
+    _velocity = glm::vec3(0);
+}
+
+void ECS::KinematicCharacterControllerSystem::_updateKinematicPosition(glm::vec3 displacement)
+{
+    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(
+        _entityManager.getIdByTag("CharacterController")
+    );
+    assert(kinematic);
 
     // Get the current position of the body
     btTransform transform;
-    kinematic.Body->getMotionState()->getWorldTransform(transform);
+    kinematic->Body->getMotionState()->getWorldTransform(transform);
     btVector3 currentPosition = transform.getOrigin();
 
     // Convert displacement from glm::vec3 to btVector3 and update the position
@@ -140,8 +264,8 @@ void ECS::KinematicCharacterControllerSystem::_handleGravity(KinematicCapsulePhy
 
     // Apply the new position
     transform.setOrigin(newPosition);
-    kinematic.Body->getMotionState()->setWorldTransform(transform);
-    kinematic.Body->setWorldTransform(transform);
+    kinematic->Body->getMotionState()->setWorldTransform(transform);
+    kinematic->Body->setWorldTransform(transform);
 }
 
 void ECS::KinematicCharacterControllerSystem::_createGhostObject()
