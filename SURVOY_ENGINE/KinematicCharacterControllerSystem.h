@@ -10,6 +10,7 @@
 #include "EntityManager.h"
 #include "OrientationComponent.h"
 #include "KinematicCapsulePhysicsBodyComponent.h"
+#include "GhostObjectCapsuleComponent.h"
 
 // Engineawdawdawd
 #include "Physics.h"
@@ -17,8 +18,6 @@
 
 // Helpers
 #include "VectorHelpers.h"
-
-#include <bullet/BulletCollision/CollisionDispatch/btGhostObject.h>
 
 namespace ECS {
 	class KinematicCharacterControllerSystem : public System
@@ -37,6 +36,7 @@ namespace ECS {
 		void Load() override;
 		void UpdateOnFixedTimestep(float deltaTime) override;
 		void Unload() override;
+
 	private:
 		EntityManager& _entityManager;
 		Physics& _physics;
@@ -51,8 +51,5 @@ namespace ECS {
 		void _resetVelocity();
 		void _updateKinematicPosition(glm::vec3 displacement);
 
-		// physics
-		void _createGhostObject();
-		btPairCachingGhostObject* _ghostObject;
 	};
 }

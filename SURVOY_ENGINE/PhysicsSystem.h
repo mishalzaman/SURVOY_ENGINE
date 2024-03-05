@@ -13,6 +13,7 @@
 #include "VelocityComponent.h"
 #include "KinematicCapsulePhysicsBodyComponent.h"
 #include "ActiveCameraComponent.h"
+#include "GhostObjectCapsuleComponent.h"
 
 namespace ECS {
     class PhysicsSystem : public System, public IObserver
@@ -34,5 +35,6 @@ namespace ECS {
         void _createStaticTriangleMeshBody();
         void _createDynamicCapsuleBody();
         void _createKinematiceCapsuleBody();
+        void _createGhostObjectCapsule();
     };
 }

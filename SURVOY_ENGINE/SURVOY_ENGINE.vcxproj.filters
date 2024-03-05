@@ -410,6 +410,9 @@
     <ClInclude Include="PhysicsCustomConvexResultCallback .h">
       <Filter>ENGINE</Filter>
     </ClInclude>
+    <ClInclude Include="GhostObjectCapsuleComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_2d.glsl">

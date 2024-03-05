@@ -19,6 +19,7 @@ void ECS::PhysicsSystem::Load()
 {
 	_createStaticTriangleMeshBody();
 	_createKinematiceCapsuleBody();
+	_createGhostObjectCapsule();
 }
 
 void ECS::PhysicsSystem::UpdateOnFixedTimestep(float deltaTime)
@@ -175,5 +176,48 @@ void ECS::PhysicsSystem::_createKinematiceCapsuleBody()
 
 			_physics.World().addRigidBody(body, kinematicCollisionGroup, kinematicCollisionMask);
 		}
+	}
+}
+
+void ECS::PhysicsSystem::_createGhostObjectCapsule()
+{
+	ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(
+		_entityManager.getIdByTag("CharacterController")
+	);
+	assert(kinematic);
+
+	ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(
+		_entityManager.getIdByTag("CharacterController")
+	);
+	assert(ghost);
+
+	if (kinematic && ghost) {
+		btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
+
+		// Get the current position of the body
+		btTransform transform;
+		kinematic->Body->getMotionState()->getWorldTransform(transform);
+		btVector3 currentPosition = transform.getOrigin();
+
+		// Capsule dimensions (radius and height)
+		float capsuleRadius = ghost->Radius;
+		float capsuleHeight = ghost->Height;
+
+		// Create a ghost object
+		ghost->GhostObject = new btPairCachingGhostObject();
+		ghost->GhostObject->setWorldTransform(transform);
+		btCapsuleShape* capsuleShape = new btCapsuleShape(capsuleRadius, capsuleHeight);
+		ghost->GhostObject->setCollisionShape(capsuleShape);
+		ghost->GhostObject->setCollisionFlags(btCollisionObject::CF_NO_CONTACT_RESPONSE);
+
+		// This should include static bodies in the collision detection
+		int ghostCollisionGroup = btBroadphaseProxy::SensorTrigger;
+		int ghostCollidesWith = btBroadphaseProxy::StaticFilter; // Only need to collide with static objects
+
+		_physics.World().addCollisionObject(ghost->GhostObject, ghostCollisionGroup, ghostCollidesWith);
+
+		_physics.CollisionShapes().push_back(capsuleShape);
+
+		std::cout << "Created ghost object" << std::endl;
 	}
 }

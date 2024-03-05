@@ -35,10 +35,12 @@ void Scene0::Load()
 	/*-------------------
 	 CHARACTER CONTROLLER
 	--------------------*/
+	float ghostObjectScale = 1.015f;
 	entityId = entityManager_->createEntity();
 	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 4, 0));
 	entityManager_->addComponent<ECS::VelocityComponent>(entityId);
 	entityManager_->addComponent<ECS::KinematicCapsulePhysicsBodyComponent>(entityId, 0.25f, 1.25f);
+	entityManager_->addComponent<ECS::GhostObjectCapsuleComponent>(entityId, 0.25f * ghostObjectScale, 1.25f * ghostObjectScale);
 	entityManager_->addByTag("CharacterController", entityId);
 
 
