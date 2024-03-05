@@ -41,6 +41,14 @@ void Scene0::Load()
 	entityManager_->addComponent<ECS::VelocityComponent>(entityId);
 	entityManager_->addComponent<ECS::KinematicCapsulePhysicsBodyComponent>(entityId, 0.25f, 1.25f);
 	entityManager_->addComponent<ECS::GhostObjectCapsuleComponent>(entityId, 0.25f * ghostObjectScale, 1.25f * ghostObjectScale);
+	entityManager_->addComponent<ECS::MovementAttributesComponent>(
+		entityId,
+		10.f,					// speed
+		1.f,					// acceleration
+		5.0f,					// deceleration
+		40.f,					// turn rate
+		glm::vec3(0, -9.8f, 0)  // gravity
+	);
 	entityManager_->addByTag("CharacterController", entityId);
 
 

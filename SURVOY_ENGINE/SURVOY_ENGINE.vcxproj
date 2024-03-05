@@ -206,6 +206,7 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="GhostObjectCapsuleComponent.h" />
     <ClInclude Include="KinematicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="KinematicCharacterControllerSystem.h" />
+    <ClInclude Include="MovementAttributesComponent.h" />
     <ClInclude Include="NearFarPlanesComponent.h" />
     <ClInclude Include="PhysicsCustomConvexResultCallback .h" />
     <ClInclude Include="RenderDebugShadowMapSystem.h" />

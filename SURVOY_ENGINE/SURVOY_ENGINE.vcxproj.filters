@@ -413,6 +413,9 @@
     <ClInclude Include="GhostObjectCapsuleComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
+    <ClInclude Include="MovementAttributesComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_2d.glsl">
