@@ -20,7 +20,7 @@
 namespace ECS {
 	class KinematicCharacterControllerSystem : public System
 	{
-	const glm::vec3 GRAVITY = glm::vec3(0, -0.0098f, 0);
+	const glm::vec3 GRAVITY = glm::vec3(0, -0.98f, 0);
 	const float GHOST_OBJECT_SCALE = 1.015f;
 
 	public:

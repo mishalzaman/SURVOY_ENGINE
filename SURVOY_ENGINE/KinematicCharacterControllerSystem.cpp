@@ -16,6 +16,11 @@ void ECS::KinematicCharacterControllerSystem::Load()
 	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
 	assert(orientation);
 
+    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(
+        _entityManager.getIdByTag("CharacterController")
+    );
+    assert(kinematic);
+
 	orientation->Forward = ENGINE::VectorHelpers::ForwardVec3(orientation->Yaw, orientation->Pitch);
 	orientation->Right = ENGINE::VectorHelpers::RightVec3(orientation->Forward);
 	orientation->Up = ENGINE::VectorHelpers::UpVec3(orientation->Forward, orientation->Right);
