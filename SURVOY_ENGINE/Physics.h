@@ -3,6 +3,7 @@
 
 #include <bullet/btBulletDynamicsCommon.h>
 #include <bullet/btBulletCollisionCommon.h>
+#include <bullet/BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <glm/glm.hpp>
 #include "PhysicsDebugDraw.h"
 #include <memory>
@@ -36,7 +37,8 @@ namespace ENGINE {
 		std::unique_ptr<btCollisionDispatcher> _dispatcher;
 		std::unique_ptr<btDbvtBroadphase> _broadphase;
 		std::unique_ptr<btSequentialImpulseConstraintSolver> _solver;
-		std::unique_ptr<btDiscreteDynamicsWorld> _world;
+		std::unique_ptr<btDiscreteDynamicsWorld> _world; 
+		std::unique_ptr<btGhostPairCallback> _ghostPairCallback;
 
 		PhysicsDebugDraw _physicsDebugDraw;
 		btAlignedObjectArray<btCollisionShape*> _collisionShapes;

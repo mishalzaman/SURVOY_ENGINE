@@ -36,9 +36,9 @@ void Scene0::Load()
 	 CHARACTER CONTROLLER
 	--------------------*/
 	entityId = entityManager_->createEntity();
-	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 4, 0));
+	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 10, 0));
 	entityManager_->addComponent<ECS::VelocityComponent>(entityId);
-	entityManager_->addComponent<ECS::KinematicCapsulePhysicsBodyComponent>(entityId);
+	entityManager_->addComponent<ECS::KinematicCapsulePhysicsBodyComponent>(entityId, 0.25f, 1.25f);
 	entityManager_->addByTag("CharacterController", entityId);
 
 

@@ -12,6 +12,10 @@ ENGINE::Physics::Physics()
 	// create the broadphase
 	_broadphase = std::make_unique<btDbvtBroadphase>();
 
+	// Add the ghost pair callback to the broadphase's overlapping pair cache
+	_ghostPairCallback = std::make_unique<btGhostPairCallback>(); // Store it as a unique_ptr for automatic memory management
+	_broadphase->getOverlappingPairCache()->setInternalGhostPairCallback(_ghostPairCallback.get());
+
 	// create the constraint solver
 	_solver = std::make_unique<btSequentialImpulseConstraintSolver>();
 
