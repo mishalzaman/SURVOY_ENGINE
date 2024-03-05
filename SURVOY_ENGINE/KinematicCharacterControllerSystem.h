@@ -11,6 +11,7 @@
 #include "OrientationComponent.h"
 #include "KinematicCapsulePhysicsBodyComponent.h"
 #include "GhostObjectCapsuleComponent.h"
+#include "MovementAttributesComponent.h"
 
 // Engineawdawdawd
 #include "Physics.h"
@@ -45,10 +46,27 @@ namespace ECS {
 		float _acceleration;
 
 		void _move(float deltaTime);
-		bool _isOnGround();
-		void _handleGravity(KinematicCapsulePhysicsBodyComponent& kinematic, float deltaTime);
-		void _resetVelocity();
-		void _updateKinematicPosition(glm::vec3 displacement);
 
+
+		void _resetVelocity();
+
+		/*/==============================
+		POSITION UPDATES
+		================================*/
+		void _updateKinematicPosition(glm::vec3 displacement);
+		void _updateGhostObjectPosition();
+		void _updateEntityPosition();
+
+		/*/==============================
+		MOVEMENT UPDATES
+		================================*/
+		void _handleGravity(float deltaTime);
+
+		/*/==============================
+		PHYSICS TESTS
+		================================*/
+		bool _isOnGround();
+		bool _isOnSlope();
+		bool _IsNextToWall();
 	};
 }

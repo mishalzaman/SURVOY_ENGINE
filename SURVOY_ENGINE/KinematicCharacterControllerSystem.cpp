@@ -38,14 +38,11 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
     kinematic->Body->getMotionState()->getWorldTransform(transform);
     btVector3 currentPosition = transform.getOrigin();
 
-    // Set position in component
-    orientation->Position = glm::vec3(currentPosition.x(), currentPosition.y(), currentPosition.z());
-
-    // Set position in ghost object
-    ghost->GhostObject->setWorldTransform(transform);
+    _updateEntityPosition();
+    _updateGhostObjectPosition();
 
     if (!_isOnGround()) {
-        _handleGravity(*kinematic, deltaTime);
+        _handleGravity(deltaTime);
     }
     else {
         _verticalVelocity = glm::vec3(0);
@@ -144,83 +141,20 @@ void ECS::KinematicCharacterControllerSystem::_move(float deltaTime)
     _updateKinematicPosition(displacement);
 }
 
-
-bool ECS::KinematicCharacterControllerSystem::_isOnGround()
+void ECS::KinematicCharacterControllerSystem::_resetVelocity()
 {
-    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    );
-    assert(orientation);
-
-    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    );
-    assert(kinematic);
-
-    ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    );
-    assert(ghost);
-
-    if (orientation && kinematic && ghost) {
-        btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
-        debugDrawer->drawCapsule(ghost->Radius, ghost->Height * 0.5, 1, ghost->GhostObject->getWorldTransform(), btVector3(0, 1, 0));
-
-        // Optionally, add a raycast from the bottom of the capsule to further improve ground detection
-        btVector3 rayStart = ghost->GhostObject->getWorldTransform().getOrigin();
-        btVector3 rayEnd = rayStart - btVector3(0, 1, 0) * (ghost->Height * 0.5 + ghost->Radius + GROUND_TEST_OFFSET);
-        debugDrawer->drawLine(rayStart, rayEnd, btVector3(1, 1, 0));
-        btCollisionWorld::ClosestRayResultCallback rayCallback(rayStart, rayEnd);
-        _physics.World().rayTest(rayStart, rayEnd, rayCallback);
-        if (rayCallback.hasHit()) {
-            debugDrawer->drawSphere(rayCallback.m_hitPointWorld, 0.2f, btVector3(0, 0, 1));
-            return true; // Raycast hit the ground, character is on ground
-        }
-
-        return false; // No contact is found, character is not on ground
-
-        //// Check for overlaps
-        //btManifoldArray manifoldArray;
-        //btBroadphasePairArray& pairArray = ghost->GhostObject->getOverlappingPairCache()->getOverlappingPairArray();
-        //int numPairs = pairArray.size();
-
-        //for (int i = 0; i < numPairs; i++) {
-        //    manifoldArray.clear();
-
-        //    const btBroadphasePair& pair = pairArray[i];
-
-        //    // Unless we manually perform collision detection on this pair, the contacts are not generated
-        //    btBroadphasePair* collisionPair = _physics.World().getPairCache()->findPair(pair.m_pProxy0, pair.m_pProxy1);
-        //    if (!collisionPair) continue;
-        //    
-        //    if (collisionPair->m_algorithm) {
-        //        collisionPair->m_algorithm->getAllContactManifolds(manifoldArray);
-        //    }
-
-        //    for (int j = 0; j < manifoldArray.size(); j++) {
-        //        btPersistentManifold* manifold = manifoldArray[j];
-        //        const btCollisionObject* obA = static_cast<const btCollisionObject*>(manifold->getBody0());
-        //        const btCollisionObject* obB = static_cast<const btCollisionObject*>(manifold->getBody1());
-
-        //        int numContacts = manifold->getNumContacts();
-        //        for (int p = 0; p < numContacts; p++) {
-        //            const btManifoldPoint& pt = manifold->getContactPoint(p);
-        //            if (pt.getDistance() < 0.f) {
-        //                return true; // Contact is found, character is on ground
-        //            }
-        //        }
-        //    }
-        //}
-    }
-
-    return false; // No contact is found, character is not on ground
+    _velocity = glm::vec3(0);
 }
 
-void ECS::KinematicCharacterControllerSystem::_handleGravity(KinematicCapsulePhysicsBodyComponent& kinematic, float deltaTime) {
-    if (!kinematic.Body || !kinematic.Body->isKinematicObject()) {
-        std::cout << "Error: Not a kinematic object" << std::endl;
-        return;
-    }
+/*/==============================
+MOVEMENT UPDATES
+================================*/
+
+void ECS::KinematicCharacterControllerSystem::_handleGravity(float deltaTime) {
+    ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(
+        _entityManager.getIdByTag("CharacterController")
+    );
+    assert(motion);
 
     _verticalVelocity += GRAVITY * deltaTime; // Gravity affects the y-component of velocity
     glm::vec3 displacement = _verticalVelocity * deltaTime;
@@ -228,10 +162,9 @@ void ECS::KinematicCharacterControllerSystem::_handleGravity(KinematicCapsulePhy
     _updateKinematicPosition(displacement);
 }
 
-void ECS::KinematicCharacterControllerSystem::_resetVelocity()
-{
-    _velocity = glm::vec3(0);
-}
+/*/==============================
+POSITION UPDATES
+================================*/
 
 void ECS::KinematicCharacterControllerSystem::_updateKinematicPosition(glm::vec3 displacement)
 {
@@ -252,3 +185,114 @@ void ECS::KinematicCharacterControllerSystem::_updateKinematicPosition(glm::vec3
     transform.setOrigin(newPosition);
     kinematic->Body->getMotionState()->setWorldTransform(transform);
 }
+
+void ECS::KinematicCharacterControllerSystem::_updateGhostObjectPosition()
+{
+    int e = _entityManager.getIdByTag("CharacterController");
+
+    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(e);
+    ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(e);
+
+    assert(kinematic);
+    assert(ghost);
+
+    // Get kinematic Position
+    btTransform transform;
+    kinematic->Body->getMotionState()->getWorldTransform(transform);
+
+    // Set ghost object position
+    ghost->GhostObject->setWorldTransform(transform);
+}
+
+void ECS::KinematicCharacterControllerSystem::_updateEntityPosition()
+{
+    int e = _entityManager.getIdByTag("CharacterController");
+
+    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(e);
+    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
+
+    assert(kinematic);
+    assert(orientation);
+
+    // Get kinematic Position
+    btTransform transform;
+    kinematic->Body->getMotionState()->getWorldTransform(transform);
+    btVector3 currentPosition = transform.getOrigin();
+
+    // Set entity position
+    orientation->Position = glm::vec3(currentPosition.x(), currentPosition.y(), currentPosition.z());
+}
+
+/*/==============================
+PHYSICS TESTS
+================================*/
+
+bool ECS::KinematicCharacterControllerSystem::_isOnGround()
+{
+    int e = _entityManager.getIdByTag("CharacterController");
+    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
+    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(e);
+    ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(e);
+
+    assert(orientation);
+    assert(kinematic);
+    assert(ghost);
+
+    btVector3 rayStart = ghost->GhostObject->getWorldTransform().getOrigin();
+    btVector3 rayEnd = rayStart - btVector3(0, 1, 0) * (ghost->Height * 0.5 + ghost->Radius + GROUND_TEST_OFFSET);
+
+    btCollisionWorld::ClosestRayResultCallback rayCallback(rayStart, rayEnd);
+
+    _physics.World().rayTest(rayStart, rayEnd, rayCallback);
+        
+    if (rayCallback.hasHit()) {
+        btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
+        debugDrawer->drawSphere(rayCallback.m_hitPointWorld, 0.2f, btVector3(0, 0, 1));
+        return true; // Raycast hit the ground, character is on ground
+    }
+    
+    return false;
+}
+
+bool ECS::KinematicCharacterControllerSystem::_isOnSlope()
+{
+    return false;
+}
+
+bool ECS::KinematicCharacterControllerSystem::_IsNextToWall()
+{
+    return false;
+}
+
+//// Check for overlaps
+//btManifoldArray manifoldArray;
+//btBroadphasePairArray& pairArray = ghost->GhostObject->getOverlappingPairCache()->getOverlappingPairArray();
+//int numPairs = pairArray.size();
+
+//for (int i = 0; i < numPairs; i++) {
+//    manifoldArray.clear();
+
+//    const btBroadphasePair& pair = pairArray[i];
+
+//    // Unless we manually perform collision detection on this pair, the contacts are not generated
+//    btBroadphasePair* collisionPair = _physics.World().getPairCache()->findPair(pair.m_pProxy0, pair.m_pProxy1);
+//    if (!collisionPair) continue;
+//    
+//    if (collisionPair->m_algorithm) {
+//        collisionPair->m_algorithm->getAllContactManifolds(manifoldArray);
+//    }
+
+//    for (int j = 0; j < manifoldArray.size(); j++) {
+//        btPersistentManifold* manifold = manifoldArray[j];
+//        const btCollisionObject* obA = static_cast<const btCollisionObject*>(manifold->getBody0());
+//        const btCollisionObject* obB = static_cast<const btCollisionObject*>(manifold->getBody1());
+
+//        int numContacts = manifold->getNumContacts();
+//        for (int p = 0; p < numContacts; p++) {
+//            const btManifoldPoint& pt = manifold->getContactPoint(p);
+//            if (pt.getDistance() < 0.f) {
+//                return true; // Contact is found, character is on ground
+//            }
+//        }
+//    }
+//}
