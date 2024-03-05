@@ -11,15 +11,10 @@ ECS::KinematicCharacterControllerSystem::~KinematicCharacterControllerSystem()
 
 void ECS::KinematicCharacterControllerSystem::Load()
 {
-	int e = _entityManager.getIdByTag("CharacterController");
-
-	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
-	assert(orientation);
-
-    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(
+	ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
         _entityManager.getIdByTag("CharacterController")
     );
-    assert(kinematic);
+	assert(orientation);
 
 	orientation->Forward = ENGINE::VectorHelpers::ForwardVec3(orientation->Yaw, orientation->Pitch);
 	orientation->Right = ENGINE::VectorHelpers::RightVec3(orientation->Forward);
@@ -28,27 +23,25 @@ void ECS::KinematicCharacterControllerSystem::Load()
 
 void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaTime)
 {
-    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    );
+    int e = _entityManager.getIdByTag("CharacterController");
+
+    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
+    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(e);
+    ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(e);
+
     assert(orientation);
-
-    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    );
     assert(kinematic);
-
-    ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    );
     assert(ghost);
 
+    // Get position from kinematic body
     btTransform transform;
     kinematic->Body->getMotionState()->getWorldTransform(transform);
     btVector3 currentPosition = transform.getOrigin();
 
+    // Set position in component
     orientation->Position = glm::vec3(currentPosition.x(), currentPosition.y(), currentPosition.z());
 
+    // Set position in ghost object
     ghost->GhostObject->setWorldTransform(transform);
 
     if (!_isOnGround()) {

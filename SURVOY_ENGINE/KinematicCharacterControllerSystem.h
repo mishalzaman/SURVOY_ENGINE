@@ -28,7 +28,6 @@ namespace ECS {
 		const float GROUND_TEST_OFFSET = 0.07f;
 		const float DECELERATION = 5.0f;
 
-
 	public:
 		KinematicCharacterControllerSystem(EntityManager& entityManager, Physics& physics);
 		~KinematicCharacterControllerSystem();
