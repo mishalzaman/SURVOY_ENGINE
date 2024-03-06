@@ -37,11 +37,7 @@ Contact:
 namespace ECS {
 	class KinematicCharacterControllerSystem : public System
 	{
-		const float SPEED = 10.f;
-		const glm::vec3 GRAVITY = glm::vec3(0, -9.8f, 0);
-		const float GHOST_OBJECT_SCALE = 1.015f;
 		const float GROUND_TEST_OFFSET = 0.07f;
-		const float DECELERATION = 5.0f;
 
 	public:
 		KinematicCharacterControllerSystem(EntityManager& entityManager, Physics& physics);
@@ -59,10 +55,7 @@ namespace ECS {
 		glm::vec3 _verticalVelocity;
 		float _acceleration;
 
-		void _move(float deltaTime);
-
-
-		void _resetVelocity();
+		void _updateVectors();
 
 		/*/==============================
 		POSITION UPDATES
@@ -75,6 +68,7 @@ namespace ECS {
 		MOVEMENT UPDATES
 		================================*/
 		void _handleGravity(float deltaTime);
+		void _move(float deltaTime);
 
 		/*/==============================
 		PHYSICS TESTS
