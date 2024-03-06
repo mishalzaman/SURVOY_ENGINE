@@ -1,5 +1,6 @@
 #include "KinematicCharacterControllerSystem.h"
 
+
 ECS::KinematicCharacterControllerSystem::KinematicCharacterControllerSystem(EntityManager& entityManager, Physics& physics):
 	_entityManager(entityManager), _physics(physics), _velocity(glm::vec3(0)), _acceleration(1), _verticalVelocity(glm::vec3(0))
 {
@@ -42,17 +43,29 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
 
     if (!_isOnGround()) {
         _handleGravity(deltaTime);
-        _updateKinematicPosition();
     }
     else {
-        _verticalVelocity = glm::vec3(0);
+        motion->VerticalVelocity = glm::vec3(0);
         _move(deltaTime);
-        _updateKinematicPosition();
     }
-    _IsNextToWall();
 
+    // clamp displacement
+    motion->HorizontalVelocity.y = motion->VerticalVelocity.y;
+    motion->Displacement = motion->HorizontalVelocity;
+
+    float lengthSquared = glm::length2(motion->Displacement); // Use length2 to avoid the square root for efficiency
+    float maxVelocitySquared = motion->Speed * motion->Speed;
+
+    // Check if the vector's length squared exceeds the max velocity squared
+    if (lengthSquared > maxVelocitySquared) {
+        motion->Displacement = glm::normalize(motion->Displacement) * motion->Speed; // Normalize and scale to maxVelocity
+    }
+
+    _updateKinematicPosition();
     _updateEntityPosition();
     _updateGhostObjectPosition();
+
+    _IsNextToWall();
 }
 
 void ECS::KinematicCharacterControllerSystem::Unload()
@@ -66,21 +79,20 @@ void ECS::KinematicCharacterControllerSystem::Unload()
     delete ghost->GhostObject;
 }
 
+/*/==============================
+MOVEMENT UPDATES
+================================*/
+
 void ECS::KinematicCharacterControllerSystem::_move(float deltaTime)
 {
-    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    );
+    int e = _entityManager.getIdByTag("CharacterController");
+    
+    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
+    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(e);
+    ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(e);
+
     assert(orientation);
-
-    ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    );
     assert(kinematic);
-
-    ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    );
     assert(motion);
 
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
@@ -148,17 +160,13 @@ void ECS::KinematicCharacterControllerSystem::_move(float deltaTime)
 
     //glm::vec3 displacement = _velocity;
 
-    motion->Displacement = _velocity;
+    motion->HorizontalVelocity = _velocity;
 }
 
 void ECS::KinematicCharacterControllerSystem::_resetVelocity()
 {
     _velocity = glm::vec3(0);
 }
-
-/*/==============================
-MOVEMENT UPDATES
-================================*/
 
 void ECS::KinematicCharacterControllerSystem::_handleGravity(float deltaTime) {
     ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(
@@ -167,7 +175,7 @@ void ECS::KinematicCharacterControllerSystem::_handleGravity(float deltaTime) {
     assert(motion);
 
     _verticalVelocity += GRAVITY * deltaTime; // Gravity affects the y-component of velocity
-    motion->Displacement = _verticalVelocity * deltaTime;
+    motion->VerticalVelocity = _verticalVelocity * deltaTime;
 }
 
 /*/==============================
