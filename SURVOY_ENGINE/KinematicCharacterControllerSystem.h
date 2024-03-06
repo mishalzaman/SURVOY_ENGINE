@@ -1,5 +1,18 @@
 #pragma once
 
+/*
+KINEMATIC CHARACTER CONTROLLER
+
+States:
+	IDLE
+	MOVEING
+
+Contact:
+	GROUND
+	SLOPE
+	WALL
+*/
+
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -53,7 +66,7 @@ namespace ECS {
 		/*/==============================
 		POSITION UPDATES
 		================================*/
-		void _updateKinematicPosition(glm::vec3 displacement);
+		void _updateKinematicPosition();
 		void _updateGhostObjectPosition();
 		void _updateEntityPosition();
 
