@@ -56,6 +56,7 @@ namespace ECS {
 		float _acceleration;
 
 		void _updateVectors();
+		void _createDisplacement();
 
 		/*/==============================
 		POSITION UPDATES
@@ -69,6 +70,8 @@ namespace ECS {
 		================================*/
 		void _handleGravity(float deltaTime);
 		void _move(float deltaTime);
+		void _forwardBackward(float deltaTime);
+		void _turn(float deltaTime);
 
 		/*/==============================
 		PHYSICS TESTS

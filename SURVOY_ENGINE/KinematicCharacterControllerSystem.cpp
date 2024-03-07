@@ -28,31 +28,29 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
     assert(kinematic);
     assert(ghost);
     assert(motion);
+    
+    // Input
+    _turn(deltaTime);
+    _updateVectors();
+    _forwardBackward(deltaTime);
+    
+    // Update ghost object position
+    _updateGhostObjectPosition();
 
+    // Collision tests
     if (!_isOnGround()) {
         _handleGravity(deltaTime);
     }
     else {
         motion->VerticalVelocity = glm::vec3(0);
-        _move(deltaTime);
-    }
-    _updateVectors();
-
-    // clamp displacement
-    motion->HorizontalVelocity.y = motion->VerticalVelocity.y;
-    motion->Displacement = motion->HorizontalVelocity;
-
-    float lengthSquared = glm::length2(motion->Displacement); // Use length2 to avoid the square root for efficiency
-    float maxVelocitySquared = motion->Speed * motion->Speed;
-
-    // Check if the vector's length squared exceeds the max velocity squared
-    if (lengthSquared > maxVelocitySquared) {
-        motion->Displacement = glm::normalize(motion->Displacement) * motion->Speed; // Normalize and scale to maxVelocity
     }
 
+    // Compose displacement
+    _createDisplacement();
+
+    // Update all positions
     _updateKinematicPosition();
     _updateEntityPosition();
-    _updateGhostObjectPosition();
 
     _IsNextToWall();
 }
@@ -84,10 +82,10 @@ void ECS::KinematicCharacterControllerSystem::_updateVectors()
 MOVEMENT UPDATES
 ================================*/
 
-void ECS::KinematicCharacterControllerSystem::_move(float deltaTime)
+void ECS::KinematicCharacterControllerSystem::_forwardBackward(float deltaTime)
 {
     int e = _entityManager.getIdByTag("CharacterController");
-    
+
     ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
     ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(e);
     ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(e);
@@ -96,45 +94,41 @@ void ECS::KinematicCharacterControllerSystem::_move(float deltaTime)
     assert(kinematic);
     assert(motion);
 
+    motion->HorizontalVelocity = glm::vec3(0);
+
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
-    // Assuming orientation->dir is a forward vector and orientation->up is an up vector
-    glm::vec3 forwardDir = orientation->Forward;
-    glm::vec3 upDir = orientation->Up;
+    bool forward = keystate[SDL_SCANCODE_W];
+    bool backward = keystate[SDL_SCANCODE_S];
 
-    // Modify horizontal velocity based on input
-    glm::vec3 horizontalVelocity = glm::vec3(motion->HorizontalVelocity.x, 0, motion->HorizontalVelocity.z);
+    if (forward || backward) {
+        if (forward) {
+            motion->HorizontalVelocity += orientation->Forward * motion->Acceleration * deltaTime;
+        }
 
-    bool isMovingForward = keystate[SDL_SCANCODE_W];
-    bool isMovingBackward = keystate[SDL_SCANCODE_S];
-
-    if (isMovingForward) {
-        horizontalVelocity += forwardDir * motion->Acceleration * deltaTime;
-    }
-    else if (isMovingBackward) {
-        horizontalVelocity -= forwardDir * motion->Acceleration * deltaTime;
-    }
-    else {
-        // Apply deceleration if not moving forward or backward
-        float currentSpeed = glm::length(horizontalVelocity);
-        if (currentSpeed != 0) {
-            // Calculate deceleration amount
-            float decel = glm::min(currentSpeed, motion->Deceleration * deltaTime);
-            horizontalVelocity -= decel * glm::normalize(horizontalVelocity);
+        if (backward) {
+            motion->HorizontalVelocity -= orientation->Forward * motion->Acceleration * deltaTime;
         }
     }
 
-    // Clamp horizontal velocity
-    float horizontalSpeed = glm::length(horizontalVelocity);
+    // clamp
+    float horizontalSpeed = glm::length(motion->HorizontalVelocity);
     if (horizontalSpeed > motion->Speed) {
-        horizontalVelocity = glm::normalize(horizontalVelocity) * motion->Speed;
+        motion->HorizontalVelocity = glm::normalize(motion->HorizontalVelocity) * motion->Speed;
     }
+}
 
-    // Update the full velocity vector, maintaining the vertical component
-    motion->HorizontalVelocity.x = horizontalVelocity.x;
-    motion->HorizontalVelocity.z = horizontalVelocity.z;
+void ECS::KinematicCharacterControllerSystem::_turn(float deltaTime)
+{
+    int e = _entityManager.getIdByTag("CharacterController");
 
-    const float rotationSpeed = 40.f; // Adjust as needed for how fast you want the character to rotate
+    ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(e);
+    ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(e);
+
+    assert(orientation);
+    assert(motion);
+
+    const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
     if (keystate[SDL_SCANCODE_A]) {
         // Rotate left
@@ -250,7 +244,7 @@ bool ECS::KinematicCharacterControllerSystem::_isOnGround()
     if (rayCallback.hasHit()) {
         btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
         debugDrawer->drawSphere(rayCallback.m_hitPointWorld, 0.2f, btVector3(0, 0, 1));
-        return true; // Raycast hit the ground, character is on ground
+        return true;
     }
     
     return false;
@@ -303,5 +297,18 @@ bool ECS::KinematicCharacterControllerSystem::_IsNextToWall()
     }
 
     return false;
+}
+
+void ECS::KinematicCharacterControllerSystem::_createDisplacement()
+{
+    ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(
+        _entityManager.getIdByTag("CharacterController")
+    );
+
+    motion->Displacement = glm::vec3(
+        motion->HorizontalVelocity.x,
+        motion->VerticalVelocity.y,
+        motion->HorizontalVelocity.z
+    );
 }
 
