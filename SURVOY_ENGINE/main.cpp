@@ -63,7 +63,7 @@ DEVELOPMENT
 		 [x] - Refactor shadow map
 		 [x] - Clean up graphics pipeline
 
-	v 0.2.x : CHARACTER CONTROLLER - Text rendering and character controller
+	v 0.2.x : CHARACTER CONTROLLER - IMGUI and character controller
 	=========================================================================
 		- [x] Add text rendering
 		- [x] Refactor text rendering
@@ -72,14 +72,16 @@ DEVELOPMENT
 		- [x] Update movement based on camera and character controller
 		- [x] Switch third person and first person cameras
 		- [ ] Create KinematicCharacterControllerSystem
-			- [ ] Ground test
-			- [ ] Movement
+			- [x] Ground test
+			- [x] Movement
 			- [ ] Slope movement
-		- [ ] Create character mesh
-		- [ ] Add character mesh that follows the capsule
+		- [ ] Add acceleration and deceleration
+		- [ ] Remove text rendering and add imgui
 
 	v 0.3.x : PLAYER ANIMATIONS - Text rendering and the player character
 	=====================================================================
+		- [ ] Create character mesh
+		- [ ] Add character mesh that follows the capsule
 		- [ ] Fix text rendering
 		- [ ] Rig character
 		- [ ] Animate character
