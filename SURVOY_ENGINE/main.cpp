@@ -6,11 +6,11 @@
 #include "KeyPressEvent.h"
 #include "SwitchCameraEvent.h"
 
-std::string version = "Basic Ass Engine 0.2.96";
+std::string version = "Basic Ass Engine 0.2.97";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.96
+		     Current version: 0.2.97
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -74,6 +74,7 @@ DEVELOPMENT
 		- [ ] Create KinematicCharacterControllerSystem
 			- [x] Ground test
 			- [x] Movement
+			- [ ] Wall test
 			- [ ] Slope movement
 		- [ ] Add acceleration and deceleration
 		- [ ] Remove text rendering and add imgui

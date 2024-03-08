@@ -58,6 +58,8 @@ namespace ECS {
 		void _updateVectors();
 		void _createDisplacement();
 
+		glm::vec3 _projectOnPlane(glm::vec3 pointA, glm::vec3 pointB, glm::vec3 normal);
+
 		/*/==============================
 		POSITION UPDATES
 		================================*/

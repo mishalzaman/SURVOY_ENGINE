@@ -66,6 +66,22 @@ void ECS::KinematicCharacterControllerSystem::Unload()
     delete ghost->GhostObject;
 }
 
+glm::vec3 ECS::KinematicCharacterControllerSystem::_projectOnPlane(
+    glm::vec3 pointA,
+    glm::vec3 pointB,
+    glm::vec3 normal
+) {
+
+    glm::vec3 A = pointA - pointB; // Vector from pointB to pointA
+    normal = glm::normalize(normal); // Ensure the normal is normalized
+
+    // Compute the projection of A onto the plane defined by normal
+    glm::vec3 projection = A - glm::dot(A, normal) * normal;
+
+    return projection;
+}
+
+
 void ECS::KinematicCharacterControllerSystem::_updateVectors()
 {
     ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(
