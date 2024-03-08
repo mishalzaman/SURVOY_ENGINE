@@ -139,7 +139,7 @@ int main(int argc, char* args[]) {
 
 	scene0->Load();
 
-	SDL_SetRelativeMouseMode(SDL_TRUE);
+	//SDL_SetRelativeMouseMode(SDL_TRUE);
 	
 	/*=============
 	LOOP
