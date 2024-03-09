@@ -98,6 +98,7 @@ DEVELOPMENT
 		- [ ] Add Cascade shadow map
 		- [ ] Add HDR
 		- [ ] Add SSAO
+		- [ ] Finalize graphics pipeline
 		- [ ] Finalize art direction
 
 	v 0.5.x : AI - Enemy AI and behaviours
