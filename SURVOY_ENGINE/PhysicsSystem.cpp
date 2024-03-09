@@ -19,6 +19,7 @@ void ECS::PhysicsSystem::Load()
 {
 	_createStaticTriangleMeshBody();
 	_createKinematiceCapsuleBody();
+	_createGhostObjectCapsule();
 }
 
 void ECS::PhysicsSystem::UpdateOnFixedTimestep(float deltaTime)
@@ -51,7 +52,6 @@ void ECS::PhysicsSystem::_createStaticTriangleMeshBody()
 			glm::mat4 transformation = transform->Transformation;
 
 			for (int i = 0; i < mesh->Vertices.size(); i += 3) {
-				// Transform each vertex by the mesh's transformation matrix
 				glm::vec4 transformedVertex0 = transformation * glm::vec4(mesh->Vertices[i].Position, 1.0f);
 				glm::vec4 transformedVertex1 = transformation * glm::vec4(mesh->Vertices[i + 1].Position, 1.0f);
 				glm::vec4 transformedVertex2 = transformation * glm::vec4(mesh->Vertices[i + 2].Position, 1.0f);
@@ -72,25 +72,23 @@ void ECS::PhysicsSystem::_createStaticTriangleMeshBody()
 
 			btScalar mass(0.);
 
-			//rigidbody is dynamic if and only if mass is non zero, otherwise static
-			bool isDynamic = (mass != 0.f);
-
 			btVector3 localInertia(0, 0, 0);
-			if (isDynamic)
+			if (mass != 0.f)
 				groundShape->calculateLocalInertia(mass, localInertia);
 
-			//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
 			btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
 			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
 			btRigidBody* body = new btRigidBody(rbInfo);
 
 			staticPhysicsBody->Body = body;
 
-			//add the body to the dynamics world
-			_physics.World().addRigidBody(body);
+			int staticGroup = btBroadphaseProxy::StaticFilter;
+			int staticCollidesWith = btBroadphaseProxy::AllFilter & ~btBroadphaseProxy::StaticFilter; // Collide with everything except other static objects
+			_physics.World().addRigidBody(body, staticGroup, staticCollidesWith);
 		}
 	}
 }
+
 
 void ECS::PhysicsSystem::_createDynamicCapsuleBody()
 {
@@ -137,12 +135,14 @@ void ECS::PhysicsSystem::_createKinematiceCapsuleBody()
 {
 	std::vector<int> entitiesPC = _entityManager.getByTag("CharacterController");
 
+	std::cout << "Creating a kinematic body" << std::endl;
+
 	for (int entityId : entitiesPC) {
-		ECS::KinematicCapsulePhysicsBodyComponent* dynamic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(entityId);
+		ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(entityId);
 		ECS::OrientationComponent* orientation = _entityManager.getComponent<ECS::OrientationComponent>(entityId);
 
-		if (dynamic && orientation) {
-			btCollisionShape* groundShape = new btCapsuleShape(0.25f, 1.25f);
+		if (kinematic && orientation) {
+			btCollisionShape* groundShape = new btCapsuleShape(kinematic->Radius, kinematic->Height);
 			_physics.CollisionShapes().push_back(groundShape);
 
 			btTransform groundTransform;
@@ -168,9 +168,56 @@ void ECS::PhysicsSystem::_createKinematiceCapsuleBody()
 			// Kinematic bodies don't need to set angular factor for preventing rotation, but you can still zero it if needed
 			// body->setAngularFactor(btVector3(0, 0, 0));
 
-			dynamic->Body = body;
+			kinematic->Body = body;
 
-			_physics.World().addRigidBody(body);
+			// Specify the collision group and mask for the kinematic body
+			int kinematicCollisionGroup = btBroadphaseProxy::CharacterFilter;
+			int kinematicCollisionMask = btBroadphaseProxy::AllFilter ^ btBroadphaseProxy::StaticFilter; // Collide with everything except static objects
+
+			_physics.World().addRigidBody(body, kinematicCollisionGroup, kinematicCollisionMask);
 		}
+	}
+}
+
+void ECS::PhysicsSystem::_createGhostObjectCapsule()
+{
+	ECS::KinematicCapsulePhysicsBodyComponent* kinematic = _entityManager.getComponent<ECS::KinematicCapsulePhysicsBodyComponent>(
+		_entityManager.getIdByTag("CharacterController")
+	);
+	assert(kinematic);
+
+	ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(
+		_entityManager.getIdByTag("CharacterController")
+	);
+	assert(ghost);
+
+	if (kinematic && ghost) {
+		btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
+
+		// Get the current position of the body
+		btTransform transform;
+		kinematic->Body->getMotionState()->getWorldTransform(transform);
+		btVector3 currentPosition = transform.getOrigin();
+
+		// Capsule dimensions (radius and height)
+		float capsuleRadius = ghost->Radius;
+		float capsuleHeight = ghost->Height;
+
+		// Create a ghost object
+		ghost->GhostObject = new btPairCachingGhostObject();
+		ghost->GhostObject->setWorldTransform(transform);
+		btCapsuleShape* capsuleShape = new btCapsuleShape(capsuleRadius, capsuleHeight);
+		ghost->GhostObject->setCollisionShape(capsuleShape);
+		ghost->GhostObject->setCollisionFlags(btCollisionObject::CF_NO_CONTACT_RESPONSE);
+
+		// This should include static bodies in the collision detection
+		int ghostCollisionGroup = btBroadphaseProxy::SensorTrigger;
+		int ghostCollidesWith = btBroadphaseProxy::StaticFilter; // Only need to collide with static objects
+
+		_physics.World().addCollisionObject(ghost->GhostObject, ghostCollisionGroup, ghostCollidesWith);
+
+		_physics.CollisionShapes().push_back(capsuleShape);
+
+		std::cout << "Created ghost object" << std::endl;
 	}
 }

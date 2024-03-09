@@ -6,11 +6,11 @@
 #include "KeyPressEvent.h"
 #include "SwitchCameraEvent.h"
 
-std::string version = "Basic Ass Engine 0.2.85";
+std::string version = "Basic Ass Engine 0.2.98";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.85
+		     Current version: 0.2.98
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -63,7 +63,7 @@ DEVELOPMENT
 		 [x] - Refactor shadow map
 		 [x] - Clean up graphics pipeline
 
-	v 0.2.x : CHARACTER CONTROLLER - Text rendering and character controller
+	v 0.2.x : CHARACTER CONTROLLER - IMGUI and character controller
 	=========================================================================
 		- [x] Add text rendering
 		- [x] Refactor text rendering
@@ -72,14 +72,17 @@ DEVELOPMENT
 		- [x] Update movement based on camera and character controller
 		- [x] Switch third person and first person cameras
 		- [ ] Create KinematicCharacterControllerSystem
-			- [ ] Ground test
-			- [ ] Movement
+			- [x] Ground test
+			- [x] Movement
+			- [ ] Wall test
 			- [ ] Slope movement
-		- [ ] Create character mesh
-		- [ ] Add character mesh that follows the capsule
+		- [ ] Add acceleration and deceleration
+		- [ ] Remove text rendering and add imgui
 
 	v 0.3.x : PLAYER ANIMATIONS - Text rendering and the player character
 	=====================================================================
+		- [ ] Create character mesh
+		- [ ] Add character mesh that follows the capsule
 		- [ ] Fix text rendering
 		- [ ] Rig character
 		- [ ] Animate character
@@ -136,7 +139,7 @@ int main(int argc, char* args[]) {
 
 	scene0->Load();
 
-	SDL_SetRelativeMouseMode(SDL_TRUE);
+	//SDL_SetRelativeMouseMode(SDL_TRUE);
 	
 	/*=============
 	LOOP

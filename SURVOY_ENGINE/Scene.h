@@ -35,7 +35,8 @@
 #include "DebugPrintComponent.h"
 #include "KinematicCapsulePhysicsBodyComponent.h"
 #include "ActiveCameraComponent.h"
-
+#include "GhostObjectCapsuleComponent.h"
+#include "MovementAttributesComponent.h"
 
 // ECS - Systems
 #include "CameraFreeLookSystem.h"

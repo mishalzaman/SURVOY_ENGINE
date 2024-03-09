@@ -109,6 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\DEV\SURVOY_ENGINE\SURVOY_ENGINE\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -202,9 +203,12 @@ xcopy /Y /D /E "*.glsl" "$(OutDir)"
     <ClInclude Include="ECSCommon.h" />
     <ClInclude Include="FontCharactersComponent.h" />
     <ClInclude Include="FrameBufferColourBufferEvent.h" />
+    <ClInclude Include="GhostObjectCapsuleComponent.h" />
     <ClInclude Include="KinematicCapsulePhysicsBodyComponent.h" />
     <ClInclude Include="KinematicCharacterControllerSystem.h" />
+    <ClInclude Include="MovementAttributesComponent.h" />
     <ClInclude Include="NearFarPlanesComponent.h" />
+    <ClInclude Include="PhysicsCustomConvexResultCallback .h" />
     <ClInclude Include="RenderDebugShadowMapSystem.h" />
     <ClInclude Include="RenderScreenSystem.h" />
     <ClInclude Include="RenderPassColourMapSystem.h" />

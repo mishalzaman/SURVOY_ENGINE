@@ -168,6 +168,9 @@
     <ClCompile Include="DebugGridSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="CameraSwitcherSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -393,6 +396,24 @@
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="KinematicCapsulePhysicsBodyComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ActiveCameraComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraSwitcherSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchCameraEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsCustomConvexResultCallback .h">
+      <Filter>ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="GhostObjectCapsuleComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementAttributesComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>

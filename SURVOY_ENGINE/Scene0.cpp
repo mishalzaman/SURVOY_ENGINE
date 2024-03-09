@@ -35,10 +35,27 @@ void Scene0::Load()
 	/*-------------------
 	 CHARACTER CONTROLLER
 	--------------------*/
+	float ghostObjectScale = 1.015f;
 	entityId = entityManager_->createEntity();
-	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 4, 0));
-	entityManager_->addComponent<ECS::VelocityComponent>(entityId);
-	entityManager_->addComponent<ECS::KinematicCapsulePhysicsBodyComponent>(entityId);
+	entityManager_->addComponent<ECS::OrientationComponent>(entityId, glm::vec3(0, 2, 0));
+	entityManager_->addComponent<ECS::KinematicCapsulePhysicsBodyComponent>(
+		entityId,
+		0.25f,								// radius
+		1.25f								// height
+	);
+	entityManager_->addComponent<ECS::GhostObjectCapsuleComponent>(
+		entityId,
+		0.25f * ghostObjectScale,			// radius
+		1.25f * ghostObjectScale			// height
+	);
+	entityManager_->addComponent<ECS::MovementAttributesComponent>(
+		entityId,
+		20.f,								// speed
+		8.f,								// acceleration
+		5.0f,								// deceleration
+		80.f,								// turn rate
+		glm::vec3(0, -9.8f, 0)				// gravity
+	);
 	entityManager_->addByTag("CharacterController", entityId);
 
 
@@ -75,7 +92,7 @@ void Scene0::Load()
 	entityManager_->addByTag("CameraThirdPerson", entityId);
 
 	entityId = entityManager_->createEntity();
-	entityManager_->addComponent<ECS::ActiveCameraComponent>(entityId, "CameraFirstPerson");
+	entityManager_->addComponent<ECS::ActiveCameraComponent>(entityId, "CameraThirdPerson");
 	entityManager_->addByTag("ActiveCamera", entityId);
 	
 	/*----------
