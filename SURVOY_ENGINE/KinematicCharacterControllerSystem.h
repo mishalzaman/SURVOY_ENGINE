@@ -71,7 +71,6 @@ namespace ECS {
 		MOVEMENT UPDATES
 		================================*/
 		void _handleGravity(float deltaTime);
-		void _move(float deltaTime);
 		void _forwardBackward(float deltaTime);
 		void _turn(float deltaTime);
 
