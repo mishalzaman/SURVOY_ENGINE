@@ -74,6 +74,7 @@ DEVELOPMENT
 		- [ ] Create KinematicCharacterControllerSystem
 			- [x] Ground test
 			- [x] Movement
+			- [ ] Add acceleration and deceleration
 			- [ ] Wall test
 			- [ ] Slope movement
 		- [ ] Add acceleration and deceleration

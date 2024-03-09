@@ -28,24 +28,37 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
     assert(kinematic);
     assert(ghost);
     assert(motion);
+
+    /*
+    1. Get user input
+    2. Get new velocity from user input
+    3. handle gravity
+    4. Compose a new displacement velocity and set the ghost object position 
+    5. 
     
-    // Input
+    /*==============
+    USER INPUT
+    ===============*/
     _turn(deltaTime);
     _updateVectors();
     _forwardBackward(deltaTime);
-    
-    // Update ghost object position
+
+    /*==============
+    GRAVITY
+    ===============*/
+    _handleGravity(deltaTime);
+
+    /*==============
+    GRAVITY
+    ===============*/
     _updateGhostObjectPosition();
 
-    // Collision tests
-    if (!_isOnGround()) {
-        _handleGravity(deltaTime);
-    }
-    else {
+    /*==============
+    PHYSICS TESTS
+    ===============*/
+    if (_isOnGround()) {
         motion->VerticalVelocity = glm::vec3(0);
     }
-
-    // Compose displacement
     _createDisplacement();
 
     // Update all positions
