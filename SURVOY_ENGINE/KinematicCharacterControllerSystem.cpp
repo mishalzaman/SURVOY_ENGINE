@@ -56,7 +56,7 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
     /*==============
     PHYSICS TESTS
     ===============*/
-    if (_isOnGround()) {
+    if (_IsNextToWall()) {
         motion->VerticalVelocity = glm::vec3(0);
     }
     _createDisplacement();
@@ -289,6 +289,9 @@ bool ECS::KinematicCharacterControllerSystem::_IsNextToWall()
     int e = _entityManager.getIdByTag("CharacterController");
     ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(e);
     assert(ghost);
+
+    btVector3 minAabb, maxAabb;
+    
 
     // Check for overlaps
     btManifoldArray manifoldArray;
