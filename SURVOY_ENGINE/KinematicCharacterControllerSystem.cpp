@@ -56,7 +56,7 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
     /*==============
     PHYSICS TESTS
     ===============*/
-    if (_IsNextToWall()) {
+    if (_hasContact()) {
         motion->VerticalVelocity = glm::vec3(0);
     }
     _createDisplacement();
@@ -64,8 +64,6 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
     // Update all positions
     _updateKinematicPosition();
     _updateEntityPosition();
-
-    _IsNextToWall();
 }
 
 void ECS::KinematicCharacterControllerSystem::Unload()
@@ -284,51 +282,80 @@ bool ECS::KinematicCharacterControllerSystem::_isOnSlope()
     return false;
 }
 
-bool ECS::KinematicCharacterControllerSystem::_IsNextToWall()
+bool ECS::KinematicCharacterControllerSystem::_hasContact()
 {
     int e = _entityManager.getIdByTag("CharacterController");
     ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(e);
     assert(ghost);
 
+    btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
+
     btVector3 minAabb, maxAabb;
-    
+    ghost->GhostObject->getCollisionShape()->getAabb(
+        ghost->GhostObject->getWorldTransform(), minAabb, maxAabb
+    );
+    _physics.World().getBroadphase()->setAabb(
+        ghost->GhostObject->getBroadphaseHandle(),
+        minAabb,
+        maxAabb,
+        _physics.World().getDispatcher()
+    );
 
-    // Check for overlaps
+    bool penetration = false;
+
+    _physics.World().getDispatcher()->dispatchAllCollisionPairs(
+        ghost->GhostObject->getOverlappingPairCache(),
+        _physics.World().getDispatchInfo(),
+        _physics.World().getDispatcher()
+    );
+    btVector3 currentPosition = ghost->GhostObject->getWorldTransform().getOrigin();
+
     btManifoldArray manifoldArray;
-    btBroadphasePairArray& pairArray = ghost->GhostObject->getOverlappingPairCache()->getOverlappingPairArray();
-    int numPairs = pairArray.size();
 
-    for (int i = 0; i < numPairs; i++) {
+    for (int i = 0; i < ghost->GhostObject->getOverlappingPairCache()->getNumOverlappingPairs(); i++) {
         manifoldArray.clear();
 
-        const btBroadphasePair& pair = pairArray[i];
+        btBroadphasePair* collisionPair = &ghost->GhostObject->getOverlappingPairCache()->getOverlappingPairArray()[i];
 
-        // Unless we manually perform collision detection on this pair, the contacts are not generated
-        btBroadphasePair* collisionPair = _physics.World().getPairCache()->findPair(pair.m_pProxy0, pair.m_pProxy1);
-        if (!collisionPair) continue;
-        
         if (collisionPair->m_algorithm) {
             collisionPair->m_algorithm->getAllContactManifolds(manifoldArray);
         }
 
-        for (int j = 0; j < manifoldArray.size(); j++) {
+        for (int j = 0; j < manifoldArray.size(); j++)
+        {
             btPersistentManifold* manifold = manifoldArray[j];
-            const btCollisionObject* obA = static_cast<const btCollisionObject*>(manifold->getBody0());
-            const btCollisionObject* obB = static_cast<const btCollisionObject*>(manifold->getBody1());
+            btScalar directionSign = manifold->getBody0() == ghost->GhostObject ? btScalar(-1.0) : btScalar(1.0);
 
-            int numContacts = manifold->getNumContacts();
-            for (int p = 0; p < numContacts; p++) {
+            for (int p = 0; p < manifold->getNumContacts(); p++)
+            {
                 const btManifoldPoint& pt = manifold->getContactPoint(p);
-                if (pt.getDistance() < 0.f) {
-                    btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
-                    debugDrawer->drawSphere(pt.getPositionWorldOnA(), 0.2f, btVector3(0, 0, 1));
-                    return true; // Contact is found, character is on ground
+
+                btScalar dist = pt.getDistance();
+
+                if (dist < -0.01f)
+                {
+                    currentPosition += pt.m_normalWorldOnB * directionSign * dist * btScalar(0.2);
+                    penetration = true;
                 }
+                else
+                {
+                    std::cout << "touching" << std::endl;
+                }
+
+                // Draw a sphere at the contact point
+                const btVector3& contactPoint = pt.getPositionWorldOnB();
+                const btScalar sphereRadius = 0.1f;
+                const btVector3 color(1.0f, 0.0f, 1.0f); 
+                debugDrawer->drawSphere(contactPoint, sphereRadius, color);
             }
         }
     }
 
-    return false;
+    btTransform newTrans = ghost->GhostObject->getWorldTransform();
+    newTrans.setOrigin(currentPosition);
+    ghost->GhostObject->setWorldTransform(newTrans);
+
+    return penetration;
 }
 
 void ECS::KinematicCharacterControllerSystem::_createDisplacement()
