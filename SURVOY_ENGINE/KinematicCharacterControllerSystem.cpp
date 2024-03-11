@@ -121,7 +121,7 @@ void ECS::KinematicCharacterControllerSystem::_forwardBackward(float deltaTime)
     assert(kinematic);
     assert(motion);
 
-    //motion->HorizontalVelocity = glm::vec3(0);
+    motion->HorizontalVelocity = glm::vec3(0);
 
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
@@ -138,16 +138,16 @@ void ECS::KinematicCharacterControllerSystem::_forwardBackward(float deltaTime)
     }
     else {
         // Normalize HorizontalVelocity if it's not a zero vector
-        if (glm::length(motion->HorizontalVelocity) > 0) {
-            glm::vec3 velocityDirection = glm::normalize(motion->HorizontalVelocity);
-            // Decelerate in the direction opposite to the current velocity
-            motion->HorizontalVelocity -= velocityDirection * motion->Deceleration * deltaTime;
+        //if (glm::length(motion->HorizontalVelocity) > 0) {
+        //    glm::vec3 velocityDirection = glm::normalize(motion->HorizontalVelocity);
+        //    // Decelerate in the direction opposite to the current velocity
+        //    motion->HorizontalVelocity -= velocityDirection * motion->Deceleration * deltaTime;
 
-            // Clamp the velocity to 0 if the deceleration has reversed its direction
-            if (glm::dot(velocityDirection, motion->HorizontalVelocity) < 0) {
-                motion->HorizontalVelocity = glm::vec3(0, 0, 0);
-            }
-        }
+        //    // Clamp the velocity to 0 if the deceleration has reversed its direction
+        //    if (glm::dot(velocityDirection, motion->HorizontalVelocity) < 0) {
+        //        motion->HorizontalVelocity = glm::vec3(0, 0, 0);
+        //    }
+        //}
     }
 
     // limit speed to max speed
