@@ -50,9 +50,9 @@ void Scene0::Load()
 	);
 	entityManager_->addComponent<ECS::MovementAttributesComponent>(
 		entityId,
-		20.f,								// speed
-		8.f,								// acceleration
-		5.0f,								// deceleration
+		0.3f,								// speed
+		0.25f,								// acceleration
+		0.25f,								// deceleration
 		80.f,								// turn rate
 		glm::vec3(0, -9.8f, 0)				// gravity
 	);

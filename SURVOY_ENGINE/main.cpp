@@ -6,11 +6,11 @@
 #include "KeyPressEvent.h"
 #include "SwitchCameraEvent.h"
 
-std::string version = "Basic Ass Engine 0.2.99";
+std::string version = "Basic Ass Engine 0.2.100";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.99
+		     Current version: 0.2.100
 		  *--------------------------*
 
 DEVELOPMENT NOTES
