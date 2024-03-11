@@ -80,8 +80,8 @@ DEVELOPMENT
 		- [x] Update movement based on camera and character controller
 		- [x] Switch third person and first person cameras
 		- [ ] Create KinematicCharacterControllerSystem
-			- [x] Ground test
-			- [x] Movement
+			- [ ] Ground test
+			- [ ] Movement
 			- [ ] Add acceleration and deceleration
 			- [ ] Wall test
 			- [ ] Slope movement
