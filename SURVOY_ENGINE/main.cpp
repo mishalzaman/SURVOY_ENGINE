@@ -31,7 +31,10 @@ DEVELOPMENT
 	Change Log
 	----------
 
-	v 0.1.x : Test level and graphics pipeline
+	v 0.1.x
+	-------
+		INITIAL SET UP
+		ECS
 	==========================================
 	- [x] Create Scene Base class
 	- [x] Create Scene0 class
@@ -63,7 +66,12 @@ DEVELOPMENT
 		 [x] - Refactor shadow map
 		 [x] - Clean up graphics pipeline
 
-	v 0.2.x : CHARACTER CONTROLLER - IMGUI and character controller
+	v 0.2.x
+	-------
+		CHARACTER CONTROLLER
+		ANIMATOR
+		CHARACTER GAMEPLAY
+		IMGUI
 	=========================================================================
 		- [x] Add text rendering
 		- [x] Refactor text rendering
@@ -78,13 +86,10 @@ DEVELOPMENT
 			- [ ] Wall test
 			- [ ] Slope movement
 		- [ ] Add acceleration and deceleration
+		- [ ] Refactor
 		- [ ] Remove text rendering and add imgui
-
-	v 0.3.x : PLAYER ANIMATIONS - Text rendering and the player character
-	=====================================================================
 		- [ ] Create character mesh
 		- [ ] Add character mesh that follows the capsule
-		- [ ] Fix text rendering
 		- [ ] Rig character
 		- [ ] Animate character
 			- [ ] Idle
@@ -94,7 +99,9 @@ DEVELOPMENT
 		- [ ] Add animation blending
 		- [ ] Update controls to use control pad
 
-	v 0.4.x : ART DIRECTION - Cascade shadow map, set up recast/detour
+	v 0.4.x
+	-------
+		ART DIRECTION
 	==================================================================
 		- [ ] Add Cascade shadow map
 		- [ ] Add HDR
@@ -102,21 +109,18 @@ DEVELOPMENT
 		- [ ] Finalize graphics pipeline
 		- [ ] Finalize art direction
 
-	v 0.5.x : AI - Enemy AI and behaviours
+	v 0.5.x
+	-------
+		AI
+		GAMEPLAY
 	======================================
 		- [ ] Install recast / detour
 		- [ ] Create EnemyController
 		- [ ] Look in to blackboard AI
-
-	v 0.6.x : GAMEPLAY - Player and enemy weapons, enemy types, items and interactions
-	==================================================================================
 		- [ ] Create ideas for main gameplay loop
 
-	v 0.7.x : PROTOTYPE - Test level with begin and end goal
-	==================================================
-		- [ ] Create gameplay design document
-
-	v 0.8.x : GUI
+	v 0.6.x
+		GUI
 	==================================================
 		- [ ] GUI System
 		- [ ] Main Menu
@@ -124,10 +128,7 @@ DEVELOPMENT
 		- [ ] Status Screen
 		- [ ] Game Menu
 
-	v 0.9.x : GAME DEVELOPMENT - Create the game levels
-	==================================================
-
-	v 1.0.x : TESTING - Create the game levels
+	v 1.0.x : FINALIZE
 	==================================================
 		- [ ] Release!
 
