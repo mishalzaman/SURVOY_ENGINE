@@ -6,7 +6,7 @@
 #include "KeyPressEvent.h"
 #include "SwitchCameraEvent.h"
 
-std::string version = "Basic Ass Engine 0.2.100";
+std::string version = "Calibration 0.2.100";
 
 /*
 		  *--------------------------*
