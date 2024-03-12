@@ -15,13 +15,13 @@ void ECS::PlayerInputSystem::UpdateOnFixedTimestep(float deltaTime)
         _entityManager.getIdByTag("CharacterController")
     );
 
-    std::cout << "Velocity: " << motion->Velocity.x <<
-        "," <<
-        motion->Velocity.y <<
-        "," <<
-        motion->Velocity.z
-        <<
-        std::endl;
+    //std::cout << "Velocity: " << motion->Velocity.x <<
+    //    "," <<
+    //    motion->Velocity.y <<
+    //    "," <<
+    //    motion->Velocity.z
+    //    <<
+    //    std::endl;
 }
 
 void ECS::PlayerInputSystem::_turn(float deltaTime)

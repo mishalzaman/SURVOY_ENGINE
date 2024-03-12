@@ -8,6 +8,9 @@
 #include "Defaults.h"
 #include "Code.h"
 #include "Timer.h"
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_sdl2.h"
+#include "imgui/imgui_impl_opengl3.h"
 
 namespace ENGINE {
 	class Core
@@ -53,6 +56,7 @@ namespace ENGINE {
 		bool _createContext();
 		bool _initGlew();
 		void _openGLSettings();
+		void _initImgui();
 		void _initializeSubSystems();
 
 	/*==============================================

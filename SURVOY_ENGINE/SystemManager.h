@@ -42,6 +42,12 @@ namespace ECS {
             }
         }
 
+        void UpdatePreFixedTimestep() {
+            for (auto& system : systemList) {
+                system->UpdatePreFixedTimestep();
+            }
+        }
+
         void UpdateOnFixedTimestep(float deltaTime) {
             for (auto& system : systemList) {
                 system->UpdateOnFixedTimestep(deltaTime);

@@ -54,11 +54,11 @@
 #include "RenderDebugShadowMapSystem.h"
 #include "DebugScreenPrintSystem.h"
 #include "DebugGridSystem.h"
-#include "KinematicCharacterControllerSystem.h"
 #include "CameraSwitcherSystem.h"
 #include "PlayerInputSystem.h"
 #include "PlayerPhysicsSystem.h"
 #include "PlayerOutputSystem.h"
+#include "DebugInformationSystem.h"
 
 //  Observer
 #include "Event.h"
@@ -74,6 +74,7 @@ public:
     virtual ~Scene() = default;
 
     virtual void Load();
+    virtual void UpdatePreFixedTimestep();
     virtual void UpdateOnFixedTimestep(float deltaTime);
     virtual void UpdateOnVariableTimestep();
     virtual void Render();

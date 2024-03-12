@@ -86,10 +86,6 @@ void ECS::CameraThirdPersonSystem::UpdateOnFixedTimestep(float deltaTime)
     }
 }
 
-void ECS::CameraThirdPersonSystem::UpdateOnVariableTimestep()
-{
-}
-
 void ECS::CameraThirdPersonSystem::_follow(float deltaTime, float& yaw, float& pitch, float& mouseX, float& mouseY, glm::vec3& position, glm::vec3& forward, glm::vec3& right, glm::vec3& up, glm::vec3 target)
 {
     // Convert yaw and pitch to radians
