@@ -79,7 +79,7 @@ DEVELOPMENT
 		- [x] Update third person camera
 		- [x] Update movement based on camera and character controller
 		- [x] Switch third person and first person cameras
-		- [ ] Create PlayerInputSystem, PlayerPhysicsSystem and PlayerOutputSystem
+		- [x] Create PlayerInputSystem, PlayerPhysicsSystem and PlayerOutputSystem
 		- [ ] Implement IMGUI
 		- [ ] Create character controller
 			- [ ] Ground test
