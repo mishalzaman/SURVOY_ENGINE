@@ -69,8 +69,6 @@ DEVELOPMENT
 	v 0.2.x
 	-------
 		CHARACTER CONTROLLER
-		ANIMATOR
-		CHARACTER GAMEPLAY
 		IMGUI
 	=========================================================================
 		- [x] Add text rendering
@@ -89,6 +87,13 @@ DEVELOPMENT
 			- [ ] Slope movement
 		- [ ] Add acceleration and deceleration
 		- [ ] Refactor
+
+	v 0.3.x
+	-------
+		ANIMATOR
+		CHARACTER GAMEPLAY
+	================================================================
+		- [ ] Design game concept
 		- [ ] Create character mesh
 		- [ ] Add character mesh that follows the capsule
 		- [ ] Rig character
