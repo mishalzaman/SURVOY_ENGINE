@@ -80,6 +80,6 @@ namespace ECS {
 		================================*/
 		bool _isOnGround();
 		bool _isOnSlope();
-		bool _IsNextToWall();
+		bool _hasContact();
 	};
 }

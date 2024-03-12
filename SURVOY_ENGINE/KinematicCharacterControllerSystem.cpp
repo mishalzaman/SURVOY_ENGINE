@@ -28,31 +28,42 @@ void ECS::KinematicCharacterControllerSystem::UpdateOnFixedTimestep(float deltaT
     assert(kinematic);
     assert(ghost);
     assert(motion);
+
+    /*
+    1. Get user input
+    2. Get new velocity from user input
+    3. handle gravity
+    4. Compose a new displacement velocity and set the ghost object position 
+    5. 
     
-    // Input
+    /*==============
+    USER INPUT
+    ===============*/
     _turn(deltaTime);
     _updateVectors();
     _forwardBackward(deltaTime);
-    
-    // Update ghost object position
+
+    /*==============
+    GRAVITY
+    ===============*/
+    _handleGravity(deltaTime);
+
+    /*==============
+    GRAVITY
+    ===============*/
     _updateGhostObjectPosition();
 
-    // Collision tests
-    if (!_isOnGround()) {
-        _handleGravity(deltaTime);
-    }
-    else {
+    /*==============
+    PHYSICS TESTS
+    ===============*/
+    if (_hasContact()) {
         motion->VerticalVelocity = glm::vec3(0);
     }
-
-    // Compose displacement
     _createDisplacement();
 
     // Update all positions
     _updateKinematicPosition();
     _updateEntityPosition();
-
-    _IsNextToWall();
 }
 
 void ECS::KinematicCharacterControllerSystem::Unload()
@@ -121,14 +132,27 @@ void ECS::KinematicCharacterControllerSystem::_forwardBackward(float deltaTime)
         if (forward) {
             motion->HorizontalVelocity += orientation->Forward * motion->Acceleration * deltaTime;
         }
-
         if (backward) {
             motion->HorizontalVelocity -= orientation->Forward * motion->Acceleration * deltaTime;
         }
     }
+    else {
+        // Normalize HorizontalVelocity if it's not a zero vector
+        //if (glm::length(motion->HorizontalVelocity) > 0) {
+        //    glm::vec3 velocityDirection = glm::normalize(motion->HorizontalVelocity);
+        //    // Decelerate in the direction opposite to the current velocity
+        //    motion->HorizontalVelocity -= velocityDirection * motion->Deceleration * deltaTime;
 
-    // clamp
+        //    // Clamp the velocity to 0 if the deceleration has reversed its direction
+        //    if (glm::dot(velocityDirection, motion->HorizontalVelocity) < 0) {
+        //        motion->HorizontalVelocity = glm::vec3(0, 0, 0);
+        //    }
+        //}
+    }
+
+    // limit speed to max speed
     float horizontalSpeed = glm::length(motion->HorizontalVelocity);
+    std::cout << horizontalSpeed << std::endl;
     if (horizontalSpeed > motion->Speed) {
         motion->HorizontalVelocity = glm::normalize(motion->HorizontalVelocity) * motion->Speed;
     }
@@ -271,48 +295,80 @@ bool ECS::KinematicCharacterControllerSystem::_isOnSlope()
     return false;
 }
 
-bool ECS::KinematicCharacterControllerSystem::_IsNextToWall()
+bool ECS::KinematicCharacterControllerSystem::_hasContact()
 {
     int e = _entityManager.getIdByTag("CharacterController");
     ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(e);
     assert(ghost);
 
-    // Check for overlaps
-    btManifoldArray manifoldArray;
-    btBroadphasePairArray& pairArray = ghost->GhostObject->getOverlappingPairCache()->getOverlappingPairArray();
-    int numPairs = pairArray.size();
+    btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
 
-    for (int i = 0; i < numPairs; i++) {
+    btVector3 minAabb, maxAabb;
+    ghost->GhostObject->getCollisionShape()->getAabb(
+        ghost->GhostObject->getWorldTransform(), minAabb, maxAabb
+    );
+    _physics.World().getBroadphase()->setAabb(
+        ghost->GhostObject->getBroadphaseHandle(),
+        minAabb,
+        maxAabb,
+        _physics.World().getDispatcher()
+    );
+
+    bool penetration = false;
+
+    _physics.World().getDispatcher()->dispatchAllCollisionPairs(
+        ghost->GhostObject->getOverlappingPairCache(),
+        _physics.World().getDispatchInfo(),
+        _physics.World().getDispatcher()
+    );
+    btVector3 currentPosition = ghost->GhostObject->getWorldTransform().getOrigin();
+
+    btManifoldArray manifoldArray;
+
+    for (int i = 0; i < ghost->GhostObject->getOverlappingPairCache()->getNumOverlappingPairs(); i++) {
         manifoldArray.clear();
 
-        const btBroadphasePair& pair = pairArray[i];
+        btBroadphasePair* collisionPair = &ghost->GhostObject->getOverlappingPairCache()->getOverlappingPairArray()[i];
 
-        // Unless we manually perform collision detection on this pair, the contacts are not generated
-        btBroadphasePair* collisionPair = _physics.World().getPairCache()->findPair(pair.m_pProxy0, pair.m_pProxy1);
-        if (!collisionPair) continue;
-        
         if (collisionPair->m_algorithm) {
             collisionPair->m_algorithm->getAllContactManifolds(manifoldArray);
         }
 
-        for (int j = 0; j < manifoldArray.size(); j++) {
+        for (int j = 0; j < manifoldArray.size(); j++)
+        {
             btPersistentManifold* manifold = manifoldArray[j];
-            const btCollisionObject* obA = static_cast<const btCollisionObject*>(manifold->getBody0());
-            const btCollisionObject* obB = static_cast<const btCollisionObject*>(manifold->getBody1());
+            btScalar directionSign = manifold->getBody0() == ghost->GhostObject ? btScalar(-1.0) : btScalar(1.0);
 
-            int numContacts = manifold->getNumContacts();
-            for (int p = 0; p < numContacts; p++) {
+            for (int p = 0; p < manifold->getNumContacts(); p++)
+            {
                 const btManifoldPoint& pt = manifold->getContactPoint(p);
-                if (pt.getDistance() < 0.f) {
-                    btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
-                    debugDrawer->drawSphere(pt.getPositionWorldOnA(), 0.2f, btVector3(0, 0, 1));
-                    return true; // Contact is found, character is on ground
+
+                btScalar dist = pt.getDistance();
+
+                if (dist < -0.01f)
+                {
+                    currentPosition += pt.m_normalWorldOnB * directionSign * dist * btScalar(0.2);
+                    penetration = true;
                 }
+                else
+                {
+                    std::cout << "touching" << std::endl;
+                }
+
+                // Draw a sphere at the contact point
+                const btVector3& contactPoint = pt.getPositionWorldOnB();
+                const btScalar sphereRadius = 0.1f;
+                const btVector3 color(1.0f, 0.0f, 1.0f); 
+                debugDrawer->drawSphere(contactPoint, sphereRadius, color);
             }
         }
     }
 
-    return false;
+    btTransform newTrans = ghost->GhostObject->getWorldTransform();
+    newTrans.setOrigin(currentPosition);
+    ghost->GhostObject->setWorldTransform(newTrans);
+
+    return penetration;
 }
 
 void ECS::KinematicCharacterControllerSystem::_createDisplacement()
