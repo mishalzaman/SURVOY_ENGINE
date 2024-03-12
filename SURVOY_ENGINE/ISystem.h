@@ -12,7 +12,7 @@ namespace ECS {
         virtual void Load() = 0;
         virtual void UpdatePreFixedTimestep() = 0;
         virtual void UpdateOnFixedTimestep(float deltaTime) = 0;
-        virtual void UpdateOnVariableTimestep() = 0;
+        virtual void UpdatePostFixedTimestep() = 0;
         virtual void Render() = 0;
         virtual void Unload() = 0;
 

@@ -76,7 +76,7 @@ public:
     virtual void Load();
     virtual void UpdatePreFixedTimestep();
     virtual void UpdateOnFixedTimestep(float deltaTime);
-    virtual void UpdateOnVariableTimestep();
+    virtual void UpdatePostFixedTimestep();
     virtual void Render();
     virtual void Unload();
 

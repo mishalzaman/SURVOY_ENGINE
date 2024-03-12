@@ -67,9 +67,9 @@ void Scene::UpdateOnFixedTimestep(float deltaTime)
 	systemManager_->UpdateOnFixedTimestep(deltaTime);
 }
 
-void Scene::UpdateOnVariableTimestep()
+void Scene::UpdatePostFixedTimestep()
 {
-	systemManager_->UpdateOnVariableTimestep();
+	systemManager_->UpdatePostFixedTimestep();
 }
 
 void Scene::Render()

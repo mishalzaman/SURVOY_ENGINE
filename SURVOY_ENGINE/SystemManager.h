@@ -54,9 +54,9 @@ namespace ECS {
             }
         }
 
-        void UpdateOnVariableTimestep() {
+        void UpdatePostFixedTimestep() {
             for (auto& system : systemList) {
-                system->UpdateOnVariableTimestep();
+                system->UpdatePostFixedTimestep();
             }
         }
 

@@ -7,7 +7,7 @@ namespace ECS {
 		virtual void Load() override {}
 		virtual void UpdatePreFixedTimestep() override {}
         virtual void UpdateOnFixedTimestep(float deltaTime) override {}
-        virtual void UpdateOnVariableTimestep() override {}
+        virtual void UpdatePostFixedTimestep() override {}
         virtual void Render() override {}
         virtual void Unload() override {}
 	};
