@@ -6,11 +6,11 @@
 #include "KeyPressEvent.h"
 #include "SwitchCameraEvent.h"
 
-std::string version = "Calibration 0.2.101";
+std::string version = "Calibration 0.2.102";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.101
+		     Current version: 0.2.102
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -210,9 +210,7 @@ int main(int argc, char* args[]) {
 			
 		glViewport(0, 0, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT);
 	
-		 scene0->Render();
-	
-		std::cout << Core->Timer->DeltaTimeS() << std::endl;
+		scene0->Render();
 	
 		Core->EndRender();
 	}

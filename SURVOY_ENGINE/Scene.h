@@ -92,6 +92,7 @@ protected:
     std::unique_ptr<ENGINE::Shader> depthShader_;
     std::unique_ptr<ENGINE::Shader> shadowMappedColourShader_;
     std::unique_ptr<ENGINE::Shader> fontShader_;
+
     std::unique_ptr<ENGINE::Physics> physics_;
 
     std::unique_ptr<ECS::SystemManager> systemManager_;
