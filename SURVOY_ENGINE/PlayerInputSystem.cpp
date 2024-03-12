@@ -10,18 +10,7 @@ void ECS::PlayerInputSystem::UpdateOnFixedTimestep(float deltaTime)
     _turn(deltaTime);
     _move(deltaTime);
     //_applyGravity(deltaTime);
-
-    ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    );
-
-    //std::cout << "Velocity: " << motion->Velocity.x <<
-    //    "," <<
-    //    motion->Velocity.y <<
-    //    "," <<
-    //    motion->Velocity.z
-    //    <<
-    //    std::endl;
+    _updateGhostObjectPosition();
 }
 
 void ECS::PlayerInputSystem::_turn(float deltaTime)
@@ -74,17 +63,17 @@ void ECS::PlayerInputSystem::_move(float deltaTime)
         }
     }
     else {
-        // Normalize HorizontalVelocity if it's not a zero vector
-        //if (glm::length(motion->HorizontalVelocity) > 0) {
-        //    glm::vec3 velocityDirection = glm::normalize(motion->HorizontalVelocity);
-        //    // Decelerate in the direction opposite to the current velocity
-        //    motion->HorizontalVelocity -= velocityDirection * motion->Deceleration * deltaTime;
+         //Normalize HorizontalVelocity if it's not a zero vector
+        if (glm::length(motion->HorizontalVelocity) > 0) {
+            glm::vec3 velocityDirection = glm::normalize(motion->HorizontalVelocity);
+            // Decelerate in the direction opposite to the current velocity
+            motion->HorizontalVelocity -= velocityDirection * motion->Deceleration * deltaTime;
 
-        //    // Clamp the velocity to 0 if the deceleration has reversed its direction
-        //    if (glm::dot(velocityDirection, motion->HorizontalVelocity) < 0) {
-        //        motion->HorizontalVelocity = glm::vec3(0, 0, 0);
-        //    }
-        //}
+            // Clamp the velocity to 0 if the deceleration has reversed its direction
+            if (glm::dot(velocityDirection, motion->HorizontalVelocity) < 0) {
+                motion->HorizontalVelocity = glm::vec3(0, 0, 0);
+            }
+        }
     }
 
     // limit speed to max speed
@@ -115,4 +104,22 @@ void ECS::PlayerInputSystem::_updateVectors()
     orientation->Forward = ENGINE::VectorHelpers::ForwardVec3(orientation->Yaw, orientation->Pitch);
     orientation->Right = ENGINE::VectorHelpers::RightVec3(orientation->Forward);
     orientation->Up = ENGINE::VectorHelpers::UpVec3(orientation->Forward, orientation->Right);
+}
+
+void ECS::PlayerInputSystem::_updateGhostObjectPosition()
+{
+    // Update ghost object with new position
+    int e = _entityManager.getIdByTag("CharacterController");
+
+    ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(e);
+    ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(e);
+
+    btTransform newTrans = ghost->GhostObject->getWorldTransform();
+    btVector3 currentPosition = newTrans.getOrigin();
+    btVector3 displacement = btVector3(motion->Velocity.x, motion->Velocity.y, motion->Velocity.z);
+    btVector3 newPosition = currentPosition + displacement;
+
+    // update ghost object
+    newTrans.setOrigin(newPosition);
+    ghost->GhostObject->setWorldTransform(newTrans);
 }

@@ -7,7 +7,7 @@ ECS::RenderDebugShadowMapSystem::RenderDebugShadowMapSystem(EntityManager& entit
 
 void ECS::RenderDebugShadowMapSystem::Render()
 {
-    glViewport(0, 0, 168, 168);
+    glViewport(856, 0, 168, 168);
 
     ECS::ProgramComponent* debugDepthQuadShader = _entityManager.getComponent<ECS::ProgramComponent>(
         _entityManager.getIdByTag("DebugDepthQuadShader")

@@ -1,8 +1,12 @@
 #pragma once
 
+#include <iostream>
+
 #include "System.h"
 #include "EntityManager.h"
 #include "Physics.h"
+
+#include "GhostObjectCapsuleComponent.h"
 
 namespace ECS {
 	class PlayerPhysicsSystem : public System
@@ -15,5 +19,7 @@ namespace ECS {
 	private:
 		EntityManager& _entityManager;
 		Physics& _physics;
+
+		bool _contacts();
 	};
 }

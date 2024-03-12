@@ -4,7 +4,8 @@
 #include "EntityManager.h"
 
 #include "OrientationComponent.h"
-#include "MovementAttributesComponent.h"
+#include "MovementAttributesComponent.h";
+#include "GhostObjectCapsuleComponent.h"
 
 #include "VectorHelpers.h"
 
@@ -23,6 +24,7 @@ namespace ECS {
 		void _move(float deltaTime);
 		void _applyGravity(float deltaTime);
 		void _updateVectors();
+		void _updateGhostObjectPosition();
 
 		glm::vec3 _verticalVelocity;
 	};
