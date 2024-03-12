@@ -95,6 +95,7 @@ bool ENGINE::Core::CreateDevice(
     }
 
     _openGLSettings();
+    _initImgui();
     _initializeSubSystems();
 
     return true;
@@ -239,6 +240,21 @@ void ENGINE::Core::_openGLSettings()
 
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(MessageCallback, 0);
+}
+
+void ENGINE::Core::_initImgui()
+{
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    // Setup Platform/Renderer bindings
+
+    // Setup Platform/Renderer backends
+    ImGui_ImplSDL2_InitForOpenGL(_window, _context);
+    ImGui_ImplOpenGL3_Init("#version 440");
+
+    // Set your Dear ImGui style
+    ImGui::StyleColorsDark();
 }
 
 void ENGINE::Core::_initializeSubSystems()

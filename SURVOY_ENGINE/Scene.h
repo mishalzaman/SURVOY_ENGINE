@@ -54,11 +54,11 @@
 #include "RenderDebugShadowMapSystem.h"
 #include "DebugScreenPrintSystem.h"
 #include "DebugGridSystem.h"
-#include "KinematicCharacterControllerSystem.h"
 #include "CameraSwitcherSystem.h"
 #include "PlayerInputSystem.h"
 #include "PlayerPhysicsSystem.h"
 #include "PlayerOutputSystem.h"
+#include "DebugInformationSystem.h"
 
 //  Observer
 #include "Event.h"
@@ -74,8 +74,9 @@ public:
     virtual ~Scene() = default;
 
     virtual void Load();
+    virtual void UpdatePreFixedTimestep();
     virtual void UpdateOnFixedTimestep(float deltaTime);
-    virtual void UpdateOnVariableTimestep();
+    virtual void UpdatePostFixedTimestep();
     virtual void Render();
     virtual void Unload();
 
@@ -91,6 +92,7 @@ protected:
     std::unique_ptr<ENGINE::Shader> depthShader_;
     std::unique_ptr<ENGINE::Shader> shadowMappedColourShader_;
     std::unique_ptr<ENGINE::Shader> fontShader_;
+
     std::unique_ptr<ENGINE::Physics> physics_;
 
     std::unique_ptr<ECS::SystemManager> systemManager_;

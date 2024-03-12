@@ -45,7 +45,6 @@ namespace ECS {
 
 		void Load() override;
 		void UpdateOnFixedTimestep(float deltaTime) override;
-		void UpdateOnVariableTimestep() override;
 
 	private:
 		EventManager& _eventManager;

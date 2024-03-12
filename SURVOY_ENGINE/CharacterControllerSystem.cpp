@@ -54,10 +54,6 @@ void ECS::CharacterControllerSystem::UpdateOnFixedTimestep(float deltaTime)
 	}
 }
 
-void ECS::CharacterControllerSystem::UpdateOnVariableTimestep()
-{
-}
-
 void ECS::CharacterControllerSystem::Render()
 {
 	std::vector<int> entities = _entityManager.getByTag("CharacterController");

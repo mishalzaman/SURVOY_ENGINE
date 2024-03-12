@@ -6,11 +6,11 @@
 #include "KeyPressEvent.h"
 #include "SwitchCameraEvent.h"
 
-std::string version = "Calibration 0.2.101";
+std::string version = "Calibration 0.2.102";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.101
+		     Current version: 0.2.102
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -190,7 +190,11 @@ int main(int argc, char* args[]) {
 				default:
 					break;
 			}
+
+			ImGui_ImplSDL2_ProcessEvent(&e); // Forward your event to backend
 		}
+
+		scene0->UpdatePreFixedTimestep();
 	
 		/*=============
 		FIXED UPDATE
@@ -198,8 +202,6 @@ int main(int argc, char* args[]) {
 		while (Core->Timer->FixedUpdate()) {
 			scene0->UpdateOnFixedTimestep(deltaTime);
 		}
-	
-		scene0->UpdateOnVariableTimestep();
 	
 		/*=============
 		RENDER
@@ -209,8 +211,6 @@ int main(int argc, char* args[]) {
 		glViewport(0, 0, ENGINE::Defaults::BASE_SCREEN_WIDTH, ENGINE::Defaults::BASE_SCREEN_HEIGHT);
 	
 		scene0->Render();
-	
-		//std::cout << Core->Timer->DeltaTimeS() << std::endl;
 	
 		Core->EndRender();
 	}

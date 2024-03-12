@@ -52,9 +52,14 @@ void Scene::Load()
 
 	// Post custom frame buffer renders
 	systemManager_->AddSystem<ECS::RenderDebugShadowMapSystem>(*entityManager_);
-	//systemManager_->AddSystem<ECS::DebugScreenPrintSystem>(*entityManager_, *eventManager_);
+	systemManager_->AddSystem<ECS::DebugInformationSystem>(*entityManager_, *physics_);
 
 	systemManager_->Load();
+}
+
+void Scene::UpdatePreFixedTimestep()
+{
+	systemManager_->UpdatePreFixedTimestep();
 }
 
 void Scene::UpdateOnFixedTimestep(float deltaTime)
@@ -62,9 +67,9 @@ void Scene::UpdateOnFixedTimestep(float deltaTime)
 	systemManager_->UpdateOnFixedTimestep(deltaTime);
 }
 
-void Scene::UpdateOnVariableTimestep()
+void Scene::UpdatePostFixedTimestep()
 {
-	systemManager_->UpdateOnVariableTimestep();
+	systemManager_->UpdatePostFixedTimestep();
 }
 
 void Scene::Render()
