@@ -6,11 +6,11 @@
 #include "KeyPressEvent.h"
 #include "SwitchCameraEvent.h"
 
-std::string version = "Calibration 0.2.102";
+std::string version = "Calibration 0.2.104";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.102
+		     Current version: 0.2.104
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -78,7 +78,7 @@ DEVELOPMENT
 		- [x] Update movement based on camera and character controller
 		- [x] Switch third person and first person cameras
 		- [x] Create PlayerInputSystem, PlayerPhysicsSystem and PlayerOutputSystem
-		- [ ] Implement IMGUI
+		- [x] Implement IMGUI
 		- [ ] Create character controller
 			- [ ] Ground test
 			- [ ] Movement
