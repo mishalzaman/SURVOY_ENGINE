@@ -171,6 +171,15 @@
     <ClCompile Include="CameraSwitcherSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerInputSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPhysicsSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerOutputSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -415,6 +424,15 @@
     </ClInclude>
     <ClInclude Include="MovementAttributesComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInputSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPhysicsSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerOutputSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -27,7 +27,10 @@ void Scene::Load()
 {
 	systemManager_->AddSystem<ECS::PhysicsSystem>(*entityManager_, *physics_, *eventManager_);
 	systemManager_->AddSystem<ECS::MeshStaticBuffersSystem>(*entityManager_);
-	systemManager_->AddSystem<ECS::KinematicCharacterControllerSystem>(*entityManager_, *physics_);
+	systemManager_->AddSystem<ECS::PlayerInputSystem>(*entityManager_);
+	systemManager_->AddSystem<ECS::PlayerPhysicsSystem>(*entityManager_, *physics_);
+	systemManager_->AddSystem<ECS::PlayerOutputSystem>(*entityManager_);
+	//systemManager_->AddSystem<ECS::KinematicCharacterControllerSystem>(*entityManager_, *physics_);
 
 	// Cameras
 	systemManager_->AddSystem<ECS::CameraSwitcherSystem>(*entityManager_, *eventManager_);

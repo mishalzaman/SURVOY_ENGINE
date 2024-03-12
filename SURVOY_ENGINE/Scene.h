@@ -56,6 +56,9 @@
 #include "DebugGridSystem.h"
 #include "KinematicCharacterControllerSystem.h"
 #include "CameraSwitcherSystem.h"
+#include "PlayerInputSystem.h"
+#include "PlayerPhysicsSystem.h"
+#include "PlayerOutputSystem.h"
 
 //  Observer
 #include "Event.h"
