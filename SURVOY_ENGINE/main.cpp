@@ -6,11 +6,11 @@
 #include "KeyPressEvent.h"
 #include "SwitchCameraEvent.h"
 
-std::string version = "Calibration 0.2.100";
+std::string version = "Calibration 0.2.101";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.100
+		     Current version: 0.2.101
 		  *--------------------------*
 
 DEVELOPMENT NOTES
@@ -79,8 +79,9 @@ DEVELOPMENT
 		- [x] Update third person camera
 		- [x] Update movement based on camera and character controller
 		- [x] Switch third person and first person cameras
-		- [ ] Create CharacterInputSystem, CharacterPhysicsSystem and CharacterOutputSystem
-		- [ ] Create KinematicCharacterControllerSystem
+		- [ ] Create PlayerInputSystem, PlayerPhysicsSystem and PlayerOutputSystem
+		- [ ] Implement IMGUI
+		- [ ] Create character controller
 			- [ ] Ground test
 			- [ ] Movement
 			- [ ] Add acceleration and deceleration
@@ -88,7 +89,6 @@ DEVELOPMENT
 			- [ ] Slope movement
 		- [ ] Add acceleration and deceleration
 		- [ ] Refactor
-		- [ ] Remove text rendering and add imgui
 		- [ ] Create character mesh
 		- [ ] Add character mesh that follows the capsule
 		- [ ] Rig character
@@ -99,6 +99,7 @@ DEVELOPMENT
 		- [ ] Add animations for idle and walk
 		- [ ] Add animation blending
 		- [ ] Update controls to use control pad
+		- [ ] Refactor
 
 	v 0.4.x
 	-------
