@@ -7,6 +7,7 @@
 #include "Physics.h"
 
 #include "GhostObjectCapsuleComponent.h"
+#include "MovementAttributesComponent.h"
 
 namespace ECS {
 	class PlayerPhysicsSystem : public System

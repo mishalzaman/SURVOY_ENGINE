@@ -20,7 +20,9 @@ bool ECS::PlayerPhysicsSystem::_contacts()
 {
     int e = _entityManager.getIdByTag("CharacterController");
     ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(e);
+    ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(e);
     assert(ghost);
+    assert(motion);
 
     btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
 

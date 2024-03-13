@@ -10,7 +10,6 @@ void ECS::PlayerInputSystem::UpdateOnFixedTimestep(float deltaTime)
     _turn(deltaTime);
     _move(deltaTime);
     //_applyGravity(deltaTime);
-    _updateGhostObjectPosition();
 }
 
 void ECS::PlayerInputSystem::_turn(float deltaTime)
@@ -104,22 +103,4 @@ void ECS::PlayerInputSystem::_updateVectors()
     orientation->Forward = ENGINE::VectorHelpers::ForwardVec3(orientation->Yaw, orientation->Pitch);
     orientation->Right = ENGINE::VectorHelpers::RightVec3(orientation->Forward);
     orientation->Up = ENGINE::VectorHelpers::UpVec3(orientation->Forward, orientation->Right);
-}
-
-void ECS::PlayerInputSystem::_updateGhostObjectPosition()
-{
-    // Update ghost object with new position
-    int e = _entityManager.getIdByTag("CharacterController");
-
-    ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(e);
-    ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(e);
-
-    btTransform newTrans = ghost->GhostObject->getWorldTransform();
-    btVector3 currentPosition = newTrans.getOrigin();
-    btVector3 displacement = btVector3(motion->Velocity.x, motion->Velocity.y, motion->Velocity.z);
-    btVector3 newPosition = currentPosition + displacement;
-
-    // update ghost object
-    newTrans.setOrigin(newPosition);
-    ghost->GhostObject->setWorldTransform(newTrans);
 }
