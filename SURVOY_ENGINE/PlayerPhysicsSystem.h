@@ -8,6 +8,8 @@
 
 #include "GhostObjectCapsuleComponent.h"
 #include "MovementAttributesComponent.h"
+#include "OrientationComponent.h"
+#include "KinematicCapsulePhysicsBodyComponent.h"
 
 namespace ECS {
 	class PlayerPhysicsSystem : public System
@@ -22,5 +24,6 @@ namespace ECS {
 		Physics& _physics;
 
 		bool _contacts();
+		bool _onGround();
 	};
 }
