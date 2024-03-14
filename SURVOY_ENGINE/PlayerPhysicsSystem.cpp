@@ -35,8 +35,7 @@ void ECS::PlayerPhysicsSystem::UpdateOnFixedTimestep(float deltaTime)
     _contacts();
 }
 
-bool ECS::PlayerPhysicsSystem::_contacts()
-{
+bool ECS::PlayerPhysicsSystem::_contacts() {
     int e = _entityManager.getIdByTag("CharacterController");
     ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(e);
     ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(e);
@@ -52,6 +51,7 @@ bool ECS::PlayerPhysicsSystem::_contacts()
     _physics.World().getBroadphase()->setAabb(ghost->GhostObject->getBroadphaseHandle(), minAabb, maxAabb, _physics.World().getDispatcher());
 
     bool penetration = false;
+    btVector3 penetrationCorrections(0, 0, 0);
     btVector3 velocityAdjustment(0, 0, 0);
 
     _physics.World().getDispatcher()->dispatchAllCollisionPairs(
@@ -61,9 +61,7 @@ bool ECS::PlayerPhysicsSystem::_contacts()
     );
 
     float maxSlopeAngle = 22.0f; // Maximum angle (in degrees) to consider as ground
-    bool isOnGround = false;
-    bool isFalling = motion->Velocity.y < 0; // Check if the player is moving downwards
-
+    bool isOnGround = _onGround(); // Assuming _onGround() checks if the character is standing on ground
 
     btManifoldArray manifoldArray;
     for (int i = 0; i < ghost->GhostObject->getOverlappingPairCache()->getNumOverlappingPairs(); i++) {
@@ -82,69 +80,53 @@ bool ECS::PlayerPhysicsSystem::_contacts()
                 btScalar dist = pt.getDistance();
 
                 if (dist < 0.0f) {
-                    // collision resolution
-                    btVector3 correctionDirection = pt.m_normalWorldOnB * dist * btScalar(-0.8);
-                    velocityAdjustment += correctionDirection;
-
-                    //glm::vec3 motionVelocity = glm::vec3(motion->Velocity.x, motion->Velocity.y, motion->Velocity.z);
-                    //glm::vec3 collisionNormal = glm::vec3(pt.m_normalWorldOnB.x(), pt.m_normalWorldOnB.y(), pt.m_normalWorldOnB.z());
-
-                    //// Project the velocity on the collision plane
-                    //glm::vec3 cVelocity = _projectOnPlane(motionVelocity, collisionNormal);
-                    //velocityAdjustment += btVector3(cVelocity.x, cVelocity.y, cVelocity.z);
-
-
-                    // Calculate the angle between the normal and the up direction
-                    glm::vec3 normalGLM(pt.m_normalWorldOnB.x(), pt.m_normalWorldOnB.y(), pt.m_normalWorldOnB.z());
-                    float angleDegrees = _calculateNormalAngle(normalGLM);
-
-                    // Check if the angle is within the threshold to consider as ground
-                    if (angleDegrees <= maxSlopeAngle) {
-                        isOnGround = true;
-                        // If one normal is within the ground criteria, no need to check further
-                    }
-
-                    //std::cout << angleDegrees << std::endl;
-
                     penetration = true;
+                    btVector3 correctionDirection = pt.m_normalWorldOnB * dist * btScalar(-0.6);
+                    penetrationCorrections += correctionDirection;
 
-                    // Draw a sphere at the contact point for visualization
-                    const btVector3& contactPoint = pt.getPositionWorldOnB();
-                    const btScalar sphereRadius = 0.1f;
-                    const btVector3 color(1.0f, 0.0f, 1.0f);
-                    debugDrawer->drawSphere(contactPoint, sphereRadius, color);
-
-                    // Draw the normal at the contact point
-                    btVector3 pNormal = pt.m_normalWorldOnB.normalized(); // Ensure the normal is normalized
-                    float r = (pNormal.getX() + 1.0f) * 0.5f;
-                    float g = (pNormal.getY() + 1.0f) * 0.5f;
-                    float b = (pNormal.getZ() + 1.0f) * 0.5f;
-
-                    const btVector3 normalColor(r, g, b);
-                    const btVector3 normalEnd = contactPoint + pt.m_normalWorldOnB * sphereRadius * 20;
-                    debugDrawer->drawLine(contactPoint, normalEnd, normalColor);
-
-                    // Draw the perpendicular direction
-
+                    glm::vec3 motionVelocity = glm::vec3(motion->Velocity.x, motion->Velocity.y, motion->Velocity.z);
+                    glm::vec3 collisionNormal = glm::vec3(pt.m_normalWorldOnB.x(), pt.m_normalWorldOnB.y(), pt.m_normalWorldOnB.z());
+                    glm::vec3 cVelocity = _projectOnPlane(motionVelocity, collisionNormal);
+                    velocityAdjustment += btVector3(cVelocity.x, cVelocity.y, cVelocity.z);
                 }
             }
         }
     }
 
-    // Apply the accumulated velocity adjustment to the character's motion component.
-    btVector3 initialVelocity = btVector3(motion->Velocity.x, motion->Velocity.y, motion->Velocity.z);
-    btVector3 newVelocity = initialVelocity + velocityAdjustment;
-    motion->Velocity = glm::vec3(newVelocity.getX(), newVelocity.getY(), newVelocity.getZ());
+    // Apply penetration corrections to resolve overlaps
+    if (penetration) {
+        btTransform correctedTransform = ghost->GhostObject->getWorldTransform();
+        btVector3 correctedPosition = correctedTransform.getOrigin() + penetrationCorrections;
+        correctedTransform.setOrigin(correctedPosition);
 
-    // reset ghost object to original position
-    btTransform transform = ghost->GhostObject->getWorldTransform();
-    transform.setOrigin(_originalPosition);
-    ghost->GhostObject->setWorldTransform(transform);
+        ghost->GhostObject->setWorldTransform(correctedTransform);
+    }
 
-    _updateGhostObjectPosition(motion->Velocity);
+    float timestep = 1.0f / 60.0f; // For example, 60 FPS
+
+    // Calculate new velocity, considering both the original and adjustments for collisions
+    btVector3 correctedVelocity = btVector3(motion->Velocity.x, motion->Velocity.y, motion->Velocity.z) + velocityAdjustment;
+    if (isOnGround) {
+        correctedVelocity.setY(0); // Adjust for being on the ground
+    }
+
+    // Convert the corrected velocity into a displacement
+    btVector3 displacement = correctedVelocity * timestep;
+
+    // Update the motion component with the corrected velocity
+    motion->Velocity = glm::vec3(correctedVelocity.x(), correctedVelocity.y(), correctedVelocity.z());
+
+    // Calculate the new position by applying the displacement to the corrected position (after penetration correction)
+    btTransform updatedTransform = ghost->GhostObject->getWorldTransform();
+    btVector3 newPosition = updatedTransform.getOrigin() + displacement;
+
+    // Apply the new position to the ghost object
+    updatedTransform.setOrigin(newPosition);
+    ghost->GhostObject->setWorldTransform(updatedTransform);
 
     return penetration;
 }
+
 
 bool ECS::PlayerPhysicsSystem::_onGround()
 {
@@ -219,3 +201,68 @@ btVector3 ECS::PlayerPhysicsSystem::_getGhostObjectOriginalPosition()
     // Extract the position (origin) from the transform.
     return transform.getOrigin();
 }
+
+void ECS::PlayerPhysicsSystem::_penetrationCorrectionPass()
+{
+}
+
+void ECS::PlayerPhysicsSystem::_slidePass()
+{
+}
+
+void ECS::PlayerPhysicsSystem::_gravityPass()
+{
+}
+
+
+//for (int p = 0; p < manifold->getNumContacts(); p++) {
+//    const btManifoldPoint& pt = manifold->getContactPoint(p);
+//    btScalar dist = pt.getDistance();
+//
+//    if (dist < 0.0f) {
+//        //// collision resolution
+//        //btVector3 correctionDirection = pt.m_normalWorldOnB * dist * btScalar(-0.8);
+//        //velocityAdjustment += correctionDirection;
+//
+//        ////glm::vec3 motionVelocity = glm::vec3(motion->Velocity.x, motion->Velocity.y, motion->Velocity.z);
+//        ////glm::vec3 collisionNormal = glm::vec3(pt.m_normalWorldOnB.x(), pt.m_normalWorldOnB.y(), pt.m_normalWorldOnB.z());
+//
+//        ////// Project the velocity on the collision plane
+//        ////glm::vec3 cVelocity = _projectOnPlane(motionVelocity, collisionNormal);
+//        ////velocityAdjustment += btVector3(cVelocity.x, cVelocity.y, cVelocity.z);
+//
+//
+//        //// Calculate the angle between the normal and the up direction
+//        //glm::vec3 normalGLM(pt.m_normalWorldOnB.x(), pt.m_normalWorldOnB.y(), pt.m_normalWorldOnB.z());
+//        //float angleDegrees = _calculateNormalAngle(normalGLM);
+//
+//        //// Check if the angle is within the threshold to consider as ground
+//        //if (angleDegrees <= maxSlopeAngle) {
+//        //    isOnGround = true;
+//        //    // If one normal is within the ground criteria, no need to check further
+//        //}
+//
+//        ////std::cout << angleDegrees << std::endl;
+//
+//        penetration = true;
+//
+//        // Draw a sphere at the contact point for visualization
+//        const btVector3& contactPoint = pt.getPositionWorldOnB();
+//        const btScalar sphereRadius = 0.1f;
+//        const btVector3 color(1.0f, 0.0f, 1.0f);
+//        debugDrawer->drawSphere(contactPoint, sphereRadius, color);
+//
+//        // Draw the normal at the contact point
+//        btVector3 pNormal = pt.m_normalWorldOnB.normalized(); // Ensure the normal is normalized
+//        float r = (pNormal.getX() + 1.0f) * 0.5f;
+//        float g = (pNormal.getY() + 1.0f) * 0.5f;
+//        float b = (pNormal.getZ() + 1.0f) * 0.5f;
+//
+//        const btVector3 normalColor(r, g, b);
+//        const btVector3 normalEnd = contactPoint + pt.m_normalWorldOnB * sphereRadius * 20;
+//        debugDrawer->drawLine(contactPoint, normalEnd, normalColor);
+//
+//        // Draw the perpendicular direction
+//
+//    }
+//}

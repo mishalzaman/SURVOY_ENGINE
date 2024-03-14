@@ -39,5 +39,9 @@ namespace ECS {
 
 		void _updateGhostObjectPosition(glm::vec3 velocity);
 		btVector3 _getGhostObjectOriginalPosition();
+
+		void _penetrationCorrectionPass();
+		void _slidePass();
+		void _gravityPass();
 	};
 }
