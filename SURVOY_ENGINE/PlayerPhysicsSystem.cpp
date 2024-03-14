@@ -58,8 +58,16 @@ bool ECS::PlayerPhysicsSystem::_contacts()
                 btScalar dist = pt.getDistance();
 
                 if (dist < 0.0f) {
+                    // collision resolution
                     btVector3 correctionDirection = pt.m_normalWorldOnB * dist * btScalar(-0.8);
-                    velocityAdjustment += correctionDirection;
+
+                    glm::vec3 motionVelocity = glm::vec3(motion->Velocity.x, motion->Velocity.y, motion->Velocity.z);
+                    glm::vec3 collisionNormal = glm::vec3(pt.m_normalWorldOnB.x(), pt.m_normalWorldOnB.y(), pt.m_normalWorldOnB.z());
+
+                    // Project the velocity on the collision plane
+                    glm::vec3 cVelocity = _projectOnPlane(motionVelocity, collisionNormal);
+                    velocityAdjustment += btVector3(cVelocity.x, cVelocity.y, cVelocity.z); 
+
                     penetration = true;
 
                     // Draw a sphere at the contact point for visualization
@@ -69,14 +77,16 @@ bool ECS::PlayerPhysicsSystem::_contacts()
                     debugDrawer->drawSphere(contactPoint, sphereRadius, color);
 
                     // Draw the normal at the contact point
-                    btVector3 normal = pt.m_normalWorldOnB.normalized(); // Ensure the normal is normalized
-                    float r = (normal.getX() + 1.0f) * 0.5f;
-                    float g = (normal.getY() + 1.0f) * 0.5f;
-                    float b = (normal.getZ() + 1.0f) * 0.5f;
+                    btVector3 pNormal = pt.m_normalWorldOnB.normalized(); // Ensure the normal is normalized
+                    float r = (pNormal.getX() + 1.0f) * 0.5f;
+                    float g = (pNormal.getY() + 1.0f) * 0.5f;
+                    float b = (pNormal.getZ() + 1.0f) * 0.5f;
 
                     const btVector3 normalColor(r, g, b);
                     const btVector3 normalEnd = contactPoint + pt.m_normalWorldOnB * sphereRadius * 20;
                     debugDrawer->drawLine(contactPoint, normalEnd, normalColor);
+
+                    // Draw the perpendicular direction
 
                 }
             }
@@ -123,6 +133,15 @@ bool ECS::PlayerPhysicsSystem::_onGround()
     }
 
     return false;
+}
+
+glm::vec3 ECS::PlayerPhysicsSystem::_projectOnPlane(
+    glm::vec3 velocity,
+    glm::vec3 normal
+) {
+    normal = glm::normalize(normal); // Ensure the normal is normalized
+    glm::vec3 projection = velocity - glm::dot(velocity, normal) * normal;
+    return projection;
 }
 
 void ECS::PlayerPhysicsSystem::_updateGhostObjectPosition(glm::vec3 velocity)

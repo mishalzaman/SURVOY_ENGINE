@@ -27,6 +27,10 @@ namespace ECS {
 
 		bool _contacts();
 		bool _onGround();
+		glm::vec3 _projectOnPlane(
+			glm::vec3 velocity,
+			glm::vec3 normal
+		);
 
 		void _updateGhostObjectPosition(glm::vec3 velocity);
 		btVector3 _getGhostObjectOriginalPosition();
