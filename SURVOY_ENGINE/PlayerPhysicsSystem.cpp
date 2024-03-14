@@ -25,6 +25,9 @@ bool ECS::PlayerPhysicsSystem::_contacts()
 
     btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
 
+    _originalPosition = _getGhostObjectOriginalPosition();
+    _updateGhostObjectPosition(motion->Velocity);
+
     btVector3 minAabb, maxAabb;
     ghost->GhostObject->getCollisionShape()->getAabb(ghost->GhostObject->getWorldTransform(), minAabb, maxAabb);
     _physics.World().getBroadphase()->setAabb(ghost->GhostObject->getBroadphaseHandle(), minAabb, maxAabb, _physics.World().getDispatcher());
@@ -64,6 +67,17 @@ bool ECS::PlayerPhysicsSystem::_contacts()
                     const btScalar sphereRadius = 0.1f;
                     const btVector3 color(1.0f, 0.0f, 1.0f);
                     debugDrawer->drawSphere(contactPoint, sphereRadius, color);
+
+                    // Draw the normal at the contact point
+                    btVector3 normal = pt.m_normalWorldOnB.normalized(); // Ensure the normal is normalized
+                    float r = (normal.getX() + 1.0f) * 0.5f;
+                    float g = (normal.getY() + 1.0f) * 0.5f;
+                    float b = (normal.getZ() + 1.0f) * 0.5f;
+
+                    const btVector3 normalColor(r, g, b);
+                    const btVector3 normalEnd = contactPoint + pt.m_normalWorldOnB * sphereRadius * 20;
+                    debugDrawer->drawLine(contactPoint, normalEnd, normalColor);
+
                 }
             }
         }
@@ -74,8 +88,12 @@ bool ECS::PlayerPhysicsSystem::_contacts()
     btVector3 newVelocity = initialVelocity + velocityAdjustment;
     motion->Velocity = glm::vec3(newVelocity.getX(), newVelocity.getY(), newVelocity.getZ());
 
-    // Depending on your game's requirements, you might want to further refine how the velocity adjustment is applied,
-    // for example, by factoring in restitution or friction coefficients, or by applying different adjustments based on the type of collision.
+    // reset ghost object to original position
+    btTransform transform = ghost->GhostObject->getWorldTransform();
+    transform.setOrigin(_originalPosition);
+    ghost->GhostObject->setWorldTransform(transform);
+
+    _updateGhostObjectPosition(motion->Velocity);
 
     return penetration;
 }
@@ -105,4 +123,37 @@ bool ECS::PlayerPhysicsSystem::_onGround()
     }
 
     return false;
+}
+
+void ECS::PlayerPhysicsSystem::_updateGhostObjectPosition(glm::vec3 velocity)
+{
+    ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(
+        _entityManager.getIdByTag("CharacterController")
+    );
+
+    // Convert the velocity (now effectively displacement) to Bullet's vector type.
+    btVector3 displacement = btVector3(velocity.x, velocity.y, velocity.z);
+
+    // Get the current position of the ghost object.
+    btTransform transform = ghost->GhostObject->getWorldTransform();
+    btVector3 currentPosition = transform.getOrigin();
+
+    // Calculate the new position by adding the displacement to the current position.
+    btVector3 newPosition = currentPosition + displacement;
+
+    // Update the ghost object's transform with the new position.
+    transform.setOrigin(newPosition);
+    ghost->GhostObject->setWorldTransform(transform);
+}
+
+btVector3 ECS::PlayerPhysicsSystem::_getGhostObjectOriginalPosition()
+{
+    ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(
+        _entityManager.getIdByTag("CharacterController")
+    );
+
+    // Get the world transform of the ghost object.
+    const btTransform& transform = ghost->GhostObject->getWorldTransform();
+    // Extract the position (origin) from the transform.
+    return transform.getOrigin();
 }

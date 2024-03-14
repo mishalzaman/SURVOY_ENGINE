@@ -63,14 +63,14 @@ void ECS::PlayerInputSystem::_move(float deltaTime)
     }
     else {
          //Normalize HorizontalVelocity if it's not a zero vector
-        if (glm::length(motion->HorizontalVelocity) > 0) {
-            glm::vec3 velocityDirection = glm::normalize(motion->HorizontalVelocity);
+        if (glm::length(motion->Velocity) > 0) {
+            glm::vec3 velocityDirection = glm::normalize(motion->Velocity);
             // Decelerate in the direction opposite to the current velocity
-            motion->HorizontalVelocity -= velocityDirection * motion->Deceleration * deltaTime;
+            motion->Velocity -= velocityDirection * motion->Deceleration * deltaTime;
 
             // Clamp the velocity to 0 if the deceleration has reversed its direction
-            if (glm::dot(velocityDirection, motion->HorizontalVelocity) < 0) {
-                motion->HorizontalVelocity = glm::vec3(0, 0, 0);
+            if (glm::dot(velocityDirection, motion->Velocity) < 0) {
+                motion->Velocity = glm::vec3(0, 0, 0);
             }
         }
     }

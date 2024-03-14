@@ -23,7 +23,12 @@ namespace ECS {
 		EntityManager& _entityManager;
 		Physics& _physics;
 
+		btVector3 _originalPosition;
+
 		bool _contacts();
 		bool _onGround();
+
+		void _updateGhostObjectPosition(glm::vec3 velocity);
+		btVector3 _getGhostObjectOriginalPosition();
 	};
 }
