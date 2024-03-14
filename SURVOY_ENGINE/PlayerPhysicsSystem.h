@@ -2,6 +2,9 @@
 
 #include <iostream>
 
+#include <glm/glm.hpp>
+#include <glm/gtx/vector_angle.hpp> // For angle computation
+
 #include "System.h"
 #include "EntityManager.h"
 #include "Physics.h"
@@ -10,6 +13,7 @@
 #include "MovementAttributesComponent.h"
 #include "OrientationComponent.h"
 #include "KinematicCapsulePhysicsBodyComponent.h"
+
 
 namespace ECS {
 	class PlayerPhysicsSystem : public System
@@ -31,6 +35,7 @@ namespace ECS {
 			glm::vec3 velocity,
 			glm::vec3 normal
 		);
+		float _calculateNormalAngle(glm::vec3 normal);
 
 		void _updateGhostObjectPosition(glm::vec3 velocity);
 		btVector3 _getGhostObjectOriginalPosition();

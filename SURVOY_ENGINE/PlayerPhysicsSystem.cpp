@@ -10,9 +10,6 @@ void ECS::PlayerPhysicsSystem::UpdateOnFixedTimestep(float deltaTime)
     int e = _entityManager.getIdByTag("CharacterController");
     ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(e);
 
-    if (_onGround()) {
-        //motion->Velocity.y = 0;
-    }
     _contacts();
 }
 
@@ -41,6 +38,11 @@ bool ECS::PlayerPhysicsSystem::_contacts()
         _physics.World().getDispatcher()
     );
 
+    float maxSlopeAngle = 22.0f; // Maximum angle (in degrees) to consider as ground
+    bool isOnGround = false;
+    bool isFalling = motion->Velocity.y < 0; // Check if the player is moving downwards
+
+
     btManifoldArray manifoldArray;
     for (int i = 0; i < ghost->GhostObject->getOverlappingPairCache()->getNumOverlappingPairs(); i++) {
         manifoldArray.clear();
@@ -60,13 +62,27 @@ bool ECS::PlayerPhysicsSystem::_contacts()
                 if (dist < 0.0f) {
                     // collision resolution
                     btVector3 correctionDirection = pt.m_normalWorldOnB * dist * btScalar(-0.8);
+                    velocityAdjustment += correctionDirection;
 
-                    glm::vec3 motionVelocity = glm::vec3(motion->Velocity.x, motion->Velocity.y, motion->Velocity.z);
-                    glm::vec3 collisionNormal = glm::vec3(pt.m_normalWorldOnB.x(), pt.m_normalWorldOnB.y(), pt.m_normalWorldOnB.z());
+                    //glm::vec3 motionVelocity = glm::vec3(motion->Velocity.x, motion->Velocity.y, motion->Velocity.z);
+                    //glm::vec3 collisionNormal = glm::vec3(pt.m_normalWorldOnB.x(), pt.m_normalWorldOnB.y(), pt.m_normalWorldOnB.z());
 
-                    // Project the velocity on the collision plane
-                    glm::vec3 cVelocity = _projectOnPlane(motionVelocity, collisionNormal);
-                    velocityAdjustment += btVector3(cVelocity.x, cVelocity.y, cVelocity.z); 
+                    //// Project the velocity on the collision plane
+                    //glm::vec3 cVelocity = _projectOnPlane(motionVelocity, collisionNormal);
+                    //velocityAdjustment += btVector3(cVelocity.x, cVelocity.y, cVelocity.z);
+
+
+                    // Calculate the angle between the normal and the up direction
+                    glm::vec3 normalGLM(pt.m_normalWorldOnB.x(), pt.m_normalWorldOnB.y(), pt.m_normalWorldOnB.z());
+                    float angleDegrees = _calculateNormalAngle(normalGLM);
+
+                    // Check if the angle is within the threshold to consider as ground
+                    if (angleDegrees <= maxSlopeAngle) {
+                        isOnGround = true;
+                        // If one normal is within the ground criteria, no need to check further
+                    }
+
+                    //std::cout << angleDegrees << std::endl;
 
                     penetration = true;
 
@@ -120,7 +136,7 @@ bool ECS::PlayerPhysicsSystem::_onGround()
     assert(ghost);
 
     btVector3 rayStart = ghost->GhostObject->getWorldTransform().getOrigin();
-    btVector3 rayEnd = rayStart - btVector3(0, 1, 0) * (ghost->Height * 0.5 + ghost->Radius + 0.015f);
+    btVector3 rayEnd = rayStart - btVector3(0, 1, 0) * (ghost->Height * 0.5 + ghost->Radius);
 
     btCollisionWorld::ClosestRayResultCallback rayCallback(rayStart, rayEnd);
 
@@ -142,6 +158,11 @@ glm::vec3 ECS::PlayerPhysicsSystem::_projectOnPlane(
     normal = glm::normalize(normal); // Ensure the normal is normalized
     glm::vec3 projection = velocity - glm::dot(velocity, normal) * normal;
     return projection;
+}
+
+float ECS::PlayerPhysicsSystem::_calculateNormalAngle(glm::vec3 normal)
+{
+    return glm::degrees(glm::angle(normal, glm::vec3(0,1,0)));
 }
 
 void ECS::PlayerPhysicsSystem::_updateGhostObjectPosition(glm::vec3 velocity)
