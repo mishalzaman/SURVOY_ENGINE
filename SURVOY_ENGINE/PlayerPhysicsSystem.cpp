@@ -1,5 +1,27 @@
 #include "PlayerPhysicsSystem.h"
 
+/*
+1. Apply Gravity
+Update Velocities: At the beginning of each physics update cycle, apply gravity to the object's velocity. This ensures that the effect of gravity is considered when detecting collisions and resolving them. Gravity, being a constant force, should influence the object's movement continuously, affecting how it interacts with the world (e.g., falling, sliding down slopes).
+Consider Continuous Forces: Besides gravity, this is also when you'd apply other continuous forces acting on the object, like drag or custom forces, to update its velocity accordingly.
+2. Move Object Based on Updated Velocity
+Predictive Movement: Use the updated velocity (including the effects of gravity and other forces) to predict the object's new position for the current frame. This step is crucial for detecting potential collisions before they occur.
+3. Detect Collisions
+Collision Detection: Perform collision detection based on the predicted movement. This involves checking if the object's path intersects with any other objects in the scene.
+4. Resolve Collisions and Penetrations
+Calculate Corrections: If collisions are detected, calculate the necessary corrections to resolve penetrations and prevent the object from going through other objects.
+Apply Position Corrections: Adjust the object's position based on the calculated corrections to resolve any detected penetrations.
+5. Adjust Velocity Post-Collision
+Reflect or Slide Velocity: After resolving collisions by adjusting positions, calculate the object's new velocity. This could involve stopping it if it hits a wall head-on, making it slide along a surface it collides with at an angle, or applying bounce if hitting a surface with restitution.
+6. Final Position Update
+Update Position with Corrected Velocity: Finally, update the object's position using the corrected velocity to reflect any sliding or bouncing off collision surfaces.
+Integrating Gravity in a Continuous Manner
+Gravity should be applied continuously every frame to accurately simulate real-world physics. By applying gravity at the start of the update cycle, you ensure that its effects are considered throughout the collision detection and resolution process. This approach allows for more realistic simulations, such as objects accelerating downwards due to gravity when falling, sliding down slopes under gravity's influence, and stopping when hitting the ground.
+
+Special Considerations for Character Controllers
+For character controllers or objects that may require special treatment (e.g., allowing them to jump or fall at controlled rates), you might conditionally apply gravity based on the state of the object (e.g., only applying gravity when the character is not on solid ground). This nuanced approach can be managed alongside collision resolution to ensure characters interact with the environment as expected, considering player inputs and game logic.
+*/
+
 ECS::PlayerPhysicsSystem::PlayerPhysicsSystem(EntityManager& entityManager, Physics& physics):
 	_entityManager(entityManager), _physics(physics)
 {
