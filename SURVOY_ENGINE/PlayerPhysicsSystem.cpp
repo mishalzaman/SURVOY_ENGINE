@@ -32,7 +32,14 @@ void ECS::PlayerPhysicsSystem::UpdateOnFixedTimestep(float deltaTime)
     int e = _entityManager.getIdByTag("CharacterController");
     ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(e);
 
-    _contacts();
+    // cache original position
+    _originalPosition = _getGhostObjectOriginalPosition();
+
+    // set predicted position
+    _updateGhostObjectPosition(motion->Velocity);
+
+    // physics passes
+    _penetrationCorrectionPass();
 }
 
 bool ECS::PlayerPhysicsSystem::_contacts() {
@@ -204,6 +211,79 @@ btVector3 ECS::PlayerPhysicsSystem::_getGhostObjectOriginalPosition()
 
 void ECS::PlayerPhysicsSystem::_penetrationCorrectionPass()
 {
+    ECS::GhostObjectCapsuleComponent* ghost = _entityManager.getComponent<ECS::GhostObjectCapsuleComponent>(
+        _entityManager.getIdByTag("CharacterController")
+    );
+
+    assert(ghost);
+
+    btIDebugDraw* debugDrawer = _physics.World().getDebugDrawer();
+
+    btVector3 minAabb, maxAabb;
+    ghost->GhostObject->getCollisionShape()->getAabb(ghost->GhostObject->getWorldTransform(), minAabb, maxAabb);
+    _physics.World().getBroadphase()->setAabb(ghost->GhostObject->getBroadphaseHandle(), minAabb, maxAabb, _physics.World().getDispatcher());
+
+    bool penetration = false;
+    btVector3 penetrationCorrections(0, 0, 0);
+
+    _physics.World().getDispatcher()->dispatchAllCollisionPairs(
+        ghost->GhostObject->getOverlappingPairCache(),
+        _physics.World().getDispatchInfo(),
+        _physics.World().getDispatcher()
+    );
+
+    std::cout << "==========" << std::endl;
+
+    btManifoldArray manifoldArray;
+    for (int i = 0; i < ghost->GhostObject->getOverlappingPairCache()->getNumOverlappingPairs(); i++) {
+        manifoldArray.clear();
+        btBroadphasePair* collisionPair = &ghost->GhostObject->getOverlappingPairCache()->getOverlappingPairArray()[i];
+
+        if (collisionPair->m_algorithm) {
+            collisionPair->m_algorithm->getAllContactManifolds(manifoldArray);
+        }
+
+        for (int j = 0; j < manifoldArray.size(); j++) {
+            btPersistentManifold* manifold = manifoldArray[j];
+
+            for (int p = 0; p < manifold->getNumContacts(); p++) {
+                const btManifoldPoint& pt = manifold->getContactPoint(p);
+                btScalar dist = pt.getDistance();
+
+                if (dist < 0.0f) {
+                    std::cout << dist << std::endl;
+                    penetration = true;
+                    btVector3 correctionDirection = pt.m_normalWorldOnB * dist * btScalar(-0.6);
+                    penetrationCorrections += correctionDirection;
+                }
+
+                // Draw a sphere at the contact point for visualization
+                const btVector3& contactPoint = pt.getPositionWorldOnB();
+                const btScalar sphereRadius = 0.1f;
+                const btVector3 color(1.0f, 0.0f, 1.0f);
+                debugDrawer->drawSphere(contactPoint, sphereRadius, color);
+                
+                // Draw the normal at the contact point
+                btVector3 pNormal = pt.m_normalWorldOnB.normalized(); // Ensure the normal is normalized
+                float r = (pNormal.getX() + 1.0f) * 0.5f;
+                float g = (pNormal.getY() + 1.0f) * 0.5f;
+                float b = (pNormal.getZ() + 1.0f) * 0.5f;
+                
+                const btVector3 normalColor(r, g, b);
+                const btVector3 normalEnd = contactPoint + pt.m_normalWorldOnB * sphereRadius * 20;
+                debugDrawer->drawLine(contactPoint, normalEnd, normalColor);
+            }
+        }
+    }
+
+    // Apply penetration corrections to resolve overlaps
+    if (penetration) {
+        btTransform correctedTransform = ghost->GhostObject->getWorldTransform();
+        btVector3 correctedPosition = correctedTransform.getOrigin() + penetrationCorrections;
+        correctedTransform.setOrigin(correctedPosition);
+
+        ghost->GhostObject->setWorldTransform(correctedTransform);
+    }
 }
 
 void ECS::PlayerPhysicsSystem::_slidePass()
