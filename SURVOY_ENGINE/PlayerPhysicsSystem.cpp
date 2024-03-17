@@ -225,14 +225,13 @@ void ECS::PlayerPhysicsSystem::_penetrationCorrectionPass()
 
     bool penetration = false;
     btVector3 penetrationCorrections(0, 0, 0);
+    float maxSlope = 32.f;
 
     _physics.World().getDispatcher()->dispatchAllCollisionPairs(
         ghost->GhostObject->getOverlappingPairCache(),
         _physics.World().getDispatchInfo(),
         _physics.World().getDispatcher()
     );
-
-    std::cout << "==========" << std::endl;
 
     btManifoldArray manifoldArray;
     for (int i = 0; i < ghost->GhostObject->getOverlappingPairCache()->getNumOverlappingPairs(); i++) {
@@ -251,9 +250,15 @@ void ECS::PlayerPhysicsSystem::_penetrationCorrectionPass()
                 btScalar dist = pt.getDistance();
 
                 if (dist < 0.0f) {
-                    std::cout << dist << std::endl;
+                    // slope test
+                    glm::vec3 normalGLM(pt.m_normalWorldOnB.x(), pt.m_normalWorldOnB.y(), pt.m_normalWorldOnB.z());
+                    float angleDegrees = _calculateNormalAngle(normalGLM);
+
+                    //std::cout << angleDegrees << std::endl;
+
                     penetration = true;
                     btVector3 correctionDirection = pt.m_normalWorldOnB * dist * btScalar(-0.6);
+                    correctionDirection.setY(0);
                     penetrationCorrections += correctionDirection;
                 }
 
