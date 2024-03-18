@@ -6,11 +6,11 @@
 #include "KeyPressEvent.h"
 #include "SwitchCameraEvent.h"
 
-std::string version = "Calibration 0.2.112";
+std::string version = "Calibration 0.2.114";
 
 /*
 		  *--------------------------*
-		     Current version: 0.2.112
+		     Current version: 0.2.114
 		  *--------------------------*
 
 DEVELOPMENT NOTES
