@@ -10,18 +10,6 @@ void ECS::PlayerInputSystem::UpdateOnFixedTimestep(float deltaTime)
     _turn(deltaTime);
     _move(deltaTime);
     //_applyGravity(deltaTime);
-
-    ECS::MovementAttributesComponent* motion = _entityManager.getComponent<ECS::MovementAttributesComponent>(
-        _entityManager.getIdByTag("CharacterController")
-    );
-
-    //std::cout << "Velocity: " << motion->Velocity.x <<
-    //    "," <<
-    //    motion->Velocity.y <<
-    //    "," <<
-    //    motion->Velocity.z
-    //    <<
-    //    std::endl;
 }
 
 void ECS::PlayerInputSystem::_turn(float deltaTime)
@@ -74,17 +62,17 @@ void ECS::PlayerInputSystem::_move(float deltaTime)
         }
     }
     else {
-        // Normalize HorizontalVelocity if it's not a zero vector
-        //if (glm::length(motion->HorizontalVelocity) > 0) {
-        //    glm::vec3 velocityDirection = glm::normalize(motion->HorizontalVelocity);
-        //    // Decelerate in the direction opposite to the current velocity
-        //    motion->HorizontalVelocity -= velocityDirection * motion->Deceleration * deltaTime;
+         //Normalize HorizontalVelocity if it's not a zero vector
+        if (glm::length(motion->Velocity) > 0) {
+            glm::vec3 velocityDirection = glm::normalize(motion->Velocity);
+            // Decelerate in the direction opposite to the current velocity
+            motion->Velocity -= velocityDirection * motion->Deceleration * deltaTime;
 
-        //    // Clamp the velocity to 0 if the deceleration has reversed its direction
-        //    if (glm::dot(velocityDirection, motion->HorizontalVelocity) < 0) {
-        //        motion->HorizontalVelocity = glm::vec3(0, 0, 0);
-        //    }
-        //}
+            // Clamp the velocity to 0 if the deceleration has reversed its direction
+            if (glm::dot(velocityDirection, motion->Velocity) < 0) {
+                motion->Velocity = glm::vec3(0, 0, 0);
+            }
+        }
     }
 
     // limit speed to max speed

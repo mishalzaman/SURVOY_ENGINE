@@ -171,9 +171,6 @@
     <ClCompile Include="DebugGridSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="CameraSwitcherSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerInputSystem.cpp">
       <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
@@ -206,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>ENGINE\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraSwitcherSystem.cpp">
+      <Filter>ENGINE\ECS\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -434,15 +434,6 @@
     <ClInclude Include="KinematicCapsulePhysicsBodyComponent.h">
       <Filter>ENGINE\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="ActiveCameraComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraSwitcherSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SwitchCameraEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsCustomConvexResultCallback .h">
       <Filter>ENGINE</Filter>
     </ClInclude>
@@ -487,6 +478,15 @@
     </ClInclude>
     <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>ENGINE\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ActiveCameraComponent.h">
+      <Filter>ENGINE\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraSwitcherSystem.h">
+      <Filter>ENGINE\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchCameraEvent.h">
+      <Filter>ENGINE\Observer\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
